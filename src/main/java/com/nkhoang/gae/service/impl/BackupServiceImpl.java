@@ -51,20 +51,9 @@ public class BackupServiceImpl implements BackupService {
 
     public boolean backup(String content) {
         try {
-            // login first
             login(username, password);
             String newDocName = defaultDocument + "_" + getCurrentDate();
-            DocumentListEntry targetFolder = checkFolder(defaultFolder);
-            if (targetFolder == null) {
-                log.info(defaultFolder + " does not exist.");
-                log.info("Now creating new folder named : " + defaultFolder);
-                targetFolder = createNew(defaultFolder, "folder");
-                if (targetFolder == null) {
-                    // unable to create a new folder
-                    log.info("Unable to create a new folder");
-                    throw new Exception("Unable to create a new folder.");
-                }
-            }
+            DocumentListEntry targetFolder = checkFolderExistence();
             log.info("Retrieving documents from [" + defaultFolder + "]...");
             DocumentListEntry document = retrieveDocument(newDocName, targetFolder);
 
@@ -91,10 +80,24 @@ public class BackupServiceImpl implements BackupService {
         return true;
     }
 
+    private DocumentListEntry checkFolderExistence() throws Exception {
+        DocumentListEntry targetFolder = checkFolder(defaultFolder);
+        if (targetFolder == null) {
+            log.info(defaultFolder + " does not exist.");
+            log.info("Now creating new folder named : " + defaultFolder);
+            targetFolder = createNew(defaultFolder, "folder");
+            if (targetFolder == null) {
+                // unable to create a new folder
+                log.info("Unable to create a new folder");
+                throw new Exception("Unable to create a new folder.");
+            }
+        }
+        return targetFolder;
+    }
+
     public String getBackup(String revision) {
         String xml = null;
         try {
-
             // reformat the document revision
             SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN_FULL);
             Date revisionDate = formatter.parse(revision);
@@ -102,49 +105,43 @@ public class BackupServiceImpl implements BackupService {
 
             login(username, password);
             String newDocName = defaultDocument + "_" + formatter.format(revisionDate);
-            DocumentListEntry targetFolder = checkFolder(defaultFolder);
-            if (targetFolder == null) {
-                log.info(defaultFolder + " does not exist.");
-                log.info("Now creating new folder named : " + defaultFolder);
-                targetFolder = createNew(defaultFolder, "folder");
-                if (targetFolder == null) {
-                    // unable to create a new folder
-                    log.info("Unable to create a new folder");
-                    throw new Exception("Unable to create a new folder.");
-                }
-            }
+            DocumentListEntry targetFolder = checkFolderExistence();
             log.info("Retrieving documents from [" + defaultFolder + "]...");
             DocumentListEntry document = retrieveDocument(newDocName, targetFolder);
-
             if (document == null) {
                 throw new Exception("Document with name: " + newDocName + " does not exist");
             } else {
-                URL downloadedUrl = new URL(DOWNLOAD_URL + "/documents" + URL_CATEGORY_EXPORT + "?docID="
-                        + document.getResourceId() + "&exportFormat=txt");
-
-                MediaContent mc = new MediaContent();
-                mc.setUri(downloadedUrl.toString());
-
-                MediaSource fileSource = docsService.getMedia(mc);
-                InputStream is = fileSource.getInputStream();
-                if (is != null) {
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-
-                    try {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line).append("\n");
-                        }
-                    } finally {
-                        is.close();
-                    }
-                    xml = sb.toString();
-                }
+                xml = downloadDocumentContent(xml, document);
             }
 
         } catch (Exception e) {
             log.error(e);
+        }
+        return xml;
+    }
+
+    private String downloadDocumentContent(String xml, DocumentListEntry document) throws IOException, ServiceException {
+        URL downloadedUrl = new URL(DOWNLOAD_URL + "/documents" + URL_CATEGORY_EXPORT + "?docID="
+                + document.getResourceId() + "&exportFormat=txt");
+
+        MediaContent mc = new MediaContent();
+        mc.setUri(downloadedUrl.toString());
+
+        MediaSource fileSource = docsService.getMedia(mc);
+        InputStream is = fileSource.getInputStream();
+        if (is != null) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+            } finally {
+                is.close();
+            }
+            xml = sb.toString();
         }
         return xml;
     }
@@ -154,17 +151,7 @@ public class BackupServiceImpl implements BackupService {
         // it just holds the document date and time
         try {
             login(username, password);
-            DocumentListEntry targetFolder = checkFolder(defaultFolder);
-            if (targetFolder == null) {
-                log.info(defaultFolder + " does not exist.");
-                log.info("Now creating new folder named : " + defaultFolder);
-                targetFolder = createNew(defaultFolder, "folder");
-                if (targetFolder == null) {
-                    // unable to create a new folder
-                    log.info("Unable to create a new folder");
-                    throw new Exception("Unable to create a new folder.");
-                }
-            }
+            DocumentListEntry targetFolder = checkFolderExistence();
             String folderFeedUrl = ((MediaContent) targetFolder.getContent()).getUri();
             DocumentQuery query = new DocumentQuery(new URL(folderFeedUrl));
             DocumentListFeed feeds = docsService.getFeed(query, DocumentListFeed.class);

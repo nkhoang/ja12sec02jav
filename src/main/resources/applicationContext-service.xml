@@ -21,7 +21,7 @@
     	<property name="username" value="${facebook.username}"/>
     	<property name="password" value="${facebook.password}"/>
     </bean>
-   	<bean id="docsService" class="com.nkhoang.gae.service.impl.BackupServiceImpl" scope="prototype">
+   	<bean id="backupService" class="com.nkhoang.gae.service.impl.BackupServiceImpl" scope="prototype">
     	<property name="username" value="${google.username}"/>
     	<property name="password" value="${google.password}"/>
     	<property name="defaultFolder" value="${google.defaultFolder}"/>

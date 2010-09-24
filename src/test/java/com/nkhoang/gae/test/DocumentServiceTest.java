@@ -47,18 +47,11 @@ public class DocumentServiceTest {
 
     /**
      * Services
-     */
+     */    
     @Autowired
-    private BackupService docsService;
+    private BackupService backupService;
+    // Document service from Google
     private DocsService documentService;
-
-    public void _testLogin() {
-        try {
-            login("", "");
-        } catch (AuthenticationException authe) {
-            System.out.println(authe);
-        }
-    }
 
     @Test
     public void testFun() {
@@ -66,27 +59,30 @@ public class DocumentServiceTest {
 
     }
 
-    public void _testRevisions() {
-        BackupServiceImpl service = new BackupServiceImpl();
-        List<String> revisions = service.listBackupRevisions();
+    /**
+     * Test get revision from google document
+     */
+    @Test
+    public void testRevisions() {
+        List<String> revisions = backupService.listBackupRevisions();
         for (String s : revisions) {
-            System.out.println(s);
+            System.out.println("Revision name : " + s);
         }
     }
-
-    public void _testRestore() throws Exception {
-        String content = docsService.getBackup("30/06/2010");
+    @Test
+    public void testRestore() throws Exception {
+        String content = backupService.getBackup("24/09/2010");
 
         if (content != null) {
             System.out.println(content);
         }
     }
-
-    public void _testGeneral() {
-        docsService.backup("< Nguyá»…n KhÃ¡nh HoÃ ng >");
+    @Test      
+    public void testBackup() {
+        backupService.backup("Nguy?n Khánh Hoàng");
     }
-
-    public void _testUpdate() throws IOException, ServiceException {
+    @Test
+    public void testUpdate() throws IOException, ServiceException {
         DocumentListEntry entry = documentService.getEntry(new URL(
                 "https://docs.google.com/feeds/default/private/full/document:"
                         + "0ARQF0llLMMGXZDVicnJ2ZF8xMTM2Zm1mZHp3NmY"), DocumentListEntry.class);
@@ -224,12 +220,12 @@ public class DocumentServiceTest {
         documentService.setUserCredentials(username, password);
     }
 
-    public void setDocsService(BackupService docsService) {
-        this.docsService = docsService;
+    public void setBackupService(BackupService backupService) {
+        this.backupService = backupService;
     }
 
-    public BackupService getDocsService() {
-        return docsService;
+    public BackupService getBackupService() {
+        return backupService;
     }
 
 }
