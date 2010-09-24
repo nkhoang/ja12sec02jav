@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Niceforms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript" type="text/javascript" src="jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.validate.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.validationEngine.js"></script>
+<script language="javascript" type="text/javascript" src="niceforms.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="niceforms-default.css" />
+<style type="text/css">
+	img.btn {
+		cursor: pointer;
+	}
+</style>
+<script type='text/javascript'>
+$(function(){
+	$('#testForm').validate({
+		rules: {
+			code: {
+				required: true,
+				minlength: 2
+			},
+			description: {
+				required: true,
+				minlength: 5
+			},
+			price: {
+				digits: true,
+				minlength: 5,
+				maxlength: 6
+			},
+			thumbnail: {
+				url: true,
+				required: true
+			}
+		},
+		messages: {
+			code: {
+				required: "Item code is required",
+				minlength: "Code length must greater than 2 chars"
+			},
+			description: {
+				required: "Please input some descriptions for the item. ",
+				minlength: "Description length must greater then 5 chars"
+			},
+			price: {
+				digits: "Number for price please!.",
+				minlength: "Not resonable price. Too cheap!! >.<",
+				maxlength: "Your price is not reasonable. Too expensive! ).("
+			}
+		},
+		errorPlacement: function(error, element){
+			// check if is textarea
+			if (element[0] && element[0].tagName == 'TEXTAREA') {
+				element.parents("dd").append(error);
+			}
+			else {
+				element.parents("dd").append('<br />').append(error);
+			}			
+		},
+		debug: true
+	});
+	
+	jQuery.validator.addClassRules({
+		  checkUrl: {
+		    url: true
+		  }
+		});
+		
+	$('#removeBtn').live('click',function(){
+		$(this).parents('dl').remove();
+		itemCounter--;
+	});
+		
+	var itemCounter = 0;
+	$('#addNewPic').live('click', function(){
+		if (itemCounter == 5 ){
+			return;
+		}
+		var name = 'subPic';
+		$dl = $('<dl></dl>');
+		$dt = $('<dt></dt>');
+		$dd = $('<dd></dd>');
+		
+		var id = name + '[' + itemCounter + ']'
+		// create label
+		$dt.append($('<label></label>', {
+			'for': id
+		}).html('Sub Picture '));
+		$('<img src="img/0.png" class="NFTextLeft" /><div class="NFTextCenter"></div><img src="img/0.png" class="NFTextRight" /><img src="images/Remove.png" height="25" width="32" id="removeBtn" class="btn"/>').appendTo($dd);
+		$dd.find('div.NFTextCenter').append($('<input />',{
+			'name': id,
+			'type': 'text',
+			'class': 'NFText checkUrl',
+			'size': 50,
+			'maxlength': 70
+		}));
+		
+		$dl.append($dt,$dd);
+		$(this).parents('dl').before($dl);
+		// add rules validation
+		itemCounter++;
+	});
+});
+</script>
+</head>
+
+<body><div id="container">
+<form id="testForm" action="" method="post" class="niceform">
+	<fieldset>
+    	<legend>Personal Info</legend>
+        <dl>
+        	<dt><label for="code">Code:</label></dt>
+            <dd><input type="text" name="code" id="itemCode" size="10" maxlength="128" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="password">Description:</label></dt>
+            <dd><textarea  name="description" id="itemDescription" rows="3" cols="50"></textarea></dd>
+        </dl>
+        <dl>
+        	<dt><label for="price">Price:</label></dt>
+            <dd><input type="text" name="price" id="itemPrice" size="10" maxlength="10" /></dd>
+        </dl>
+        <dl>
+        	<dt><label for="thumbnail">Main Picture URL:</label></dt>
+            <dd><input type="text" name="thumbnail" id="itemThumbnail" size="50" maxlength="70" /></dd>
+        </dl>
+		<dl>
+			<center><img id="addNewPic"  src="images/Add.png" height="32" width="32" class="btn"/></center>
+		</dl>
+    </fieldset>
+</form>
+<p id="footer">Niceforms v.2.0<br />&copy;Lucian Slatineanu - <a href="http://www.emblematiq.com/">Emblematiq</a><br />Last update: Nov 13 2008</p>
+</div></body>
+</html>
