@@ -1,0 +1,1 @@
+call "E:\Softs\appengine-java-sdk-1.3.2\appengine-java-sdk-1.3.2\bin\dev_appserver.cmd" --disable_update_check --jvm_flag=-Xdebug --jvm_flag=-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000 "%~dp0target\ShopNow-1.0"

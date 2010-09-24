@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="yuiCompression" basedir="." default="echo">
+	
+	<path id="task.classpath">
+	  <pathelement location="Documents/Backup/libyuicompressor-2.4.2.jar" />
+	</path>
+	<!-- path to your webroot -->
+	<property name="webroot" location="/Projects/DynTab/" />
+
+		<target name="echo" description="test">
+			<echo message="Just a test"></echo>
+		</target>
+	<!--
+		    minify
+		    Now minifying js and css files	    
+		    -->	
+		<target name="minify" description="Now minifying js and css files">
+
+	        <echo>
+	            Now minifying js and css files
+	        </echo>
+			
+			<!-- applying yuicompressor against js scripts and creating filename-min.js files -->
+			<apply executable="java" parallel="false" dest="${webroot}">
+			 	<fileset dir="${webroot}" includes="**/*.js" />
+		        <arg line="-jar"/>
+		        <arg path="yuicompressor-2.4.2.jar" />
+				<!-- Minify only, do not obfuscate and Display informational messages and warnings -->
+			 	<arg line="--nomunge -v "/>
+	 	       	<srcfile/>
+	 	        <arg line="-o"/>		 	
+				<mapper type="glob" from="*.js" to="*-min.js"/>
+	 	        <targetfile/>
+		    </apply>
+			
+			<!-- moving filename-min.js and creating filename.js files (overwriting orginal and deleting filename-min) -->
+			<!--
+			<move todir="${webroot}" overwrite="true">
+				<fileset dir="${webroot}" />
+				<mapper type="glob" from="*-min.js" to="*.js"/>
+			</move>
+			-->
+			<!-- applying yuicompressor against css scripts and creating filename-min.css files -->
+			<apply executable="java" parallel="false" dest="${webroot}">
+			 	<fileset dir="${webroot}" includes="**/*.css" />
+		        <arg line="-jar"/>
+		        <arg path="yuicompressor-2.4.2.jar" />
+			 	<arg line="-v"/>
+	 	       	<srcfile/>
+	 	        <arg line="-o"/>		 	
+				<mapper type="glob" from="*.css" to="*-min.css"/>
+	 	        <targetfile/>
+		    </apply>
+			
+			<!-- moving filename-min.css and creating filename.css files (overwriting orginal and deleting filename-min) -->
+			<!--
+			<move todir="${webroot}" overwrite="true" >
+				<fileset dir="${webroot}" />
+				<mapper type="glob" from="*-min.css" to="*.css"/>
+			</move>
+			-->
+		</target>
+		<target name="minifyNObfuscate" description="Now minifying js and css files">
+
+	        <echo>
+	            Now minifying and obfuscating js and css files
+	        </echo>
+			
+			<!-- applying yuicompressor against js scripts and creating filename-min.js files -->
+			<apply executable="java" parallel="false" dest="${webroot}">
+			 	<fileset dir="${webroot}" includes="**/*.js" />
+		        <arg line="-jar"/>
+		        <arg path="yuicompressor-2.4.2.jar" />
+				<!-- Minify only, do not obfuscate and Display informational messages and warnings -->
+			 	<arg line="-v "/>
+	 	       	<srcfile/>
+	 	        <arg line="-o"/>		 	
+				<mapper type="glob" from="*.js" to="*-min-ob.js"/>
+	 	        <targetfile/>
+		    </apply>
+			
+			<!-- moving filename-min.js and creating filename.js files (overwriting orginal and deleting filename-min) -->
+			<!--
+			<move todir="${webroot}" overwrite="true">
+				<fileset dir="${webroot}" />
+				<mapper type="glob" from="*-min.js" to="*.js"/>
+			</move>
+			-->
+			<!-- applying yuicompressor against css scripts and creating filename-min.css files -->
+			<apply executable="java" parallel="false" dest="${webroot}">
+			 	<fileset dir="${webroot}" includes="**/*.css" />
+		        <arg line="-jar"/>
+		        <arg path="yuicompressor-2.4.2.jar" />
+			 	<arg line="-v"/>
+	 	       	<srcfile/>
+	 	        <arg line="-o"/>		 	
+				<mapper type="glob" from="*.css" to="*-min.css"/>
+	 	        <targetfile/>
+		    </apply>
+			
+			<!-- moving filename-min.css and creating filename.css files (overwriting orginal and deleting filename-min) -->
+			<!--
+			<move todir="${webroot}" overwrite="true" >
+				<fileset dir="${webroot}" />
+				<mapper type="glob" from="*-min.css" to="*.css"/>
+			</move>
+			-->
+		</target>
+</project>
