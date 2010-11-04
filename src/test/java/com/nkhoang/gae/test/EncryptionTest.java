@@ -1,11 +1,9 @@
-package com.nkhoang.gae.core.encryption.test;
+package com.nkhoang.gae.test;
 
-
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.salt.FixedStringSaltGenerator;
-import org.junit.Test;
 
 import junit.framework.TestCase;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.salt.FixedStringSaltGenerator;
 
 public class EncryptionTest extends TestCase
 {
