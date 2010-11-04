@@ -1,21 +1,18 @@
 package com.nkhoang.gae.dao.impl;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
+import com.nkhoang.gae.dao.RoleDao;
+import com.nkhoang.gae.model.Role;
 import org.apache.log4j.Logger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nkhoang.gae.dao.RoleDao;
-import com.nkhoang.gae.model.Role;
+import javax.persistence.Query;
+import java.util.List;
 
 @Transactional
 public class RoleDaoImpl extends GeneralDaoImpl<Role, Long> implements RoleDao {
     private static final Logger LOGGER = Logger.getLogger(RoleDaoImpl.class);
 
-    @Override
     public Role get(Long id) {
         LOGGER.debug("Get role ID: " + id);
         Query query = entityManager.createQuery("Select from " + Role.class.getName() + " t where t.id=:roleID");

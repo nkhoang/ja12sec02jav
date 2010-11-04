@@ -7,6 +7,7 @@ import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,7 +66,7 @@ public class VocabularyAction {
         boolean result = false;
 
         User user = getUserCredential();
-        if (user != null && word != null && !word.isEmpty()) {
+        if (user != null && word != null && StringUtils.isNotEmpty(word)) {
             // delete item
             Word savedWord = vocabularyService.save(word);
             user.getWordList().add(savedWord.getId());

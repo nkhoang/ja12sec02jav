@@ -1,19 +1,14 @@
 package com.nkhoang.gae.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
@@ -54,27 +49,22 @@ public class User implements Serializable, UserDetails {
 		return password;
 	}
 
-	@Override
 	public String getUsername() {
 		return username;
 	}
 
-	@Override
 	public boolean isAccountNonExpired() {
 		return !accountLocked;
 	}
 
-	@Override
 	public boolean isAccountNonLocked() {
 		return !accountLocked;
 	}
 
-	@Override
 	public boolean isCredentialsNonExpired() {
 		return !credentialExpired;
 	}
 
-	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}

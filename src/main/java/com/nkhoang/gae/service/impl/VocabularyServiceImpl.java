@@ -8,6 +8,7 @@ import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -256,7 +257,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 						log.info("Kind : " + kind);
 					}
 				}
-				if (ele.getName().equals("ul") && !kind.isEmpty()) {
+				if (ele.getName().equals("ul") && StringUtils.isNotEmpty(kind)) {
 					// convert kind
 					// log.info(Arrays.toString(kind.getBytes("UTF-8")));
 					String className = ele.getAttributeValue("class");

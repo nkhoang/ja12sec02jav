@@ -18,6 +18,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext-service.xml"})
@@ -34,6 +36,44 @@ public class GoldDataRetrieverTest {
         getExchangeRate();
     }
 
+    @Test
+    public void testGetInternationalGoldPrice() {
+        GoldPrice price = getInternationalGoldPrice();
+
+        LOGGER.info(price.toString());
+    }
+
+    // http://giavang.net/resources/pricetable2a.asp
+    private GoldPrice getInternationalGoldPrice() {
+        GoldPrice price = new GoldPrice();
+        Source source = retrieveWebContent("http://giavang.net/resources/pricetable2a.asp");
+        List<Element> trElements = source.getAllElementsByClass("row1");
+        Element trElement = trElements.get(0);
+
+        List<Element> tdElements = trElement.getChildElements();
+        // get the 2nd td
+        Element priceElement = tdElements.get(1);
+
+        String priceString = priceElement.getTextExtractor().toString();
+        LOGGER.info("International Gold Price: " + priceString);
+        // process string
+        Calendar calendar = GregorianCalendar.getInstance();
+        Date currentDate = calendar.getTime();
+        price.setTime(currentDate);
+        price.setCurrency("USD");
+        // Using regex to get price value.
+        Pattern p = Pattern.compile("\\d+.\\d+");
+        Matcher m = p.matcher(priceString.split("/")[0]);
+        if (m.find()) {
+            price.setPriceSell(Float.parseFloat(m.group(0)));
+        }
+        m = p.matcher(priceString.split("/")[1]);
+        if (m.find()) {
+            price.setPriceBuy(Float.parseFloat(m.group(0)));
+        }
+        return price;
+    }
+
     private List<Currency> getExchangeRate() {
         List<Currency> listExchangeRate = new ArrayList<Currency>(0);
         Source source = retrieveWebContent("http://www.sjc.com.vn/ajax_currency.php");
@@ -45,7 +85,7 @@ public class GoldDataRetrieverTest {
         // process time        
         int index = timeString.indexOf(":");
         String currencyTime = timeString.substring(index + 1, index + 19).trim();
-        Date currencyDate  = null;
+        Date currencyDate = null;
 
         // set to currency
         try {
@@ -54,24 +94,24 @@ public class GoldDataRetrieverTest {
             LOGGER.error("Could not parse time for Currency.", parseEx);
             currency = null;
         }
-        if (currency != null) {            
+        if (currency != null) {
             // process more information
             List<Element> otherElements = source.getAllElementsByClass("text_tgvang_chitiet");
             Iterator<Element> otherElementIter = otherElements.iterator();
             int counter = 0;
-            while (otherElementIter.hasNext()) {                
+            while (otherElementIter.hasNext()) {
                 if (counter != 0 && counter % 4 == 0) {
-                    currency = new Currency();                    
+                    currency = new Currency();
                 }
                 currency.setTime(currencyDate);
                 Element element = otherElementIter.next();
                 currency.setCurrency(element.getTextExtractor().toString());
                 counter++;
                 element = otherElementIter.next();
-                currency.setPriceSell(Float.parseFloat(element.getContent().toString()));
+                currency.setPriceBuy(Float.parseFloat(element.getContent().toString()));
                 counter++;
                 element = otherElementIter.next();
-                currency.setPriceBuy(Float.parseFloat(element.getContent().toString()));
+                currency.setPriceSell(Float.parseFloat(element.getContent().toString()));
                 counter++;
                 otherElementIter.next();
                 LOGGER.info(currency.toString());
@@ -140,9 +180,9 @@ public class GoldDataRetrieverTest {
 
 
             BufferedReader br = new BufferedReader(new InputStreamReader(bis));
-            String strLine = "";
+            String strLine;
 
-            StringTokenizer st = null;
+            StringTokenizer st;
 
             int lineNumber = 0, tokenNumber = 0;
             //read comma separated file line by line

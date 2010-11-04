@@ -1,13 +1,11 @@
 package com.nkhoang.gae.dao.impl;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
-import org.apache.log4j.Logger;
-
 import com.nkhoang.gae.dao.VocabularyDao;
 import com.nkhoang.gae.model.Word;
+import org.apache.log4j.Logger;
+
+import javax.persistence.Query;
+import java.util.List;
 
 public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements VocabularyDao {
     private static final Logger LOGGER = Logger.getLogger(VocabularyDaoImpl.class);
@@ -69,7 +67,6 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         return null;
     }
 
-    @Override
     public List<Word> getAll() {
         LOGGER.info("Get all words ...");
         List<Word> result = null;

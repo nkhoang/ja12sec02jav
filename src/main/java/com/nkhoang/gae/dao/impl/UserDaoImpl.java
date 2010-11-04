@@ -17,7 +17,6 @@ import java.util.List;
 public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, UserDetailsService {
     private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
-    @Override
     public User get(Long id) {
         LOGGER.debug("Get user ID: " + id);
         Query query = entityManager.createQuery("Select from " + User.class.getName() + " t where t.id=:userID");
