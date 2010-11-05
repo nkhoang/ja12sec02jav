@@ -26,10 +26,11 @@ public class GoldINAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoldINAction.class);
     @Autowired    
     private GoldManager goldService;
-    @RequestMapping("/" + ViewConstant.GOLD_VN_UPDATE)
+    @RequestMapping("/" + ViewConstant.GOLD_IN_UPDATE)
     public void update() {
         LOGGER.info("Starting to update Gold International...");
-        GoldPrice goldPrice = getInternationalGoldPrice();        
+        GoldPrice goldPrice = getInternationalGoldPrice();
+        LOGGER.info("Gold Price retrieved: " + goldPrice.toString());
         goldService.save(goldPrice);
     }
     private GoldPrice getInternationalGoldPrice() {
