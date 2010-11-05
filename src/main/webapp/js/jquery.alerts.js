@@ -99,10 +99,7 @@
 		
 		reposition: function(){
 			$.alerts._reposition($('#container').outerWidth(), $('#container').outerHeight());
-			$.alerts._maintainPosition(true);
-			
-		    existingLoadEvent();
-		    NFInit();
+			$.alerts._maintainPosition(true);					    
 		},
 		
 		_showURL: function(url, title, callback){
@@ -144,10 +141,6 @@
 			$popup_content.load(url, function(){
 				$.alerts._reposition($('#container').outerWidth(), $('#container').outerHeight());
 				$.alerts._maintainPosition(true);
-				// niceform
-			    existingLoadEvent();
-				NFInit();
-				    
 				$popup_content.removeClass('loading');
 			});
 			
@@ -206,9 +199,6 @@
 					load: function(event, ui){
 						$.alerts._reposition($('#container').outerWidth(), $('#container').outerHeight());
 						$.alerts._maintainPosition(true);
-						// niceform
-					    existingLoadEvent();
-						NFInit();
 						
 						// replace the normal submit event.
 				        $('#itemForm').live('submit' ,function(){

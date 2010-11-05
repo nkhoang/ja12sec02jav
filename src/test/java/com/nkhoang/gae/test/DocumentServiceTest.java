@@ -10,7 +10,6 @@ import com.google.gdata.data.media.MediaByteArraySource;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import com.nkhoang.gae.service.BackupService;
-import com.nkhoang.gae.service.impl.BackupServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,14 +61,14 @@ public class DocumentServiceTest {
     /**
      * Test get revision from google document
      */
-    @Test
+
     public void testRevisions() {
         List<String> revisions = backupService.listBackupRevisions();
         for (String s : revisions) {
             System.out.println("Revision name : " + s);
         }
     }
-    @Test
+
     public void testRestore() throws Exception {
         String content = backupService.getBackup("24/09/2010");
 
@@ -77,11 +76,11 @@ public class DocumentServiceTest {
             System.out.println(content);
         }
     }
-    @Test      
+
     public void testBackup() {
         backupService.backup("Nguy?n Khánh Hoàng");
     }
-    @Test
+    
     public void testUpdate() throws IOException, ServiceException {
         DocumentListEntry entry = documentService.getEntry(new URL(
                 "https://docs.google.com/feeds/default/private/full/document:"

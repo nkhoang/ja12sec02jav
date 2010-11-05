@@ -10,12 +10,10 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.basic.DateConverter;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 import junit.framework.TestCase;
-import org.junit.Test;
 
 import java.util.*;
 
-public class XstreamTest extends TestCase {
-    @Test
+public class XstreamTest extends TestCase {    
     public void testFun() {
         System.out.println("Just a test.");
     }

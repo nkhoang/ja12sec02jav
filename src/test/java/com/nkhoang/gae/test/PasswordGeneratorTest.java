@@ -15,11 +15,14 @@ public class PasswordGeneratorTest {
     private StandardPBEStringEncryptor propertyEncryptor;
 
     @Test
+    public void testRun() {}
+
+
     public void testEncryptor() {
         System.out.println(propertyEncryptor.encrypt("me27&ml17"));
     }
 
-    @Test
+
     public void testDecryptor() {
         System.out.println(propertyEncryptor.decrypt("emGwruT+2OU08aRDXqMTP412sxFxTh3p"));
     }

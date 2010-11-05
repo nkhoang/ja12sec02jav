@@ -30,6 +30,7 @@ public class ViewConstant {
     public static final String VOCABULARY_HOME_REQUEST = "home";
     public static final String VOCABULARY_VIEW_ALL_REQUEST = "listAll";
     public static final String VOCABULARY_ADD_WORD_REQUEST = "addWord";
+    public static final String GOLD_VN_UPDATE = "goldVN";
     /**
      * NAMESPACE
      */
