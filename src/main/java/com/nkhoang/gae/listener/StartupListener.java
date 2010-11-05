@@ -1,22 +1,21 @@
 package com.nkhoang.gae.listener;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import com.nkhoang.gae.manager.ItemManager;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.Item;
 import com.nkhoang.gae.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * <p>
@@ -33,11 +32,11 @@ import com.nkhoang.gae.model.User;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class StartupListener implements ServletContextListener {
-    private static final Logger LOGGER = Logger.getLogger(StartupListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartupListener.class);
 
     @SuppressWarnings({ "unchecked" })
     public void contextInitialized(ServletContextEvent event) {
-        LOGGER.info("Initializing context...");
+        LOGGER.debug("Initializing context...");
 
         ServletContext context = event.getServletContext();
 
@@ -56,7 +55,7 @@ public class StartupListener implements ServletContextListener {
      *            The servlet context
      */
     public static void setupContext(ServletContext context) {
-        LOGGER.info("Check default user ...");
+        LOGGER.debug("Check default user ...");
         ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         ItemManager itemService = (ItemManager) ctx.getBean("itemService");
 
@@ -67,9 +66,9 @@ public class StartupListener implements ServletContextListener {
 
         List<User> users = userService.listAll();
         if (users != null && users.size() > 0) {
-            LOGGER.info("Default users existed");
+            LOGGER.debug("Default users existed");
         } else {
-            LOGGER.info("Creating default users...");
+            LOGGER.debug("Creating default users...");
             User admin = new User();
             admin.setEnabled(true);
             admin.setUsername("admin");
@@ -85,7 +84,7 @@ public class StartupListener implements ServletContextListener {
             userService.save(admin);
 
             if (admin.getId() != null) {
-                LOGGER.info("Saving default users [ok]");
+                LOGGER.debug("Saving default users [ok]");
             }
             /*
              * ItemPicture ip = new ItemPicture();
