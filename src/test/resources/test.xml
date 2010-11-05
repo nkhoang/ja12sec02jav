@@ -15,6 +15,19 @@
         <ERRLVL>0</ERRLVL>
         <FILLER></FILLER>
     </LeaderHeader>
+    <SessionHeader>
+        <MSGID>CLIENQI</MSGID>
+        <MSGLNG>1</MSGLNG>
+        <MSGCNT>0</MSGCNT>
+        <FILLER></FILLER>
+    </SessionHeader>
+    <SessionData>
+        <COMPANY>1</COMPANY>
+        <BRANCH>10</BRANCH>
+        <LANGUAGE>E</LANGUAGE>
+        <ACCTYR>0000</ACCTYR>
+        <ACCTMN>00</ACCTMN>
+    </SessionData>
     <MessageHeader>
         <MSGID>CLIENQO</MSGID>
         <MSGLNG>00677</MSGLNG>

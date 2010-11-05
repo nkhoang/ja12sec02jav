@@ -34,11 +34,13 @@ public class GoldDataRetrieverTest {
     }
 
 
+    @Test
     public void testGetExchangeRate() {
         getExchangeRate();
     }
 
-    
+
+    @Test
     public void testGetInternationalGoldPrice() {
         GoldPrice price = getInternationalGoldPrice();
 
@@ -141,7 +143,7 @@ public class GoldDataRetrieverTest {
     }
 
 
-    
+               @Test
     public void testGetVnGoldPrice() {
         getVNGoldData("http://www.sjc.com.vn/chart/data.csv");
     }
