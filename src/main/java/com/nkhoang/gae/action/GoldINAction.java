@@ -28,9 +28,9 @@ public class GoldINAction {
     private GoldManager goldService;
     @RequestMapping("/" + ViewConstant.GOLD_IN_UPDATE)
     public void update() {
-        LOGGER.info("Starting to update Gold International...");
+        LOGGER.debug("Starting to update Gold International...");
         GoldPrice goldPrice = getInternationalGoldPrice();
-        LOGGER.info("Gold Price retrieved: " + goldPrice.toString());
+        LOGGER.debug("Gold Price retrieved: " + goldPrice.toString());
         goldService.save(goldPrice);
     }
     private GoldPrice getInternationalGoldPrice() {
@@ -51,7 +51,7 @@ public class GoldINAction {
             Element priceElement = tdElements.get(1);
 
             String priceString = priceElement.getTextExtractor().toString();
-            LOGGER.info("International Gold Price: " + priceString);
+            LOGGER.debug("International Gold Price: " + priceString);
             // process string
             Calendar calendar = GregorianCalendar.getInstance();
             Date currentDate = calendar.getTime();

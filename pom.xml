@@ -407,6 +407,11 @@
             <version>1.4.1</version>
         </dependency>
 		<!-- Logging -->
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -422,6 +427,12 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${org.slf4j.version}</version>
 		</dependency>
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+
 		<!--
 			Spring framework, remove all commons-logging b/c we have
 			jcl-over-slf4j
@@ -666,7 +677,7 @@
 		<junit.version>4.8.1</junit.version>
 		<servlet.version>2.5</servlet.version>
 		<!-- Logging -->
-		<org.slf4j.version>1.5.6</org.slf4j.version>
+		<org.slf4j.version>1.6.1</org.slf4j.version>
 		<log4j.version>1.2.13</log4j.version>
 		<!-- Common -->
 		<commons.beanutils.version>1.8.0</commons.beanutils.version>
