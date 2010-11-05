@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ import com.nkhoang.gae.model.ItemPicture;
  */
 @Transactional
 public class ItemPictureDaoImpl extends GeneralDaoImpl<ItemPicture, Long> implements ItemPictureDao {
-    private static final Logger LOGGER = Logger.getLogger(ItemPictureDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemPictureDaoImpl.class);
 
     // @off
     /**
@@ -37,7 +38,7 @@ public class ItemPictureDaoImpl extends GeneralDaoImpl<ItemPicture, Long> implem
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to get all item pictures.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -64,7 +65,7 @@ public class ItemPictureDaoImpl extends GeneralDaoImpl<ItemPicture, Long> implem
             }
         } catch (Exception ex) {
             LOGGER.info("Failed to load item picture [id:" + id + "].");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
 
         return ip;
@@ -88,7 +89,7 @@ public class ItemPictureDaoImpl extends GeneralDaoImpl<ItemPicture, Long> implem
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete item picture [id:" + id + "]");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }

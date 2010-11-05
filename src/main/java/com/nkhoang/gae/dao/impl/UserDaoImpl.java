@@ -2,7 +2,8 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.UserDao;
 import com.nkhoang.gae.model.User;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Transactional
 public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, UserDetailsService {
-    private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     public User get(Long id) {
         LOGGER.debug("Get user ID: " + id);
@@ -43,7 +44,7 @@ public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, 
                 password = result.get(0);
             }
         } catch (Exception ex) {
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
 
         return password;
@@ -81,7 +82,7 @@ public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, 
             entityManager.flush();
             result = true;
         } catch (Exception e) {
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }

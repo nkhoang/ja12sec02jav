@@ -3,7 +3,8 @@ package com.nkhoang.gae.action;
 import com.nkhoang.gae.manager.ItemManager;
 import com.nkhoang.gae.model.Item;
 import com.nkhoang.gae.view.constant.ViewConstant;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/" + ViewConstant.FACEBOOK_NAMESPACE)
 public class FacebookAction {
-    private static final Logger LOGGER = Logger.getLogger(ItemAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemAction.class);
     @Autowired
     private ItemManager itemService;
 

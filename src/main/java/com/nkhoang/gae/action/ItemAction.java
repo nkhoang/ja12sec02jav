@@ -10,7 +10,8 @@ import com.nkhoang.gae.service.FacebookService;
 import com.nkhoang.gae.validator.ItemValidator;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -46,7 +47,7 @@ public class ItemAction {
     @Autowired
     @Qualifier("itemValidator")
     private ItemValidator itemValidator;
-    private static final Logger LOGGER = Logger.getLogger(ItemAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemAction.class);
     private static final String ITEM_ID_REQUEST_PARAM = "itemID";
 
     @RequestMapping(value = "/" + ViewConstant.DELETE_ALL_ITEM_REQUEST, method = RequestMethod.POST)
@@ -170,7 +171,7 @@ public class ItemAction {
                             item.getDescription(), "http://hoangmy-chara.appspot.com/facebook/item/" + item.getId(), item.getCode(),
                             item.getThumbnail(), "http://hoangmy-chara.appspot.com/facebook/item/" + item.getId());
                 } catch (Exception e) {
-                    LOGGER.error(e);
+                    LOGGER.error("Error", e);
                 }
 
                 // set post id

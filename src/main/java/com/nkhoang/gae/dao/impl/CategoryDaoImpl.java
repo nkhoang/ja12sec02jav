@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,7 @@ import com.nkhoang.gae.model.Category;
 
 @Transactional
 public class CategoryDaoImpl extends GeneralDaoImpl<Category, Long> implements CategoryDao {
-    private static final Logger LOGGER = Logger.getLogger(CategoryDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryDaoImpl.class);
 
     // @off
     /**
@@ -36,7 +37,7 @@ public class CategoryDaoImpl extends GeneralDaoImpl<Category, Long> implements C
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get category [id: " + id + "].");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
 
         return null;
@@ -58,7 +59,7 @@ public class CategoryDaoImpl extends GeneralDaoImpl<Category, Long> implements C
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to get all categories from DB.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -82,7 +83,7 @@ public class CategoryDaoImpl extends GeneralDaoImpl<Category, Long> implements C
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete category [id:" + id + "].");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }

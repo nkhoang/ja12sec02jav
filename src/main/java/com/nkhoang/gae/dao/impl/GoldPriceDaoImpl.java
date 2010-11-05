@@ -2,7 +2,8 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.GoldPriceDao;
 import com.nkhoang.gae.model.GoldPrice;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Transactional
 public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements GoldPriceDao {
-    private static final Logger LOGGER = Logger.getLogger(GoldPriceDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GoldPriceDaoImpl.class);
 
     // @off
 
@@ -52,7 +53,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get Gold price from DB.");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -74,7 +75,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to load gold prices from DB.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -97,7 +98,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete gold price with [id:" + id + "]");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }

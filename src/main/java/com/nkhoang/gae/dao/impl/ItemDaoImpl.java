@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,7 @@ import com.nkhoang.gae.model.Item;
  */
 @Transactional
 public class ItemDaoImpl extends GeneralDaoImpl<Item, Long> implements ItemDao {
-    private static final Logger LOGGER = Logger.getLogger(ItemDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemDaoImpl.class);
 
     // @off
     /**
@@ -43,7 +44,7 @@ public class ItemDaoImpl extends GeneralDaoImpl<Item, Long> implements ItemDao {
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get item from DB.");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -66,7 +67,7 @@ public class ItemDaoImpl extends GeneralDaoImpl<Item, Long> implements ItemDao {
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to load items from DB.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -89,7 +90,7 @@ public class ItemDaoImpl extends GeneralDaoImpl<Item, Long> implements ItemDao {
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to load items from DB.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -119,7 +120,7 @@ public class ItemDaoImpl extends GeneralDaoImpl<Item, Long> implements ItemDao {
             result = true;
         } catch (Exception ex) {
             LOGGER.info("Failed to mark item as deleted.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -142,7 +143,7 @@ public class ItemDaoImpl extends GeneralDaoImpl<Item, Long> implements ItemDao {
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete item with [id:" + id + "]");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }

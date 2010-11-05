@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
 
 import com.nkhoang.gae.dao.MeaningDao;
 import com.nkhoang.gae.model.Meaning;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements MeaningDao {
-    private static final Logger LOGGER = Logger.getLogger(MeaningDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MeaningDaoImpl.class);
 
     // @off
     /**
@@ -30,7 +31,7 @@ public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements Mea
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete meaning with [id:" + id + "].");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }
@@ -56,7 +57,7 @@ public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements Mea
             }
         } catch (Exception e) {
             LOGGER.info("Failed to Get meaing [id: " + id + "].");
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -78,7 +79,7 @@ public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements Mea
 
         } catch (Exception ex) {
             LOGGER.info("Failed to get all meanings ...");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }

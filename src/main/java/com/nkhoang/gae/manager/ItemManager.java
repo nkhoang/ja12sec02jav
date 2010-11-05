@@ -1,10 +1,5 @@
 package com.nkhoang.gae.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import com.nkhoang.gae.dao.CategoryDao;
 import com.nkhoang.gae.dao.ItemDao;
 import com.nkhoang.gae.dao.ItemPictureDao;
@@ -12,6 +7,11 @@ import com.nkhoang.gae.model.Category;
 import com.nkhoang.gae.model.Item;
 import com.nkhoang.gae.model.ItemPicture;
 import com.nkhoang.gae.service.FacebookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contain any business logic which work with item.
@@ -21,7 +21,7 @@ import com.nkhoang.gae.service.FacebookService;
  */
 public class ItemManager implements BaseManager<Item, Long> {
     private static final String ITEM_ALL_ID = "all_item";
-    private static final Logger LOGGER = Logger.getLogger(ItemManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ItemManager.class);
 
     private ItemDao itemDao;
     private ItemPictureDao itemPictureDao;

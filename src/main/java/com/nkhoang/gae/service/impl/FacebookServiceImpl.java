@@ -8,14 +8,15 @@ import com.google.code.facebookapi.AttachmentMediaImage;
 import com.google.code.facebookapi.FacebookJsonRestClient;
 import com.nkhoang.gae.service.FacebookService;
 import org.apache.commons.validator.GenericValidator;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FacebookServiceImpl implements FacebookService {
-	private static final Logger LOGGER = Logger
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(FacebookServiceImpl.class);
  
 	private String username;
@@ -62,7 +63,7 @@ public class FacebookServiceImpl implements FacebookService {
 		} catch (Exception e) {
 			LOGGER.info("Failed to remove Facebook post from [username:"
 					+ username + ", postId: " + postID + "].");
-			LOGGER.error(e);
+			LOGGER.error("Error", e);
 		}
 		return result;
 	}
@@ -115,7 +116,7 @@ public class FacebookServiceImpl implements FacebookService {
 		} catch (Exception e) {
 			LOGGER.info("Failed to post content from [username:" + username
 					+ "].");
-			LOGGER.error(e);
+			LOGGER.error("Error", e);
 		}
 		return postId;
 	}

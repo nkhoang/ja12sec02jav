@@ -2,13 +2,14 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.VocabularyDao;
 import com.nkhoang.gae.model.Word;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.Query;
 import java.util.List;
 
 public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements VocabularyDao {
-    private static final Logger LOGGER = Logger.getLogger(VocabularyDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
 
     // @off
     /**
@@ -29,7 +30,7 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             result = (Word) query.getSingleResult();
         } catch (Exception e) {
             LOGGER.info("Failed to lookup word : " + word);
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }
@@ -45,7 +46,7 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete word with ID: " + id);
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return result;
     }
@@ -62,7 +63,7 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get word ID: " + id);
-            LOGGER.error(e);
+            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -75,7 +76,7 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to get all words ...");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }

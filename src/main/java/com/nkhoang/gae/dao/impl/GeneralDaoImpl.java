@@ -1,15 +1,14 @@
 package com.nkhoang.gae.dao.impl;
 
-import java.io.Serializable;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.apache.log4j.Logger;
+import com.nkhoang.gae.dao.BaseDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nkhoang.gae.dao.BaseDao;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 
 /**
  * General Dao will be extends by any kind of Dao.
@@ -20,7 +19,7 @@ import com.nkhoang.gae.dao.BaseDao;
 @Repository
 @Transactional
 public abstract class GeneralDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
-    private static final Logger LOGGER = Logger.getLogger(GeneralDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GeneralDaoImpl.class);
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -41,7 +40,7 @@ public abstract class GeneralDaoImpl<T, PK extends Serializable> implements Base
             result = e;
         } catch (Exception ex) {
             LOGGER.info("Failed to save object to DB");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -62,7 +61,7 @@ public abstract class GeneralDaoImpl<T, PK extends Serializable> implements Base
             result = e;
         } catch (Exception ex) {
             LOGGER.info("Failed to update to DB.");
-            LOGGER.error(ex);
+            LOGGER.error("Error", ex);
         }
         return result;
     }

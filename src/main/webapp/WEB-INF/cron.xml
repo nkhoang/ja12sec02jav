@@ -3,6 +3,6 @@
 	<cron>
 		<url>/service/gold/goldIN.html</url>
 		<description>Get the international gold price!</description>
-		<schedule>every 10 minutes</schedule>
+		<schedule>every 5 minutes</schedule>
 	</cron>
 </cronentries>
