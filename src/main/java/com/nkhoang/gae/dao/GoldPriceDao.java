@@ -10,4 +10,5 @@ import com.nkhoang.gae.model.GoldPrice;
  * To change this template use File | Settings | File Templates.
  */
 public interface GoldPriceDao extends BaseDao<GoldPrice , Long>{
+    boolean check(GoldPrice compareO);
 }

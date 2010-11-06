@@ -26,7 +26,7 @@ public class GoldINAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoldINAction.class);
     @Autowired    
     private GoldManager goldService;
-    @RequestMapping("/" + ViewConstant.GOLD_IN_UPDATE)
+    @RequestMapping("/" + ViewConstant.GOLD_IN_UPDATE_REQUEST)
     public void update() {
         LOGGER.debug("Starting to update Gold International...");
         GoldPrice goldPrice = getInternationalGoldPrice();

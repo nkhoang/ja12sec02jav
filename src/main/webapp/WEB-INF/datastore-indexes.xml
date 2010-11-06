@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes
+  autoGenerate="false">
+    <datastore-index kind="GoldPrice" ancestor="false" source="auto">
+        <property name="currency" direction="asc"/>
+        <property name="time" direction="desc" />
+    </datastore-index>
+
+    <datastore-index kind="Currency" ancestor="false" source="auto">
+        <property name="currency" direction="asc"/>
+        <property name="time" direction="desc" />
+    </datastore-index>
+
+    
+</datastore-indexes>

@@ -26,6 +26,10 @@
     <bean id="goldPriceDao" class="com.nkhoang.gae.dao.impl.GoldPriceDaoImpl"
 		scope="prototype">
 	</bean>
+    <bean id="currencyDao" class="com.nkhoang.gae.dao.impl.CurrencyDaoImpl"
+		scope="prototype">
+	</bean>
+
 	<!-- JPA entity manager -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">

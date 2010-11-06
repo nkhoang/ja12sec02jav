@@ -13,7 +13,8 @@
         <class>com.nkhoang.gae.model.Meaning</class>
         <class>com.nkhoang.gae.model.Category</class>
         <class>com.nkhoang.gae.model.Word</class>
-        <class>com.nkhoang.gae.model.GoldPrice</class>        
+        <class>com.nkhoang.gae.model.GoldPrice</class>
+        <class>com.nkhoang.gae.model.Currency</class>
         <properties>
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>

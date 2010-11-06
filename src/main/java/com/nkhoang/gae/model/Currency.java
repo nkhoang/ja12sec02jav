@@ -5,13 +5,6 @@ import com.nkhoang.gae.utils.DateConverter;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by IntelliJ IDEA.
- * User: hnguyen93
- * Date: Nov 4, 2010
- * Time: 12:21:42 PM
- * To change this template use File | Settings | File Templates.
- */
 @Entity
 public class Currency {
     @Id

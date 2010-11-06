@@ -2,8 +2,10 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.GoldPriceDao;
 import com.nkhoang.gae.model.GoldPrice;
+import com.nkhoang.gae.utils.DateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,19 +15,45 @@ import java.util.List;
 
 /**
  * GoldPrice dao implementation.
- * 
+ *
  * @author hnguyen93
- * 
  */
 @Transactional
 public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements GoldPriceDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoldPriceDaoImpl.class);
 
-    // @off
-
     @Override
     public GoldPrice save(GoldPrice e) {
         return super.save(e);
+    }
+
+    /**
+     * Check gold price existence.
+     *
+     * @param compareO object to be compare in database.
+     * @return true if object existed.
+     */
+    public boolean check(GoldPrice compareO) {
+        LOGGER.info("Checking gold price from DB");
+        boolean result = false;
+                
+        Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell ");
+
+        query.setParameter("currency", compareO.getCurrency());
+        query.setParameter("priceBuy", compareO.getPriceBuy());
+        query.setParameter("priceSell", compareO.getPriceSell());
+
+        GoldPrice price = null;
+        try {
+            price = (GoldPrice) query.getSingleResult();
+        } catch (Exception empty) {
+        }
+
+        if (price != null) {
+            LOGGER.info("Found");
+            result = true;
+        }
+        return result;
     }
 
     @Override
@@ -35,8 +63,9 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
 
     /**
      * Get an gold price from DB.
+     *
      * @param id: Gold Price id.
-     * @return an object 
+     * @return an object
      *         or
      *         null value.
      */
@@ -59,9 +88,11 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
     }
 
     // @off
+
     /**
      * Get all gold prices from DB.
-     * @return a list 
+     *
+     * @return a list
      *         or
      *         null value.
      */
@@ -81,8 +112,10 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
     }
 
     // @off
+
     /**
      * Delete an gold price from DB.
+     *
      * @param id: gold price id.
      */
     // @on

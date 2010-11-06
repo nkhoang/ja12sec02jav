@@ -5,4 +5,14 @@
 		<description>Get the international gold price!</description>
 		<schedule>every 5 minutes</schedule>
 	</cron>
+    <cron>
+		<url>/service/gold/goldVN.html</url>
+		<description>Get the vietnamese gold price!</description>
+		<schedule>every 5 minutes</schedule>
+	</cron>
+    <cron>
+		<url>/service/gold/exchangeRate.html</url>
+		<description>Get the exchange rates !</description>
+		<schedule>every 10 minutes</schedule>
+	</cron>
 </cronentries>

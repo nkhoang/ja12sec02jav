@@ -10,4 +10,6 @@ import com.nkhoang.gae.model.Currency;
  * To change this template use File | Settings | File Templates.
  */
 public interface CurrencyDao extends BaseDao<Currency, Long>{
+    Currency getExchangeRate(String currency);
+    boolean check(Currency c);
 }

@@ -1,158 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CCaseConfig">
+    <option name="checkoutReserved" value="false" />
+    <option name="markExternalChangeAsUpToDate" value="true" />
+    <option name="checkInUseHijack" value="true" />
+    <option name="useUcmModel" value="true" />
+    <option name="synchOutside" value="false" />
+    <option name="isHistoryResticted" value="true" />
+    <option name="useIdenticalSwitch" value="true" />
+    <option name="synchActivitiesOnRefresh" value="true" />
+    <option name="lastScr" value="" />
+    <option name="scrTextFileName" value="" />
+    <option name="historyRevisionsNumber" value="4" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="f09432c9-3462-433f-b223-91712dbcbee5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run2.bat" afterPath="$PROJECT_DIR$/run2.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Pie3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Pie2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSLine.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/DocumentServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/DocumentServiceTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Combi2DDY.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/ScrollArea2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Column2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/ScrollLineData.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSColumnLine3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/utils/WebUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Scatter.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Combi2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/MSBar2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Doughnut3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Scatter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Combi3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSCombi2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Doughnut2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Combi2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Pie2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldINAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/MSArea2D.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/applicationContext-service.xml" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext-service.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/manager/GoldManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/GoldPriceDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/MSColumn2D.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/PasswordGeneratorTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/PasswordGeneratorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ShopNow.iml" afterPath="$PROJECT_DIR$/ShopNow.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSSpline.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/ScrollCombi2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Bubble.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/ScrollAreaData.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/EncryptionTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/EncryptionTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSArea.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/SplineArea2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/JSClass/FusionChartsExportComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StMSCol2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StCol2DLineDY.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Area2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StCol3DLineDY.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/MSLine.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Area2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSArea2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Combi3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/ScrollCombi2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StMSCol2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StBar3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/MSBar3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSColumn2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Line2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/ScrollCombiDY2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StCol3DLineDY.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Line2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSColumn3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Doughnut3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/ScrollColData.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/JSClass/Commented" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StArea2D.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ShopNow.ipr" afterPath="$PROJECT_DIR$/ShopNow.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/XstreamTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/XstreamTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StArea2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Column3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Bubble.swf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/jquery.alerts.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/jquery.alerts.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/JSClass/FusionCharts.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Doughnut2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Col3DLineDY.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Doughnut3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StBar2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSSplineArea2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSLine.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/LogColumn.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSColumn3DLineDY.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StBar3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Bubble.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSBar3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSBar2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StCol2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSCombi3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/ScrollStackedCol2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/JSClass" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/ScrollLine2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Pie3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Line.swf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Column3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StMSCol2DLineDY.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Area2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/ScrollLine2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/CurrencyDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/FCExporter.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/MSColumn3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/ScrollColumn2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/LogLine.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StCol3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StCol2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Bar2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/StackedColumn3DLineDY.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Spline.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/ScrollColumn2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSColumn2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Bar2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Column3D.swf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ShopNow.iws" afterPath="$PROJECT_DIR$/ShopNow.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/JSClass/Commented/FusionChartsExportComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Column2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/SSGrid.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Doughnut2D.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/constant/ViewConstant.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/constant/ViewConstant.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Col3DLine.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSStackedColumn2D.swf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run3.bat" afterPath="$PROJECT_DIR$/run3.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/ScrollStackedCol2DData.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/MSBar2D.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/gold/GoldDataRetrieverTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/gold/GoldDataRetrieverTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/ScrollCombi2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/StackedColumn3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/Scatter.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Col3DLine.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/StackedArea2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Pie3D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Col3DLineDY.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSCombiDY2D.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/cron.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/cron.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSBar3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/ScrollCombi2DDY.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Bar2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/StackedColumn2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/StackedBar2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSColumn3D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/StCol3D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/StBar2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Pie2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/ScrolArea2D.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/ScrollStackedColumn2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/ScrollCombiDY2D.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/MSStackedColumn2DLineDY.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Combi2DDY.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Gallery/Data/Column2D.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/Charts/StackedBar3D.swf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldVNAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/VTDXMLTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/GoldPriceDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/GoldPriceDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/CurrencyDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ShopNow.iws" afterPath="$PROJECT_DIR$/ShopNow.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maven dependencies" afterPath="$PROJECT_DIR$/maven dependencies" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/manager/GoldManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/manager/GoldManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/MSLine.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/datastore-indexes.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ShopNow.iml" afterPath="$PROJECT_DIR$/ShopNow.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/constant/ViewConstant.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/constant/ViewConstant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/CurrencyDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/CurrencyDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ShopNow.ipr" afterPath="$PROJECT_DIR$/ShopNow.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/update.bat" afterPath="$PROJECT_DIR$/update.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/logging.properties" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/logging.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MSLine.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/ExchangeRateAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/security.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/security.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/applicationContext-dao.xml" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext-dao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldINAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldINAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/applicationContext-service.xml" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext-service.xml" />
     </list>
-    <ignored path="$USER_HOME_GRIFFON$/" />
     <ignored path="$USER_HOME_GRAILS$/" />
+    <ignored path="$USER_HOME_GRIFFON$/" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -358,99 +250,93 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GeneralDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GeneralDaoImpl.java">
+      <file leaf-file-name="MSLine.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebContent/Gallery/MSLine.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="48" selection-start="1089" selection-end="1089" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
+      <file leaf-file-name="MSLine.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebContent/Gallery/Data/MSLine.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="57" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.0">
+            <state line="24" column="17" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ItemPicture.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/ItemPicture.java">
+      <file leaf-file-name="ItemAction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/ItemAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="280" selection-end="287" vertical-scroll-proportion="0.0">
+            <state line="39" column="13" selection-start="1452" selection-end="1452" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoldPrice.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java">
+      <file leaf-file-name="GSONStrategy.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/gson/strategy/GSONStrategy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="27" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0">
+            <state line="14" column="13" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Currency.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java">
+      <file leaf-file-name="JSONView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/JSONView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="23" selection-start="651" selection-end="651" vertical-scroll-proportion="1.9684211">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run2.bat" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run2.bat">
+      <file leaf-file-name="maven dependencies" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/maven dependencies">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0">
+            <state line="15" column="130" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="applicationContext-service.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/applicationContext-service.xml">
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="47" selection-start="3021" selection-end="3021" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoldPriceDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="62" selection-start="513" selection-end="522" vertical-scroll-proportion="0.0">
+            <state line="641" column="24" selection-start="20086" selection-end="20086" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoldManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/manager/GoldManager.java">
+      <file leaf-file-name="MSLine.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/MSLine.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="37" selection-start="483" selection-end="495" vertical-scroll-proportion="0.0">
+            <state line="15" column="34" selection-start="780" selection-end="793" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="security.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/security.xml">
+      <file leaf-file-name="VTDXMLTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/VTDXMLTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="51" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0">
+            <state line="32" column="31" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.98324025">
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="PasswordGeneratorTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/PasswordGeneratorTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="346" selection-end="515" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -461,25 +347,29 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="GIT_EXECUTABLE" value="git.exe" />
+    <option name="CHECKOUT_INCLUDE_TAGS" value="false" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/utils/WebUtils.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/XstreamTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/DocumentServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/PasswordGeneratorTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/gold/GoldDataRetrieverTest.java" />
-        <option value="$PROJECT_DIR$/run3.bat" />
-        <option value="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/EncryptionTest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/jquery.alerts.js" />
-        <option value="$PROJECT_DIR$/run2.bat" />
-        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldINAction.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/applicationContext-service.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/applicationContext-service.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/logging.properties" />
+        <option value="$PROJECT_DIR$/update.bat" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldVNAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/CurrencyDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/manager/GoldManager.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/cron.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/datastore-indexes.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/CurrencyDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/ExchangeRateAction.java" />
+        <option value="$PROJECT_DIR$/maven dependencies" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/resources/MSLine.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/VTDXMLTest.java" />
       </list>
     </option>
   </component>
@@ -498,6 +388,22 @@
     <option name="ADD_LABEL_ON_UNIT_TEST_PASSED" value="true" />
     <option name="ADD_LABEL_ON_UNIT_TEST_FAILED" value="true" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="F:\Softs\Maven-Repo\.m2\repository" />
+        <option name="mavenHome" value="F:\Softs\Softs\Development\Java\Runtime\apache-maven-2.2.1" />
+        <option name="mavenSettingsFile" value="F:\Softs\Softs\Development\Java\Runtime\apache-maven-2.2.1\conf\settings.xml" />
+        <option name="pluginUpdatePolicy" value="UPDATE" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadSourcesAutomatically" value="true" />
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="MavenProjectNavigator">
     <treeState>
       <PATH>
@@ -507,9 +413,6 @@
         </PATH_ELEMENT>
       </PATH>
     </treeState>
-  </component>
-  <component name="MavenRunner">
-    <option name="jreName" value="1.5" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -553,6 +456,8 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
@@ -573,7 +478,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -592,7 +496,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -602,29 +506,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShopNow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="WebContent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -634,19 +520,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="WebContent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
+              <option name="myItemId" value="Gallery" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -656,23 +538,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="WebContent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="Gallery" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="Data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -682,7 +560,43 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Charts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShopNow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShopNow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -690,7 +604,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShopNow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GoogleProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -704,7 +636,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -712,15 +644,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -730,59 +662,18 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
+              <option name="myItemId" value="GoogleProject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ShopNow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GAEProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gae" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Favorites" />
     </panes>
   </component>
   <component name="ProjectViewSettings">
@@ -794,14 +685,14 @@
     <view id="ClasspathPane" />
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="options.lastSelected" value="reference.settings.project.maven.repository.indices" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.includeJavaFiles" value="false" />
@@ -815,49 +706,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.nkhoang.gae.action" />
       <recent name="com.nkhoang.gae.dao.impl" />
+      <recent name="com.nkhoang.gae.action" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Projects\GoogleProject\src\test\resources" />
       <recent name="E:\Projects\IDEA\ShopNow-24092010\src\test\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Projects\IDEA\ShopNow-24092010\src\test\java\com\nkhoang\gae\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Remote.Remote Localhost">
-    <configuration default="false" name="GoldDataRetrieverTest" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false">
-        <pattern>
-          <option name="PATTERN" value="com.nkhoang.gae.test.gold.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="snapshooter" />
-      <module name="ShopNow" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.nkhoang.gae.test.gold" />
-      <option name="MAIN_CLASS_NAME" value="com.nkhoang.gae.test.gold.GoldDataRetrieverTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="1619" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Debug" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.VTDXMLTest.testXML">
     <configuration default="false" name="GoldDataRetrieverTest.testGetGoldPrice" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false">
         <pattern>
@@ -972,6 +832,34 @@
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="VTDXMLTest.testXML" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="com.nkhoang.gae.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <module name="ShopNow" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.nkhoang.gae.test" />
+      <option name="MAIN_CLASS_NAME" value="com.nkhoang.gae.test.VTDXMLTest" />
+      <option name="METHOD_NAME" value="testXML" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
@@ -1189,11 +1077,11 @@
       <method />
     </configuration>
     <list size="6">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetGoldPrice" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetVnGoldPrice" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetExchangeRate" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetInternationalGoldPrice" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetGoldPrice" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetVnGoldPrice" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetExchangeRate" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.GoldDataRetrieverTest.testGetInternationalGoldPrice" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.VTDXMLTest.testXML" />
       <item index="5" class="java.lang.String" itemvalue="Remote.Remote Localhost" />
     </list>
   </component>
@@ -1206,10 +1094,8 @@
     <option name="PROJECT" value="" />
     <option name="VIEW" value="" />
     <option name="ALTERNATIVE_WORKING_PATH" value="" />
-    <option name="PUT_FOCUS_INTO_COMMENT" value="false" />
-    <option name="SHOW_CHECKIN_OPTIONS" value="true" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
-    <option name="CHECKIN_DIALOG_SPLITTER_PROPORTION" value="0.8" />
+    <option name="LOCK_ON_CHECKOUT" value="false" />
+    <option name="UNLOCK_ON_CHECKIN" value="false" />
   </component>
   <component name="SvnConfiguration" maxAnnotateRevisions="500">
     <option name="USER" value="" />
@@ -1232,16 +1118,16 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="G:\Projects\GAEProject" />
-          <option name="myCopyRoot" value="G:\Projects\GAEProject" />
+          <option name="myVcsRoot" value="G:\Projects\GoogleProject" />
+          <option name="myCopyRoot" value="G:\Projects\GoogleProject" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="G:\Projects\GAEProject" />
-          <option name="myCopyRoot" value="G:\Projects\GAEProject" />
+          <option name="myVcsRoot" value="G:\Projects\GoogleProject" />
+          <option name="myCopyRoot" value="G:\Projects\GoogleProject" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -1276,30 +1162,30 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.7147614" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32963374" sideWeight="0.9976599" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18367347" sideWeight="0.22222222" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31310943" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30854607" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32297447" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26898396" sideWeight="0.21975583" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18367347" sideWeight="0.27140254" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3342246" sideWeight="0.2774695" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34278074" sideWeight="0.6625971" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19304813" sideWeight="0.2774695" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263041" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20802139" sideWeight="0.6625971" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34777898" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Aspects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959083" sideWeight="0.75132275" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32936507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3218646" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1318,7 +1204,7 @@
     <option name="ENABLE_BACKGROUND_PROCESSES" value="false" />
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Gold price action for International gold price&#10;- DAO and Service for gold price." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Update Logging&#10;- Update Currency Updater&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1336,8 +1222,13 @@
     <MESSAGE value="- Gold price look up function added." />
     <MESSAGE value="- Gold price update for international gold price retriever.&#10;- Fixed some bugs related to Java 1.6 (isEmpty())" />
     <MESSAGE value="- Gold price action for International gold price&#10;- DAO and Service for gold price." />
+    <MESSAGE value="- Update Logging&#10;- Update Currency Updater&#10;" />
   </component>
   <component name="VssConfiguration">
+    <option name="CLIENT_PATH" value="" />
+    <option name="SRCSAFEINI_PATH" value="" />
+    <option name="USER_NAME" value="" />
+    <option name="PWD" value="" />
     <CheckoutOptions>
       <option name="COMMENT" value="" />
       <option name="DO_NOT_GET_LATEST_VERSION" value="false" />
@@ -1350,41 +1241,22 @@
       <option name="RECURSIVE" value="false" />
     </CheckinOptions>
     <AddOptions>
-      <option name="COMMENT" value="" />
       <option name="STORE_ONLY_LATEST_VERSION" value="false" />
       <option name="CHECK_OUT_IMMEDIATELY" value="false" />
-      <option name="FILE_TYPE" value="0" />
     </AddOptions>
     <UndocheckoutOptions>
       <option name="MAKE_WRITABLE" value="false" />
       <option name="REPLACE_LOCAL_COPY" value="0" />
       <option name="RECURSIVE" value="false" />
     </UndocheckoutOptions>
-    <DiffOptions>
-      <option name="IGNORE_WHITE_SPACE" value="false" />
-      <option name="IGNORE_CASE" value="false" />
-    </DiffOptions>
     <GetOptions>
       <option name="REPLACE_WRITABLE" value="0" />
       <option name="MAKE_WRITABLE" value="false" />
+      <option name="ANSWER_NEGATIVELY" value="false" />
+      <option name="ANSWER_POSITIVELY" value="false" />
       <option name="RECURSIVE" value="false" />
+      <option name="VERSION" />
     </GetOptions>
-    <option name="CLIENT_PATH" value="" />
-    <option name="SRCSAFEINI_PATH" value="" />
-    <option name="USER_NAME" value="" />
-    <option name="PWD" value="" />
-    <option name="SHOW_CHECKOUT_OPTIONS" value="true" />
-    <option name="SHOW_ADD_OPTIONS" value="true" />
-    <option name="SHOW_UNDOCHECKOUT_OPTIONS" value="true" />
-    <option name="SHOW_DIFF_OPTIONS" value="true" />
-    <option name="SHOW_GET_OPTIONS" value="true" />
-    <option name="USE_EXTERNAL_DIFF" value="false" />
-    <option name="EXTERNAL_DIFF_PATH" value="" />
-    <option name="REUSE_LAST_COMMENT" value="false" />
-    <option name="PUT_FOCUS_INTO_COMMENT" value="false" />
-    <option name="SHOW_CHECKIN_OPTIONS" value="true" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
-    <option name="CHECKIN_DIALOG_SPLITTER_PROPORTION" value="0.8" />
   </component>
   <component name="WebViewSettings">
     <webview flattenPackages="false" showMembers="false" autoscrollToSource="false" />
@@ -1397,96 +1269,86 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-jdk14/1.6.1/slf4j-jdk14-1.6.1-sources.jar!/org/slf4j/impl/JDK14LoggerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="31" selection-start="897" selection-end="897" vertical-scroll-proportion="-7.7916665" />
+        <state line="286" column="0" selection-start="8532" selection-end="8532" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/constant/ViewConstant.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/ExchangeRateAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="31" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0" />
+        <state line="44" column="42" selection-start="1716" selection-end="1716" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/jquery.alerts.js">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/gold/GoldDataRetrieverTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="56" selection-start="6442" selection-end="6442" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/ItemAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="35" selection-start="1479" selection-end="1490" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run3.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="71" selection-start="144" selection-end="210" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/GoldINAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="70" selection-start="1400" selection-end="1401" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GeneralDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="48" selection-start="1089" selection-end="1089" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="57" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/ItemPicture.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="280" selection-end="287" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run2.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/applicationContext-service.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="47" selection-start="3021" selection-end="3021" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/GoldPriceDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="62" selection-start="513" selection-end="522" vertical-scroll-proportion="0.0" />
+        <state line="31" column="22" selection-start="1000" selection-end="1000" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/manager/GoldManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="37" selection-start="483" selection-end="495" vertical-scroll-proportion="0.0" />
+        <state line="36" column="35" selection-start="971" selection-end="971" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/security.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/CurrencyDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="51" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0">
+        <state line="12" column="13" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/dao/impl/CurrencyDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="47" selection-start="3121" selection-end="3121" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/Gallery/MSLine.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="com.intellij.spring.perspectives.SpringBeansStructureEditorProvider">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/Gallery/Data/MSLine.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="17" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/GoldPrice.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/action/ItemAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="27" selection-start="862" selection-end="862" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="39" column="13" selection-start="1452" selection-end="1452" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/model/Currency.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/gson/strategy/GSONStrategy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="23" selection-start="651" selection-end="651" vertical-scroll-proportion="1.9684211">
+        <state line="14" column="13" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nkhoang/gae/view/JSONView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maven dependencies">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="130" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="641" column="24" selection-start="20086" selection-end="20086" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/MSLine.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="34" selection-start="780" selection-end="793" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/PasswordGeneratorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="346" selection-end="515" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/nkhoang/gae/test/VTDXMLTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="31" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.98324025">
           <folding />
         </state>
       </provider>

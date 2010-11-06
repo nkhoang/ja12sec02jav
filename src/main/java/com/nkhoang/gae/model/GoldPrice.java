@@ -64,4 +64,12 @@ public class GoldPrice {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Float getPriceBuy() {
+        return priceBuy;
+    }
+
+    public Float getPriceSell() {
+        return priceSell;
+    }
 }

@@ -1,3 +1,5 @@
+ mvn install:install-file -DgroupId=code.ximpleware -DartifactId=vtd-xml -Dversion=2.9 -Dpackaging=jar -Dfile=vtd-xml.jar -DgeneratePom=true
+
  mvn install:install-file -DgroupId=code.google.com -DartifactId=activation -Dversion=1.1 -Dpackaging=jar -Dfile=activation-1.1.jar -DgeneratePom=true
 
  mvn install:install-file -DgroupId=code.google.com -DartifactId=commons-logging -Dversion=1.1.1 -Dpackaging=jar -Dfile=commons-logging-1.1.1.jar -DgeneratePom=true
