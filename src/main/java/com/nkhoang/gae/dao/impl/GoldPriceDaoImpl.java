@@ -43,6 +43,8 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             query.setParameter("toDate", to);
 
             list = query.getResultList();
+
+            LOGGER.info("Found " + list.size());
         } catch (Exception ex) {
             LOGGER.error("Could not query gold price.", ex);
         }
@@ -86,7 +88,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
                 result = true;
             }
         } catch (Exception empty) {
-            LOGGER.info("Could not check gold price: " + o.toString());
+            
         }
         return result;
     }

@@ -193,7 +193,7 @@
 	</build>
 
 	<repositories>
-        <!-- for google document list API -->
+        <!-- for google document vnList API -->
         <repository>
             <id>google docs</id>
             <url>http://mandubian-mvn.googlecode.com/svn/trunk/mandubian-mvn/repository</url>

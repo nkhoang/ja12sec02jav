@@ -35,18 +35,16 @@ public class GoldDataRetrieverTest {
     }
 
 
-    @Test
     public void testGetExchangeRate() {
         getExchangeRate();
     }
-
 
     @Test
     public void testTimeRange() throws Exception {
 
 
-        String fromDateString = " 2010-11-05 16:41";
-        String toDateString = " 2010-11-05 16:41";
+        String fromDateString = "2010-11-06 01:00";
+        String toDateString = "2010-11-06 23:00";
 
         Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.defaultGoldDateFormat);
         Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.defaultGoldDateFormat);
@@ -54,7 +52,7 @@ public class GoldDataRetrieverTest {
         LOGGER.info(fromDate.getTime() + "");
         LOGGER.info(toDate.getTime() + "");
 
-        Long fromDateL = 1199178000000L;
+        Long fromDateL = 12890000000000L;
         Long toDateL = 1210838400000L;
         fromDate.setTime(fromDateL);
         toDate.setTime(toDateL);
@@ -62,7 +60,6 @@ public class GoldDataRetrieverTest {
         LOGGER.info(DateConverter.parseDate(toDate, DateConverter.defaultGoldDateFormat));
     }
 
-    @Test
     public void testGetInternationalGoldPrice() {
         GoldPrice price = getInternationalGoldPrice();
 
@@ -173,7 +170,6 @@ public class GoldDataRetrieverTest {
     }
 
 
-    @Test
     public void testGetVnGoldPrice() {
         getVNGoldData("http://www.sjc.com.vn/chart/data.csv");
     }

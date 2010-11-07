@@ -1,16 +1,8 @@
 <chart caption='Daily Visits' subcaption='(from 8/6/2006 to 8/12/2006)' lineThickness='1' showValues='0'
        formatNumberScale='0' anchorRadius='2' divLineAlpha='20' divLineColor='CC3300' divLineIsDashed='1'
        showAlternateHGridColor='1' alternateHGridAlpha='5' alternateHGridColor='CC3300' shadowAlpha='40' labelStep="2"
-       numvdivlines='5' chartRightMargin="35" bgColor='FFFFFF,CC3300' bgAngle='270' bgAlpha='10,10'>
+       numvdivlines='1' chartRightMargin="35" bgColor='FFFFFF,CC3300' bgAngle='270' bgAlpha='10,10'>
     <categories>
-        <category label='8/6/2006'/>
-        <category label='8/7/2006'/>
-        <category label='8/8/2006'/>
-        <category label='8/9/2006'/>
-        <category label='8/10/2006'/>
-        <category label='8/11/2006'/>
-        <category label='8/12/2006'/>
-
     </categories>
     <dataset seriesName='VN' color='1D8BD1' anchorBorderColor='1D8BD1' anchorBgColor='1D8BD1'>
 

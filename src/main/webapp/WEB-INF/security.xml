@@ -17,12 +17,15 @@
         <!-- Item can be listed by any one -->
         <intercept-url pattern="/item/viewAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
+        <intercept-url pattern="/chart/view.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <!-- Chart data -->
         <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Serve VN Gold price -->
         <intercept-url pattern="/service/gold/goldVN.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/service/gold/goldVNAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Serve IN Gold price -->
         <intercept-url pattern="/service/gold/goldIN.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <!-- Exchange rate -->
         <intercept-url pattern="/service/gold/exchangeRate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
         <intercept-url pattern="/item/register.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>

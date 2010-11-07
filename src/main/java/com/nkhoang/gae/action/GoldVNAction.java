@@ -66,6 +66,9 @@ public class GoldVNAction {
                 break;
             }
             i++;
+            if (i == listGoldPrice.size()) {
+                break;
+            }
         }
         LOGGER.info("Have saved: " + i + " item to GoldPrice table.");
         if (!shouldNotContinue){
@@ -96,18 +99,22 @@ public class GoldVNAction {
 
         int itemCount = 0;
         while (System.currentTimeMillis() - start < GOOGLE_APPENGINE_EXPIRE_INTERVAL) {
+            if (i == listGoldPrice.size()) {
+                break;
+            }
             GoldPrice unit = listGoldPrice.get(i);
             if (!goldService.check(unit)) {
                 LOGGER.debug("Saving :" + unit.toString());
                 goldService.save(unit);
             }
             i++;
+
             itemCount++;
         }
 
         LOGGER.info("Have saved: " + itemCount + " item to GoldPrice table.");
 
-        if (listGoldPrice.size() - 1 == i) {
+        if (listGoldPrice.size() - 1 <= i) {
             LOGGER.info("Nothing to save");
         } else {
             LOGGER.info("Posting to Queue");

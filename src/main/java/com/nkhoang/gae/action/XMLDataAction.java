@@ -5,6 +5,7 @@ import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
 import com.nkhoang.gae.manager.GoldManager;
 import com.nkhoang.gae.model.GoldPrice;
+import com.nkhoang.gae.model.GoldPriceSortByTime;
 import com.nkhoang.gae.utils.DateConverter;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -29,9 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 
@@ -114,6 +113,8 @@ public class XMLDataAction {
 
     /**
      * Return XML to be rendered as a chart.
+     * <p/>
+     * ?fromDate=2008-01-0%2016:00&toDate=2008-05-15%2015:00
      *
      * @param fromDateString in default Gold price format.
      * @param toDateString   in default Gold price format.
@@ -123,7 +124,6 @@ public class XMLDataAction {
     public ModelAndView retrieveXMLData(@RequestParam("fromDate") String fromDateString, @RequestParam("toDate") String toDateString) {
         // test get price range
         ModelAndView mav = new ModelAndView();
-
         try {
             if (StringUtils.isNotEmpty(fromDateString) && StringUtils.isNotEmpty(toDateString)) {
                 goldService.getAllGoldPrice();
@@ -131,9 +131,12 @@ public class XMLDataAction {
                 Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.defaultGoldDateFormat);
                 Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.defaultGoldDateFormat);
 
+                Map<String, List<GoldPrice>> goldMap = buildGoldPrice4Chart(fromDate, toDate);
 
-                List<GoldPrice> list = goldService.getGoldPriceWithRange(fromDate, toDate);
-                LOGGER.info("Gold Price list: " + list.size());
+                List<GoldPrice> vnList = goldMap.get("VND");
+                List<GoldPrice> inList = goldMap.get("USD");
+
+                LOGGER.info("Gold Price vnList: " + vnList.size());
 
                 InputStream is = this.getClass().getResourceAsStream("/MSLine.xml");
 
@@ -155,11 +158,41 @@ public class XMLDataAction {
                 xm.bind(vn);
 
                 AutoPilot ap = new AutoPilot(vn);
-                ap.selectXPath("/chart/dataset[@seriesName='VN']");
+
+                ap.selectXPath("/chart/categories");
                 int i = -1;
+                while ((i = ap.evalXPath()) != -1) {
+                    String categoryTag = "";
+                    for (GoldPrice p : vnList) {
+                        Date d = new Date();
+                        d.setTime(p.getTime());
+                        categoryTag += "\n\t<category label='" + DateConverter.parseDate(d, DateConverter.defaultGoldDateFormat) + "'/>";
+
+                    }
+                    xm.insertAfterHead(categoryTag);
+                }
+                ap.selectXPath("/chart/dataset[@seriesName='VN']");
+                i = -1;
+                while ((i = ap.evalXPath()) != -1) {
+                    String setTag = "";
+                    for (GoldPrice p : vnList) {
+                        setTag += "\n\t<set value='" + p.getPriceBuy() + "'/>";
+
+                    }
+                    xm.insertAfterHead(setTag);
+
+                }
+
+                ap.selectXPath("/chart/dataset[@seriesName='International']");
+                i = -1;
 
                 while ((i = ap.evalXPath()) != -1) {
-                    xm.insertAfterHead("\n<set label='Jan' value='17400' />\n");
+                    String setTag = "";
+                    for (GoldPrice p : inList) {
+                        setTag += "\n\t<set value='" + p.getPriceBuy() + "'/>";
+
+                    }
+                    xm.insertAfterHead(setTag);
                 }
 
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -180,6 +213,81 @@ public class XMLDataAction {
 
 
         return mav;
+    }
+
+    private Map<String, List<GoldPrice>> buildGoldPrice4Chart(Date fromDate, Date toDate) {
+        Map<String, List<GoldPrice>> result = new HashMap<String, List<GoldPrice>>();
+
+        List<GoldPrice> vnList = new ArrayList(0);
+        List<GoldPrice> inList = new ArrayList(0);
+
+        vnList.addAll(goldService.getGoldPriceWithRange("VND", fromDate, toDate));
+        inList.addAll(goldService.getGoldPriceWithRange("USD", fromDate, toDate));
+        List<GoldPrice> vnListAdded = new ArrayList();
+        List<GoldPrice> inListAdded = new ArrayList();
+
+        LOGGER.info("VN list =" + vnList.size());
+        LOGGER.info("IN list =" + inList.size());
+
+        List<Long> timeList = new ArrayList<Long>();
+        for (GoldPrice p : vnList) {
+            GoldPrice unit = new GoldPrice();
+            unit.setTime(p.getTime());
+            unit.setCurrency("USD");
+            inListAdded.add(unit);
+            timeList.add(p.getTime());
+        }
+
+        for (GoldPrice p : inList) {
+            if (!timeList.contains(p.getTime())) {
+                GoldPrice unit = new GoldPrice();
+                unit.setTime(p.getTime());
+                unit.setCurrency("VND");
+                vnListAdded.add(unit);
+                timeList.add(p.getTime());
+            }
+        }
+
+        vnList.addAll(vnListAdded);
+        // perform sorting
+        java.util.Collections.sort(vnList, new GoldPriceSortByTime());
+
+        inList.addAll(inListAdded);
+        java.util.Collections.sort(inList, new GoldPriceSortByTime());
+
+        for (int i = 0; i < vnList.size(); i++) {
+            GoldPrice p = vnList.get(i);
+            if (p.getPriceBuy() == null) {
+                if (i != 0) {
+                    GoldPrice previous = vnList.get(i - 1);
+                    if (previous.getPriceBuy() != null) {
+                        p.setPriceBuy(previous.getPriceBuy());
+                        p.setPriceSell(previous.getPriceSell());
+                    }
+                }
+
+            }
+
+            GoldPrice g = inList.get(i);
+            if (g.getPriceBuy() == null) {
+                if (i != 0) {
+                    GoldPrice previous = inList.get(i - 1);
+                    if (previous.getPriceBuy() != null) {
+                        g.setPriceBuy(previous.getPriceBuy());
+                        g.setPriceSell(previous.getPriceSell());
+                    }
+                }
+
+            }
+        }
+
+        LOGGER.info(vnList.toArray().toString());
+
+
+        result.put("VND", vnList);
+        result.put("USD", inList);
+
+        return result;
     }
 
     public GoldManager getGoldService() {

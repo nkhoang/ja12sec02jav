@@ -57,8 +57,8 @@ public class GoldManager implements BaseManager<GoldPrice, Long> {
         return true;
     }
 
-    public List<GoldPrice> getGoldPriceWithRange(Date from, Date to) {
-        return goldPriceDao.getGoldPriceWithRange(from.getTime(), to.getTime());
+    public List<GoldPrice> getGoldPriceWithRange(String currency, Date from, Date to) {
+        return goldPriceDao.getGoldPriceWithRange(currency, from.getTime(), to.getTime());
     }
 
     public List<GoldPrice> getAllGoldPrice() {

@@ -38,6 +38,7 @@ public class ViewConstant {
     public static final String EXCHANGE_RATE_REQUEST = "exchangeRate";
     public static final String XML_DATA_CHART_REQUEST = "chartData";
     public static final String CLEAR_ALL_REQUEST = "clearAll";
+    public static final String VIEW_CHART_REQUEST = "view";
     /**
      * NAMESPACE
      */
