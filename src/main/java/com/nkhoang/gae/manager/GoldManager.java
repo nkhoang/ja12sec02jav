@@ -2,12 +2,13 @@ package com.nkhoang.gae.manager;
 
 import com.nkhoang.gae.dao.CurrencyDao;
 import com.nkhoang.gae.dao.GoldPriceDao;
-import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.model.Currency;
+import com.nkhoang.gae.model.GoldPrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,14 +51,20 @@ public class GoldManager implements BaseManager<GoldPrice, Long> {
     }
 
     public boolean clearAll() {
-        LOGGER.info("Clear all gold price ...");
-        boolean result = false;
-        List<GoldPrice> items = listAll();
-        for (GoldPrice item : items) {
-            goldPriceDao.delete(item.getId());
-        }
+        goldPriceDao.clearAll();
+        currencyDao.clearAll();
+
         return true;
     }
+
+    public List<GoldPrice> getGoldPriceWithRange(Date from, Date to) {
+        return goldPriceDao.getGoldPriceWithRange(from.getTime(), to.getTime());
+    }
+
+    public List<GoldPrice> getAllGoldPrice() {
+        return goldPriceDao.getAll();
+    }
+
 
     public GoldPriceDao getGoldPriceDao() {
         return goldPriceDao;

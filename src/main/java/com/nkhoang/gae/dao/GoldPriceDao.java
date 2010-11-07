@@ -2,6 +2,8 @@ package com.nkhoang.gae.dao;
 
 import com.nkhoang.gae.model.GoldPrice;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: hoangnk
@@ -11,4 +13,6 @@ import com.nkhoang.gae.model.GoldPrice;
  */
 public interface GoldPriceDao extends BaseDao<GoldPrice , Long>{
     boolean check(GoldPrice compareO);
+    public List<GoldPrice> getGoldPriceWithRange(String currency, Long from, Long to);
+    void clearAll();
 }

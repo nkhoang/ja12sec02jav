@@ -18,7 +18,7 @@ public class GoldPrice {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Basic
-    private Date time;
+    private Long time;
     @Basic
     private String currency;
     @Basic
@@ -29,11 +29,11 @@ public class GoldPrice {
     public GoldPrice() {
     }
 
-    public Date getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
@@ -46,7 +46,9 @@ public class GoldPrice {
     }   
 
     public String toString() {
-        return "Gold ==> Time: " + DateConverter.parseDate(time, DateConverter.defaultGoldDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
+        Date date = new Date();
+        date.setTime(time);
+        return "Gold ==> Time: " + DateConverter.parseDate(date, DateConverter.defaultGoldDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public void setPriceBuy(Float priceBuy) {

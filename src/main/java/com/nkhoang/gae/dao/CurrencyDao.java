@@ -12,4 +12,5 @@ import com.nkhoang.gae.model.Currency;
 public interface CurrencyDao extends BaseDao<Currency, Long>{
     Currency getExchangeRate(String currency);
     boolean check(Currency c);
+    void clearAll();
 }

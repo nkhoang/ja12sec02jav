@@ -11,7 +11,7 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)    
     private Long id;
     @Basic
-    private Date time;
+    private Long time;
     @Basic
     private String currency;
     @Basic
@@ -36,16 +36,18 @@ public class Currency {
         this.currency = currency;
     }
 
-    public Date getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
     public String toString() {
-        return "Currency [" + currency + "] ==> time: " + DateConverter.parseDate(time, DateConverter.defaultCurrencyDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
+        Date date = new Date();
+        date.setTime(time);
+        return "Currency [" + currency + "] ==> time: " + DateConverter.parseDate(date, DateConverter.defaultCurrencyDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public Float getPriceSell() {

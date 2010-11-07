@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,15 +25,19 @@ import java.util.regex.Pattern;
 @RequestMapping("/service/gold")
 public class GoldINAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoldINAction.class);
-    @Autowired    
+    @Autowired
     private GoldManager goldService;
+
     @RequestMapping("/" + ViewConstant.GOLD_IN_UPDATE_REQUEST)
-    public void update() {
+    public void update(HttpServletResponse response) {
         LOGGER.debug("Starting to update Gold International...");
         GoldPrice goldPrice = getInternationalGoldPrice();
         LOGGER.debug("Gold Price retrieved: " + goldPrice.toString());
         goldService.save(goldPrice);
+
+        response.setContentType("application/json");
     }
+
     private GoldPrice getInternationalGoldPrice() {
         GoldPrice price = new GoldPrice();
         Source source = null;
@@ -55,7 +60,7 @@ public class GoldINAction {
             // process string
             Calendar calendar = GregorianCalendar.getInstance();
             Date currentDate = calendar.getTime();
-            price.setTime(currentDate);
+            price.setTime(currentDate.getTime());
             price.setCurrency("USD");
             // Using regex to get price value.
             Pattern p = Pattern.compile("\\d+.\\d+");

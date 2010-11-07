@@ -2,7 +2,6 @@ package com.nkhoang.gae.action;
 
 import com.nkhoang.gae.manager.GoldManager;
 import com.nkhoang.gae.model.Currency;
-import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.utils.DateConverter;
 import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -14,14 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/service/gold")
@@ -39,7 +37,7 @@ public class ExchangeRateAction {
             Currency unit = listCurrencies.get(i);
 
             Currency latest = goldService.getExchangeRate(unit.getCurrency());
-            if (latest == null || (!latest.getPriceBuy().equals(unit.getPriceBuy()) && !latest.getPriceSell().equals(unit.getPriceSell()))){
+            if (latest == null || (!latest.getPriceBuy().equals(unit.getPriceBuy()) && !latest.getPriceSell().equals(unit.getPriceSell()))) {
                 LOGGER.debug("Saving unit:" + unit.toString());
                 goldService.save(unit);
             }
@@ -61,13 +59,19 @@ public class ExchangeRateAction {
             // create a new Currency object.
             Currency currency = new Currency();
             // process time
-            int index = timeString.indexOf(":");
-            String currencyTime = timeString.substring(index + 1, index + 19).trim();
+            Pattern p = Pattern.compile("\\d{2}:\\d{2} (AM|PM) \\d{2}\\/\\d{2}\\/\\d{4}");
+            Matcher m = p.matcher(timeString);
+            String currencyTime = "";
+            if (m.find()) {
+                currencyTime = m.group(0);
+            }
+
             Date currencyDate = null;
 
             // set to currency
             try {
                 currencyDate = DateConverter.convertFromStringToken(currencyTime, DateConverter.defaultCurrencyDateFormat);
+                LOGGER.info("Time of the exchange rate: " + currencyTime + " date " + currencyDate.toString());
             } catch (ParseException parseEx) {
                 LOGGER.error("Could not parse time for Currency.", parseEx);
                 currency = null;
@@ -79,7 +83,7 @@ public class ExchangeRateAction {
                 int counter = 0;
                 while (otherElementIter.hasNext()) {
                     currency = new Currency();
-                    currency.setTime(currencyDate);
+                    currency.setTime(currencyDate.getTime());
                     Element element = otherElementIter.next();
                     currency.setCurrency(element.getTextExtractor().toString());
                     counter++;

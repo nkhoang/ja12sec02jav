@@ -198,6 +198,10 @@
             <id>google docs</id>
             <url>http://mandubian-mvn.googlecode.com/svn/trunk/mandubian-mvn/repository</url>
         </repository>
+        <repository>
+            <id>jBoss</id>
+            <url>http://repository.jboss.org/maven2</url>
+        </repository>
 	</repositories>
 
 	<pluginRepositories>		

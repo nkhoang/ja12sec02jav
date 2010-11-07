@@ -27,7 +27,8 @@ public class GoldDataRetrieverTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(GoldDataRetrieverTest.class);
 
     @Test
-    public void testRun() {}
+    public void testRun() {
+    }
 
     public void testGetGoldPrice() {
         Source source = retrieveWebContent("http://giavang.net");
@@ -39,6 +40,27 @@ public class GoldDataRetrieverTest {
         getExchangeRate();
     }
 
+
+    @Test
+    public void testTimeRange() throws Exception {
+
+
+        String fromDateString = " 2010-11-05 16:41";
+        String toDateString = " 2010-11-05 16:41";
+
+        Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.defaultGoldDateFormat);
+        Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.defaultGoldDateFormat);
+
+        LOGGER.info(fromDate.getTime() + "");
+        LOGGER.info(toDate.getTime() + "");
+
+        Long fromDateL = 1199178000000L;
+        Long toDateL = 1210838400000L;
+        fromDate.setTime(fromDateL);
+        toDate.setTime(toDateL);
+        LOGGER.info(DateConverter.parseDate(fromDate, DateConverter.defaultGoldDateFormat));
+        LOGGER.info(DateConverter.parseDate(toDate, DateConverter.defaultGoldDateFormat));
+    }
 
     @Test
     public void testGetInternationalGoldPrice() {
@@ -63,7 +85,7 @@ public class GoldDataRetrieverTest {
         // process string
         Calendar calendar = GregorianCalendar.getInstance();
         Date currentDate = calendar.getTime();
-        price.setTime(currentDate);
+        price.setTime(currentDate.getTime());
         price.setCurrency("USD");
         // Using regex to get price value.
         Pattern p = Pattern.compile("\\d+.\\d+");
@@ -84,11 +106,19 @@ public class GoldDataRetrieverTest {
 
         List<Element> timeElements = source.getAllElementsByClass("text_tgvang_mota");
         String timeString = timeElements.get(0).getContent().toString();
+
+        LOGGER.info("Parsing this: " + timeString);
         // create a new Currency object.
         Currency currency = new Currency();
-        // process time        
-        int index = timeString.indexOf(":");
-        String currencyTime = timeString.substring(index + 1, index + 19).trim();
+        // process time
+
+        Pattern p = Pattern.compile("\\d{2}:\\d{2} (AM|PM) \\d{2}\\/\\d{2}\\/\\d{4}");
+        Matcher m = p.matcher(timeString);
+        String currencyTime = "";
+        if (m.find()) {
+            currencyTime = m.group(0);
+        }
+
         Date currencyDate = null;
 
         // set to currency
@@ -107,7 +137,7 @@ public class GoldDataRetrieverTest {
                 if (counter != 0 && counter % 4 == 0) {
                     currency = new Currency();
                 }
-                currency.setTime(currencyDate);
+                currency.setTime(currencyDate.getTime());
                 Element element = otherElementIter.next();
                 currency.setCurrency(element.getTextExtractor().toString());
                 counter++;
@@ -143,7 +173,7 @@ public class GoldDataRetrieverTest {
     }
 
 
-               @Test
+    @Test
     public void testGetVnGoldPrice() {
         getVNGoldData("http://www.sjc.com.vn/chart/data.csv");
     }
@@ -165,7 +195,7 @@ public class GoldDataRetrieverTest {
             }
             if (price != null) {
                 price.setCurrency("VND");
-                price.setTime(priceDate);
+                price.setTime(priceDate.getTime());
                 price.setPriceBuy(Float.parseFloat(info[1]));
                 price.setPriceSell(Float.parseFloat(info[2]));
             }

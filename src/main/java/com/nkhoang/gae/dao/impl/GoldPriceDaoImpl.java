@@ -2,15 +2,13 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.GoldPriceDao;
 import com.nkhoang.gae.model.GoldPrice;
-import com.nkhoang.gae.utils.DateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,30 +26,67 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
     }
 
     /**
+     * Get Gold Price from a range for a specific currency.
+     *
+     * @param currency Currency can be: USD or VND
+     * @param from     from Date in Long.
+     * @param to       to Date in Long.
+     * @return a found list.
+     */
+    public List<GoldPrice> getGoldPriceWithRange(String currency, Long from, Long to) {
+        LOGGER.info("Get gold price from range from:" + from.toString() + " to:" + to.toString());
+        List<GoldPrice> list = new ArrayList<GoldPrice>();
+        try {
+            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency = :currency and t.time >= :fromDate and t.time <= :toDate ");
+            query.setParameter("currency", currency);
+            query.setParameter("fromDate", from);
+            query.setParameter("toDate", to);
+
+            list = query.getResultList();
+        } catch (Exception ex) {
+            LOGGER.error("Could not query gold price.", ex);
+        }
+        return list;
+    }
+
+    /**
+     * Clear all data. Not suitable for GAE. Take too long to finish.
+     */
+    public void clearAll() {
+        LOGGER.info("Deleting all gold price...");
+        List<GoldPrice> list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            delete(list.get(i).getId());
+        }
+    }
+
+    /**
      * Check gold price existence.
      *
-     * @param compareO object to be compare in database.
+     * @param o object to be compare in database.
      * @return true if object existed.
      */
-    public boolean check(GoldPrice compareO) {
-        LOGGER.info("Checking gold price from DB");
+    public boolean check(GoldPrice o) {
+        LOGGER.info("Checking gold price from DB: " + o.toString());
         boolean result = false;
-                
-        Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell ");
-
-        query.setParameter("currency", compareO.getCurrency());
-        query.setParameter("priceBuy", compareO.getPriceBuy());
-        query.setParameter("priceSell", compareO.getPriceSell());
-
-        GoldPrice price = null;
         try {
-            price = (GoldPrice) query.getSingleResult();
-        } catch (Exception empty) {
-        }
+            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell ");
 
-        if (price != null) {
-            LOGGER.info("Found");
-            result = true;
+            query.setParameter("currency", o.getCurrency());
+            query.setParameter("priceBuy", o.getPriceBuy());
+            query.setParameter("priceSell", o.getPriceSell());
+
+            GoldPrice price = null;
+
+            price = (GoldPrice) query.getSingleResult();
+
+
+            if (price != null) {
+                LOGGER.info("Found");
+                result = true;
+            }
+        } catch (Exception empty) {
+            LOGGER.info("Could not check gold price: " + o.toString());
         }
         return result;
     }
@@ -82,7 +117,6 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get Gold price from DB.");
-            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -106,7 +140,6 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to load gold prices from DB.");
-            LOGGER.error("Error", ex);
         }
         return result;
     }
@@ -118,8 +151,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
      *
      * @param id: gold price id.
      */
-    // @on
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public boolean delete(Long id) {
         LOGGER.info("Delete gold price with [id: " + id + "].");
         boolean result = false;
@@ -131,7 +163,6 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to delete gold price with [id:" + id + "]");
-            LOGGER.error("Error", e);
         }
         return result;
     }

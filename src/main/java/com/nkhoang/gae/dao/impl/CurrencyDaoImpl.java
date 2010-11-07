@@ -4,8 +4,6 @@ import com.nkhoang.gae.dao.CurrencyDao;
 import com.nkhoang.gae.model.Currency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -26,22 +24,33 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
         return super.save(e);
     }
 
+    /**
+     * Not going to use this under GAE.
+     */
+    public void clearAll() {
+        LOGGER.info("Deleting all currencies...");
+        List<Currency> list = getAll();
+        for (Currency c : list) {
+            delete(c.getId());
+        }
+    }
+
     public boolean check(Currency c) {
         boolean result = false;
-
-        Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell");
-        query.setParameter("currency", c.getCurrency());
-        query.setParameter("priceBuy", c.getPriceBuy());
-        query.setParameter("priceSell", c.getPriceSell());
-        Currency currency = null;
         try {
+            Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell");
+            query.setParameter("currency", c.getCurrency());
+            query.setParameter("priceBuy", c.getPriceBuy());
+            query.setParameter("priceSell", c.getPriceSell());
+            Currency currency = null;
+
             currency = (Currency) query.getSingleResult();
+            if (currency != null) {
+                result = true;
+            }
+
         } catch (Exception empty) {
-
-        }
-
-        if (currency != null) {
-            result = true;
+            LOGGER.info("Failed to check Currency : " + c.toString());
         }
         return result;
 
@@ -73,7 +82,6 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get Exchange rate from DB.");
-            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -91,7 +99,7 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
             query.setParameter("currencyID", currency);
             Currency unit = null;
 
-            List<Currency> list =  query.getResultList();
+            List<Currency> list = query.getResultList();
             if (list != null && list.size() > 0) {
                 unit = list.get(0);
             }
@@ -101,7 +109,6 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
             }
         } catch (Exception e) {
             LOGGER.info("Failed to get Exchange rate from DB.");
-            LOGGER.error("Error", e);
         }
         return null;
     }
@@ -116,7 +123,6 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
      *         or
      *         null value.
      */
-    // @on
     public List<Currency> getAll() {
         LOGGER.info("Get all exchange rates ...");
         List<Currency> result = null;
@@ -126,20 +132,16 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
             result = query.getResultList();
         } catch (Exception ex) {
             LOGGER.info("Failed to load exchange rates from DB.");
-            LOGGER.error("Error", ex);
         }
         return result;
     }
 
-    // @off
 
     /**
      * Delete an exchange rate from DB.
      *
      * @param id: exchange rate id.
      */
-    // @on
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public boolean delete(Long id) {
         LOGGER.info("Delete exchange rate with [id: " + id + "].");
         boolean result = false;
@@ -151,7 +153,6 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
             result = true;
         } catch (Exception e) {
             LOGGER.info("Failed to exchange rate with [id:" + id + "]");
-            LOGGER.error("Error", e);
         }
         return result;
     }
