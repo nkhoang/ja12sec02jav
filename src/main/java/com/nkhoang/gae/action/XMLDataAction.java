@@ -201,7 +201,6 @@ public class XMLDataAction {
                         }
                         xm.updateToken(i, minValue + "");
                     }
-
                     ap.selectXPath("/chart/categories");
                     i = -1;
                     while ((i = ap.evalXPath()) != -1) {
@@ -210,9 +209,7 @@ public class XMLDataAction {
                             Date d = new Date();
                             d.setTime(p.getTime());
                             categoryTag += "\n\t<category label='" + DateConverter.parseDate(d, DateConverter.defaultGoldDateFormat) + "'/>";
-
                         }
-
                         xm.insertAfterHead(categoryTag);
                     }
                     ap.selectXPath("/chart/dataset[@seriesName='VN']");
@@ -228,10 +225,7 @@ public class XMLDataAction {
 
                         }
                         xm.insertAfterHead(setTag);
-
                     }
-
-
                     ap.selectXPath("/chart/dataset[@seriesName='International']");
                     i = -1;
 
@@ -348,7 +342,7 @@ public class XMLDataAction {
         inList.addAll(inListAdded);
         java.util.Collections.sort(inList, new GoldPriceSortByTime());
 
-        /*for (int i = 0; i < vnList.size(); i++) {
+        for (int i = 0; i < vnList.size(); i++) {
             GoldPrice p = vnList.get(i);
             if (p.getPriceBuy() == null) {
                 if (i != 0) {
@@ -378,7 +372,7 @@ public class XMLDataAction {
                 }
 
             }
-        }*/
+        }
 
         LOGGER.info(vnList.toArray().toString());
 

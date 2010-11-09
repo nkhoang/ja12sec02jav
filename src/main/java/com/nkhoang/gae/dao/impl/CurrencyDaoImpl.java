@@ -36,27 +36,30 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
     }
 
     public boolean check(Currency c) {
+        LOGGER.info("Checking for currency:" + c.toString() + " in DB.");
         boolean result = false;
         try {
-            Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell and t.time = :currencyTime");
+            Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currency and t.time = :currencyTime order by t.time DESC");
             query.setParameter("currency", c.getCurrency());
-            query.setParameter("priceBuy", c.getPriceBuy());
-            query.setParameter("priceSell", c.getPriceSell());
             query.setParameter("currencyTime", c.getTime());
-            Currency currency = null;
+            query.setFirstResult(0);
+            query.setMaxResults(1);
 
+            Currency currency = null;
             currency = (Currency) query.getSingleResult();
             if (currency != null) {
-                result = true;
+                LOGGER.info("=================> Found: " + currency.toString());
+                if (c.getPriceBuy() != 0 && c.getPriceSell() != 0) {
+                    if (c.getPriceBuy() != currency.getPriceBuy() || c.getPriceSell() != currency.getPriceSell()) {
+                        result = true;
+                    }
+                }
             }
-
         } catch (Exception empty) {
-            LOGGER.info("Failed to check Currency : " + c.toString());
+            // do something here maybe.
         }
         return result;
-
     }
-
 
     @Override
     public void setEntityManager(EntityManager entityManager) {
@@ -109,7 +112,7 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
                 return unit;
             }
         } catch (Exception e) {
-            LOGGER.info("Failed to get Exchange rate from DB.");
+            LOGGER.error("Failed to get Exchange rate from DB.", e);
         }
         return null;
     }
@@ -132,7 +135,7 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
 
             result = query.getResultList();
         } catch (Exception ex) {
-            LOGGER.info("Failed to load exchange rates from DB.");
+            LOGGER.error("Failed to load exchange rates from DB.", ex);
         }
         return result;
     }
@@ -153,7 +156,7 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
 
             result = true;
         } catch (Exception e) {
-            LOGGER.info("Failed to exchange rate with [id:" + id + "]");
+            LOGGER.error("Failed to exchange rate with [id:" + id + "]", e);
         }
         return result;
     }

@@ -34,7 +34,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
      * @return a found list.
      */
     public List<GoldPrice> getGoldPriceWithRange(String currency, Long from, Long to) {
-        LOGGER.info("Get gold price from range from:" + from.toString() + " to:" + to.toString());
+        LOGGER.info("Get gold price [" + currency + "] from range from:" + from.toString() + " to:" + to.toString());
         List<GoldPrice> list = new ArrayList<GoldPrice>();
         try {
             Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency = :currency and t.time >= :fromDate and t.time <= :toDate ");
@@ -44,7 +44,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
 
             list = query.getResultList();
 
-            LOGGER.info("Found " + list.size());
+            LOGGER.info("===============> Found " + list.size());
         } catch (Exception ex) {
             LOGGER.error("Could not query gold price.", ex);
         }
@@ -56,9 +56,13 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
      */
     public void clearAll() {
         LOGGER.info("Deleting all gold price...");
-        List<GoldPrice> list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            delete(list.get(i).getId());
+        try {
+            List<GoldPrice> list = getAll();
+            for (int i = 0; i < list.size(); i++) {
+                delete(list.get(i).getId());
+            }
+        } catch (Exception e) {
+            LOGGER.error("Could not delete all gold price.", e);
         }
     }
 
@@ -72,24 +76,28 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
         LOGGER.info("Checking gold price from DB: " + o.toString());
         boolean result = false;
         try {
-            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell and t.time=:priceTime");
+            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.time=:priceTime order by t.time DESC");
 
             query.setParameter("currency", o.getCurrency());
-            query.setParameter("priceBuy", o.getPriceBuy());
-            query.setParameter("priceSell", o.getPriceSell());
             query.setParameter("priceTime", o.getTime());
+            query.setFirstResult(0);
+            query.setMaxResults(1);
 
             GoldPrice price = null;
 
             price = (GoldPrice) query.getSingleResult();
 
-
             if (price != null) {
-                LOGGER.info("Found");
-                result = true;
+                LOGGER.info("===================> Found.");
+                // then compare with the one we would like to insert.
+                if (o.getPriceBuy() != 0 && o.getPriceSell() != 0) {
+                    if (o.getPriceBuy() != price.getPriceBuy() || price.getPriceSell() != o.getPriceSell()) {
+                        result = true;
+                    }
+                }
             }
         } catch (Exception empty) {
-            
+            // error or something.
         }
         return result;
     }
@@ -107,7 +115,6 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
      *         or
      *         null value.
      */
-    // @on
     public GoldPrice get(Long id) {
         LOGGER.info("Get gold price [id: " + id + "].");
         try {
@@ -116,15 +123,14 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
 
             GoldPrice price = (GoldPrice) query.getSingleResult();
             if (price != null) {
+                LOGGER.info("===============> Found");
                 return price;
             }
         } catch (Exception e) {
-            LOGGER.info("Failed to get Gold price from DB.");
+            LOGGER.error("Failed to get Gold price from DB.", e);
         }
         return null;
     }
-
-    // @off
 
     /**
      * Get all gold prices from DB.
@@ -133,7 +139,6 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
      *         or
      *         null value.
      */
-    // @on
     public List<GoldPrice> getAll() {
         LOGGER.info("Get all gold price ...");
         List<GoldPrice> result = null;
@@ -142,12 +147,10 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
 
             result = query.getResultList();
         } catch (Exception ex) {
-            LOGGER.info("Failed to load gold prices from DB.");
+            LOGGER.error("Failed to load gold prices from DB.", ex);
         }
         return result;
     }
-
-    // @off
 
     /**
      * Delete an gold price from DB.
@@ -165,7 +168,7 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
 
             result = true;
         } catch (Exception e) {
-            LOGGER.info("Failed to delete gold price with [id:" + id + "]");
+            LOGGER.error("Failed to delete gold price with [id:" + id + "]", e);
         }
         return result;
     }

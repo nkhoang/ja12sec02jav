@@ -15,9 +15,9 @@ public class Currency {
     @Basic
     private String currency;
     @Basic
-    private Float priceBuy;
+    private Float priceBuy = 0f;
     @Basic
-    private Float priceSell;
+    private Float priceSell = 0f;
 
 
     public Float getPriceBuy() {

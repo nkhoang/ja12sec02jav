@@ -35,15 +35,12 @@ public class GoldDataRetrieverTest {
         Source source = retrieveWebContent("http://giavang.net");
     }
 
-
     public void testGetExchangeRate() {
         getExchangeRate();
     }
 
     @Test
     public void testTimeRange() throws Exception {
-
-
         String fromDateString = "2010-11-06 01:00";
         String toDateString = "2010-11-06 23:00";
 
@@ -53,7 +50,7 @@ public class GoldDataRetrieverTest {
         LOGGER.info(fromDate.getTime() + "");
         LOGGER.info(toDate.getTime() + "");
 
-        Long fromDateL = 12890000000000L;
+        Long fromDateL = 1289290771547L;
         Long toDateL = 1210838400000L;
         fromDate.setTime(fromDateL);
         toDate.setTime(toDateL);

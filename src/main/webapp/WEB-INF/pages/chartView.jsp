@@ -54,7 +54,7 @@
     <input id="fromDateInput" size="40"/>
     <input id="toDateInput" size="40" />
 
-    <button id="submitBtn" onclick="renderChartFromForm()" value="Update" name="updateBtn" title="Update"></button>
+    <button id="submitBtn" onclick="renderChartFromForm()" value="Update" name="updateBtn" title="Update">Update</button>
 </div>
 
 </body>

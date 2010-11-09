@@ -38,6 +38,11 @@ public class GoldVNAction {
     private static final String UPDATE_ALL_STARTING_INDEX_PARAM = "startingIndex";
     private static final int GOOGLE_APPENGINE_EXPIRE_INTERVAL = 16384;
 
+    /**
+     * Serve update VN gold price request. 
+     * @param startingIndex index of data to start with parsing.
+     * @param response HttpServletResponse object.
+     */
     @RequestMapping("/" + ViewConstant.GOLD_VN_UPDATE_REQUEST)
     public void update(@RequestParam(UPDATE_ALL_STARTING_INDEX_PARAM) String startingIndex, HttpServletResponse response) {
         LOGGER.debug("Starting to update Gold Vietnam...");
@@ -52,7 +57,7 @@ public class GoldVNAction {
             try {
                 i = Integer.parseInt(startingIndex);
             } catch (Exception e) {
-                LOGGER.error("Could not parse request param for Gold price update all.", e);
+                LOGGER.debug("Could not parse request param for Gold price update all. Continue with index = " + i);
             }
         }
         while (System.currentTimeMillis() - start < GOOGLE_APPENGINE_EXPIRE_INTERVAL) {
@@ -72,9 +77,9 @@ public class GoldVNAction {
         }
         LOGGER.info("Have saved: " + i + " item to GoldPrice table.");
         if (!shouldNotContinue){
+            LOGGER.info("Posting to queue with index [" + i + "]");                  
             QueueFactory.getDefaultQueue().add(url("/service/gold/" + ViewConstant.GOLD_VN_UPDATE_REQUEST + ".html?" + UPDATE_ALL_STARTING_INDEX_PARAM + "=" + i).method(TaskOptions.Method.GET));    
         }
-
         response.setContentType("text/html");
     }
 

@@ -7,7 +7,7 @@ lineThickness="1"
 showValues="0"  
  anchorRadius="3"  divLineAlpha="10"  divLineIsDashed="0"
 yAxisMaxValue="39.300003" yAxisMinValue="33.21" numDivLines="6" setAdaptiveYMin="1" 
-pixelsPerPoint="15"
+pixelsPerPoint="5"
 connectNullData="1" 
 yAxisName="Value" xAxisName="Date" 
 enableIconMouseCursors="0" 
@@ -515,13 +515,17 @@ shadowAlpha="40"  chartRightMargin="35">
     </dataset>
 	
     <styles>
-        <definition>
+        <definition>			
+            <style name="CaptionFont" type="font" size="12"/>			
+		   
 
-            <style name="CaptionFont" type="font" size="12"/>
         </definition>
-        <application>
+        <application>			
             <apply toObject="CAPTION" styles="CaptionFont"/>
             <apply toObject="SUBCAPTION" styles="CaptionFont"/>
+		    
+
+			
         </application>
     </styles>
 
