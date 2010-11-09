@@ -220,7 +220,11 @@ public class XMLDataAction {
                     while ((i = ap.evalXPath()) != -1) {
                         String setTag = "";
                         for (GoldPrice p : vnList) {
-                            setTag += "\n\t<set value='" + (p.getPriceBuy() != 0 ? p.getPriceBuy() : "") + "'/>";
+                            String setVal = "";
+                            if (p.getPriceBuy() != null) {
+                                setVal = p.getPriceBuy() != 0 ? p.getPriceBuy()+"" :"";
+                            }
+                            setTag += "\n\t<set value='" + setVal + "'/>";
 
                         }
                         xm.insertAfterHead(setTag);
@@ -234,7 +238,11 @@ public class XMLDataAction {
                     while ((i = ap.evalXPath()) != -1) {
                         String setTag = "";
                         for (GoldPrice p : inList) {
-                            setTag += "\n\t<set value='" + (p.getPriceBuy() != 0 ? p.getPriceBuy() : "") + "'/>";
+                            String setVal = "";
+                            if (p.getPriceBuy() != null) {
+                                setVal = (p.getPriceBuy() != 0 ? p.getPriceBuy()+"" : ""); 
+                            }
+                            setTag += "\n\t<set value='" + setVal + "'/>";
 
                         }
                         xm.insertAfterHead(setTag);
@@ -340,7 +348,7 @@ public class XMLDataAction {
         inList.addAll(inListAdded);
         java.util.Collections.sort(inList, new GoldPriceSortByTime());
 
-        for (int i = 0; i < vnList.size(); i++) {
+        /*for (int i = 0; i < vnList.size(); i++) {
             GoldPrice p = vnList.get(i);
             if (p.getPriceBuy() == null) {
                 if (i != 0) {
@@ -370,7 +378,7 @@ public class XMLDataAction {
                 }
 
             }
-        }
+        }*/
 
         LOGGER.info(vnList.toArray().toString());
 
