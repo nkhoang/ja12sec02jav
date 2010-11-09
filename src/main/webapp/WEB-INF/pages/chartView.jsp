@@ -13,12 +13,12 @@
     <script type="text/javascript" src="<c:url value='/js/chart/FusionCharts.js'/>"></script>
     <script type="text/javascript">
         $(function() {
-            renderChart('2010-10-01 01:01','2010-10-29 01:01');
+            renderChart('2010-11-08 01:01','2010-11-08 23:01');
         })
 
 
         function renderChart(fromDateStr, toDateStr) {
-            var chart = new FusionCharts("<c:url value='/swf/MSLine.swf'/>", "ChartId", "600", "350", "0", "0");
+            var chart = new FusionCharts("<c:url value='/swf/MSLine.swf'/>", "ChartId", "1024", "500", "0", "0");
             var xml;
             $.ajax({
                 url: '<c:url value="/data/chartData.html" />',

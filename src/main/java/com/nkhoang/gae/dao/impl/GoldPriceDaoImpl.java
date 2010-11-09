@@ -72,11 +72,12 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
         LOGGER.info("Checking gold price from DB: " + o.toString());
         boolean result = false;
         try {
-            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell ");
+            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell and t.time=:priceTime");
 
             query.setParameter("currency", o.getCurrency());
             query.setParameter("priceBuy", o.getPriceBuy());
             query.setParameter("priceSell", o.getPriceSell());
+            query.setParameter("priceTime", o.getTime());
 
             GoldPrice price = null;
 

@@ -75,7 +75,7 @@ public class GoldVNAction {
             QueueFactory.getDefaultQueue().add(url("/service/gold/" + ViewConstant.GOLD_VN_UPDATE_REQUEST + ".html?" + UPDATE_ALL_STARTING_INDEX_PARAM + "=" + i).method(TaskOptions.Method.GET));    
         }
 
-        response.setContentType("application/json");
+        response.setContentType("text/html");
     }
 
     @RequestMapping("/" + ViewConstant.GOLD_VN_UPDATE_ALL_REQUEST)
@@ -121,7 +121,7 @@ public class GoldVNAction {
             QueueFactory.getDefaultQueue().add(url("/service/gold/" + ViewConstant.GOLD_VN_UPDATE_ALL_REQUEST + ".html?" + UPDATE_ALL_STARTING_INDEX_PARAM + "=" + i).method(TaskOptions.Method.GET));
         }
 
-        response.setContentType("application/json");
+        response.setContentType("text/html");
         
     }
 

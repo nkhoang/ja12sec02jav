@@ -20,6 +20,7 @@ import java.io.InputStream;
 
 public class VTDXMLTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(VTDXMLTest.class);
+
     @Test
     public void testXML() throws Exception {
         ClassLoader loader = this.getClass().getClassLoader();
@@ -29,31 +30,62 @@ public class VTDXMLTest {
             LOGGER.info("File loaded successfully");
         }
 
+
         VTDGen vg = new VTDGen(); // Instantiate VTDGen
+        vg.parseFile("/Development/MSLine.xml", false);
+
         XMLModifier xm = new XMLModifier(); //Instantiate XMLModifier
         LOGGER.info("Starting to parse XML");
-        if (vg.parseFile("/Development/MSLine.xml", false)) {
-            LOGGER.info("XML is OK!");
-            VTDNav vn = vg.getNav();
+        VTDNav vn = vg.getNav();
+        AutoPilot ap = new AutoPilot(vn);
+        
+        xm.bind(vn);
 
-            xm.bind(vn);
 
-            AutoPilot ap = new AutoPilot(vn);
-            ap.selectXPath("/chart/dataset[@seriesName='VN']");
-            int i = -1;
+        int i = vn.getAttrVal("subcaption");
+        if (i != -1) {
+            xm.updateToken(i, "caption");
+        }
 
-            while ((i = ap.evalXPath()) != -1) {
-                xm.insertAfterHead("\n<set label='Jan' value='17400' />\n");
-            }
+        ap.selectXPath("/chart");
 
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        i = vn.getAttrVal("yAxisMaxValue");
+        if (i != -1) {
+            xm.updateToken(i, "456");
+        }
 
-            xm.output(bos);
+        ap.selectXPath("/chart");
+        i = vn.getAttrVal("yAxisMinValue");
+        if (i != -1) {
+            xm.updateToken(i, "123");
+        }
 
-            LOGGER.info(bos.toString());
+        ap.selectXPath("/chart/categories");
+        i = -1;
+        while ((i = ap.evalXPath()) != -1) {
+            String categoryTag = "<category value='cccc' />";
 
+            xm.insertAfterHead(categoryTag);
+        }
+        ap.selectXPath("/chart/dataset[@seriesName='VN']");
+        i = -1;
+        while ((i = ap.evalXPath()) != -1) {
+            xm.insertAfterHead("<set value='bbbbb' />");
 
         }
+
+
+        ap.selectXPath("/chart/dataset[@seriesName='International']");
+        i = -1;
+
+        while ((i = ap.evalXPath()) != -1) {
+            xm.insertAfterHead("<set value='aaaaa' />");
+        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        xm.output(bos);
+
+        LOGGER.info(bos.toString());
 
     }
 }

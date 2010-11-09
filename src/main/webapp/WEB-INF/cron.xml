@@ -6,7 +6,7 @@
 		<schedule>every 10 minutes</schedule>
 	</cron>
     <cron>
-		<url>/service/gold/goldVN.html</url>
+		<url>/service/gold/goldVN.html?startingIndex=0</url>
 		<description>Get the vietnamese gold price!</description>
 		<schedule>every 10 minutes</schedule>
 	</cron>

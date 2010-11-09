@@ -38,10 +38,11 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
     public boolean check(Currency c) {
         boolean result = false;
         try {
-            Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell");
+            Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currency and t.priceBuy=:priceBuy and t.priceSell=:priceSell and t.time = :currencyTime");
             query.setParameter("currency", c.getCurrency());
             query.setParameter("priceBuy", c.getPriceBuy());
             query.setParameter("priceSell", c.getPriceSell());
+            query.setParameter("currencyTime", c.getTime());
             Currency currency = null;
 
             currency = (Currency) query.getSingleResult();

@@ -28,6 +28,11 @@ public class DateConverter {
         return formatter.parse(tokenString);
     }
 
+    public static String parseDateFromLong(Long l) {
+        Date d = new Date(l);
+        return parseDate(d, defaultGoldDateFormat);
+    }
+
     public static String parseDate(Date date, String dateFormat) {
         formatter = new SimpleDateFormat(dateFormat, Locale.US);
         return formatter.format(date);

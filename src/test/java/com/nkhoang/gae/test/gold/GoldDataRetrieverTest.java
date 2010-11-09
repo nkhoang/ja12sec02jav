@@ -3,6 +3,7 @@ package com.nkhoang.gae.test.gold;
 import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.utils.DateConverter;
+import com.nkhoang.gae.utils.GoldConstants;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.junit.Test;
@@ -151,6 +152,18 @@ public class GoldDataRetrieverTest {
         }
         return listExchangeRate;
     }
+@Test
+    public void testConverter(){
+        LOGGER.info(convertGoldUS2VN(new Float("1350.0"), new Float("19.5f")).toString());
+    }
+
+    private Float convertGoldUS2VN(Float price, Float exchangeRate) {
+        Float result = 0f;
+
+        result = ((GoldConstants.vnoz * price) / GoldConstants.oz) /1000* exchangeRate;
+
+        return result;
+    }
 
     private Source retrieveWebContent(String websiteURL) {
         Source source = null;
@@ -169,7 +182,7 @@ public class GoldDataRetrieverTest {
         return source;
     }
 
-
+                       @Test
     public void testGetVnGoldPrice() {
         getVNGoldData("http://www.sjc.com.vn/chart/data.csv");
     }

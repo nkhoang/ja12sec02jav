@@ -35,7 +35,7 @@ public class GoldINAction {
         LOGGER.debug("Gold Price retrieved: " + goldPrice.toString());
         goldService.save(goldPrice);
 
-        response.setContentType("application/json");
+        response.setContentType("text/html");
     }
 
     private GoldPrice getInternationalGoldPrice() {
