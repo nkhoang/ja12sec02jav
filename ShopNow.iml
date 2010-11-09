@@ -20,7 +20,7 @@
           </files-to-enhance>
           <persistence-api>JPA</persistence-api>
           <run-enhancer-on-make>true</run-enhancer-on-make>
-          <sdk-home-path>F:/Softs/Softs/Development/Java/Runtime/appengine-java-sdk-1.3.7</sdk-home-path>
+          <sdk-home-path>E:/Softs/appengine-java-sdk-1.3.7</sdk-home-path>
           <email>nkhoang.it@gmail.com</email>
         </configuration>
       </facet>
@@ -58,7 +58,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Java EE 6" level="project" />
     <orderEntry type="library" name="Maven: com.google.collections:google-collections:1.0-rc5" level="project" />
@@ -146,7 +146,6 @@
     <orderEntry type="library" name="Maven: code.google.com:stax-api:1.0-2" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: net.htmlparser.jericho:jericho-html:3.1" level="project" />
-    <orderEntry type="library" name="Maven: code.ximpleware:vtd-xml:2.9" level="project" />
   </component>
 </module>
 
