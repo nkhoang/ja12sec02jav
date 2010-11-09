@@ -14,8 +14,7 @@ enableIconMouseCursors="0"
 paletteThemeColor1="FF0000" palette="3" 
 anchorMinRenderDistance="20" showToolTip="1"  
 anchorBgColor="FFFFFF" 
-rotateValues="1" labelDisplay="ROTATE" 
-
+rotateValues="1" labelDisplay="ROTATE"
 shadowAlpha="40"  chartRightMargin="35">
     <categories>
 	<category label="2010-11-02 08:14"/>

@@ -1,18 +1,25 @@
-<chart caption='Live Gold Chart' subcaption='' lineThickness='1' showValues='0'
-       formatNumberScale='0'
-       anchorRadius='2'
-       labelDisplay='ROTATE'
-       divLineAlpha='20' divLineColor='CC3300' divLineIsDashed='1'
-       adjustDiv='0' yAxisMaxValue='100' yAxisMinValue='0' numDivLines='1' setAdaptiveYMin='1'
-       showAlternateHGridColor='1' alternateHGridAlpha='5' alternateHGridColor='CC3300' shadowAlpha='40' labelStep="2"
-       chartRightMargin="35" bgColor='FFFFFF,CC3300' bgAngle='270' bgAlpha='10,10'>
+<chart
+numberSuffix=" mil" caption="Live Gold Chart" subcaption=""
+lineThickness="1"
+showValues="0"
+ anchorRadius="3"  divLineAlpha="10"  divLineIsDashed="0"
+yAxisMaxValue="" yAxisMinValue="" numDivLines="6" setAdaptiveYMin="1"
+pixelsPerPoint="15"
+connectNullData="1"
+yAxisName="Value" xAxisName="Date"
+enableIconMouseCursors="0"
+paletteThemeColor1="FF0000" palette="3"
+anchorMinRenderDistance="20" showToolTip="1"
+anchorBgColor="FFFFFF"
+rotateValues="1" labelDisplay="ROTATE"
+shadowAlpha="40"  chartRightMargin="35">
     <categories>
     </categories>
-    <dataset seriesName='VN' color='1D8BD1' anchorBorderColor='1D8BD1' anchorBgColor='1D8BD1'>
+    <dataset seriesName="VN" color="A66EDD" lineThickness="1">
 
     </dataset>
 
-    <dataset seriesName='International' color='F1683C' anchorBorderColor='F1683C' anchorBgColor='F1683C'>
+    <dataset seriesName="International" color="F6BD0F">
     </dataset>
 
     <styles>

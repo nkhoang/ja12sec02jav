@@ -10,7 +10,7 @@
 <head><title>View Live Chart</title>
 
     <script type="text/javascript" src="<c:url value='/js/jquery-1.4.2.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/js/chart/FusionCharts.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/chart/FusionCharts-3.2.1.js'/>"></script>
     <script type="text/javascript">
         $(function() {
             renderChart('2010-11-08 01:01','2010-11-08 23:01');
@@ -18,7 +18,7 @@
 
 
         function renderChart(fromDateStr, toDateStr) {
-            var chart = new FusionCharts("<c:url value='/swf/MSLine.swf'/>", "ChartId", "1024", "500", "0", "0");
+            var chart = new FusionCharts("<c:url value='/swf/ZoomLine.swf'/>", "ChartId", "1024", "768", "0", "0");
             var xml;
             $.ajax({
                 url: '<c:url value="/data/chartData.html" />',
