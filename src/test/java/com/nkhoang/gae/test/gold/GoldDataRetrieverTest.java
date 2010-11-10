@@ -1,5 +1,7 @@
 package com.nkhoang.gae.test.gold;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.utils.DateConverter;
@@ -151,15 +153,16 @@ public class GoldDataRetrieverTest {
         }
         return listExchangeRate;
     }
-@Test
-    public void testConverter(){
+
+    @Test
+    public void testConverter() {
         LOGGER.info(convertGoldUS2VN(new Float("1350.0"), new Float("19.5f")).toString());
     }
 
     private Float convertGoldUS2VN(Float price, Float exchangeRate) {
         Float result = 0f;
 
-        result = ((GoldConstants.vnoz * price) / GoldConstants.oz) /1000* exchangeRate;
+        result = ((GoldConstants.vnoz * price) / GoldConstants.oz) / 1000 * exchangeRate;
 
         return result;
     }
@@ -181,7 +184,7 @@ public class GoldDataRetrieverTest {
         return source;
     }
 
-                       @Test
+    @Test
     public void testGetVnGoldPrice() {
         getVNGoldData("http://www.sjc.com.vn/chart/data.csv");
     }
@@ -256,15 +259,26 @@ public class GoldDataRetrieverTest {
         }
 
     }
-                @Test
+
+    @Test
     public void testTimeZone() {
         //GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Dublin"));
-        Calendar calendar = GregorianCalendar.getInstance();            
+        Calendar calendar = GregorianCalendar.getInstance();
         LOGGER.info("Default timezone" + ": " + calendar.getTimeZone().getDisplayName());
         Long time = calendar.getTimeInMillis();
         LOGGER.info("time: " + time);
         LOGGER.info(DateConverter.parseDate(calendar.getTime(), DateConverter.defaultCurrencyDateFormat));
 
+
+    }
+
+    @Test
+    public void testJSON2Obj() {
+        String s = "[{'id':3631,'time':1289387007860,'currency':'USD','priceBuy':1402.4,'priceSell':1401.7}]";
+
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
+        GoldPrice p = gson.fromJson(s, GoldPrice.class);
 
     }
 }

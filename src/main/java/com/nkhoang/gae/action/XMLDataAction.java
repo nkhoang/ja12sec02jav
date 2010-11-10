@@ -56,7 +56,7 @@ public class XMLDataAction {
             final long start = System.currentTimeMillis();
             int deleted_count = 0;
             boolean is_finished = false;
-            List<GoldPrice> list = goldService.getVNGoldPrice("VND");
+            List<GoldPrice> list = goldService.getAllGoldPrice("VND");
             LOGGER.info("List size = " + list.size());
             if (list != null && list.size() > 0) {
                 while (System.currentTimeMillis() - start < 16384) {

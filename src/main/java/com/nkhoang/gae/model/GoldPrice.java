@@ -27,6 +27,10 @@ public class GoldPrice {
     @Basic
     private Float priceSell = 0f;
 
+    public static final String SKIP_FIELDS[] = {
+        "jdoDetachedState" 
+    };
+
     public GoldPrice() {
     }
 

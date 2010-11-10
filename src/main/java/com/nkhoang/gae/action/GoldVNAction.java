@@ -2,9 +2,11 @@ package com.nkhoang.gae.action;
 
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
+import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.GoldManager;
 import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.utils.DateConverter;
+import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
@@ -22,10 +25,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 
@@ -37,6 +37,22 @@ public class GoldVNAction {
     private GoldManager goldService;
     private static final String UPDATE_ALL_STARTING_INDEX_PARAM = "startingIndex";
     private static final int GOOGLE_APPENGINE_EXPIRE_INTERVAL = 16384;
+
+    @RequestMapping("/" + ViewConstant.GOLD_VN_DATA_REQUEST)
+    public ModelAndView retrieveGoldVN() {
+        LOGGER.debug("Starting to retrieve gold data to requester...");
+        List<GoldPrice> list = goldService.getAllGoldPrice("USD");
+        ModelAndView mav = new ModelAndView();
+        JSONView view = new JSONView();
+        mav.setView(view);
+        mav.addObject("data", list);
+         // construct data
+        List<String> attrs = new ArrayList<String>();
+        attrs.addAll(Arrays.asList(GoldPrice.SKIP_FIELDS));
+        mav.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
+        return mav;
+    }
+
 
     /**
      * Serve update VN gold price request. 

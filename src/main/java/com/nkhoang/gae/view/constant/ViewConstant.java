@@ -33,6 +33,7 @@ public class ViewConstant {
     public static final String VOCABULARY_VIEW_ALL_REQUEST = "listAll";
     public static final String VOCABULARY_ADD_WORD_REQUEST = "addWord";
     public static final String GOLD_VN_UPDATE_REQUEST = "goldVN";
+    public static final String GOLD_VN_DATA_REQUEST = "goldVNData";
     public static final String GOLD_VN_UPDATE_ALL_REQUEST = "goldVNAll";
     public static final String GOLD_IN_UPDATE_REQUEST = "goldIN";
     public static final String EXCHANGE_RATE_REQUEST = "exchangeRate";

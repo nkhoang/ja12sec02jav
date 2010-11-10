@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,8 +31,8 @@ public class ExchangeRateAction {
     private GoldManager goldService;
 
     @RequestMapping("/" + ViewConstant.EXCHANGE_RATE_REQUEST)
-    public void update() {
-        LOGGER.debug("Starting to update Gold Vietnam...");
+    public void update(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.debug("Starting to update Exchange rate...");
         List<Currency> listCurrencies = getExchangeRate();
 
         for (int i = 0; i < listCurrencies.size(); i++) {
@@ -42,6 +44,8 @@ public class ExchangeRateAction {
                 goldService.save(unit);
             }
         }
+
+        response.setContentType("application/json");
     }
 
     private List<Currency> getExchangeRate() {
