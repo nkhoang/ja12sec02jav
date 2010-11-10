@@ -57,7 +57,7 @@ public class XMLDataAction {
             int deleted_count = 0;
             boolean is_finished = false;
             List<GoldPrice> list = goldService.getVNGoldPrice("VND");
-            LOGGER.info("List size = " + list.size());                                    
+            LOGGER.info("List size = " + list.size());
             if (list != null && list.size() > 0) {
                 while (System.currentTimeMillis() - start < 16384) {
                     GoldPrice p = list.get(deleted_count);
@@ -381,28 +381,23 @@ public class XMLDataAction {
 
         for (int i = 0; i < vnList.size(); i++) {
             GoldPrice p = vnList.get(i);
-            if (p.getPriceBuy() == null) {
+            if (p.getPriceBuy().equals(0f)) {
                 if (i != 0) {
                     GoldPrice previous = vnList.get(i - 1);
-                    if (previous.getPriceBuy() != null) {
-                        p.setPriceBuy(previous.getPriceBuy());
-                        p.setPriceSell(previous.getPriceSell());
-                    }
+                    p.setPriceBuy(previous.getPriceBuy());
+                    p.setPriceSell(previous.getPriceSell());
                 } else {
                     p.setPriceBuy(0f);
                     p.setPriceSell(0f);
                 }
-
             }
 
             GoldPrice g = inList.get(i);
-            if (g.getPriceBuy() == null) {
+            if (g.getPriceBuy().equals(0f)) {
                 if (i != 0) {
                     GoldPrice previous = inList.get(i - 1);
-                    if (previous.getPriceBuy() != null) {
-                        g.setPriceBuy(previous.getPriceBuy());
-                        g.setPriceSell(previous.getPriceSell());
-                    }
+                    g.setPriceBuy(previous.getPriceBuy());
+                    g.setPriceSell(previous.getPriceSell());
                 } else {
                     p.setPriceBuy(0f);
                     p.setPriceSell(0f);

@@ -50,8 +50,10 @@ public class GoldDataRetrieverTest {
         LOGGER.info(fromDate.getTime() + "");
         LOGGER.info(toDate.getTime() + "");
 
-        Long fromDateL = 1289290771547L;
-        Long toDateL = 1210838400000L;
+        Long fromDateL = 1288548060000L;
+        //Long toDateL = 1289412060000L;
+        Long toDateL = 1289355060000L;
+
         fromDate.setTime(fromDateL);
         toDate.setTime(toDateL);
         LOGGER.info(DateConverter.parseDate(fromDate, DateConverter.defaultGoldDateFormat));
