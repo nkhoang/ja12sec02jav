@@ -3,7 +3,8 @@ package com.nkhoang.gae.model;
 import com.nkhoang.gae.utils.DateConverter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,9 +47,10 @@ public class GoldPrice {
     }   
 
     public String toString() {
-        Date date = new Date();
-        date.setTime(time);
-        return "Gold ==> Time: " + DateConverter.parseDate(date, DateConverter.defaultGoldDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
+        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Asia/Bangkok"));
+        calendar.setTimeInMillis(time);
+
+        return "Gold ==> Time: " + DateConverter.parseDate(calendar.getTime(), DateConverter.defaultGoldDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public void setPriceBuy(Float priceBuy) {

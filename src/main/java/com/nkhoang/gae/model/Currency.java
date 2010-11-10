@@ -3,7 +3,6 @@ package com.nkhoang.gae.model;
 import com.nkhoang.gae.utils.DateConverter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Currency {
@@ -45,9 +44,7 @@ public class Currency {
     }
 
     public String toString() {
-        Date date = new Date();
-        date.setTime(time);
-        return "Currency [" + currency + "] ==> time: " + DateConverter.parseDate(date, DateConverter.defaultCurrencyDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
+        return "Currency [" + currency + "] ==> time: " + DateConverter.parseDateFromLong(time) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public Float getPriceSell() {

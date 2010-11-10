@@ -3,12 +3,12 @@
 	<cron>
 		<url>/service/gold/goldIN.html</url>
 		<description>Get the international gold price!</description>
-		<schedule>every 10 minutes</schedule>
+		<schedule>every 2 minutes</schedule>
 	</cron>
     <cron>
 		<url>/service/gold/goldVN.html?startingIndex=0</url>
 		<description>Get the vietnamese gold price!</description>
-		<schedule>every 10 minutes</schedule>
+		<schedule>every 5 minutes</schedule>
 	</cron>
     <cron>
 		<url>/service/gold/exchangeRate.html</url>

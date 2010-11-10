@@ -153,6 +153,25 @@ public class GoldPriceDaoImpl extends GeneralDaoImpl<GoldPrice, Long> implements
     }
 
     /**
+     * Get all gold price of a currency type.
+     * @param currency currency to be retrieved.
+     * @return a list.
+     */
+    public List<GoldPrice> getAll(String currency) {
+        LOGGER.info("Get all gold price with currency=[" + currency + "] ...");
+        List<GoldPrice> result = null;
+        try {
+            Query query = entityManager.createQuery("Select from " + GoldPrice.class.getName() + " where currency=:currency");
+            query.setParameter("currency", currency);
+
+            result = query.getResultList();
+        } catch (Exception ex) {
+            LOGGER.error("Failed to load gold prices from DB.", ex);
+        }
+        return result;
+    }
+
+    /**
      * Delete an gold price from DB.
      *
      * @param id: gold price id.

@@ -48,6 +48,44 @@ public class XMLDataAction {
     private static final String CLEAR_ALL_KIND_PARAM = "kind";
     private static final float Y_VALUE_PADDING = 0.15f;
 
+
+    @RequestMapping(value = "/" + ViewConstant.CLEAR_ALL_VN_GOLD_PRICE_REQUEST, method = RequestMethod.GET)
+    public String clearAllVNGoldPrice(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            LOGGER.info("*** deleting VN GoldPrice form.");
+            final long start = System.currentTimeMillis();
+            int deleted_count = 0;
+            boolean is_finished = false;
+            List<GoldPrice> list = goldService.getVNGoldPrice("VND");
+            LOGGER.info("List size = " + list.size());                                    
+            if (list != null && list.size() > 0) {
+                while (System.currentTimeMillis() - start < 16384) {
+                    GoldPrice p = list.get(deleted_count);
+                    goldService.deleteGoldPrice(p.getId());
+
+                    deleted_count++;
+                    if (deleted_count == list.size()) {
+                        is_finished = true;
+                        break;
+                    }
+                }
+            } else {
+                is_finished = true;
+            }
+            LOGGER.info("*** deleted " + deleted_count);
+            if (is_finished) {
+                LOGGER.info("*** deletion job is completed.");
+            } else {
+                LOGGER.info("Posting to queue");
+                QueueFactory.getDefaultQueue().add(url("/data/" + ViewConstant.CLEAR_ALL_VN_GOLD_PRICE_REQUEST + ".html").method(TaskOptions.Method.GET));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Error when deleting all VN gold price", e);
+        }
+        // just return as a normal HTML.
+        return "html";
+    }
+
     /**
      * Clear all data from a kind.
      *
@@ -206,9 +244,8 @@ public class XMLDataAction {
                     while ((i = ap.evalXPath()) != -1) {
                         String categoryTag = "";
                         for (GoldPrice p : vnList) {
-                            Date d = new Date();
-                            d.setTime(p.getTime());
-                            categoryTag += "\n\t<category label='" + DateConverter.parseDate(d, DateConverter.defaultGoldDateFormat) + "'/>";
+
+                            categoryTag += "\n\t<category label='" + DateConverter.parseDateFromLong(p.getTime()) + "'/>";
                         }
                         xm.insertAfterHead(categoryTag);
                     }
@@ -219,7 +256,7 @@ public class XMLDataAction {
                         for (GoldPrice p : vnList) {
                             String setVal = "";
                             if (p.getPriceBuy() != null) {
-                                setVal = p.getPriceBuy() != 0 ? p.getPriceBuy()+"" :"";
+                                setVal = p.getPriceBuy() != 0 ? p.getPriceBuy() + "" : "";
                             }
                             setTag += "\n\t<set value='" + setVal + "'/>";
 
@@ -234,7 +271,7 @@ public class XMLDataAction {
                         for (GoldPrice p : inList) {
                             String setVal = "";
                             if (p.getPriceBuy() != null) {
-                                setVal = (p.getPriceBuy() != 0 ? p.getPriceBuy()+"" : ""); 
+                                setVal = (p.getPriceBuy() != 0 ? p.getPriceBuy() + "" : "");
                             }
                             setTag += "\n\t<set value='" + setVal + "'/>";
 

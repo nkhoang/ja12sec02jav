@@ -61,8 +61,16 @@ public class GoldManager implements BaseManager<GoldPrice, Long> {
         return goldPriceDao.getGoldPriceWithRange(currency, from.getTime(), to.getTime());
     }
 
+    public List<GoldPrice> getVNGoldPrice(String currency) {
+        return goldPriceDao.getAll(currency);
+    }
+
     public List<GoldPrice> getAllGoldPrice() {
         return goldPriceDao.getAll();
+    }
+
+    public void deleteGoldPrice(Long id) {
+        goldPriceDao.delete(id);
     }
 
 

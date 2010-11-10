@@ -3,7 +3,9 @@ package com.nkhoang.gae.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,16 +27,20 @@ public class DateConverter {
      */
     public static Date convertFromStringToken(String tokenString, String dateFormat) throws ParseException{
         formatter = new SimpleDateFormat(dateFormat, Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
         return formatter.parse(tokenString);
     }
 
     public static String parseDateFromLong(Long l) {
-        Date d = new Date(l);
+        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Asia/Bangkok"));
+        calendar.setTimeInMillis(l);
+        Date d = calendar.getTime();
         return parseDate(d, defaultGoldDateFormat);
     }
 
     public static String parseDate(Date date, String dateFormat) {
         formatter = new SimpleDateFormat(dateFormat, Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
         return formatter.format(date);
     }
 }

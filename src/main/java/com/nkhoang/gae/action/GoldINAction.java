@@ -59,6 +59,7 @@ public class GoldINAction {
             LOGGER.debug("International Gold Price: " + priceString);
             // process string
             Calendar calendar = GregorianCalendar.getInstance();
+            LOGGER.info(calendar.getTimeZone().getDisplayName());
             Date currentDate = calendar.getTime();
             price.setTime(currentDate.getTime());
             price.setCurrency("USD");

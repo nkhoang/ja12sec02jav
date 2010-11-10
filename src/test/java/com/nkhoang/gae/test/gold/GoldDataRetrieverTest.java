@@ -254,4 +254,15 @@ public class GoldDataRetrieverTest {
         }
 
     }
+                @Test
+    public void testTimeZone() {
+        //GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Dublin"));
+        Calendar calendar = GregorianCalendar.getInstance();            
+        LOGGER.info("Default timezone" + ": " + calendar.getTimeZone().getDisplayName());
+        Long time = calendar.getTimeInMillis();
+        LOGGER.info("time: " + time);
+        LOGGER.info(DateConverter.parseDate(calendar.getTime(), DateConverter.defaultCurrencyDateFormat));
+
+
+    }
 }
