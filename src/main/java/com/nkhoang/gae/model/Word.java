@@ -9,24 +9,21 @@ import java.util.Map;
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
 public class Word {
-    private static final byte[] NOUN_BYTES = { 100, 97, 110, 104, 32, 116, -31, -69, -85, 32 };
-    private static final byte[] VERB_IN = { 110, 103, 111, -31, -70, -95, 105, 32, -60, -111, -31, -69, -103, 110, 103,
-            32, 116, -31, -69, -85, 32 };
-    private static final byte[] VERB_TR = { 110, -31, -69, -103, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116,
-            -31, -69, -85, 32 };
-    private static final byte[] VERB_ADJ = { 116, -61, -83, 110, 104, 32, 116, -31, -69, -85, 32 };
-    private static final byte[] VERB_ADV = { 112, 104, -61, -77, 32, 116, -31, -69, -85, 32 };
-    public static final String WORD_KIND_NOUN = new String(NOUN_BYTES);
-    public static final String WORD_KIND_VERB_IN = new String(VERB_IN);
-    public static final String WORD_KIND_VERB_TR = new String(VERB_TR);
-    public static final String WORD_KIND_ADV = new String(VERB_ADV);
-    public static final String WORD_KIND_ADJ = new String(VERB_ADJ);
+    public static final byte[] NOUN_BYTES = {100, 97, 110, 104, 32, 116, -31, -69, -85};
+    private static final byte[] VERB_IN = {110, -31, -69, -103, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
+    private static final byte[] VERB_TR = {110, 103, 111, -31, -70, -95, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
+    private static final byte[] VERB_ADJ = {116, -61, -83, 110, 104, 32, 116, -31, -69, -85};
+    private static final byte[] VERB_ADV = {112, 104, -61, -77, 32, 116, -31, -69, -85};
+    public static String WORD_KIND_NOUN = "";
+    public static String WORD_KIND_VERB_IN = "";
+    public static String WORD_KIND_VERB_TR = "";
+    public static String WORD_KIND_ADV = "";
+    public static String WORD_KIND_ADJ = "";
     public static final String WORD_KIND_NOUN_EN = "noun";
     public static final String WORD_KIND_VERB_EN = "verb";
     public static final String WORD_KIND_ADJ_EN = "adjective";
     public static final String WORD_KIND_ADV_EN = "adverb";
-    public static final String[] WORD_KINDS = { WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
-            WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN };
+    public static String[] WORD_KINDS = {};
     private final Map<String, Long> kindIdMap = new HashMap<String, Long>();
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -44,7 +41,22 @@ public class Word {
     private final Map<Long, List<Meaning>> meanings = new HashMap<Long, List<Meaning>>(0);
     @Transient
     private List<Long> kindIdList = new ArrayList();
-    public static final String SKIP_FIELDS[] = { "jdoDetachedState", "kindIdMap", "meaningIds" };
+    public static final String SKIP_FIELDS[] = {"jdoDetachedState", "kindIdMap", "meaningIds"};
+
+    {
+        try {
+            WORD_KIND_NOUN = new String(NOUN_BYTES, "UTF-8");
+            WORD_KIND_VERB_IN = new String(VERB_IN, "UTF-8");
+            WORD_KIND_VERB_TR = new String(VERB_TR, "UTF-8");
+            WORD_KIND_ADV = new String(VERB_ADV, "UTF-8");
+            WORD_KIND_ADJ = new String(VERB_ADJ, "UTF-8");
+
+            WORD_KINDS = new String[] {WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
+                    WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN};
+
+        } catch (Exception e) {
+        }
+    }
 
     public Word() {
         // init
@@ -134,4 +146,7 @@ public class Word {
         return soundSource;
     }
 
+    public String toString() {
+        return "Word: " + description + " with sound [" + soundSource + "]";
+    }
 }

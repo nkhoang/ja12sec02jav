@@ -23,6 +23,8 @@ public class Meaning {
 	@Basic
 	private List<String> examples = new ArrayList<String>(0);
 	private String kind;
+    @Basic
+    private String type;
 	public static final String SKIP_FIELDS[] = { "jdoDetachedState" };
 
 	public Meaning(String content, Long kindId) {
@@ -44,7 +46,7 @@ public class Meaning {
 
 	@Override
 	public String toString() {
-		return content + " " + examples.toString();
+		return content + "\n" + examples.toString();
 	}
 
 	public Long getId() {
@@ -83,4 +85,11 @@ public class Meaning {
 		return kind;
 	}
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
