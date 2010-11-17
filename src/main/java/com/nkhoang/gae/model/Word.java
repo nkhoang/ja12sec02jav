@@ -12,6 +12,7 @@ public class Word {
     public static final byte[] NOUN_BYTES = {100, 97, 110, 104, 32, 116, -31, -69, -85};
     private static final byte[] VERB_IN = {110, -31, -69, -103, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
     private static final byte[] VERB_TR = {110, 103, 111, -31, -70, -95, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
+    private static final byte[] VERB_BYTES = {-60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
     private static final byte[] VERB_ADJ = {116, -61, -83, 110, 104, 32, 116, -31, -69, -85};
     private static final byte[] VERB_ADV = {112, 104, -61, -77, 32, 116, -31, -69, -85};
     public static String WORD_KIND_NOUN = "";
@@ -19,6 +20,7 @@ public class Word {
     public static String WORD_KIND_VERB_TR = "";
     public static String WORD_KIND_ADV = "";
     public static String WORD_KIND_ADJ = "";
+    public static String WORD_KIND_VERB = "";
     public static final String WORD_KIND_NOUN_EN = "noun";
     public static final String WORD_KIND_VERB_EN = "verb";
     public static final String WORD_KIND_ADJ_EN = "adjective";
@@ -50,8 +52,9 @@ public class Word {
             WORD_KIND_VERB_TR = new String(VERB_TR, "UTF-8");
             WORD_KIND_ADV = new String(VERB_ADV, "UTF-8");
             WORD_KIND_ADJ = new String(VERB_ADJ, "UTF-8");
+            WORD_KIND_VERB = new String(VERB_BYTES, "UTF-8");
 
-            WORD_KINDS = new String[] {WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
+            WORD_KINDS = new String[] {WORD_KIND_VERB, WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
                     WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN};
 
         } catch (Exception e) {
