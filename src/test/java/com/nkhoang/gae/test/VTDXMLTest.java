@@ -22,6 +22,10 @@ public class VTDXMLTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(VTDXMLTest.class);
 
     @Test
+    public void run() {
+
+    }
+
     public void testXML() throws Exception {
         ClassLoader loader = this.getClass().getClassLoader();
         InputStream is = loader.getResourceAsStream("resources/MSLine.xml");

@@ -124,7 +124,7 @@ function playFlash(B, D, A) {
 					$('#loadWordImg').addClass('loading');
 				},
 				success: function(data){
-					var meanings = data.words[0].meanings[0];
+					var meanings = data.words[0].meanings;
 					if (meanings.length > 0 ){
 						$('#wordArea').empty();
 							for (var i = 0 ;i < meanings.length ; i++){

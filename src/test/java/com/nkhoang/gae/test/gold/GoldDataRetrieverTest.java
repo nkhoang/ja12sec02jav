@@ -42,7 +42,6 @@ public class GoldDataRetrieverTest {
         getExchangeRate();
     }
 
-    @Test
     public void testTimeRange() throws Exception {
         String fromDateString = "2010-11-06 01:00";
         String toDateString = "2010-11-06 23:00";
@@ -155,7 +154,6 @@ public class GoldDataRetrieverTest {
         return listExchangeRate;
     }
 
-    @Test
     public void testConverter() {
         LOGGER.info(convertGoldUS2VN(new Float("1350.0"), new Float("19.5f")).toString());
     }
@@ -185,7 +183,6 @@ public class GoldDataRetrieverTest {
         return source;
     }
 
-    @Test
     public void testGetVnGoldPrice() {
         getVNGoldData("http://www.sjc.com.vn/chart/data.csv");
     }
@@ -261,7 +258,6 @@ public class GoldDataRetrieverTest {
 
     }
 
-    @Test
     public void testTimeZone() {
         //GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Dublin"));
         Calendar calendar = GregorianCalendar.getInstance();

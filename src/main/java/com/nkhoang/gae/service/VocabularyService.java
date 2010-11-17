@@ -1,13 +1,15 @@
 package com.nkhoang.gae.service;
 
-import java.util.List;
-
 import com.nkhoang.gae.model.Word;
+
+import java.util.List;
 
 public interface VocabularyService {
 	public Word lookup(String word);
 
-	public Word lookupEN(Word aWord, String word);
+	public Word lookupENLongman(Word aWord, String word);
+
+    public Word lookupENCambridge(Word aWord, String word);
 
 	public Word save(String lookupWord);
 
