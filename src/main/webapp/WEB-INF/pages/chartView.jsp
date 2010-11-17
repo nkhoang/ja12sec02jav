@@ -51,9 +51,7 @@
 <div id="chartdiv"></div>
 
 <div>
-    <input id="fromDateInput" size="40"/>
-    <input id="toDateInput" size="40" />
-
+    From <input id="fromDateInput" size="20"/> to <input id="toDateInput" size="20" />
     <button id="submitBtn" onclick="renderChartFromForm()" value="Update" name="updateBtn" title="Update">Update</button>
 </div>
 

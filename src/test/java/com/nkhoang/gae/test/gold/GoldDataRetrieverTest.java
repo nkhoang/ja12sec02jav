@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -277,8 +278,11 @@ public class GoldDataRetrieverTest {
         String s = "[{'id':3631,'time':1289387007860,'currency':'USD','priceBuy':1402.4,'priceSell':1401.7}]";
 
         Gson gson = new Gson();
-        Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
-        GoldPrice p = gson.fromJson(s, GoldPrice.class);
+        Type collectionType = new TypeToken<Collection<GoldPrice>>() {}.getType();
+        List<GoldPrice> list = gson.fromJson(s, collectionType);
+        for (GoldPrice p : list) {
+            LOGGER.info(p.toString());
+        }
 
     }
 }

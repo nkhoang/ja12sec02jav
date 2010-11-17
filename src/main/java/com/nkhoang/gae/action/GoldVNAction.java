@@ -41,7 +41,7 @@ public class GoldVNAction {
     @RequestMapping("/" + ViewConstant.GOLD_VN_DATA_REQUEST)
     public ModelAndView retrieveGoldVN() {
         LOGGER.debug("Starting to retrieve gold data to requester...");
-        List<GoldPrice> list = goldService.getAllGoldPrice("USD");
+        List<GoldPrice> list = goldService.getAllGoldPrice("VND");
         ModelAndView mav = new ModelAndView();
         JSONView view = new JSONView();
         mav.setView(view);
