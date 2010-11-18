@@ -61,10 +61,9 @@ public class VocabularyAction {
                 LOGGER.debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
             }
         }
-        while (System.currentTimeMillis() - start < 16384) {
+        boolean finished = false;
+        while (System.currentTimeMillis() - start < 16384 && !finished) {
             try {
-                
-
                 URL metafeedUrl = new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full");
                 SpreadsheetFeed feed = spreadsheetService.getService().getFeed(metafeedUrl, SpreadsheetFeed.class);
                 List<SpreadsheetEntry> spreadsheets = feed.getEntries();
@@ -91,14 +90,18 @@ public class VocabularyAction {
                                     try {
                                         vocabularyService.save(cellValue.trim().toLowerCase());
                                         index += 1;
-                                    } catch (Exception ex) {
-                                        LOGGER.error("Cound not process word: " + cellValue);
+                                    } catch (IOException ex) {
+                                        LOGGER.error("Cound not process word: " + cellValue, ex);
+                                    } catch (IllegalArgumentException iae) {
+                                        index += 1;                                        
                                     }
+
 
                                     LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
 
-                                    LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue");
+                                    LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: " + index);
                                     QueueFactory.getDefaultQueue().add(url("/vocabulary/update.html?index=" + index).method(TaskOptions.Method.GET));
+                                    finished = true;
                                 }
                                 //}
                                 break;
@@ -157,11 +160,13 @@ public class VocabularyAction {
         User user = getUserCredential();
         if (user != null && word != null && StringUtils.isNotEmpty(word)) {
             // delete item
-            Word savedWord = vocabularyService.save(word);
-            user.getWordList().add(savedWord.getId());
+            try {
+                Word savedWord = vocabularyService.save(word);
+                user.getWordList().add(savedWord.getId());
+                userService.update(user);
+            } catch (IOException ex) {
+            }
         }
-
-        userService.update(user);
 
         jsonData.put("result", result);
         View jsonView = new JSONView();
