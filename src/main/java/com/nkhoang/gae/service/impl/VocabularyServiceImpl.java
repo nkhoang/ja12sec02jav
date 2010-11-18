@@ -65,7 +65,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    public Word save(String lookupWord) throws IOException, IllegalArgumentException{
+    public Word save(String lookupWord) throws IOException, IllegalArgumentException {
         if (vocabularyDao.find(lookupWord)) {
             LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
         }
@@ -75,6 +75,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             word = lookup(lookupWord);
 
             word = lookupENLongman(word, lookupWord);
+            lookupPron(word, lookupWord);
         } catch (IOException ex) {
             LOGGER.info("Failed to connect to dictionary to lookup word definition.");
             throw ex;
@@ -121,7 +122,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      * @param word
      * @return null if failed to retrieve even one of the 2 services.
      */
-    private Word lookupENLongman(Word aWord, String word) throws IOException{
+    private Word lookupENLongman(Word aWord, String word) throws IOException {
         LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN : " + word);
         Word result = null;
         if (aWord == null) {
@@ -247,6 +248,69 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
+    private void lookupPron(Word aWord, String word) throws IOException {
+        LOGGER.info("looking up word EN : " + word);
+        try {
+            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "definition-title");
+            int i = 1;
+            if (source == null) {
+                // check it again
+                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "definition-title");
+            }
+            while (source != null) {
+                // process the content
+                List<Element> contentEles = source.getAllElementsByClass("gwblock ");
+                // should be one
+                Element targetContent = contentEles.get(0);
+                String kind = "";
+                // get kind
+                List<Element> headers = targetContent.getAllElementsByClass("header");
+                if (headers != null && headers.size() > 0) {
+                    Element header = headers.get(0);
+
+                    List<Element> kinds = header.getAllElementsByClass("pos");
+                    if (kinds != null && kinds.size() > 0) {
+                        kind = kinds.get(0).getContent().toString().trim();
+                    }
+                }
+
+                List<Element> additional_headers = targetContent.getAllElementsByClass("additional_header");
+                if (additional_headers != null && additional_headers.size() > 0) {
+                    Element additional_header = additional_headers.get(0);
+                    List<Element> prons = additional_header.getAllElementsByClass("pron");
+                    // get Pron
+                    if (prons != null && prons.size() > 0) {
+                        String pron = prons.get(0).getTextExtractor().toString();
+                        // LOGGER.info("Pron: " + pron);
+                        aWord.setPron(pron);
+
+                    }
+                    // get mp3 file
+                    List<Element> sounds = additional_header.getAllElementsByClass("sound");
+                    // may have 2
+                    if (sounds != null && sounds.size() > 0) {
+                        Element sound = null;
+                        if (sounds.size() == 1) {
+                            sound = sounds.get(0);
+                        } else if (sounds.size() == 2) {
+                            sound = sounds.get(1);
+                        }
+
+                        // process
+                        String soundSource = sound.getAttributeValue("onclick");
+                        String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
+                        // LOGGER.info("Found a sound source: " + soundSrc);
+                        aWord.setSoundSource(soundSrc);
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Exception", e);
+        }
+    }
+
+
     private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
@@ -349,7 +413,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return aWord;
     }
 
-    private Source checkWordExistence(String urlLink, String word, String targetContent)throws IOException {
+    private Source checkWordExistence(String urlLink, String word, String targetContent) throws IOException {
         URL url = new URL(urlLink + word);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
