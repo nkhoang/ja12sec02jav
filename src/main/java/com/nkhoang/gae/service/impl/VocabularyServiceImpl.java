@@ -466,6 +466,9 @@ public class VocabularyServiceImpl implements VocabularyService {
                 // set the word kind.
                 kind = ele.getContent().toString();
                 if (kind != null) {
+                    if (kind.contains(",")){
+                        kind = kind.split(",")[0];
+                    }
                     String[] words = kind.split(" ");
                     kind = "";
                     int limit = words.length > 3 ? 3 : words.length;

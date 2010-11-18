@@ -2,7 +2,9 @@ package com.nkhoang.gae.action;
 
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
-import com.google.gdata.data.spreadsheet.*;
+import com.google.gdata.client.spreadsheet.CellQuery;
+import com.google.gdata.data.spreadsheet.CellEntry;
+import com.google.gdata.data.spreadsheet.CellFeed;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.User;
@@ -49,11 +51,22 @@ public class VocabularyAction {
     }
 
 
+    /**
+     * URL should contains params "index" and "col" to limit the response content from Google Spreadsheet API.
+     *
+     * @param startingIndex starting index.
+     * @param columnIndex   column index.
+     * @param response      HttpServletResponse.
+     */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
-    public void updateWordsFromSpreadSheet(@RequestParam("index") String startingIndex, HttpServletResponse response) {
+    public void updateWordsFromSpreadSheet(@RequestParam("index") String startingIndex
+            , @RequestParam("col") String columnIndex
+            , HttpServletResponse response) {
         final long start = System.currentTimeMillis();
 
         int index = 0;
+        int col = 1; // column index starting from 1 not 0.
+        // parse starting index.
         if (StringUtils.isNotEmpty(startingIndex)) {
             try {
                 index = Integer.parseInt(startingIndex);
@@ -61,55 +74,54 @@ public class VocabularyAction {
                 LOGGER.debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
             }
         }
+        // parse column index.
+        if (StringUtils.isNotEmpty(columnIndex)) {
+            try {
+                col = Integer.parseInt(columnIndex);
+            } catch (Exception e) {
+                LOGGER.debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
+            }
+        }
         boolean finished = false;
         while (System.currentTimeMillis() - start < 16384 && !finished) {
             try {
-                URL metafeedUrl = new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full");
-                SpreadsheetFeed feed = spreadsheetService.getService().getFeed(metafeedUrl, SpreadsheetFeed.class);
-                List<SpreadsheetEntry> spreadsheets = feed.getEntries();
+                URL cellfeedURL = new URL("https://spreadsheets.google.com/feeds/cells/peZDHyA4LqhdRYA8Uv_sufw/od6/private/full");
+                CellQuery query = new CellQuery(cellfeedURL);
+                query.setMinimumCol(col);
+                query.setMaximumCol(col);
+                CellFeed cellfeed = spreadsheetService.getService().query(query, CellFeed.class);
 
-                for (int i = 0; i < spreadsheets.size(); i++) {
-                    SpreadsheetEntry spreadsheetEntry = spreadsheets.get(i);
-                    String spreadsheetTitle = spreadsheetEntry.getTitle().getPlainText();
-                    if (spreadsheetTitle.equals("Vocabulary")) {
-                        List<WorksheetEntry> worksheets = spreadsheetEntry.getWorksheets();
-                        for (int j = 0; j < worksheets.size(); j++) {
-                            WorksheetEntry worksheetEntry = worksheets.get(j);
-                            String worksheetTitle = worksheetEntry.getTitle().getPlainText();
-                            if (worksheetTitle.equals("General Vocabulary")) {
+                List<CellEntry> cells = cellfeed.getEntries();
 
-                                URL cellFeedUrl = worksheetEntry.getCellFeedUrl();
-                                CellFeed cellFeed = spreadsheetService.getService().getFeed(cellFeedUrl, CellFeed.class);
-                                //for (int k = index; k < cellFeed.getEntries().size(); k++) {
-                                if (index == cellFeed.getEntries().size()) {
-                                    LOGGER.info(">>>>>>>>>>>>>>> Stop posting to queue.");
-                                } else {
-                                    CellEntry cell = cellFeed.getEntries().get(index);
-                                    String shortId = cell.getId().substring(cell.getId().lastIndexOf('/') + 1);
-                                    String cellValue = cell.getCell().getValue();
-                                    try {
-                                        vocabularyService.save(cellValue.trim().toLowerCase());
-                                        index += 1;
-                                    } catch (IOException ex) {
-                                        LOGGER.error("Cound not process word: " + cellValue, ex);
-                                    } catch (IllegalArgumentException iae) {
-                                        index += 1;                                        
-                                    }
-
-
-                                    LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
-
-                                    LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: " + index);
-                                    QueueFactory.getDefaultQueue().add(url("/vocabulary/update.html?index=" + index).method(TaskOptions.Method.GET));
-                                    finished = true;
-                                }
-                                //}
-                                break;
-                            }
-                        }
+                if (index == cells.size()) { // check index if it exceed the maximum row
+                    col += 1; // maximum row reached.
+                    index = 0; // reset index.
+                    if (col > cellfeed.getColCount()) { // check column index.
+                        LOGGER.info("End of document.");
                         break;
                     }
                 }
+
+                CellEntry cell = cells.get(index);
+
+                // String shortId = cell.getId().substring(cell.getId().lastIndexOf('/') + 1);
+                String cellValue = cell.getCell().getValue();
+                try {
+                    if (cellValue.trim().contains(" ")) {
+                        throw new IllegalArgumentException("Illegal param for a URL");
+                    }
+                    vocabularyService.save(cellValue.trim().toLowerCase());
+                    index += 1;
+
+                } catch (IOException ex) {
+                    LOGGER.error("Cound not process word: " + cellValue, ex);
+                } catch (IllegalArgumentException iae) {
+                    index += 1;
+                }
+                //LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
+                LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "] and col [" + col + "]");
+                QueueFactory.getDefaultQueue().add(url("/vocabulary/update.html?index=" + index + "&col=" + col).method(TaskOptions.Method.GET));
+                finished = true;
             } catch (Exception
                     authex) {
                 LOGGER.error("Could not communicate with Google Spreadsheet.", authex);
