@@ -12,8 +12,10 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
 
     // @off
+
     /**
      * Look up a word from DB.
+     *
      * @return an obj
      *         or
      *         null.
@@ -30,6 +32,24 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             result = (Word) query.getSingleResult();
         } catch (Exception e) {
             LOGGER.info("Failed to lookup word : " + word);
+            LOGGER.error("Error", e);
+        }
+        return result;
+    }
+
+    public boolean find(String w) {
+        LOGGER.info("Finding word : " + w);
+        boolean result = false;
+        try {
+            Query query = entityManager.createQuery("Select from " + Word.class.getName() + " where description=:wDes");
+            query.setParameter("wDes", w);
+
+            List<Word> wList = query.getResultList();
+
+            if (wList != null && wList.size() > 0) {
+                result = true;
+            }
+        } catch (Exception e) {
             LOGGER.error("Error", e);
         }
         return result;

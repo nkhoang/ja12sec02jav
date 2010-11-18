@@ -26,6 +26,10 @@ public class VocabularyTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(VocabularyTest.class);
 
     @Test
+    public void run() {
+
+    }
+
     public void testLookupEN() {
         Word w = lookup("take");
         w = lookupENLongman(w, "take");

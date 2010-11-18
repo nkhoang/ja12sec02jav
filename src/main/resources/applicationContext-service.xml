@@ -28,6 +28,9 @@
         <property name="defaultDocument" value="${google.defaultDocument}"/>
     </bean>
 
+    <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="singleton">
+    </bean>
+
     <!-- Gold Service -->
     <bean name="goldService" class="com.nkhoang.gae.manager.GoldManager" scope="prototype">
         <property name="goldPriceDao" ref="goldPriceDao"/>

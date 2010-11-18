@@ -1,13 +1,19 @@
 package com.nkhoang.gae.action;
 
+import com.google.appengine.api.labs.taskqueue.QueueFactory;
+import com.google.appengine.api.labs.taskqueue.TaskOptions;
+import com.google.gdata.data.spreadsheet.*;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
+import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,11 +24,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
+
+import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 
 @Controller
 @RequestMapping("/" + ViewConstant.VOCABULARY_NAMESPACE)
 public class VocabularyAction {
+    private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyAction.class);
+
+    @Autowired
+    private SpreadsheetServiceImpl spreadsheetService;
     @Autowired
     private VocabularyService vocabularyService;
     @Autowired
@@ -31,6 +46,80 @@ public class VocabularyAction {
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_HOME_REQUEST, method = RequestMethod.GET)
     public String getVocabularyPage() {
         return ViewConstant.VOCABULARY_VIEW;
+    }
+
+
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
+    public void updateWordsFromSpreadSheet(@RequestParam("index") String startingIndex, HttpServletResponse response) {
+        final long start = System.currentTimeMillis();
+
+        int index = 0;
+        if (StringUtils.isNotEmpty(startingIndex)) {
+            try {
+                index = Integer.parseInt(startingIndex);
+            } catch (Exception e) {
+                LOGGER.debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
+            }
+        }
+        while (System.currentTimeMillis() - start < 16384) {
+            try {
+                
+
+                URL metafeedUrl = new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full");
+                SpreadsheetFeed feed = spreadsheetService.getService().getFeed(metafeedUrl, SpreadsheetFeed.class);
+                List<SpreadsheetEntry> spreadsheets = feed.getEntries();
+
+                for (int i = 0; i < spreadsheets.size(); i++) {
+                    SpreadsheetEntry spreadsheetEntry = spreadsheets.get(i);
+                    String spreadsheetTitle = spreadsheetEntry.getTitle().getPlainText();
+                    if (spreadsheetTitle.equals("Vocabulary")) {
+                        List<WorksheetEntry> worksheets = spreadsheetEntry.getWorksheets();
+                        for (int j = 0; j < worksheets.size(); j++) {
+                            WorksheetEntry worksheetEntry = worksheets.get(j);
+                            String worksheetTitle = worksheetEntry.getTitle().getPlainText();
+                            if (worksheetTitle.equals("General Vocabulary")) {
+
+                                URL cellFeedUrl = worksheetEntry.getCellFeedUrl();
+                                CellFeed cellFeed = spreadsheetService.getService().getFeed(cellFeedUrl, CellFeed.class);
+                                //for (int k = index; k < cellFeed.getEntries().size(); k++) {
+                                if (index == cellFeed.getEntries().size()) {
+                                    LOGGER.info(">>>>>>>>>>>>>>> Stop posting to queue.");
+                                } else {
+                                    CellEntry cell = cellFeed.getEntries().get(index);
+                                    String shortId = cell.getId().substring(cell.getId().lastIndexOf('/') + 1);
+                                    String cellValue = cell.getCell().getValue();
+                                    try {
+                                        vocabularyService.save(cellValue.trim().toLowerCase());
+                                        index += 1;
+                                    } catch (Exception ex) {
+                                        LOGGER.error("Cound not process word: " + cellValue);
+                                    }
+
+                                    LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
+
+                                    LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue");
+                                    QueueFactory.getDefaultQueue().add(url("/vocabulary/update.html?index=" + index).method(TaskOptions.Method.GET));
+                                }
+                                //}
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            } catch (Exception
+                    authex) {
+                LOGGER.error("Could not communicate with Google Spreadsheet.", authex);
+            }
+        }
+        response.setContentType("text/html");
+        try {
+
+            response.getWriter().write("Being updated. Stay tuned!");
+        } catch (IOException ioe) {
+            LOGGER.error("Could not write to response.", ioe);
+        }
+
     }
 
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_ALL_REQUEST, method = RequestMethod.POST)
@@ -109,5 +198,13 @@ public class VocabularyAction {
 
     public UserManager getUserService() {
         return userService;
+    }
+
+    public SpreadsheetServiceImpl getSpreadsheetService() {
+        return spreadsheetService;
+    }
+
+    public void setSpreadsheetService(SpreadsheetServiceImpl spreadsheetService) {
+        this.spreadsheetService = spreadsheetService;
     }
 }

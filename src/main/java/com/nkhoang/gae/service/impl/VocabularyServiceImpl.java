@@ -27,11 +27,6 @@ public class VocabularyServiceImpl implements VocabularyService {
     private MeaningDao meaningDao;
     private VocabularyDao vocabularyDao;
 
-    /*public static void main(String[] args) {
-         Word word = lookup("Pungent");
-         lookupEN(word, "Pungent");
-     }*/
-
     public List<Word> getAllWords() {
         List<Word> words = vocabularyDao.getAll();
         for (Word w : words) {
@@ -51,7 +46,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return words;
     }
 
-    Word populateWord(Word w) {
+    private Word populateWord(Word w) {
         // populate word by Meaning
         List<Long> meaningIds = w.getMeaningIds();
         for (Long meaningId : meaningIds) {
@@ -61,13 +56,21 @@ public class VocabularyServiceImpl implements VocabularyService {
         return w;
     }
 
-    Word get(Long id) {
+    private Word get(Long id) {
         Word word = vocabularyDao.get(id);
 
         return populateWord(word);
     }
 
+
     public Word save(String lookupWord) {
+
+        if (vocabularyDao.find(lookupWord)) {
+            LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
+
+
+        }
+
         LOGGER.info("Saving word : " + lookupWord);
         Word word = lookup(lookupWord);
         word = lookupENLongman(word, lookupWord);
@@ -75,7 +78,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         for (int i = 0; i < Word.WORD_KINDS.length; i++) {
             List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
             if (meanings != null && meanings.size() > 0) {
-                LOGGER.info("found : " + meanings.size() + " meanings for this word");
+                //LOGGER.info("found : " + meanings.size() + " meanings for this word");
                 for (Meaning meaning : meanings) {
                     // save
                     Meaning savedMeaning = meaningDao.save(meaning);
@@ -98,7 +101,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      * @param word
      * @return
      */
-    public Word lookupENLongman(Word aWord, String word) {
+    private Word lookupENLongman(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
             Source source = checkWordExistence("http://www.ldoceonline.com/dictionary/", word.toLowerCase(), "Entry");
@@ -213,7 +216,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
-    public Word lookupENCambridge(Word aWord, String word) {
+    private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
             Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "definition-title");
@@ -340,6 +343,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     public Word lookup(String word) {
         LOGGER.info("Looking up word : " + word);
+
         try {
             URL url = new URL("http://m.vdict.com/?word=" + word + "&dict=1&searchaction=Lookup");
 
