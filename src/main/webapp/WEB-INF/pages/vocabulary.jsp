@@ -146,7 +146,7 @@ function playFlash(B, D, A) {
 <body>
 <div id="addWordContainer">
 <form id="wordForm" action="" method="post">What's new today ? <br />
-<div><label for="word"></label> <input id="wordInput" type="text"
+<div><label for="wordInput"></label> <input id="wordInput" type="text"
 	size="25" name="word" /></div>
 <a id="addWordBtn" href="#"><img
 	src="<c:url value='/images/simple/Add.png' />"

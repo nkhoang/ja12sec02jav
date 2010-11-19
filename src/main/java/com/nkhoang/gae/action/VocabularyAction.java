@@ -145,6 +145,7 @@ public class VocabularyAction {
         if (user != null) {
             Map<String, Object> jsonData = new HashMap<String, Object>();
             List<Word> words = vocabularyService.getAllWordsFromUser(user.getWordList());
+            words.addAll(vocabularyService.getAllWords());
             jsonData.put("words", words);
 
             View jsonView = new JSONView();

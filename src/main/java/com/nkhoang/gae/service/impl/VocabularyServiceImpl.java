@@ -73,8 +73,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         Word word = null;
         try {
             word = lookup(lookupWord);
-
-            word = lookupENLongman(word, lookupWord);
+            lookupENLongman(word, lookupWord);
             lookupPron(word, lookupWord);
         } catch (IOException ex) {
             LOGGER.info("Failed to connect to dictionary to lookup word definition.");
@@ -116,106 +115,91 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     /**
-     * tag for kind: wordclassSelected
+     * Look up Longman dictionary for a specific word. Update existing word
      *
-     * @param aWord
-     * @param word
+     * @param aWord word to be updated. Return null if this is null.
+     * @param word  word to be looked up.
      * @return null if failed to retrieve even one of the 2 services.
      */
-    private Word lookupENLongman(Word aWord, String word) throws IOException {
-        LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN : " + word);
-        Word result = null;
-        if (aWord == null) {
-            return null;
-        }
+    private void lookupENLongman(Word aWord, String word) throws IOException {
+        LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
         Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase(), "Entry");
-        int i = 1;
+        int i = 1; // index for the next lookup
         if (source == null) {
-            LOGGER.info("Check URL with index");
-            // check it again
-            source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase() + "_" + i, "Entry");
+            LOGGER.info("Check URL again with index [" + i + "]");
+            source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase() + "_" + i, "Entry");// check it again
         }
         while (source != null) {
-            // get kind
-            String kind = "";
+            String kind = "";// get kind
             List<Element> kinds = source.getAllElementsByClass("wordclassSelected");
             if (kinds != null && kinds.size() > 0) {
                 kind = kinds.get(0).getTextExtractor().toString().trim();
                 LOGGER.info("Kind: " + kind);
             }
-            // process meaning
 
-            List<Element> meaningList = source.getAllElementsByClass("Sense");
+            if (aWord.getKindidmap().get(kind) == null) {
+                LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
+                return;
+            }
+
+            List<Element> meaningList = source.getAllElementsByClass("Sense");// process meaning
             if (meaningList != null) {
                 for (Element meaning : meaningList) {
-
                     Meaning mainM = new Meaning();
-                    // process GRAM
-                    String gramStr = "";
+                    String gramStr = ""; // process GRAM: [intransitive, transitive]...
                     List<Element> grams = meaning.getAllElementsByClass("GRAM");
                     if (grams != null && grams.size() > 0) {
                         gramStr = grams.get(0).getTextExtractor().toString();
                         // LOGGER.info("GRAM: " + gramStr);
                     }
 
-                    // process main meaning
-                    List<Element> ftdefs = meaning.getAllElements("ftdef");
+                    List<Element> ftdefs = meaning.getAllElements("ftdef"); // process main meaning
                     Element ftdef = null;
                     if (ftdefs != null && ftdefs.size() > 0) {
                         ftdef = ftdefs.get(0);
-                        mainM.setContent(gramStr + " " + ftdef.getTextExtractor().toString());
+                        mainM = new Meaning(gramStr + " " + ftdef.getTextExtractor().toString(), aWord.getKindidmap().get(kind)); // create this meaning                        
                         // LOGGER.info("Meaning: " + ftdef.getTextExtractor().toString());
                     } else {
                         LOGGER.info("Could not check definition for this word: " + word);
                     }
-                    // process example for this main meaning
-                    List<Element> ftexas = meaning.getAllElements("ftexa");
+                    List<Element> ftexas = meaning.getAllElements("ftexa"); // process example for this main meaning
                     if (ftexas != null) {
                         for (Element ftexa : ftexas) {
-
                             mainM.addExample(ftexa.getTextExtractor().toString());
                             // LOGGER.info("Example: " + ftexa.getTextExtractor().toString());
                         }
                     }
 
-                    Long kindId = aWord.getKindidmap().get(kind);
-                    if (kindId == null) {
-                        LOGGER.info("Kind id = null for kind =" + kind);
-                    }
-
-                    if (StringUtils.isNotBlank(mainM.getContent())) {
+                    if (StringUtils.isNotBlank(mainM.getContent())) { // check to make sure content is not blank.
                         aWord.addMeaning(aWord.getKindidmap().get(kind), mainM);
                     }
 
-                    // process gram example
-                    List<Element> gramexas = meaning.getAllElementsByClass("GramExa");
+                    List<Element> gramexas = meaning.getAllElementsByClass("GramExa"); // process gram example. Another type of meaning.
                     if (ftexas != null) {
                         for (Element gramexa : gramexas) {
-                            Meaning mm = processSubExampleLongman(gramexa, "PROPFORM");
+                            Meaning mm = processSubExampleLongman(gramexa, "PROPFORM", aWord.getKindidmap().get(kind));
                             mm.setType("gram");
-                            aWord.addMeaning(aWord.getKindidmap().get(kind), mm);
+                            if (StringUtils.isNotEmpty(mm.getContent())) { // make sure content is not blank.
+                                aWord.addMeaning(aWord.getKindidmap().get(kind), mm);
+                            }
                         }
                     }
 
-                    // process gram example
-                    List<Element> colloexas = meaning.getAllElementsByClass("ColloExa");
+                    List<Element> colloexas = meaning.getAllElementsByClass("ColloExa"); // process gram example
                     if (ftexas != null) {
                         for (Element colloexa : colloexas) {
-                            Meaning mm = processSubExampleLongman(colloexa, "COLLO");
+                            Meaning mm = processSubExampleLongman(colloexa, "COLLO", aWord.getKindidmap().get(kind));
                             mm.setType("collo");
-                            aWord.addMeaning(aWord.getKindidmap().get(kind), mm);
+                            if (StringUtils.isNotEmpty(mm.getContent())) { // make sure content is not blank.
+                                aWord.addMeaning(aWord.getKindidmap().get(kind), mm);
+                            }
                         }
-                    }
-
-                    if (result == null) {
-                        result = aWord;
                     }
                 }
             }
             source = checkWordExistence(LONGMAN_DICTIONARY_URL, word + "_" + ++i, "Entry");
         }
 
-        return result;
     }
 
 
@@ -225,13 +209,14 @@ public class VocabularyServiceImpl implements VocabularyService {
      * @param s source to process.
      * @return Meaning found.
      */
-    private Meaning processSubExampleLongman(Element s, String nametag) {
+    private Meaning processSubExampleLongman(Element s, String nametag, Long kindId) {
         Meaning m = new Meaning();
 
         List<Element> grams = s.getAllElementsByClass(nametag);
         if (grams != null && grams.size() > 0) {
             String str = grams.get(0).getTextExtractor().toString();
-            m.setContent(str);
+            m = new Meaning(str, kindId);
+            // m.setContent(str);
             LOGGER.info(nametag + ": " + str);
         }
 
@@ -239,7 +224,6 @@ public class VocabularyServiceImpl implements VocabularyService {
         List<Element> ftexas = s.getAllElements("ftexa");
         if (ftexas != null) {
             for (Element ftexa : ftexas) {
-
                 m.addExample(ftexa.getTextExtractor().toString());
                 LOGGER.info("Example: " + ftexa.getTextExtractor().toString());
             }
@@ -248,8 +232,15 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
+    /**
+     * Look up Pron for a word.
+     *
+     * @param aWord Word obj to be updated.
+     * @param word  word in String.
+     * @throws IOException connection problems.
+     */
     private void lookupPron(Word aWord, String word) throws IOException {
-        LOGGER.info("looking up word EN : " + word);
+        LOGGER.info("looking up PRON for this word : " + word);
         try {
             Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "definition-title");
             int i = 1;
@@ -413,13 +404,20 @@ public class VocabularyServiceImpl implements VocabularyService {
         return aWord;
     }
 
+    /**
+     * Connect to URL to get the Source.
+     *
+     * @param urlLink       url link.
+     * @param word          word to be looked for.
+     * @param targetContent Tag which will be considered as Root for the look up. Class name is the indicator.
+     * @return Source.
+     * @throws IOException connection problem.
+     */
     private Source checkWordExistence(String urlLink, String word, String targetContent) throws IOException {
         URL url = new URL(urlLink + word);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        // get inputStream
         InputStream is = connection.getInputStream();
-        // create source HTML
         Source source = new Source(is);
 
         List<Element> contentEles = source.getAllElementsByClass(targetContent);
@@ -432,57 +430,59 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
+    /**
+     * Look up VN definition for a word.
+     *
+     * @param word word to be looked up.
+     * @return constructed Word.
+     * @throws IOException              problem parsing IOException.
+     * @throws IllegalArgumentException param may be incorrectly inputted.
+     */
     public Word lookup(String word) throws IOException, IllegalArgumentException {
         LOGGER.info("Looking up word VN meaning: " + word);
-        Word aWord = null;
-        URL url = new URL("http://m.vdict.com/?word=" + word + "&dict=1&searchaction=Lookup");
 
+        Word aWord = null;
+
+        URL url = new URL("http://m.vdict.com/?word=" + word + "&dict=1&searchaction=Lookup");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        // get inputStream
         InputStream is = connection.getInputStream();
-        // create source HTML
+
         Source source = new Source(is);
         List<Element> contentEles = source.getAllElementsByClass("result");
         if (contentEles == null || contentEles.size() == 0) {
-            return null;
+            return null; // Source ok but no content found. => word may not exists.
         }
-        // expect only one exists
+
         Element targetContent = contentEles.get(0);
-        aWord = new Word();
+        aWord = new Word(); // construct word obj.
         aWord.setDescription(word);
         Meaning meaning = new Meaning();
-        String kind = "";
 
-        // System.out.println(targetContent.getContent());
+        String kind = ""; // starting with " kind "
         List<Element> eles = targetContent.getChildElements();
         for (Element ele : eles) {
-            // System.out.println(ele);
             if (ele.getName().equals("div")) {
                 kind = "";
             }
-            // get the kind
             if (ele.getAttributeValue("class") != null && ele.getAttributeValue("class").equals("phanloai")) {
-                // set the word kind.
-                kind = ele.getContent().toString();
+                kind = ele.getTextExtractor().toString().trim(); // use TextExtractor to trim unwanted content.
                 if (kind != null) {
-                    if (kind.contains(",")){
-                        kind = kind.split(",")[0];
+                    if (kind.contains(",")) { // may be a compond of something like: danh tu, ngoai dong tu
+                        kind = kind.split(",")[0]; // just get the first one. May be there are some more exceptional cases in the future. 
                     }
                     String[] words = kind.split(" ");
                     kind = "";
-                    int limit = words.length > 3 ? 3 : words.length;
+                    int limit = words.length > 3 ? 3 : words.length; // maximum length = " ngoai dong tu ". Composed by 3 word.
                     for (int i = 0; i < limit; i++) {
                         kind += words[i] + " ";
                     }
                     kind = kind.trim();
-                    LOGGER.info(Arrays.toString(kind.getBytes("UTF-8")));
                     LOGGER.info("Kind : " + kind);
+                    LOGGER.info(Arrays.toString(kind.getBytes("UTF-8")));
                 }
             }
             if (ele.getName().equals("ul") && StringUtils.isNotEmpty(kind)) {
-                // convert kind
-                // log.info(Arrays.toString(kind.getBytes("UTF-8")));
                 String className = ele.getAttributeValue("class");
                 if (className != null && className.equals("list1")) {
                     List<Element> meaningLis = ele.getChildElements();
@@ -493,10 +493,9 @@ public class VocabularyServiceImpl implements VocabularyService {
                                 if (content.getName().equals("b")) {
                                     String contentRaw = content.getContent().toString();
                                     meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
-
                                     // LOGGER.info("content : " + contentRaw);
                                 }
-                                if (content.getName().equals("ul")) {
+                                if (content.getName().equals("ul") && StringUtils.isNotEmpty(meaning.getContent())) { // should not store any meanings if content is null or blank.
                                     String example = content.getChildElements().get(0).getChildElements().get(0)
                                             .getContent().toString();
                                     meaning.addExample(example);
@@ -505,12 +504,11 @@ public class VocabularyServiceImpl implements VocabularyService {
                                 }
                             }
                         }
-                        if (meaning != null && StringUtils.isNotBlank(meaning.getContent())) {
-                            // log.info(meaning.getContent());
-                            Long kindId = aWord.getKindidmap().get(kind);
-                            if (kindId == null) {
-                                LOGGER.info("Null for kind: " + kind);
-                            }
+                        Long kindId = aWord.getKindidmap().get(kind);
+                        if (kindId == null) {
+                            LOGGER.info(">>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>>>>>>>> Null for kind: " + kind);
+                        }
+                        if (meaning != null && StringUtils.isNotBlank(meaning.getContent()) && kindId != null) { // just skip this Word.
                             aWord.addMeaning(kindId, meaning);
                         }
                     }
