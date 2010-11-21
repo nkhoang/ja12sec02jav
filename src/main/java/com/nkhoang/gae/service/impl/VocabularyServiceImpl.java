@@ -29,6 +29,22 @@ public class VocabularyServiceImpl implements VocabularyService {
     private VocabularyDao vocabularyDao;
     private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
+    public List<Word> getAllWordsInRange(int startingIndex, int size) {
+        List<Word> words = vocabularyDao.getAll();
+        List<Word> result = new ArrayList<Word>();
+        int lastIndex = startingIndex + size;
+        if (lastIndex > words.size()) {
+            lastIndex = words.size() - 1;
+        }
+        for (int i = startingIndex; i < lastIndex; i++) {
+            Word w = words.get(i);
+            populateWord(w);
+
+            result.add(w);
+        }
+        return result;
+    }
+
     public List<Word> getAllWords() {
         List<Word> words = vocabularyDao.getAll();
         for (Word w : words) {

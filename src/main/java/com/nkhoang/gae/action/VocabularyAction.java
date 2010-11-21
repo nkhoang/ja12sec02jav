@@ -7,13 +7,22 @@ import com.google.gdata.data.spreadsheet.CellEntry;
 import com.google.gdata.data.spreadsheet.CellFeed;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
+import com.nkhoang.gae.model.Meaning;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
+import com.nkhoang.gae.utils.DateConverter;
 import com.nkhoang.gae.view.JSONView;
+import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
+import com.ximpleware.AutoPilot;
+import com.ximpleware.VTDGen;
+import com.ximpleware.VTDNav;
+import com.ximpleware.XMLModifier;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +36,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
@@ -129,12 +142,189 @@ public class VocabularyAction {
         }
         response.setContentType("text/html");
         try {
-
             response.getWriter().write("Being updated. Stay tuned!");
         } catch (IOException ioe) {
             LOGGER.error("Could not write to response.", ioe);
         }
 
+    }
+
+    private String constructXMLBlockContent(List<Word> allWords, int size) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+
+        Date currentDate = GregorianCalendar.getInstance().getTime();
+        try {
+            currentDate = formatter.parse("20/11/2010");
+        }
+        catch (Exception e) {
+            LOGGER.info("Use current date.");
+
+        }
+
+        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+
+
+        StringBuilder xmlBuilder = new StringBuilder();
+
+        int counter = 1;
+        int dayCounter = -1;
+        for (Word w : allWords) {
+            if (counter == 1 || counter > size) {
+                counter = 1; // reset counter.
+                String dateStr = formatter.format(DateUtils.addDays(currentDate, dayCounter - 1));
+                dayCounter++;
+
+                xmlBuilder.append("<Page title='" + dateStr + "' >");
+            }
+
+            StringBuilder comment = new StringBuilder();
+            StringBuilder targetWords = new StringBuilder();
+
+            String pron = w.getPron(); // append to comment.
+
+            List<Meaning> lmn = w.getMeaning(w.getKindidmap().get("noun")); // meaning for noun.
+            if (lmn != null && lmn.size() > 0) {
+                Meaning m = lmn.get(0);
+
+                String content = m.getContent();
+
+                targetWords.append("(n) " + content + "\n");
+                if (m.getExamples() != null && m.getExamples().size() > 0) {
+                    comment.append(pron + "(n) " + m.getExamples().get(0));
+                }
+            }
+
+            List<Meaning> lmv = w.getMeaning(w.getKindidmap().get("verb")); // meaning for verb.
+            if (lmv != null && lmv.size() > 0) {
+                Meaning m = lmv.get(0);
+
+                String content = m.getContent();
+
+                targetWords.append("(v) " + content + "\n");
+                if (m.getExamples() != null && m.getExamples().size() > 0) {
+                    comment.append(pron + "(v) " + m.getExamples().get(0));
+                }
+
+            }
+
+            List<Meaning> lmadj = w.getMeaning(w.getKindidmap().get("adjective")); // meaning for adjective
+            if (lmadj != null && lmadj.size() > 0) {
+                Meaning m = lmadj.get(0);
+
+                String content = m.getContent();
+
+                targetWords.append("(adj) " + content + "\n");
+                if (m.getExamples() != null && m.getExamples().size() > 0) {
+                    comment.append(pron + "(adj) " + m.getExamples().get(0));
+                }
+
+            }
+
+            List<Meaning> lmadv = w.getMeaning(w.getKindidmap().get("adverb")); // meaning for adv.
+            if (lmadv != null && lmadv.size() > 0) {
+                Meaning m = lmadv.get(0);
+
+                String content = m.getContent();
+
+                targetWords.append("(adv) " + content + "\n");
+                if (m.getExamples() != null && m.getExamples().size() > 0) {
+                    comment.append(pron + " (adv) " + m.getExamples().get(0));
+                }
+            }
+
+            if (StringUtils.isNotEmpty(comment.toString())) {
+                xmlBuilder.append("<Word sourceWord=\"" + w.getDescription() + "\" targetWord=\"" + targetWords.toString() + "\">");
+                xmlBuilder.append("<Comment>" + comment.toString() + "</Comment>");
+                xmlBuilder.append("</Word>");
+            }
+
+            if (counter + (size * dayCounter) == allWords.size()) {
+                xmlBuilder.append("</Page>"); // append ending tag.                
+            } else {
+
+                counter++;
+                if (counter > size) {
+                    xmlBuilder.append("</Page>"); // append ending tag.
+                }
+            }
+
+        }
+
+        return xmlBuilder.toString();
+    }
+
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_I_VOCABULARY_REQUEST, method = RequestMethod.GET)
+    public ModelAndView buildIVocabularyFile(@RequestParam("startingIndex") String startingIndexStr, @RequestParam("size") String sizeStr, HttpServletResponse response) {
+
+        int startingIndex = 0, size = 100; // default size = 100;
+
+        if (StringUtils.isEmpty(startingIndexStr)) {
+            try {
+                response.setContentType("text/html");
+                response.getWriter().write("Check your param. startingIndex should not be ommitted.");
+            } catch (Exception e) {
+                LOGGER.error("Could not print output.");
+            }
+            return null;
+        } else {
+            startingIndex = Integer.parseInt(startingIndexStr);
+        }
+
+        if (StringUtils.isNotEmpty(sizeStr)) {
+            size = Integer.parseInt(sizeStr);
+        }
+
+        List<Word> allWords = vocabularyService.getAllWordsInRange(startingIndex, size);
+        String xml = constructXMLBlockContent(allWords, 20);
+
+        String xmlStr = "";
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/vocabulary.xml");
+
+            if (is == null) {
+                LOGGER.info("Could not load resources.");
+            }
+
+            VTDGen vg = new VTDGen(); // Instantiate VTDGen
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(is, writer);
+            String theString = writer.toString();
+            vg.setDoc(theString.getBytes());
+
+            vg.parse(true);
+
+            XMLModifier xm = new XMLModifier(); //Instantiate XMLModifier
+            LOGGER.info("Starting to parse XML");
+            VTDNav vn = vg.getNav();
+
+            xm.bind(vn);
+
+            AutoPilot ap = new AutoPilot(vn);
+
+            ap.selectXPath("/Vocabulary/Root");
+            int i = -1;
+            while ((i = ap.evalXPath()) != -1) {
+                xm.insertAfterHead(xml);
+            }
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+            xm.output(bos);
+
+            xmlStr = bos.toString();
+
+
+        } catch (Exception e) {
+            LOGGER.info("Could not parse or update vocabulary.xml file.");
+        }
+
+        ModelAndView mav = new ModelAndView();
+        mav.setView(new XMLView());
+        mav.addObject("data", xmlStr);
+
+        return mav;
     }
 
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_ALL_REQUEST, method = RequestMethod.POST)
@@ -145,7 +335,7 @@ public class VocabularyAction {
         if (user != null) {
             Map<String, Object> jsonData = new HashMap<String, Object>();
             List<Word> words = vocabularyService.getAllWordsFromUser(user.getWordList());
-            words.addAll(vocabularyService.getAllWords());
+            words.addAll(vocabularyService.getAllWords()); // get all DB words.
             jsonData.put("words", words);
 
             View jsonView = new JSONView();

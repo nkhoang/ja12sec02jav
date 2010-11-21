@@ -12,6 +12,8 @@ public interface VocabularyService {
 
 	public List<Word> getAllWords();
 
+    public List<Word> getAllWordsInRange(int startingIndex, int size);
+
 	public List<Word> getAllWordsFromUser(List<Long> wordIds);
 
 }

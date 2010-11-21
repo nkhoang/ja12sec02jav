@@ -45,7 +45,7 @@ public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements Mea
      */
     // @on
     public Meaning get(Long id) {
-        LOGGER.info("Get meaing [id: " + id + "].");
+        // LOGGER.info("Get meaing [id: " + id + "].");
         try {
             Query query = entityManager.createQuery("Select from " + Meaning.class.getName()
                     + " t where t.id=:meaningID");

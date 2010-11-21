@@ -13,5 +13,4 @@
         <property name="time" direction="desc" />
     </datastore-index>
 
-    
 </datastore-indexes>
