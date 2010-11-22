@@ -4,27 +4,27 @@ import java.util.List;
 
 /**
  * Serving backup need.
- * 
+ *
  * @author hoangnk
- * 
  */
 public interface BackupService {
-	public boolean backup(String content);
+    public void save(String folderName, String documentTitle, String content, String anotherUserName, String anotherPassword);
 
-	/**
-	 * List all available Revisions from Google Docs.
-	 * 
-	 * @return a list of revision in text format. See the DATE_PATTERN for the
-	 *         revision text format.
-	 */
-	public List<String> listBackupRevisions();
+    public boolean backup(String content);
 
-	/**
-	 * Get the content of the desired revision
-	 * 
-	 * @param revision
-	 *            It is actually a date format after the backup file name.
-	 * @return content in text.
-	 */
-	public String getBackup(String revision);
+    /**
+     * List all available Revisions from Google Docs.
+     *
+     * @return a list of revision in text format. See the DATE_PATTERN for the
+     *         revision text format.
+     */
+    public List<String> listBackupRevisions();
+
+    /**
+     * Get the content of the desired revision
+     *
+     * @param revision It is actually a date format after the backup file name.
+     * @return content in text.
+     */
+    public String getBackup(String revision);
 }

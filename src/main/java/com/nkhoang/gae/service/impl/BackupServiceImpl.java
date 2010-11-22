@@ -11,8 +11,8 @@ import com.google.gdata.data.media.MediaSource;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 import com.nkhoang.gae.service.BackupService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,8 +28,8 @@ import java.util.List;
 public class BackupServiceImpl implements BackupService {
     private String username;
     private String password;
-    private String defaultFolder;
-    private String defaultDocument;
+    private String defaultFolder; // " Backup "
+    private String defaultDocument; // " Chara Backup "
     private final String DATE_PATTERN = "ddMMyyyy";
     private final String DATE_PATTERN_FULL = "dd/MM/yyyy";
 
@@ -44,83 +44,139 @@ public class BackupServiceImpl implements BackupService {
     private final String URL_CATEGORY_TRASHED = "/-/trashed";
     private final String URL_CATEGORY_FOLDER = "/-/folder";
     private final String URL_CATEGORY_EXPORT = "/Export";
-    private final DocsService docsService = new DocsService(APP_NAME);
 
-    private static final Log log = LogFactory.getLog(BackupServiceImpl.class);
+    private final DocsService docsService = new DocsService(APP_NAME); // Google Document Service.
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BackupServiceImpl.class);
     private final String URL_FOLDERS = "/contents";
 
+
+    public void save(String folderName, String documentTitle, String content, String anotherUserName, String anotherPassword) {
+        try {
+            login(anotherUserName, anotherPassword);
+
+            DocumentListEntry targetFolder = checkFolderExistence(folderName); // create or get.
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Creating new document ... " + documentTitle);
+            DocumentListEntry document = createNew(documentTitle, "document"); // create a new document with default name
+
+            if (document == null) {
+                throw new Exception(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Unable to create a new document");
+            }
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Move it to our default folder");
+            document = moveObjectToFolder(targetFolder, document); // move to folder
+            document.setMediaSource(new MediaByteArraySource(content.getBytes("UTF-8"), "text/plain")); // update content
+            document.updateMedia(true);
+
+        } catch (Exception e) {
+            LOGGER.error(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : ERROR. COULD NOT SAVE/UPDATE DATA.", e);
+
+        }
+    }
+
+    /**
+     * Backup content to Google Docs.
+     *
+     * @param content content to be saved.
+     * @return true/false.
+     */
     public boolean backup(String content) {
         try {
-            login(username, password);
-            String newDocName = defaultDocument + "_" + getCurrentDate();
-            DocumentListEntry targetFolder = checkFolderExistence();
-            log.info("Retrieving documents from [" + defaultFolder + "]...");
+            login(username, password); // first login with username and password.
+            String newDocName = defaultDocument + "_" + getCurrentDate(); // pattern: [document name]_ddmmyyyy.
+            DocumentListEntry targetFolder = checkFolderExistence(); // get or create a new folder.
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Retrieving documents from [" + defaultFolder + "]...");
             DocumentListEntry document = retrieveDocument(newDocName, targetFolder);
 
             if (document == null) {
-                log.info("Creating new document ... ");
-                // create a new document with default name
-                document = createNew(newDocName, "document");
+                LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Creating new document ... " + newDocName);
+                document = createNew(newDocName, "document"); // create a new document with default name
                 if (document == null) {
-                    throw new Exception("Unable to create a new document");
+                    throw new Exception(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Unable to create a new document");
                 }
-                log.info("Move it to our default folder");
-                // move to folder
-                document = moveObjectToFolder(targetFolder.getResourceId(), document.getResourceId());
+                LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Move it to our default folder");
+                document = moveObjectToFolder(targetFolder, document); // move to folder
             }
-            // update content
-            document.setMediaSource(new MediaByteArraySource(content.getBytes("UTF-8"), "text/plain"));
-            // document.setContent(new PlainTextConstruct("Checking for new"));
-
+            document.setMediaSource(new MediaByteArraySource(content.getBytes("UTF-8"), "text/plain")); // update content
             document.updateMedia(true);
         } catch (Exception e) {
-            log.error(e);
+            LOGGER.error(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : ERROR. COULD NOT SAVE BACKUP DATA.", e);
             return false;
         }
         return true;
     }
 
-    private DocumentListEntry checkFolderExistence() throws Exception {
-        DocumentListEntry targetFolder = checkFolder(defaultFolder);
-        if (targetFolder == null) {
-            log.info(defaultFolder + " does not exist.");
-            log.info("Now creating new folder named : " + defaultFolder);
-            targetFolder = createNew(defaultFolder, "folder");
-            if (targetFolder == null) {
-                // unable to create a new folder
-                log.info("Unable to create a new folder");
-                throw new Exception("Unable to create a new folder.");
-            }
+    /**
+     * Check folder existence with given folder name.
+     *
+     * @return always return an object. Create a new one if there is not one.
+     * @throws IOException      if any.
+     * @throws ServiceException if any.
+     */
+    private DocumentListEntry checkFolderExistence(String folderName) throws IOException, ServiceException {
+        DocumentListEntry targetFolder = checkFolder(folderName); // check folder existence.
+        if (targetFolder == null) { // not found.
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : " + folderName + " -> Could not find.");
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Now creating new folder named : " + folderName);
+            targetFolder = createNew(folderName, "folder");
         }
         return targetFolder;
     }
 
+    /**
+     * Check folder existence using default folder name.
+     *
+     * @return always return an object. Create a new one if there is not one.
+     * @throws IOException      if any.
+     * @throws ServiceException if any.
+     */
+    private DocumentListEntry checkFolderExistence() throws IOException, ServiceException {
+        DocumentListEntry targetFolder = checkFolder(defaultFolder); // check folder existence.
+        if (targetFolder == null) { // not found.
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : " + defaultFolder + " -> Could not find.");
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Now creating new folder named : " + defaultFolder);
+            targetFolder = createNew(defaultFolder, "folder");
+        }
+        return targetFolder;
+    }
+
+    /**
+     * Get backup by providing a revision name.
+     *
+     * @param revision It is actually a date format after the backup file name.
+     * @return xml content.
+     */
     public String getBackup(String revision) {
         String xml = null;
         try {
-            // reformat the document revision
-            SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN_FULL);
+            SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN_FULL); // reformat the document revision.
             Date revisionDate = formatter.parse(revision);
             formatter = new SimpleDateFormat(DATE_PATTERN);
 
-            login(username, password);
+            login(username, password); // login
             String newDocName = defaultDocument + "_" + formatter.format(revisionDate);
             DocumentListEntry targetFolder = checkFolderExistence();
-            log.info("Retrieving documents from [" + defaultFolder + "]...");
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Retrieving documents from [" + defaultFolder + "]...");
             DocumentListEntry document = retrieveDocument(newDocName, targetFolder);
-            if (document == null) {
-                throw new Exception("Document with name: " + newDocName + " does not exist");
-            } else {
-                xml = downloadDocumentContent(xml, document);
+            if (document != null) {
+                xml = downloadDocumentContent(document);
             }
 
         } catch (Exception e) {
-            log.error(e);
+            LOGGER.error(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : ERROR. COULD NOT GET BACKUP DATA.", e);
         }
         return xml;
     }
 
-    private String downloadDocumentContent(String xml, DocumentListEntry document) throws IOException, ServiceException {
+    /**
+     * Download document content from Google Docs.
+     *
+     * @param document google document object.
+     * @return download document content.
+     * @throws IOException      if any.
+     * @throws ServiceException if any.
+     */
+    private String downloadDocumentContent(DocumentListEntry document) throws IOException, ServiceException {
+        String xml = null;
         URL downloadedUrl = new URL(DOWNLOAD_URL + "/documents" + URL_CATEGORY_EXPORT + "?docID="
                 + document.getResourceId() + "&exportFormat=txt");
 
@@ -174,52 +230,31 @@ public class BackupServiceImpl implements BackupService {
                 }
             }
         } catch (Exception e) {
-            log.error(e);
+            LOGGER.error("Exception", e);
         }
         return documents;
     }
 
     /**
-     * 
-     * @param docName
-     *            defaultName + datetime
+     * Searching for a given document name based on an folder DocumentListEntry.
+     *
+     * @param docName      defaultName + datetime
      * @param targetFolder a target folder.
-     * @return a document list.
+     * @return a document list. Null if not found.
      * @throws Exception if possible.
      */
     private DocumentListEntry retrieveDocument(String docName, DocumentListEntry targetFolder) throws Exception {
         DocumentListEntry document = null;
-        // search it first
-        String folderFeedUrl = ((MediaContent) targetFolder.getContent()).getUri();
-        DocumentQuery query = new DocumentQuery(new URL(folderFeedUrl));
-        DocumentListFeed feeds = docsService.getFeed(query, DocumentListFeed.class);
-
+        String folderFeedUrl = ((MediaContent) targetFolder.getContent()).getUri(); // get folder feed URI.
+        DocumentQuery query = new DocumentQuery(new URL(folderFeedUrl)); // starting a query.
+        DocumentListFeed feeds = docsService.getFeed(query, DocumentListFeed.class); // get all feeds.
         if (feeds.getEntries() != null && feeds.getEntries().size() > 0) {
-
-            // loop through the feeds
-            for (DocumentListEntry feed : feeds.getEntries()) {
-                // check the name
-                if (feed.getTitle().getPlainText().equals(docName)) {
-                    document = feed;
+            for (DocumentListEntry feed : feeds.getEntries()) { // loop through the feeds
+                if (feed.getTitle().getPlainText().equals(docName)) { // check the name
+                    document = feed; // found one.
                 }
             }
-
         }
-
-        /*
-         * int feedSize = feeds.getEntries().size();
-         * log.info("Number of document inside [" + defaultFolder + "] : " +
-         * feedSize); // check feeds if (feedSize == 0) {
-         * log.info("Empty foler"); } else if (feedSize == 1) {
-         * log.info("Only one item inside the folder"); // what we expected
-         * document = feeds.getEntries().get(0); } else {
-         * log.info("Deleting items inside folder"); // clear all for
-         * (DocumentListEntry entry : feeds.getEntries()) { log.info("Item : " +
-         * entry.getTitle().getPlainText()); // move it out of the folder.
-         * entry.delete(); // then delete it docsService.delete(new URL(
-         * "https://docs.google.com/feeds/default/private/full/" +
-         * entry.getResourceId()), "*"); } }
-         */
         return document;
     }
 
@@ -230,57 +265,62 @@ public class BackupServiceImpl implements BackupService {
         return formatter.format(calendar.getTime());
     }
 
-    private DocumentListEntry moveObjectToFolder(String targetFolderPath, String docId) throws IOException,
+    public DocumentListEntry moveObjectToFolder(DocumentListEntry folderEntry, DocumentListEntry doc) throws IOException,
             ServiceException {
+        String destFolderUri = ((MediaContent) folderEntry.getContent()).getUri();
 
-        DocumentListEntry doc = new DocumentListEntry();
-        doc.setId(BASE_URL + "/" + docId);
-
-        URL url = new URL(BASE_URL + "/" + targetFolderPath + URL_FOLDERS);
-        return docsService.insert(url, doc);
+        return docsService.insert(new URL(destFolderUri), doc);
     }
 
+    /**
+     * Create new document type. Can be any of these followings: document, folder, spreadsheet, presentation.
+     *
+     * @param folderTitle folder title.
+     * @param type        type as above.
+     * @return DocumentListEntry.
+     * @throws IOException      if any.
+     * @throws ServiceException if any.
+     */
     private DocumentListEntry createNew(String folderTitle, String type) throws IOException, ServiceException {
         DocumentListEntry newEntry = null;
-        if (type.equals("document")) {
+        if (type.equals("document")) { // type = " document ".
             newEntry = new DocumentEntry();
-        } else if (type.equals("presentation")) {
+        } else if (type.equals("presentation")) {  // the same as above.
             newEntry = new PresentationEntry();
-        } else if (type.equals("spreadsheet")) {
+        } else if (type.equals("spreadsheet")) { // the same as above.
             newEntry = new SpreadsheetEntry();
-        } else if (type.equals("folder")) {
+        } else if (type.equals("folder")) { // type = " folder ".
             newEntry = new FolderEntry();
         }
-        // set folder title
         PlainTextConstruct textConstruct = new PlainTextConstruct(folderTitle);
-        newEntry.setTitle(textConstruct);
-
+        newEntry.setTitle(textConstruct); // set folder title
         return docsService.insert(new URL(BASE_URL), newEntry);
     }
 
+    /**
+     * Login to Google Docs.
+     *
+     * @param username username.
+     * @param password password.
+     * @throws AuthenticationException exception.
+     */
     private void login(String username, String password) throws AuthenticationException {
         docsService.setUserCredentials(username, password);
     }
 
     /**
-     * Check to make sure that the folder is existing otherwise we have to
-     * create a new one
-     * 
-     * @param folderTitle
-     *            folder title for searching.
-     * @return a DocumentListEntry
-     * @throws IOException if possible.
+     * Provide Folder title to search for existence.
+     *
+     * @param folderTitle folder title for searching.
+     * @return a DocumentListEntry if folder is existing.
+     * @throws IOException      if possible.
      * @throws ServiceException if possible.
      */
-    private DocumentListEntry checkFolder(String folderTitle) throws IOException,
-            ServiceException {
-        DocumentListFeed feeds = listFolders(BASE_URL + URL_CATEGORY_FOLDER);
-        // hold the folder if it is found.
+    private DocumentListEntry checkFolder(String folderTitle) throws IOException, ServiceException {
+        DocumentListFeed feeds = listFolders(BASE_URL + URL_CATEGORY_FOLDER);  // get folder feeds which contains folder information.
         DocumentListEntry foundEntry = null;
-
         for (DocumentListEntry entry : feeds.getEntries()) {
-            // check name
-            if (entry.getTitle().getPlainText().equals(folderTitle)) {
+            if (entry.getTitle().getPlainText().equals(folderTitle)) { // check name
                 foundEntry = entry;
                 break;
             }
@@ -288,10 +328,17 @@ public class BackupServiceImpl implements BackupService {
         return foundEntry;
     }
 
+    /**
+     * List all folder available in Google Docs.
+     *
+     * @param uri the sample URI look like this: https://docs.google.com/feeds/default/private/full + [type] (can be /-/folder ...)
+     * @return DocumentListFeed object which contains references to DocumentEntry.
+     * @throws IOException      if any.
+     * @throws ServiceException for connection problem.
+     */
     private DocumentListFeed listFolders(String uri) throws IOException, ServiceException {
         if (uri == null) {
-            // use default
-            uri = BASE_URL + URL_CATEGORY_FOLDER;
+            uri = BASE_URL + URL_CATEGORY_FOLDER; // use default
         }
         URL url = new URL(uri);
         Query query = new Query(url);

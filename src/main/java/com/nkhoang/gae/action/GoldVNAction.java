@@ -46,7 +46,7 @@ public class GoldVNAction {
         JSONView view = new JSONView();
         mav.setView(view);
         mav.addObject("data", list);
-         // construct data
+        // construct data
         List<String> attrs = new ArrayList<String>();
         attrs.addAll(Arrays.asList(GoldPrice.SKIP_FIELDS));
         mav.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
@@ -55,9 +55,10 @@ public class GoldVNAction {
 
 
     /**
-     * Serve update VN gold price request. 
+     * Serve update VN gold price request.
+     *
      * @param startingIndex index of data to start with parsing.
-     * @param response HttpServletResponse object.
+     * @param response      HttpServletResponse object.
      */
     @RequestMapping("/" + ViewConstant.GOLD_VN_UPDATE_REQUEST)
     public void update(@RequestParam(UPDATE_ALL_STARTING_INDEX_PARAM) String startingIndex, HttpServletResponse response) {
@@ -68,8 +69,7 @@ public class GoldVNAction {
         final long start = System.currentTimeMillis();
         boolean shouldNotContinue = false;
         int i = 0;
-        if (StringUtils.isNotEmpty(startingIndex))
-        {
+        if (StringUtils.isNotEmpty(startingIndex)) {
             try {
                 i = Integer.parseInt(startingIndex);
             } catch (Exception e) {
@@ -81,7 +81,7 @@ public class GoldVNAction {
             if (!goldService.check(unit)) {
                 LOGGER.debug("Saving :" + unit.toString());
                 goldService.save(unit);
-            }else {
+            } else {
                 shouldNotContinue = true;
                 // just break if object was saved. Save CPU time.
                 break;
@@ -92,9 +92,9 @@ public class GoldVNAction {
             }
         }
         LOGGER.info("Have saved: " + i + " item to GoldPrice table.");
-        if (!shouldNotContinue){
-            LOGGER.info("Posting to queue with index [" + i + "]");                  
-            QueueFactory.getDefaultQueue().add(url("/service/gold/" + ViewConstant.GOLD_VN_UPDATE_REQUEST + ".html?" + UPDATE_ALL_STARTING_INDEX_PARAM + "=" + i).method(TaskOptions.Method.GET));    
+        if (!shouldNotContinue) {
+            LOGGER.info("Posting to queue with index [" + i + "]");
+            QueueFactory.getDefaultQueue().add(url("/service/gold/" + ViewConstant.GOLD_VN_UPDATE_REQUEST + ".html?" + UPDATE_ALL_STARTING_INDEX_PARAM + "=" + i).method(TaskOptions.Method.GET));
         }
         response.setContentType("text/html");
     }
@@ -109,8 +109,7 @@ public class GoldVNAction {
 
         // check request parameter - do not required.
         int i = 0;
-        if (StringUtils.isNotEmpty(startingIndex))
-        {
+        if (StringUtils.isNotEmpty(startingIndex)) {
             try {
                 i = Integer.parseInt(startingIndex);
             } catch (Exception e) {
@@ -143,10 +142,11 @@ public class GoldVNAction {
         }
 
         response.setContentType("text/html");
-        
+
     }
 
     // http://www.sjc.com.vn/chart/data.csv
+
     private List<GoldPrice> getVNGoldData(String websiteURL) {
         List<GoldPrice> listGoldPrice = new ArrayList<GoldPrice>(0);
         BufferedInputStream bis = null;
@@ -195,6 +195,7 @@ public class GoldVNAction {
 
     /**
      * Used to create Gold object.
+     *
      * @param tokenString token string to get data from.
      * @return a GoldPrice obj.
      */

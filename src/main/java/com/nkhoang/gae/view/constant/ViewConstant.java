@@ -31,8 +31,10 @@ public class ViewConstant {
     public static final String LOGIN_REQUEST = "login";
     public static final String VOCABULARY_HOME_REQUEST = "home";
     public static final String VOCABULARY_UPDATE_REQUEST = "update";
+
     public static final String VOCABULARY_VIEW_ALL_REQUEST = "listAll";
     public static final String VOCABULARY_I_VOCABULARY_REQUEST = "iVocabulary";
+    public static final String VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST = "iVocabulary2GD";
     public static final String VOCABULARY_ADD_WORD_REQUEST = "addWord";
     public static final String GOLD_VN_UPDATE_REQUEST = "goldVN";
     public static final String GOLD_VN_DATA_REQUEST = "goldVNData";

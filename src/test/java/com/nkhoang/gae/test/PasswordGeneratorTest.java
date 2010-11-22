@@ -9,13 +9,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // specifies the Spring configuration to load for this test fixture
-@ContextConfiguration({ "/applicationContext-service.xml" })
+@ContextConfiguration({"/applicationContext-service.xml"})
 public class PasswordGeneratorTest {
     @Autowired
     private StandardPBEStringEncryptor propertyEncryptor;
 
     @Test
-    public void testRun() {}
+    public void testRun() {
+    }
 
 
     public void testEncryptor() {

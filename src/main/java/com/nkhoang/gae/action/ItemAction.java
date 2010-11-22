@@ -31,9 +31,8 @@ import java.util.*;
 
 /**
  * Item Controller.
- * 
+ *
  * @author hoangnk
- * 
  */
 @Controller
 @RequestMapping("/" + ViewConstant.ITEM_NAMESPACE)
@@ -163,7 +162,7 @@ public class ItemAction {
                 item.setDateAdded(calendar.getTime());
 
                 itemService.save(item);
-                
+
                 // starting facebook posting
                 String postId = null;
                 try {
@@ -194,7 +193,7 @@ public class ItemAction {
 
     /**
      * Allow all access type to this link.
-     * 
+     *
      * @return model and view.
      */
     @RequestMapping(value = "/" + ViewConstant.VIEW_ALL_REQUEST, method = RequestMethod.POST)

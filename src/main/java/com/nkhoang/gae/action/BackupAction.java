@@ -31,8 +31,8 @@ public class BackupAction {
     @Autowired
     private BackupService docsService;
     private static final String REVISION_REQUEST_PARAM = "revision";
-    public static final byte[] LESS_THAN_CHAR = { -62, -85 };
-    public static final byte[] GREATER_THAN_CHAR = { -62, -69 };
+    public static final byte[] LESS_THAN_CHAR = {-62, -85};
+    public static final byte[] GREATER_THAN_CHAR = {-62, -69};
 
     @RequestMapping(value = "/" + ViewConstant.BACKUP_REQUEST, method = RequestMethod.GET)
     public String getRegisterPage() {
@@ -46,7 +46,6 @@ public class BackupAction {
         // get data first
         String xml = docsService.getBackup(revision);
         if (xml != null) {
-
             // now we can clear all the old data
             itemService.clearAll();
 
@@ -119,7 +118,7 @@ public class BackupAction {
      * List all available revisions from Google Docs The format of the revision
      * is the date after the file backup name see DATE_PATTERN. Used to
      * retrieved a list of revision in GUI.
-     * 
+     *
      * @return a Spring View.
      */
     @RequestMapping(value = "/" + ViewConstant.REVISION_REQUEST, method = RequestMethod.POST)

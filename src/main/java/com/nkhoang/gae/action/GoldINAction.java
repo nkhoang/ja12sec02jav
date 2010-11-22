@@ -47,7 +47,7 @@ public class GoldINAction {
         JSONView view = new JSONView();
         mav.setView(view);
         mav.addObject("data", list);
-         // construct data
+        // construct data
         List<String> attrs = new ArrayList<String>();
         attrs.addAll(Arrays.asList(GoldPrice.SKIP_FIELDS));
         mav.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);

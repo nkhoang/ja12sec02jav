@@ -45,6 +45,15 @@ public class VocabularyServiceImpl implements VocabularyService {
         return result;
     }
 
+
+    public int getWordSize() {
+        List<Word> words = vocabularyDao.getAll();
+        if (words == null ) {
+            return 0;
+        }
+        return words.size();
+    }
+
     public List<Word> getAllWords() {
         List<Word> words = vocabularyDao.getAll();
         for (Word w : words) {

@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 
 import java.util.*;
 
-public class XstreamTest extends TestCase {    
+public class XstreamTest extends TestCase {
     public void testFun() {
         System.out.println("Just a test.");
     }

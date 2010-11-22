@@ -12,6 +12,8 @@ import com.google.gdata.util.ServiceException;
 import com.nkhoang.gae.service.BackupService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,13 +25,14 @@ import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // specifies the Spring configuration to load for this test fixture
-@ContextConfiguration({ "/applicationContext-service.xml" })
+@ContextConfiguration({"/applicationContext-service.xml"})
 public class DocumentServiceTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentServiceTest.class);
 
     private final String URL_FEED = "/feeds";
     private final String URL_DOWNLOAD = "/download";
     private final String URL_DOCLIST_FEED = "/private/full";
-                                         
+
     private final String URL_DEFAULT = "/default";
     private final String URL_FOLDERS = "/contents";
     private final String URL_ACL = "/acl";
@@ -46,11 +49,11 @@ public class DocumentServiceTest {
 
     /**
      * Services
-     */    
+     */
     @Autowired
     private BackupService backupService;
     // Document service from Google
-    private DocsService documentService;
+    private DocsService documentService = new DocsService("chara");
 
     @Test
     public void testFun() {
@@ -80,7 +83,47 @@ public class DocumentServiceTest {
     public void testBackup() {
         backupService.backup("Nguy?n Khánh Hoàng");
     }
-    
+
+
+    public void testUpdateContent() {
+        save("XML", "iVocabulary", "<Page></Page>", "nkhoang.it@gmail.com", "me27&ml17");
+    }
+
+
+    public void save(String folderName, String documentTitle, String content, String anotherUserName, String anotherPassword) {
+        try {
+            login(anotherUserName, anotherPassword);
+
+            DocumentListEntry targetFolder = checkFolderExistence(folderName); // create or get.
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Creating new document ... " + documentTitle);
+            DocumentListEntry document = createNew(documentTitle, "document"); // create a new document with default name
+
+            if (document == null) {
+                throw new Exception(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Unable to create a new document");
+            }
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Move it to our default folder");
+            document = moveObjectToFolder(targetFolder, document); // move to folder
+
+            document.setMediaSource(new MediaByteArraySource(content.getBytes("UTF-8"), "text/plain")); // update content
+            document.updateMedia(true);
+
+        } catch (Exception e) {
+            LOGGER.error(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : ERROR. COULD NOT SAVE/UPDATE DATA.", e);
+
+        }
+    }
+
+    private DocumentListEntry checkFolderExistence(String folderName) throws IOException, ServiceException {
+        DocumentListEntry targetFolder = checkFolder(folderName); // check folder existence.
+        if (targetFolder == null) { // not found.
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : " + folderName + " -> Could not find.");
+            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Now creating new folder named : " + folderName);
+            targetFolder = createNew(folderName, "folder");
+        }
+        return targetFolder;
+    }
+
+
     public void testUpdate() throws IOException, ServiceException {
         DocumentListEntry entry = documentService.getEntry(new URL(
                 "https://docs.google.com/feeds/default/private/full/document:"
@@ -147,7 +190,7 @@ public class DocumentServiceTest {
             }
 
             // moving
-            moveObjectToFolder(document.getResourceId(), folder.getResourceId());
+            moveObjectToFolder(document, folder);
 
             if (document != null) {
                 System.out.println(document.getTitle().getPlainText());
@@ -181,13 +224,11 @@ public class DocumentServiceTest {
         return foundEntry;
     }
 
-    public DocumentListEntry moveObjectToFolder(String resourceId, String folderId) throws IOException,
+    public DocumentListEntry moveObjectToFolder(DocumentListEntry folderEntry, DocumentListEntry doc) throws IOException,
             ServiceException {
-        DocumentListEntry doc = new DocumentListEntry();
-        doc.setId("https://docs.google.com/feeds/default/private/full" + "/" + resourceId);
+        String destFolderUri = ((MediaContent) folderEntry.getContent()).getUri();
 
-        URL url = new URL("https://docs.google.com/feeds/default/private/full" + "/" + folderId + URL_FOLDERS);
-        return documentService.insert(url, doc);
+        return documentService.insert(new URL(destFolderUri), doc);
     }
 
     public DocumentListFeed listFolders(String uri) throws IOException, ServiceException {
