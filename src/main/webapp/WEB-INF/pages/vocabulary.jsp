@@ -116,9 +116,11 @@ function playFlash(B, D, A) {
 
 		var loadWords = function() {
 			$.ajax({
-				url: "<c:url value='/vocabulary/listAll.html' />",
+				url: "<c:url value='/vocabulary/listNewlyAdded.html' />",
 				type: 'post',
-				
+                data: {
+                    size: 20
+                },                				
 				beforeSend: function(){
 					$('#wordLoading').show();
 					$('#loadWordImg').addClass('loading');
@@ -133,7 +135,10 @@ function playFlash(B, D, A) {
 							}
 						}
 				},
-				error: function(){},
+				error: function(){
+                    $('#wordLoading').hide();
+					$('#loadWordImg').removeClass('loading');
+                },
 				complete: function(){
 					$('#wordLoading').hide();
 					$('#loadWordImg').removeClass('loading');

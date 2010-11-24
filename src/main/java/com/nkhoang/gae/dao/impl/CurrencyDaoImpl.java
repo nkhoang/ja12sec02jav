@@ -101,6 +101,7 @@ public class CurrencyDaoImpl extends GeneralDaoImpl<Currency, Long> implements C
         try {
             Query query = entityManager.createQuery("Select from " + Currency.class.getName() + " t where t.currency=:currencyID order by t.time DESC");
             query.setParameter("currencyID", currency);
+            query.setMaxResults(1);
             Currency unit = null;
 
             List<Currency> list = query.getResultList();

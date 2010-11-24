@@ -44,6 +44,8 @@ public class Word {
     @Transient
     private List<Long> kindIdList = new ArrayList();
     public static final String SKIP_FIELDS[] = {"jdoDetachedState", "kindIdMap", "meaningIds"};
+    @Basic
+    private Long timeStamp;
 
     {
         try {
@@ -151,5 +153,13 @@ public class Word {
 
     public String toString() {
         return "Word: " + description + " with sound [" + soundSource + "]";
+    }
+
+    public Long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }

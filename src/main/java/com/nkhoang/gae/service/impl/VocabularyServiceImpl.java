@@ -18,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class VocabularyServiceImpl implements VocabularyService {
@@ -29,8 +30,15 @@ public class VocabularyServiceImpl implements VocabularyService {
     private VocabularyDao vocabularyDao;
     private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
+    /**
+     * Get a range of words from database.
+     *
+     * @param startingIndex starting offset.
+     * @param size          size.
+     * @return a list.
+     */
     public List<Word> getAllWordsInRange(int startingIndex, int size) {
-        List<Word> words = vocabularyDao.getAll();
+        List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
         int lastIndex = startingIndex + size;
         if (lastIndex > words.size()) {
@@ -48,20 +56,12 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     public int getWordSize() {
         List<Word> words = vocabularyDao.getAll();
-        if (words == null ) {
+        if (words == null) {
             return 0;
         }
         return words.size();
     }
-
-    public List<Word> getAllWords() {
-        List<Word> words = vocabularyDao.getAll();
-        for (Word w : words) {
-            populateWord(w);
-        }
-        return words;
-    }
-
+    
     public List<Word> getAllWordsFromUser(List<Long> wordIds) {
         List<Word> words = new ArrayList<Word>();
         for (Long id : wordIds) {
@@ -131,6 +131,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
             try {
+                word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
                 vocabularyDao.save(word);
             } catch (Exception e) {
                 LOGGER.info("Could not save word:" + word.toString());

@@ -8,9 +8,7 @@ import java.util.List;
 public interface VocabularyService {
     public Word lookup(String word) throws IOException;
 
-    public Word save(String lookupWord) throws IOException;
-
-    public List<Word> getAllWords();
+    public Word save(String lookupWord) throws IOException;    
 
     public List<Word> getAllWordsInRange(int startingIndex, int size);
 

@@ -88,6 +88,23 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         return null;
     }
 
+    public List<Word> getAllInRange(int offset, int size) {
+        LOGGER.info("Get all words starting from " + offset + " with size=[" + size + "]...");
+        List<Word> result = null;
+        try {
+            Query query = entityManager.createQuery("Select from " + Word.class.getName() + " order by timeStamp desc");
+            query.setFirstResult(offset);
+            query.setMaxResults(size);
+            
+            result = query.getResultList();
+            LOGGER.info("Found: " + result.size());
+        } catch (Exception ex) {
+            LOGGER.info("Failed to get all words ...");
+            LOGGER.error("Error", ex);
+        }
+        return result;
+    }
+
     public List<Word> getAll() {
         LOGGER.info("Get all words ...");
         List<Word> result = null;

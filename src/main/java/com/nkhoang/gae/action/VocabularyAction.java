@@ -63,13 +63,19 @@ public class VocabularyAction {
     DocsService docsService = new DocsService(APP_NAME); // Google Document Service.
 
 
+    /**
+     * Render home page for vocabulary.
+     *
+     * @return view name.
+     */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_HOME_REQUEST, method = RequestMethod.GET)
-    public String getVocabularyPage() {
+    public String renderVocabularyPage() {
         return ViewConstant.VOCABULARY_VIEW;
     }
 
     /**
      * Export vocabulary data from an excel file in google docs to new documents in google docs.
+     *
      * @param indexStr word list offset.
      * @param response HttpServletResponse.
      */
@@ -92,7 +98,7 @@ public class VocabularyAction {
         int numberOfWords = vocabularyService.getWordSize();
         int nextIndex = index + 40 + 1;
         if (index + 40 + 1 < numberOfWords) {
-            String xml = constructIVocabularyFile(index, 40);
+            String xml = constructIVocabularyFile(index, 40, 20);
             try {
                 LOGGER.info("Saving to GOOGLE DOCS.");
                 GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + 40), xml, "charamhkh", "me27&ml17");
@@ -114,10 +120,10 @@ public class VocabularyAction {
 
 
     /**
-     * URL should contains params "index" and "col" to limit the response content from Google Spreadsheet API.
+     * Look up data from Google docs excel file and then update to GAE datastore.
      *
-     * @param startingIndex starting index.
-     * @param columnIndex   column index.
+     * @param startingIndex row number.
+     * @param columnIndex   column number.
      * @param response      HttpServletResponse.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
@@ -128,8 +134,7 @@ public class VocabularyAction {
 
         int index = 0;
         int col = 1; // column index starting from 1 not 0.
-        // parse starting index.
-        if (StringUtils.isNotEmpty(startingIndex)) {
+        if (StringUtils.isNotEmpty(startingIndex)) { // parse starting index.
             try {
                 index = Integer.parseInt(startingIndex);
             } catch (Exception e) {
@@ -183,6 +188,7 @@ public class VocabularyAction {
                 //LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
                 LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "] and col [" + col + "]");
                 QueueFactory.getDefaultQueue().add(url("/vocabulary/update.html?index=" + index + "&col=" + col).method(TaskOptions.Method.GET));
+
                 finished = true;
             } catch (Exception
                     authex) {
@@ -198,6 +204,15 @@ public class VocabularyAction {
 
     }
 
+    /**
+     * Contruct XML complied with iVocabulary XVOC format.
+     *
+     * @param allWords      list of words.
+     * @param size          number of words contained in a Page.
+     * @param startingIndex offset of the list.
+     * @param requestSize   number of words will be processed.
+     * @return xml string.
+     */
     private String constructXMLBlockContent(List<Word> allWords, int size, int startingIndex, int requestSize) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
@@ -240,7 +255,7 @@ public class VocabularyAction {
             StringBuilder comment = new StringBuilder();
             StringBuilder targetWords = new StringBuilder();
 
-            String pron = w.getPron(); // append to comment.
+            String pron = w.getPron() == null ? "" : w.getPron(); // append to comment. remove null
 
             List<Meaning> lmn = w.getMeaning(w.getKindidmap().get("noun")); // meaning for noun.
             if (lmn != null && lmn.size() > 0) {
@@ -315,15 +330,25 @@ public class VocabularyAction {
         return xmlBuilder.toString();
     }
 
+    /**
+     * Build iVocabulary file right from an URL.
+     *
+     * @param startingIndexStr offset to be started with.
+     * @param sizeStr          number of words will be processed.
+     * @param pageSizeStr      number of words in a Page.
+     * @param response         HttpServletResponse.
+     * @return xml view.
+     */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_I_VOCABULARY_REQUEST, method = RequestMethod.GET)
-    public ModelAndView buildIVocabularyFile(@RequestParam("startingIndex") String startingIndexStr, @RequestParam("size") String sizeStr, HttpServletResponse response) {
+    public ModelAndView buildIVocabularyFile(@RequestParam("startingIndex") String startingIndexStr, @RequestParam("pageSize") String pageSizeStr,
+                                             @RequestParam("size") String sizeStr, HttpServletResponse response) {
 
-        int startingIndex = 0, size = 100; // default size = 100;
+        int startingIndex = 0, size = 100, pageSize = 20; // default size = 100;
 
         if (StringUtils.isEmpty(startingIndexStr)) {
             try {
                 response.setContentType("text/html");
-                response.getWriter().write("Check your param. startingIndex should not be ommitted.");
+                response.getWriter().write("Check your param. startingIndex must not be ommitted.");
             } catch (Exception e) {
                 LOGGER.error("Could not print output.");
             }
@@ -336,7 +361,11 @@ public class VocabularyAction {
             size = Integer.parseInt(sizeStr);
         }
 
-        String xmlStr = constructIVocabularyFile(startingIndex, size);
+        if (StringUtils.isNotEmpty(pageSizeStr)) {
+            pageSize = Integer.parseInt(pageSizeStr);
+        }
+
+        String xmlStr = constructIVocabularyFile(startingIndex, size, pageSize);
 
         ModelAndView mav = new ModelAndView();
         mav.setView(new XMLView());
@@ -345,9 +374,16 @@ public class VocabularyAction {
         return mav;
     }
 
-    private String constructIVocabularyFile(int startingIndex, int size) {
+    /**
+     * Contruct iVocabulary file from database.
+     *
+     * @param startingIndex word offset.
+     * @param size          iVocabulary page size.
+     * @return xml string.
+     */
+    private String constructIVocabularyFile(int startingIndex, int size, int pageSize) {
         List<Word> allWords = vocabularyService.getAllWordsInRange(startingIndex, size);
-        String xml = constructXMLBlockContent(allWords, 20, startingIndex, size);
+        String xml = constructXMLBlockContent(allWords, pageSize, startingIndex, size);
 
         String xmlStr = "";
         try {
@@ -392,15 +428,22 @@ public class VocabularyAction {
         return xmlStr;
     }
 
-    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_ALL_REQUEST, method = RequestMethod.POST)
-    public ModelAndView listAll() {
+    
+
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_NEWLY_ADDED_REQUEST, method = RequestMethod.POST)
+    public ModelAndView listNewlyAdded(@RequestParam("size") String sizeStr) {
+        int size = 10;
+        if (StringUtils.isNotEmpty(sizeStr)) {
+            size = Integer.parseInt(sizeStr);            
+        }
+
         User user = getUserCredential();
 
         ModelAndView modelAndView = new ModelAndView();
         if (user != null) {
             Map<String, Object> jsonData = new HashMap<String, Object>();
             List<Word> words = vocabularyService.getAllWordsFromUser(user.getWordList());
-            words.addAll(vocabularyService.getAllWords()); // get all DB words.
+            words.addAll(vocabularyService.getAllWordsInRange(0, size)); // get all DB words.
             jsonData.put("words", words);
 
             View jsonView = new JSONView();
@@ -418,6 +461,11 @@ public class VocabularyAction {
 
     }
 
+    /**
+     * Add a new word to the list.
+     * @param word word to be added.
+     * @return view.
+     */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_ADD_WORD_REQUEST, method = RequestMethod.POST)
     public ModelAndView submitWord(@RequestParam String word) {
 
@@ -426,8 +474,7 @@ public class VocabularyAction {
         boolean result = false;
 
         User user = getUserCredential();
-        if (user != null && word != null && StringUtils.isNotEmpty(word)) {
-            // delete item
+        if (user != null && StringUtils.isNotEmpty(word)) {
             try {
                 Word savedWord = vocabularyService.save(word);
                 user.getWordList().add(savedWord.getId());
@@ -445,7 +492,7 @@ public class VocabularyAction {
 
     }
 
-    public User getUserCredential() {
+    private User getUserCredential() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = null;
         if (authentication != null) {
