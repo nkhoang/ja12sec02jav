@@ -2,17 +2,10 @@ package com.nkhoang.gae.action;
 
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
-import com.google.gdata.client.Query;
 import com.google.gdata.client.docs.DocsService;
 import com.google.gdata.client.spreadsheet.CellQuery;
-import com.google.gdata.data.MediaContent;
-import com.google.gdata.data.PlainTextConstruct;
-import com.google.gdata.data.docs.*;
-import com.google.gdata.data.media.MediaByteArraySource;
 import com.google.gdata.data.spreadsheet.CellEntry;
 import com.google.gdata.data.spreadsheet.CellFeed;
-import com.google.gdata.util.AuthenticationException;
-import com.google.gdata.util.ServiceException;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.Meaning;
@@ -20,6 +13,7 @@ import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
+import com.nkhoang.gae.utils.GoogleDocsUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -65,103 +59,20 @@ public class VocabularyAction {
     @Autowired
     private UserManager userService;
 
-
     private final String APP_NAME = "Chara";
-    private final String BASE_URL = "https://docs.google.com/feeds/default/private/full";
-    private final String DOWNLOAD_URL = "https://docs.google.com/feeds/download";
-    private final String URL_CATEGORY_DOCUMENT = "/-/document";
-    private final String URL_CATEGORY_SPREADSHEET = "/-/spreadsheet";
-    private final String URL_CATEGORY_PDF = "/-/pdf";
-    private final String URL_CATEGORY_PRESENTATION = "/-/presentation";
-    private final String URL_CATEGORY_STARRED = "/-/starred";
-    private final String URL_CATEGORY_TRASHED = "/-/trashed";
-    private final String URL_CATEGORY_FOLDER = "/-/folder";
-    private final String URL_CATEGORY_EXPORT = "/Export";
-    private final DocsService docsService = new DocsService(APP_NAME); // Google Document Service.
+    DocsService docsService = new DocsService(APP_NAME); // Google Document Service.
+
 
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_HOME_REQUEST, method = RequestMethod.GET)
     public String getVocabularyPage() {
         return ViewConstant.VOCABULARY_VIEW;
     }
 
-    public void save(String folderName, String documentTitle, String content, String anotherUserName, String anotherPassword) throws Exception{
-            login(anotherUserName, anotherPassword);
-
-            DocumentListEntry targetFolder = checkFolderExistence(folderName); // create or get.
-            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Creating new document ... " + documentTitle);
-            DocumentListEntry document = createNew(documentTitle, "document"); // create a new document with default name
-
-            if (document == null) {
-                throw new Exception(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Unable to create a new document");
-            }
-            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Move it to our default folder");
-            document = moveObjectToFolder(targetFolder, document); // move to folder
-            document.setMediaSource(new MediaByteArraySource(content.getBytes("UTF-8"), "text/plain")); // update content
-            document.updateMedia(true);
-
-    }
-
-    private void login(String username, String password) throws AuthenticationException {
-        docsService.setUserCredentials(username, password);
-    }
-
-    public DocumentListEntry moveObjectToFolder(DocumentListEntry folderEntry, DocumentListEntry doc) throws IOException,
-            ServiceException {
-        String destFolderUri = ((MediaContent) folderEntry.getContent()).getUri();
-
-        return docsService.insert(new URL(destFolderUri), doc);
-    }
-
-    private DocumentListEntry checkFolderExistence(String folderName) throws IOException, ServiceException {
-        DocumentListEntry targetFolder = checkFolder(folderName); // check folder existence.
-        if (targetFolder == null) { // not found.
-            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : " + folderName + " -> Could not find.");
-            LOGGER.info(">>>>>>>>>>>>> GOOGLE DOCS <<<<<<<<<<<<<<<< : Now creating new folder named : " + folderName);
-            targetFolder = createNew(folderName, "folder");
-        }
-        return targetFolder;
-    }
-
-    private DocumentListFeed listFolders(String uri) throws IOException, ServiceException {
-        if (uri == null) {
-            uri = BASE_URL + URL_CATEGORY_FOLDER; // use default
-        }
-        URL url = new URL(uri);
-        Query query = new Query(url);
-        return docsService.query(query, DocumentListFeed.class);
-    }
-
-
-    private DocumentListEntry checkFolder(String folderTitle) throws IOException, ServiceException {
-        DocumentListFeed feeds = listFolders(BASE_URL + URL_CATEGORY_FOLDER);  // get folder feeds which contains folder information.
-        DocumentListEntry foundEntry = null;
-        for (DocumentListEntry entry : feeds.getEntries()) {
-            if (entry.getTitle().getPlainText().equals(folderTitle)) { // check name
-                foundEntry = entry;
-                break;
-            }
-        }
-        return foundEntry;
-    }
-
-
-    private DocumentListEntry createNew(String folderTitle, String type) throws IOException, ServiceException {
-        DocumentListEntry newEntry = null;
-        if (type.equals("document")) { // type = " document ".
-            newEntry = new DocumentEntry();
-        } else if (type.equals("presentation")) {  // the same as above.
-            newEntry = new PresentationEntry();
-        } else if (type.equals("spreadsheet")) { // the same as above.
-            newEntry = new SpreadsheetEntry();
-        } else if (type.equals("folder")) { // type = " folder ".
-            newEntry = new FolderEntry();
-        }
-        PlainTextConstruct textConstruct = new PlainTextConstruct(folderTitle);
-        newEntry.setTitle(textConstruct); // set folder title
-        return docsService.insert(new URL(BASE_URL), newEntry);
-    }
-
-
+    /**
+     * Export vocabulary data from an excel file in google docs to new documents in google docs.
+     * @param indexStr word list offset.
+     * @param response HttpServletResponse.
+     */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST, method = RequestMethod.GET)
     public void exportGoogleDocs(@RequestParam("index") String indexStr, HttpServletResponse response) {
         int index = 0;
@@ -184,7 +95,7 @@ public class VocabularyAction {
             String xml = constructIVocabularyFile(index, 40);
             try {
                 LOGGER.info("Saving to GOOGLE DOCS.");
-                save("XML", index + " - " + (index + 40), xml, "nkhoang.it", "me27&ml17");
+                GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + 40), xml, "charamhkh", "me27&ml17");
             } catch (Exception e) {
                 LOGGER.info("Could not save to google docs. Try again.");
                 nextIndex = index;
