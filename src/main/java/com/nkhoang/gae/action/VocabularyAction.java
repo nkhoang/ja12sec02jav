@@ -428,13 +428,41 @@ public class VocabularyAction {
         return xmlStr;
     }
 
-    
+    /**
+     * Populate word with meanings and examples
+     *
+     * @param idStr id to be populated.
+     * @return a fully populated Word.
+     */
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_POPULATE_WORD_REQUEST, method = RequestMethod.POST)
+    public ModelAndView populateWord(@RequestParam("id") String idStr) {
+        Long id = 0L;
+        Word w = null;
+        ModelAndView modelAndView = new ModelAndView();
+        if (StringUtils.isNotEmpty(idStr)) {
+            id = Long.parseLong(idStr);
+            w = vocabularyService.populateWord(id);
+        }
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+        jsonData.put("word", w);
 
-    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_NEWLY_ADDED_REQUEST, method = RequestMethod.POST)
-    public ModelAndView listNewlyAdded(@RequestParam("size") String sizeStr) {
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+
+        List<String> attrs = new ArrayList<String>();
+        attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
+        modelAndView.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
+
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_WORD_RANGE_REQUEST, method = RequestMethod.POST)
+    public ModelAndView listWordsInRange(@RequestParam("size") String sizeStr) {
         int size = 10;
         if (StringUtils.isNotEmpty(sizeStr)) {
-            size = Integer.parseInt(sizeStr);            
+            size = Integer.parseInt(sizeStr);
         }
 
         User user = getUserCredential();
@@ -443,7 +471,7 @@ public class VocabularyAction {
         if (user != null) {
             Map<String, Object> jsonData = new HashMap<String, Object>();
             List<Word> words = vocabularyService.getAllWordsFromUser(user.getWordList());
-            words.addAll(vocabularyService.getAllWordsInRange(0, size)); // get all DB words.
+            words.addAll(vocabularyService.getAllWordsInRangeWithoutMeanings(0, size)); // get all DB words.
             jsonData.put("words", words);
 
             View jsonView = new JSONView();
@@ -463,6 +491,7 @@ public class VocabularyAction {
 
     /**
      * Add a new word to the list.
+     *
      * @param word word to be added.
      * @return view.
      */

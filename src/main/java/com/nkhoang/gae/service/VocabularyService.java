@@ -13,6 +13,10 @@ public interface VocabularyService {
     public List<Word> getAllWordsInRange(int startingIndex, int size);
 
     public List<Word> getAllWordsFromUser(List<Long> wordIds);
+    
+    public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size) ;
+
+    public Word populateWord(Long id);
 
     public int getWordSize();
 

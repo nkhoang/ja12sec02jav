@@ -54,6 +54,50 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
+
+
+    /**
+     * Just get a range of words only. Not populating meanings and examples. It will speed up the process of getting a word list.
+     * @param startingIndex starting index.
+     * @param size size to be retrieved.
+     * @return a list of words.
+     */
+    public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size) {
+        List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
+        List<Word> result = new ArrayList<Word>();
+        int lastIndex = startingIndex + size;
+        if (lastIndex > words.size()) {
+            lastIndex = words.size() - 1;
+        }
+        for (int i = startingIndex; i < lastIndex; i++) {
+            Word w = words.get(i);
+            result.add(w);
+        }
+        return result;
+
+    }
+
+    @Override
+    public Word populateWord(Long id) {
+        Word w = vocabularyDao.get(id);
+
+        populateWord(w);
+
+        return w;
+    }
+
+
+    /**
+     * Simply get all words from database without populating it with meanings and examples.
+     * Used to list all available words.
+     *
+     * @return all words in DB.
+     */
+    public List<Word> getAllWords() {
+        return vocabularyDao.getAll();
+    }
+
+
     public int getWordSize() {
         List<Word> words = vocabularyDao.getAll();
         if (words == null) {
@@ -61,7 +105,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
         return words.size();
     }
-    
+
     public List<Word> getAllWordsFromUser(List<Long> wordIds) {
         List<Word> words = new ArrayList<Word>();
         for (Long id : wordIds) {

@@ -43,7 +43,7 @@ public class Word {
     private final Map<Long, List<Meaning>> meanings = new HashMap<Long, List<Meaning>>(0);
     @Transient
     private List<Long> kindIdList = new ArrayList();
-    public static final String SKIP_FIELDS[] = {"jdoDetachedState", "kindIdMap", "meaningIds"};
+    public static final String SKIP_FIELDS[] = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp"};
     @Basic
     private Long timeStamp;
 
