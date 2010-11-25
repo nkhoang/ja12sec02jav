@@ -1,7 +1,7 @@
 #appcfg.py create_bulkloader_config --url=http://localhost:7070/remote_api --application=localhost --filename=localhost-config.yml
 #appcfg.py create_bulkloader_config --url=http://shop-chara.appspot.com/remote_api --application=shop-chara --filename=shop-config.yml
 #appcfg.py download_data --config_file=shop-config.yml --filename=Word.xml --kind=Word --url=http://shop-chara.appspot.com/remote_api --application=shop-chara
-#appcfg.py download_data --config_file=shop-config.yml --filename=Meaning.csv --kind=Meaning --url=http://shop-chara.appspot.com/remote_api --application=shop-chara
+#appcfg.py download_data --config_file=shop-config.yml --filename=Meaning.csv --kind=Meaning --url=http://hoangmy-fashionshop.appspot.com/remote_api --application=hoangmy-fashionshop
 #appcfg.py download_data --config_file=shop-config.yml --filename=Item.xml --kind=Item --url=http://shop-chara.appspot.com/remote_api --application=shop-chara
 
 
