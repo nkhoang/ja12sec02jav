@@ -39,18 +39,18 @@ class IssueController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'ProjectContext + create', // allow create only. We should not have to put the prefix to the filter name.
-            // As instructed in the book "Agile Yii.. " we should have put the full method name in order to register filter.
-            // But not removing the prefix 'filter' will end up with an error.
+            'ProjectContext + create index admin', // allow create only. We should not have to put the prefix to the filter name.
+        // As instructed in the book "Agile Yii.. " we should have put the full method name in order to register filter.
+        // But not removing the prefix 'filter' will end up with an error.
         );
     }
 
     public function filterProjectContext($filterChain) {
         $projectId = null;
-        if (isset ($_GET['pid'])) {
+        if (isset($_GET['pid'])) {
             $projectId = $_GET['pid'];
         } else {
-            if (isset ($_POST['pid'])) {
+            if (isset($_POST['pid'])) {
                 $projectId = $_POST['pid'];
             }
         }
@@ -159,9 +159,19 @@ class IssueController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Issue');
+        $dataProvider = new CActiveDataProvider('Issue',
+                        array(
+                            'criteria' => array(
+                                'condition' => 'project_id=:projectId',
+                                'params' => array(':projectId' => $this->_project->id),
+                            ),
+                ));
+
+        $model = new Issue();
+        $model->project_id = $this->_project->id;
         $this->render('index', array(
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ));
     }
 
@@ -173,6 +183,8 @@ class IssueController extends Controller {
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Issue']))
             $model->attributes = $_GET['Issue'];
+
+        $model->project_id = $this->_project->id;
 
         $this->render('admin', array(
             'model' => $model,

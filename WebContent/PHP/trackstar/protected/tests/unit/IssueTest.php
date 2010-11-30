@@ -6,31 +6,32 @@
  */
 
 /**
- * Description of IssueTest
+ * Description of ProjectTest
  *
- * @author hnguyen93
+ * @author hoangnk
  */
 class IssueTest extends CDbTestCase {
 
-    /**
-     * Test get type options of Issue object.
-     */
-    public function testGetTypeOptions() {
+    public $fixtures = array(
+        'projects' => 'Project',
+        'issues' => 'Issue',
+    );
+
+    public function testGetStatusText() {
+        $this->assertTrue('Started' == $this->issues('issueBug')->getStatusText());
+    }
+
+    public function testGetTypeText() {
+        $this->assertTrue('Bug' == $this->issues('issueBug')->getTypeText());
+    }
+
+    public function testGetTypes() {
         $options = Issue::model()->typeOptions;
         $this->assertTrue(is_array($options));
         $this->assertTrue(3 == count($options));
         $this->assertTrue(in_array('Bug', $options));
         $this->assertTrue(in_array('Feature', $options));
         $this->assertTrue(in_array('Task', $options));
-    }
-
-    public function testGetStatusOptions() {
-        $options = Issue::model()->statusOptions;
-        $this->assertTrue(is_array($options));
-        $this->assertTrue(3 == count($options));
-        $this->assertTrue(in_array('Not yet started', $options));
-        $this->assertTrue(in_array('Started', $options));
-        $this->assertTrue(in_array('Finished', $options));
     }
 
 }

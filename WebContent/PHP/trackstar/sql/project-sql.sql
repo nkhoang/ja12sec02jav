@@ -52,22 +52,22 @@ PRIMARY KEY (project_id,user_id)
 
 
 ALTER TABLE issue ADD CONSTRAINT FK_issue_project FOREIGN KEY (project_id)
-REFERENCES trackstar_test.project(id)
+REFERENCES trackstar_dev.project(id)
 ON DELETE CASCADE ON
 UPDATE RESTRICT;
 
 ALTER TABLE issue ADD CONSTRAINT FK_issue_owner FOREIGN KEY
-(owner_id) REFERENCES trackstar_test.user (id) ON DELETE CASCADE ON UPDATE
+(owner_id) REFERENCES trackstar_dev.user (id) ON DELETE CASCADE ON UPDATE
 RESTRICT;
 
 ALTER TABLE issue ADD CONSTRAINT FK_issue_requester FOREIGN
-KEY (requester_id) REFERENCES trackstar_test.user (id) ON DELETE CASCADE ON
+KEY (requester_id) REFERENCES trackstar_dev.user (id) ON DELETE CASCADE ON
 UPDATE RESTRICT;
 
-ALTER TABLE project_user_assignment ADD CONSTRAINT FK_project_user FOREIGN KEY (project_id) REFERENCES trackstar_test.project (id) ON
+ALTER TABLE project_user_assignment ADD CONSTRAINT FK_project_user FOREIGN KEY (project_id) REFERENCES trackstar_dev.project (id) ON
 DELETE CASCADE ON UPDATE RESTRICT;
 
-ALTER TABLE project_user_assignment ADD CONSTRAINT FK_user_project FOREIGN KEY (user_id) REFERENCES trackstar_test.user (id) ON
+ALTER TABLE project_user_assignment ADD CONSTRAINT FK_user_project FOREIGN KEY (user_id) REFERENCES trackstar_dev.user (id) ON
 DELETE CASCADE ON UPDATE RESTRICT;
 
 INSERT INTO user (email, username, password)
