@@ -20,6 +20,14 @@ class IssueController extends Controller {
     }
 
     /**
+     * Get project of this issue.
+     * @return Project model.
+     */
+    public function getProject() {
+        return $this->_project;
+    }
+
+    /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */

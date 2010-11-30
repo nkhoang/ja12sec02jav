@@ -29,6 +29,12 @@ class Project extends CActiveRecord {
         return 'project';
     }
 
+    public function getUserOptions() {
+        $userArray = CHtml::listData($this->users, 'id', 'username');
+
+        return $userArray;
+    }
+
     /**
      * @return array validation rules for model attributes.
      */

@@ -72,3 +72,7 @@ DELETE CASCADE ON UPDATE RESTRICT;
 
 INSERT INTO user (email, username, password)
 VALUES ('test1@notanaddress.com','Test_User_One', MD5('test1')), ('test2@notanaddress.com','Test_User_Two', MD5('test2'));
+
+INSERT INTO project (name, description) VALUES ('Project 1', 'Project 1 Description');
+
+INSERT INTO project_user_assignment (project_id, user_id ) VALUES (1,1), (1,2);

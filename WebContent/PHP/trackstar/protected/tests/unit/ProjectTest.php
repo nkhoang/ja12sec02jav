@@ -14,7 +14,17 @@ class ProjectTest extends CDbTestCase {
 
     public $fixtures = array(
         'projects' => 'Project',
+        'users' => 'User', // this is a AR class.
+        'ProjUsrAssign' => ':project_user_assignment', // ':' indicates that this is a database table not AR class.
     );
+
+    public function testGetUserOptions() {
+        $project = $this->projects('project1');
+        $options = $project->userOptions;
+
+        $this->assertTrue(is_array($options));
+        $this->assertTrue(count($options) > 0);
+    }
 
     public function testCRUD() {
         $newProject = new Project();
