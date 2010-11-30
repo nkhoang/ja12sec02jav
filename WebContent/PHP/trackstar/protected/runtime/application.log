@@ -111,3 +111,18 @@ Stack trace:
 #9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
 #10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\index.php(13): CApplication->run()
 #11 {main} REQUEST_URI=/trackstar/index.php?r=project/admin
+2010/11/30 11:01:43 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('view')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/view')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/trackstar/index.php?r=issue/view

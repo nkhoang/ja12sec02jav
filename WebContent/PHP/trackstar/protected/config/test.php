@@ -12,7 +12,7 @@ return CMap::mergeArray(
                     'mysql:host=localhost;dbname=trackstar_test',
                     'emulatePrepare' => true,
                     'username' => 'root',
-                    'password' => 'root',
+                        'password' => 'root',
                     'charset' => 'utf8',
                 ),
             ),
