@@ -126,3 +126,164 @@ Stack trace:
 #10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
 #11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
 #12 {main} REQUEST_URI=/trackstar/index.php?r=issue/view
+2010/11/30 13:29:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "list".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php:444
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(262): CController->missingAction('list')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('list')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/list')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#5 {main} REQUEST_URI=/trackstar/index.php?r=issue/list
+2010/11/30 13:30:06 [error] [exception.CException] exception 'CException' with message 'Filter "filterProjectContext" is invalid. Controller "IssueController" does have the filter method "filterfilterProjectContext".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php:47
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(69): CInlineFilter::create(Object(IssueController), 'filterProjectCo...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain::create(Object(IssueController), Object(CInlineAction), Array)
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('create')
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/create')
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#7 {main} REQUEST_URI=/trackstar/index.php?r=issue/create
+2010/11/30 13:30:32 [error] [exception.CException] exception 'CException' with message 'Filter "filterProjectContext" is invalid. Controller "IssueController" does have the filter method "filterfilterProjectContext".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php:47
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(69): CInlineFilter::create(Object(IssueController), 'filterProjectCo...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain::create(Object(IssueController), Object(CInlineAction), Array)
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('create')
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/create')
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#7 {main} REQUEST_URI=/trackstar/index.php?r=issue/create
+2010/11/30 13:31:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The required project does not exist' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\controllers\IssueController.php:10
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\controllers\IssueController.php(42): IssueController->loadProject(NULL)
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): IssueController->filterProjectContext(Object(CFilterChain))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('create')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/create')
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#12 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#13 {main} REQUEST_URI=/trackstar/index.php?r=issue/create
+2010/11/30 13:35:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The required project does not exist' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\controllers\IssueController.php:16
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\controllers\IssueController.php(50): IssueController->loadProject(NULL)
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): IssueController->filterProjectContext(Object(CFilterChain))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('create')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/create')
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#12 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#13 {main} REQUEST_URI=/trackstar/index.php?r=issue/create
+2010/11/30 13:36:00 [error] [exception.CException] exception 'CException' with message 'Property "Project.create_time" is not defined.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(110): CComponent->__get('create_time')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2006): CActiveRecord->__get('create_time')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1748): CHtml::resolveValue(Object(Project), 'create_time')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1183): CHtml::activeInputField('text', Object(Project), 'create_time', Array)
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(479): CHtml::activeTextField(Object(Project), 'create_time', Array)
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\views\project\_search.php(25): CActiveForm->textField(Object(Project), 'create_time')
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(119): require('E:\Softs\xampp-...')
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(88): CBaseController->renderInternal('E:\Softs\xampp-...', Array, true)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(833): CBaseController->renderFile('E:\Softs\xampp-...', Array, true)
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\views\project\admin.php(37): CController->renderPartial('_search', Array)
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(119): require('E:\Softs\xampp-...')
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(88): CBaseController->renderInternal('E:\Softs\xampp-...', Array, true)
+#12 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(833): CBaseController->renderFile('E:\Softs\xampp-...', Array, true)
+#13 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(746): CController->renderPartial('admin', Array, true)
+#14 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\controllers\ProjectController.php(148): CController->render('admin', Array)
+#15 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(57): ProjectController->actionAdmin()
+#16 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#17 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#19 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#20 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#21 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#23 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('admin')
+#25 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('project/admin')
+#26 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#27 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#28 {main} REQUEST_URI=/trackstar/index.php?r=project/admin
+2010/11/30 13:36:42 [error] [exception.CException] exception 'CException' with message 'Property "Project.create_time" is not defined.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(110): CComponent->__get('create_time')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\helpers\CHtml.php(2006): CActiveRecord->__get('create_time')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1748): CHtml::resolveValue(Object(Project), 'create_time')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1183): CHtml::activeInputField('text', Object(Project), 'create_time', Array)
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(479): CHtml::activeTextField(Object(Project), 'create_time', Array)
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\views\project\_form.php(26): CActiveForm->textField(Object(Project), 'create_time')
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(119): require('E:\Softs\xampp-...')
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(88): CBaseController->renderInternal('E:\Softs\xampp-...', Array, true)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(833): CBaseController->renderFile('E:\Softs\xampp-...', Array, true)
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\views\project\create.php(15): CController->renderPartial('_form', Array)
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(119): require('E:\Softs\xampp-...')
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CBaseController.php(88): CBaseController->renderInternal('E:\Softs\xampp-...', Array, true)
+#12 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(833): CBaseController->renderFile('E:\Softs\xampp-...', Array, true)
+#13 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(746): CController->renderPartial('create', Array, true)
+#14 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\protected\controllers\ProjectController.php(78): CController->render('create', Array)
+#15 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(57): ProjectController->actionCreate()
+#16 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#17 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#18 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#19 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#20 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#21 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#22 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#23 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('create')
+#25 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('project/create')
+#26 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#27 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#28 {main} REQUEST_URI=/trackstar/index.php?r=project/create
+2010/11/30 13:42:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "craete?pid=1".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php:444
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(262): CController->missingAction('craete?pid=1')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('craete?pid=1')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/craete?pi...')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#5 {main} REQUEST_URI=/trackstar/index.php?r=issue/craete?pid=1
+2010/11/30 13:42:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "craete".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php:444
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(262): CController->missingAction('craete')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('craete')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/craete')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#5 {main} REQUEST_URI=/trackstar/index.php?r=issue/craete&pid=1
+2010/11/30 13:43:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "craete".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php:444
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(262): CController->missingAction('craete')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('craete')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/craete')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#5 {main} REQUEST_URI=/trackstar/index.php?r=issue/craete&pid=1
+2010/11/30 13:45:41 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('view')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('project/view')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/trackstar/index.php?r=project/view
