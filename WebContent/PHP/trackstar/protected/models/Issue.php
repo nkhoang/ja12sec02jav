@@ -17,7 +17,7 @@
  * @property string $update_time
  * @property integer $update_user_id
  */
-class Issue extends CActiveRecord {
+class Issue extends TrackStarActiveRecord {
     /**
      * Type constants.
      */
@@ -81,13 +81,12 @@ class Issue extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('name', 'required'),
-            array('project_id, type_id, status_id, owner_id, requester_id, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
+            array('project_id, type_id, status_id, owner_id, requester_id', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 256),
-            array('description', 'length', 'max' => 2000),
-            array('create_time, update_time', 'safe'),
+            array('description', 'length', 'max' => 2000),            
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, description, project_id, type_id, status_id, owner_id, requester_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on' => 'search'),
+            array('id, name, description, project_id, type_id, status_id, owner_id, requester_id', 'safe', 'on' => 'search'),
         );
     }
 

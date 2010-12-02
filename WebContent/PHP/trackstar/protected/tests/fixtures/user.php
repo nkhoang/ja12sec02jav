@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'user1ToProject1' => array(
+    'user1' => array(
         'project_id' => 1,
         'user_id' => 1,
         'create_time' => '',
@@ -9,7 +9,7 @@ return array(
         'update_time' => '',
         'update_user_id' => '',
     ),
-    'user2ToProject1' => array(
+    'user2' => array(
         'project_id' => 1,
         'user_id' => 2,
         'create_time' => '',

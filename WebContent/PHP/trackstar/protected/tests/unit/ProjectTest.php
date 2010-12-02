@@ -66,6 +66,27 @@ class ProjectTest extends CDbTestCase {
         $this->assertEquals('Test Project 1', $retrievedProject->name);
     }
 
+    public function testCreate() {
+        // create a new project
+        $newProject = new Project();
+        $newProjectName = 'Test Project Creation';
+        $newProject->setAttributes(array(
+            'name' => $newProjectName,
+            'description' => 'This is a test.',
+        ));
+
+        // set the application user id to the first user in our users test fixture data.
+        Yii::app()->user->setId($this->users('user1')->id);
+        $this->assertTrue($newProject->save());
+
+        // read back the newly created Project to ensure the creation worked
+        $retrievedProject = Project::model()->findByPk($newProject->id);
+        $this->assertTrue($retrievedProject instanceof Project);
+        $this->assertEquals($newProjectName, $retrievedProject->name);
+
+        $this->assertEquals(Yii::app()->user->id, $retrievedProject->create_user_id);
+    }
+
 }
 
 ?>

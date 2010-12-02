@@ -737,3 +737,35 @@ Stack trace:
 #11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
 #12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\index.php(13): CApplication->run()
 #13 {main} REQUEST_URI=/trackstar/index.php?r=issue/admin&pid=
+2010/12/02 22:14:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The required project does not exist' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\protected\controllers\IssueController.php:16
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\protected\controllers\IssueController.php(58): IssueController->loadProject(NULL)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): IssueController->filterProjectContext(Object(CFilterChain))
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('update')
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/update')
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#13 {main} REQUEST_URI=/trackstar/index.php?r=issue/update&id=1
+2010/12/02 22:14:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The required project does not exist' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\protected\controllers\IssueController.php:16
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\protected\controllers\IssueController.php(58): IssueController->loadProject(NULL)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): IssueController->filterProjectContext(Object(CFilterChain))
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('update')
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('issue/update')
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\trackstar\index.php(13): CApplication->run()
+#13 {main} REQUEST_URI=/trackstar/index.php?r=issue/update&id=1

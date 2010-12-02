@@ -39,7 +39,7 @@ class IssueController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'ProjectContext + create index admin', // allow create only. We should not have to put the prefix to the filter name.
+            'ProjectContext + create index admin update', // allow create only. We should not have to put the prefix to the filter name.
         // As instructed in the book "Agile Yii.. " we should have put the full method name in order to register filter.
         // But not removing the prefix 'filter' will end up with an error.
         );
