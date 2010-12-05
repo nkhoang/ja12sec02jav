@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * add custom actions before and after validation.
+ */
 abstract class TrackStarActiveRecord extends CActiveRecord {
 
     /**
@@ -7,7 +10,7 @@ abstract class TrackStarActiveRecord extends CActiveRecord {
       id attributes before performing validation.
      */
     protected function beforeValidate() {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord) { // internal flag.
             // set the create date, last updated date and the user doing the creating
             $this->create_time = $this->update_time = new CDbExpression('NOW()');
             $this->create_user_id = $this->update_user_id = Yii::app()->user->id;
@@ -16,7 +19,8 @@ abstract class TrackStarActiveRecord extends CActiveRecord {
             $this->update_time = new CDbExpression('NOW()');
             $this->update_user_id = Yii::app()->user->id;
         }
-        return parent::beforeValidate();
+        return parent::beforeValidate(); // continue the chain.
+
     }
 
 }

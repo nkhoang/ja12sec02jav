@@ -19,7 +19,7 @@ return array(
 	),
 
 	'modules'=>array(				
-		'gii'=>array(
+		'gii'=>array( // enable GII module.
 			'class'=>'system.gii.GiiModule',
 			'password'=>'admin',
 		)		
@@ -27,7 +27,7 @@ return array(
 
 	// application components
 	'components'=>array(
-		'user'=>array(
+		'user'=>array( // that's why we can access this using Yii:app()->user
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
