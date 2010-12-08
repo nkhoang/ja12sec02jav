@@ -1,0 +1,3 @@
+2010/12/08 22:04:02 [debug] [application] Entering index page...
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\SiteController.php (30)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
