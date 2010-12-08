@@ -23,7 +23,7 @@ class ItemTest extends CDbTestCase {
                     'select' => '*'
                 )); // using CDbCriterial as an array
 
-        $this->assertEquals($count, 3); // assert this is true = 3.
+        $this->assertEquals($count, 6); // assert this is true = 3.
 
         $count = Item::model()->count(array(
                     'select' => '*',
@@ -32,6 +32,14 @@ class ItemTest extends CDbTestCase {
                 ));
 
         $this->assertEquals($count, 1);
+
+        $count = Item::model()->count(array(
+            'select' => '*',
+            'condition' => 'is_hot=:isHOT',
+            'params' => array(':isHOT' => '1'),
+        ));
+
+        $this->assertEquals($count, 2);
     }
 
     public function testUsingExist() {
@@ -75,6 +83,19 @@ class ItemTest extends CDbTestCase {
             $transaction->rollBack();
         }
     }
+
+    public function testUsingNamedScope() {
+        $items = Item::model()->hotStuff()->findAll();
+
+        $this->assertEquals(sizeof($items), 2);
+
+        $items = Item::model()->onSales()->findAll();
+        $this->assertEquals(sizeof($items), 2);
+
+        $items = Item::model()->onSales()->hotStuff()->findAll();
+        $this->assertEquals(sizeof($items), 1);
+    }
+
 
 }
 
