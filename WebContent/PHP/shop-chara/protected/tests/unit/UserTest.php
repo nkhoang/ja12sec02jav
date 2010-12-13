@@ -23,5 +23,21 @@ class UserTest extends CDbTestCase{
         $this->assertEquals($user->id, 1);
     }
 
+    public function testGetRoles() {
+        $userRoles = Authassignment::model()->findAll(array(
+            'condition' => 'userid=:userID',
+            'params' => array(':userID'=> '1'),
+        ));
+
+        echo 'Number of user roles: '.sizeof($userRoles);
+
+        $userRoles = CHtml::listData($userRoles, 'itemname', 'userid');
+        echo '\n Role list: ';
+        foreach($userRoles as $rolename => $userID) {
+            echo '\nRole: '.$rolename.' User: '.$userID;
+        }
+        $this->assertEquals(1, sizeof($userRoles));
+    }
+
 }
 ?>
