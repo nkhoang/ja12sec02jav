@@ -1,3 +1,23 @@
 2010/12/08 22:04:02 [debug] [application] Entering index page...
 in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\SiteController.php (30)
 in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2010/12/13 14:56:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/index".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('admin/index')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/index.php?r=admin/index
+2010/12/13 15:54:06 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\auth\CAccessControlFilter.php:153
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\auth\CAccessControlFilter.php(115): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('admin')
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('user/admin')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#11 {main} REQUEST_URI=/shop-chara/index.php?r=user/admin

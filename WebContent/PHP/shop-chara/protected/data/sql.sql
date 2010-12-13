@@ -2,7 +2,8 @@
 SQLyog Ultimate v8.71 
 MySQL - 5.1.41 : Database - charashop_dev
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -12,9 +13,9 @@ MySQL - 5.1.41 : Database - charashop_dev
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`charashop_dev` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`charashop_test` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 
-USE `charashop_dev`;
+USE `charashop_test`;
 
 /*Table structure for table `item` */
 
@@ -81,3 +82,8 @@ CREATE TABLE `user` (
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+INSERT INTO USER (first_name, middle_name, last_name, email, username, password)
+VALUES ('Hoang', 'Khanh', 'Nguyen', 'nkhoang.it@gmail.com', 'nkhoang.it', md5('blackdragonmmx'));
+
+insert into authassignment (itemname, userid) values ('admin','1');

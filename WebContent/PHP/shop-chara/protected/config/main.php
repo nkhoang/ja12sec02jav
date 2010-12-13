@@ -35,16 +35,15 @@ return array(
             'connectionID' => 'db',
         ),
         // uncomment the following to enable URLs in path-format
-        /*
-          'urlManager'=>array(
-          'urlFormat'=>'path',
-          'rules'=>array(
-          '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-          '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-          '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-          ),
-          ),
-         */
+
+        'urlManager' => array(
+            'urlFormat' => 'path',
+            'showScriptName' => false,
+            'urlSuffix' => '.html',
+            'rules' => array(
+                '<_c:(user)>/<_a:(delete|update|create)>/<id:\d+>' => '_c/_a',
+            ),
+        ),
         /*
           'db'=>array(
           'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
