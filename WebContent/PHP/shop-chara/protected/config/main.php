@@ -66,7 +66,7 @@ return array(
             'routes' => array(
                 array(
                     'class' => 'CFileLogRoute',
-                    'levels' => 'error, warning, debug',
+                    'levels' => 'error, info',
                     'logPath' => dirname(__FILE__) . '/../log/',
                     'logFile' => 'log.txt',
                     'maxFileSize' => 4096,

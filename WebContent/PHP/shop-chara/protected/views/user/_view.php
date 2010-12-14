@@ -31,10 +31,7 @@
 
     <b><?php echo Chtml::encode($data->getAttributeLabel('roles')); ?>: </b>
     <?php
-    $roleNames = $data->getRoles();
-    if ($roleNames !== null && sizeof($roleNames) > 0) {
-        echo CHtml::dropDownList('userRoles_dropdown', '', $roleNames);
-    }
+    echo $data->getRoles();
     ?>
     <?php /*
       <b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

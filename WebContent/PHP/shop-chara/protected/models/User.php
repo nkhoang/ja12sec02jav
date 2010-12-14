@@ -18,6 +18,8 @@
  */
 class User extends CActiveRecord {
 
+    public $password_confirm;
+
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -40,13 +42,14 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('first_name, last_name, email, username', 'required'),
-            array('account_locked', 'numerical', 'integerOnly' => true),
+            array('first_name, last_name, email, username, password_confirm', 'required'),
             array('first_name, middle_name, last_name, email, password', 'length', 'max' => 256),
             array('username', 'length', 'max' => 50),
+            array('password', 'compare', 'compareAttribute' => 'password_confirm'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, first_name, last_name, email, username', 'safe', 'on' => 'search'),
+            array('password_confirm', 'safe'),
         );
     }
 
@@ -72,6 +75,7 @@ class User extends CActiveRecord {
             'email' => 'Email',
             'username' => 'Username',
             'password' => 'Password',
+            'password_confirm' => 'Confirm Password',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'last_login_time' => 'Last Login Time',
@@ -80,17 +84,47 @@ class User extends CActiveRecord {
         );
     }
 
+    /**
+     * Get user current roles.
+     * @return string
+     */
     public function getRoles() {
+        $rolesStr = '';
+
+        $userRoles = Authassignment::model()->findAll(array(
+                    'condition' => 'userid=:userID',
+                    'params' => array(':userID' => $this->id),
+                ));
+        if ($userRoles !== null && sizeof($userRoles) > 0) {
+            $count = 0;
+            foreach ($userRoles as $userRole) {
+                $count++;
+                $rolesStr = $rolesStr . $userRole->itemname;
+                if ($count != sizeof($userRoles)) {
+                    $rolesStr = $rolesStr . ' ,';
+                }
+            }
+        }
+
+
+        return $rolesStr;
+    }
+
+    /**
+     * Get available roles in system.
+     * @return <type>
+     */
+    public function getAvailableRoles() {
         if (Yii::app()->user->checkAccess('admin')) {
-            $userRoles = Authassignment::model()->findAll(array(
-                        'condition' => 'userid=:userID',
-                        'params' => array(':userID' => Yii::app()->user->id),
+            $result = null;
+            $userRoles = Authitem::model()->findAll(array(
+                        'condition' => 'type=:typeID',
+                        'params' => array(':typeID' => 2),
                     ));
             if ($userRoles !== null && sizeof($userRoles) > 0) {
-                return CHtml::listData($userRoles, 'itemname', 'itemname');
+                $result = CHtml::listData($userRoles, 'name', 'name');
             }
-        } else {
-            // throw exception here.
+            return $result;
         }
     }
 
@@ -119,6 +153,11 @@ class User extends CActiveRecord {
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function afterValidate() {
+        parent::afterValidate();
+        $this->password = md5($this->password);
     }
 
 }

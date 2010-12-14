@@ -24,16 +24,8 @@ class UserController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
-                'users' => array('*'),
-            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
-                'users' => array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
+                'actions' => array('create', 'update', 'index', 'view', 'delete', 'admin'),
                 'users' => array('nkhoang.it'),
             ),
             array('deny', // deny all users
@@ -60,12 +52,25 @@ class UserController extends Controller {
         $model = new User;
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
 
         if (isset($_POST['User'])) {
+            Yii::log('Starting to create a new User');
             $model->attributes = $_POST['User'];
-            if ($model->save())
+            if ($model->save()) {
+                if (isset($_POST['user_role'])) {
+                    Yii::log('user_role param provided');
+                    $userRole = $_POST['user_role'];
+                    $authManager = Yii::app()->authManager; // assign role to newly created user.
+                    if (Authitem::model()->exists('name=:roleName && type=2', array(
+                                ':roleName' => $userRole,
+                            ))) {
+                        Yii::log('Object id : ' . $model->id);
+                        $authManager->assign($userRole, $model->id);
+                    }
+                }
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('create', array(
@@ -82,12 +87,28 @@ class UserController extends Controller {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+                if (isset($_POST['user_role'])) {
+                    Yii::log('user_role param provided');
+                    $userRole = $_POST['user_role'];
+                    $authManager = Yii::app()->authManager; // assign role to newly created user.
+                    if (Authitem::model()->exists('name=:roleName && type=2', array(
+                                ':roleName' => $userRole,
+                            ))) {
+                        // make sure that all other roles are deleted.
+                        Authassignment::model()->deleteAll('userid=:userID', array(
+                            ':userID' => $model->id,
+                                )
+                        );
+                        Yii::log('Object id : ' . $model->id);
+                        $authManager->assign($userRole, $model->id);
+                    }
+                }
+            $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('update', array(
@@ -104,6 +125,9 @@ class UserController extends Controller {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
+
+            // also delete role
+            Authassignment::model()->deleteAll('userid=:userID', array(':userID' => $id));
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
