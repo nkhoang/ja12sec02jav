@@ -30,3 +30,6 @@ echo CHtml::ajaxLink("here",
 
 <div id="itemForm">
 </div>
+
+<div id="itemForm2">
+</div>

@@ -47,17 +47,18 @@
         <?php echo $form->error($model, 'is_discounting'); ?>
     </div>    
 
-    <?php $this->endWidget(); ?>
-        <div class="row buttons">
+    <div class="row buttons">
         <?php
         echo CHtml::ajaxButton($model->isNewRecord ? 'Create' : 'Save', CController::createUrl('/shop/ajaxCreate'),
                 array(
-                    'type' => 'GET',
-                    'update' => '#itemForm',
-                    'id' => 'item_submit_button'
+                    'type' => 'POST',
+                    'id' => 'item_submit_button',
+                    'success' => 'function(html) {$("#itemForm").html(html)}'
+
         ));
         ?>
-
     </div>
+<?php $this->endWidget(); ?>
+
 
 </div><!-- form -->
