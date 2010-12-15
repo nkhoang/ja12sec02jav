@@ -31,7 +31,10 @@ class ShopController extends Controller {
     }
 
     public function actionIndex() {
-        $this->render('index');
+        $item = new Item;
+        $this->render('index', array(
+            'item' => $item,
+        ));
     }
 
     public function actionAjaxCreate() {

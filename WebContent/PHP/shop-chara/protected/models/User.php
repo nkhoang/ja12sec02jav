@@ -44,6 +44,7 @@ class User extends CActiveRecord {
         return array(
             array('first_name, last_name, email, username, password_confirm', 'required'),
             array('first_name, middle_name, last_name, email, password', 'length', 'max' => 256),
+            array('email, username', 'unique'),
             array('username', 'length', 'max' => 50),
             array('password', 'compare', 'compareAttribute' => 'password_confirm'),
             // The following rule is used by search().
