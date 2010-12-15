@@ -41,7 +41,7 @@ class Item extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('quantity, is_hot, is_discounting', 'numerical', 'integerOnly' => true),
+            array('price, quantity', 'numerical', 'integerOnly' => true),
             array('item_id', 'length', 'max' => 256),
             array('price', 'length', 'max' => 20),
             array('item_id', 'unique'),
