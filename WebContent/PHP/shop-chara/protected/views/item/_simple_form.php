@@ -1,6 +1,42 @@
 <div id="itemForm">
     <div class="form">
 
+        <script type="text/javascript">
+            // will be used one then will be removed
+            function loadJS(href){
+                var $script = $('<script>').attr('src', href);
+                $('#imageScript').html($script);
+            }
+            
+
+            var user = 'myhoang0603';
+            var albumData = [{
+                    album: 'CharaBigThumbnail',
+                    renderer: 'renderThumbnailBig'
+                }, {
+                    album: 'CharaPreview',
+                    renderer: 'renderThumbnailPreview'
+                }, {
+                    album: 'CharaThumbnail',
+                    renderer: 'renderThumbnail'
+                }];
+            var maxres = 1000; // 0 - for all;
+            var authkey = '';
+
+            function loadItemsData(){
+                for (var i in albumData) {
+                    var url = 'http://picasaweb.google.com/data/feed/api/user/' + user + '/album/' + albumData[i].album + '?kind=photo&alt=json-in-script&callback=' + albumData[i].renderer + '&access=public&start-index=1';
+
+                    if (maxres && maxres != 0) {
+                        url = url + '&max-results=' + maxres;
+                    }
+                    if (authkey && authkey != '') {
+                        url = url + '&authkey=' + authkey;
+                    }
+                    loadJS(url);
+                }
+            }
+        </script>
         <?php
         $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'item-form',
@@ -38,14 +74,14 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'is_hot'); ?>
-            <?php echo $form->textField($model, 'is_hot'); ?>
-            <?php echo $form->error($model, 'is_hot'); ?>
+            <?php echo CHtml::activeCheckBox($model, 'is_hot') ?>
         </div>
 
         <div class="row">
             <?php echo $form->labelEx($model, 'is_discounting'); ?>
-            <?php echo $form->textField($model, 'is_discounting'); ?>
-            <?php echo $form->error($model, 'is_discounting'); ?>
+            <?php
+            echo CHtml::activeCheckBox($model, 'is_discounting');
+            ?>
         </div>
 
         <div class="row buttons">
@@ -58,6 +94,6 @@
             ));
             ?>
         </div>
-<?php $this->endWidget(); ?>
+        <?php $this->endWidget(); ?>
     </div>
 </div><!-- form -->

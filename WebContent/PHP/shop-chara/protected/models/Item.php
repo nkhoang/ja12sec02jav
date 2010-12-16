@@ -46,7 +46,7 @@ class Item extends CActiveRecord {
             array('price', 'length', 'max' => 20),
             array('item_id', 'unique'),
             array('item_id, price, quantity', 'required'),
-            array('description, last_update, first_added', 'safe'),
+            array('description, last_update, first_added, is_hot, is_discounting', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, item_id, price, quantity, is_hot, is_discounting, last_update, first_added', 'safe', 'on' => 'search'),
