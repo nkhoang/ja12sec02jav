@@ -60,7 +60,7 @@ class ItemController extends Controller {
         $model = new Item;
 
         // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
+        $this->performAjaxValidation($model);
 
         if (isset($_POST['Item'])) {
             $model->attributes = $_POST['Item'];

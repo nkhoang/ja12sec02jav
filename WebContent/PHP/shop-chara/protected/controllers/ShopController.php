@@ -21,7 +21,7 @@ class ShopController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'ajaxCreate'),
+                'actions' => array('index', 'ajaxCreate', 'ajaxCreateItemPicture'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -48,12 +48,24 @@ class ShopController extends Controller {
         $this->renderPartial('/item/_simple_form', array('model' => $item), false, true);
     }
 
+    public function actionAjaxCreateItemPicture() {
+        $itemPic = new ItemPicture;
+        $this->performAjaxValidation($itemPic);
+
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
+            $itemPic->attributes = $_POST['ItemPicture'];
+            $itemPic->save();
+        }
+
+        $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic), false, true);
+    }
+
     /**
      * Performs the AJAX validation.
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'item-form') {
+        if (isset($_POST['ajax']) && ($_POST['ajax'] === 'item-form') || ($_POST['ajax'] === 'item-picture-form')) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
