@@ -1,14 +1,69 @@
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
-$cs->registerCssFile(Yii::app()->baseUrl . '/css/jquery.autocomplete.css', CClientScript::POS_HEAD);
 ?>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
+
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.autocomplete.css" />
+
 <script type="text/javascript">
     $(function(){
         loadItemsData();
     });
 </script>
+<style type="text/css">
+    img.btn {
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    #refreshItems{
+    	position: absolute;
+    	right: 0;
+    	top: 0;
+    }
+
+    #itemForm dt {
+    	width: 120px;
+    }
+    #itemForm dd {
+    	width: 390px;
+    }
+    /* Thumbnail container */
+    .thumbnailContainer {
+        height: 40px;
+        width: 40px;
+        padding: 2px;
+        border: 1px solid #9F9F9F;
+        float: left;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+	.placeholder .thumbnailContainer {
+		float: none;
+	}
+
+    .thumbnailContent {
+        height: 100%;
+        width: 100%;
+        background-color: #FFF;
+        text-align: center;
+    }
+
+    .thumbnailContent img {
+        vertical-align: middle;
+    }
+
+    .thumbnailContent.loading {
+        background: #FFF url(/images/simple/loading.gif) center center no-repeat;
+    }
+
+    #thumbnailArea {
+        width: 200px;
+    }
+</style>
 <div id="imageScript"></div>
 <div id="itemForm">
     <div class="form">
@@ -25,7 +80,8 @@ $cs->registerCssFile(Yii::app()->baseUrl . '/css/jquery.autocomplete.css', CClie
 
         <div class="row">
             <?php echo $form->labelEx($model, 'item_id'); ?>
-            <?php echo $form->textField($model, 'item_id', array('maxlength' => 256, 'id' => 'item_id')); ?>
+            <?php echo $form->textField($model, 'item_id', array('maxlength' => 256)); ?>
+            <div class="placeholder"></div>
             <?php echo $form->error($model, 'item_id'); ?>
         </div>
 
