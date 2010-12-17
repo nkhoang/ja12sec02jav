@@ -14,9 +14,8 @@ $this->breadcrumbs = array(
             'speedIn'		:	600,
             'speedOut'		:	200,
             'overlayShow'	:	false,
-            'centerOnScroll': false,
-            'autoScale': false,
-            'type' : 'inline',
+            'centerOnScroll': true,            
+            'type' : 'ajax',
             'ajax' : {
                 type: "POST"
             }

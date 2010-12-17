@@ -44,7 +44,9 @@ class ShopController extends Controller {
         if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
             $item->attributes = $_POST['Item'];
             if ($item->save()) {
-                $this->redirect(array('/shop/ajaxCreateItemPicture'));
+                $itemPic = new ItemPicture;
+                $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' =>$item->id), false, true);
+                Yii::app()->end();
             }
         }
         $this->renderPartial('/item/_simple_form', array('model' => $item), false, true);
@@ -56,12 +58,14 @@ class ShopController extends Controller {
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
             $itemPic->attributes = $_POST['ItemPicture'];
+            $itemID = (int) $_POST['itemID'];
+            $itemPic->item_id = $itemID; // set parent Item
             if ($itemPic->save()) {
-
+                // renew Item picture
+                $itemPic = new ItemPicture;
             }
         }
-
-        $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic), false, true);
+        $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' => $itemID), false, true);
     }
 
     /**

@@ -1880,3 +1880,218 @@ Stack trace:
 2010/12/15 16:36:27 [info] [application] Starting to create a new User
 in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\protected\controllers\UserController.php (58)
 in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php (13)
+2010/12/17 09:48:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:48:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:48:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:50:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:50:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:51:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:51:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:51:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:52:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:54:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:54:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:55:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:55:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:56:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 09:56:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/jquery.resize.js".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/jquery.resiz...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/jquery.resize.js
+2010/12/17 14:14:19 [error] [exception.CException] exception 'CException' with message 'CAssetManager.basePath "E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\assets" is invalid. Please make sure the directory exists and is writable by the Web server process.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CAssetManager.php:92
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CAssetManager.php(77): CAssetManager->setBasePath('E:\Softs\xampp-...')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CAssetManager.php(179): CAssetManager->getBasePath()
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CClientScript.php(387): CAssetManager->publish('E:\Softs\xampp-...')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CClientScript.php(238): CClientScript->getCoreScriptUrl()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CClientScript.php(133): CClientScript->renderCoreScripts()
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(318): CClientScript->render('<!DOCTYPE html ...')
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(752): CController->processOutput('<!DOCTYPE html ...')
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(37): CController->render('index', Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(57): ShopController->actionIndex()
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('')
+#18 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop')
+#19 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop.html
+2010/12/17 15:23:18 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxCreateItemP...')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/ajaxCreate...')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/shop-chara/shop/ajaxCreateItemPicture/0%5BitemID%5D/1.html
+2010/12/17 16:01:23 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxCreateItemP...')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/ajaxCreate...')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/shop-chara/shop/ajaxCreateItemPicture.html
+2010/12/17 16:05:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxCreateItemP...')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/ajaxCreate...')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/shop-chara/shop/ajaxCreateItemPicture.html
+2010/12/17 16:12:08 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxCreateItemP...')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/ajaxCreate...')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/shop-chara/shop/ajaxCreateItemPicture.html
+2010/12/17 16:13:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "_".' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php:444
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(262): CController->missingAction('_')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('_')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('itemPicture/_')
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#5 {main} REQUEST_URI=/shop-chara/itemPicture/_
+2010/12/17 16:20:40 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php:52
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxCreateItemP...')
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/ajaxCreate...')
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#12 {main} REQUEST_URI=/shop-chara/shop/ajaxCreateItemPicture.html
+2010/12/17 16:33:18 [error] [exception.CException] exception 'CException' with message 'Property "CWebApplication.end" is not defined.' in E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CComponent.php:131
+Stack trace:
+#0 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CModule.php(88): CComponent->__get('end')
+#1 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(49): CModule->__get('end')
+#2 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(57): ShopController->actionAjaxCreateItem()
+#3 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#4 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#6 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#7 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#8 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#10 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxCreateItem')
+#12 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/ajaxCreate...')
+#13 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#14 E:\Softs\xampp-win32-1.7.3\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#15 {main} REQUEST_URI=/shop-chara/shop/ajaxCreateItem.html
