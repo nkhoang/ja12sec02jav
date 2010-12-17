@@ -16,6 +16,7 @@
 
         $cs = Yii::app()->clientScript;
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.fancybox-1.3.4.js', CClientScript::POS_HEAD);
+        $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.resize.js', CClientScript::POS_HEAD);
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.mousewheel-3.0.4.pack.js', CClientScript::POS_HEAD);
         ?>
 

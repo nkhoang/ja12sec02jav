@@ -14,26 +14,19 @@ $this->breadcrumbs = array(
             'speedIn'		:	600,
             'speedOut'		:	200,
             'overlayShow'	:	false,
+            'centerOnScroll': false,
+            'autoScale': false,
+            'type' : 'inline',
             'ajax' : {
                 type: "POST"
             }
         });
-        $('#showItemPictureForm').fancybox({
-            'transitionIn'	:	'fade',
-            'transitionOut'	:	'fade',
-            'speedIn'		:	600,
-            'speedOut'		:	200,
-            'overlayShow'	:	false,
-            'ajax' : {
-                type: "POST"
-            }
-        });
+   
     });
     
 </script>
 
 <p>
-    Show item form content by click <a href="<?php echo CController::createUrl('/shop/ajaxCreate'); ?>" id="showItemForm"> here </a>
+    Show item form content by click <a href="<?php echo CController::createUrl('/shop/ajaxCreateItem'); ?>" id="showItemForm"> here </a>
     <br />
-    Click <a id="showItemPictureForm" href="<?php echo CController::createUrl('/shop/ajaxCreateItemPicture'); ?>">here</a> to add Item
 </p>

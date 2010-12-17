@@ -21,7 +21,7 @@ class ShopController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'ajaxCreate', 'ajaxCreateItemPicture'),
+                'actions' => array('index', 'ajaxCreateItem', 'ajaxCreateItemPicture'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -37,13 +37,15 @@ class ShopController extends Controller {
         ));
     }
 
-    public function actionAjaxCreate() {
+    public function actionAjaxCreateItem() {
         $item = new Item;
         $this->performAjaxValidation($item);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
             $item->attributes = $_POST['Item'];
-            $item->save();
+            if ($item->save()) {
+                $this->redirect(array('/shop/ajaxCreateItemPicture'));
+            }
         }
         $this->renderPartial('/item/_simple_form', array('model' => $item), false, true);
     }
@@ -54,7 +56,9 @@ class ShopController extends Controller {
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
             $itemPic->attributes = $_POST['ItemPicture'];
-            $itemPic->save();
+            if ($itemPic->save()) {
+
+            }
         }
 
         $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic), false, true);
