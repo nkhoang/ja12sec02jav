@@ -5,6 +5,7 @@
         $('#fancybox-wrap').width(420);
         $('#fancybox-content').width(400);
         $.fancybox.center();
+        
     });    
 </script>
 
@@ -13,7 +14,8 @@
         <?php
         $cs = Yii::app()->clientScript;
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
-        $cs->registerCssFile(Yii::app()->baseUrl . '/css/jquery.autocomplete.css', CClientScript::POS_HEAD);                
+        $cs->registerScriptFile(Yii::app()->baseUrl . '/js/item/item.scripts.js', CClientScript::POS_HEAD);
+        $cs->registerCssFile(Yii::app()->baseUrl . '/css/jquery.autocomplete.css', CClientScript::POS_HEAD);                        
         ?>
         
         <?php
@@ -43,7 +45,7 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'link'); ?>
-            <?php echo $form->textField($model, 'link', array('size' => 60, 'maxlength' => 256)); ?>
+            <?php echo $form->textField($model, 'link', array('size' => 60, 'maxlength' => 256, 'id' => 'item_picture_link')); ?>
             <?php echo $form->error($model, 'link'); ?>
         </div>
 

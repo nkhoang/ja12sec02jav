@@ -1,3 +1,15 @@
+<?php
+$cs = Yii::app()->clientScript;
+$cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
+$cs->registerCssFile(Yii::app()->baseUrl . '/css/jquery.autocomplete.css', CClientScript::POS_HEAD);
+?>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        loadItemsData();
+    });
+</script>
+<div id="imageScript"></div>
 <div id="itemForm">
     <div class="form">
         <?php
@@ -13,7 +25,7 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'item_id'); ?>
-            <?php echo $form->textField($model, 'item_id', array('maxlength' => 256)); ?>
+            <?php echo $form->textField($model, 'item_id', array('maxlength' => 256, 'id' => 'item_id')); ?>
             <?php echo $form->error($model, 'item_id'); ?>
         </div>
 
