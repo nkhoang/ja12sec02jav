@@ -29,7 +29,7 @@ class ItemController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'popupCreate'),
+                'actions' => array('create', 'update', 'ajaxCreateItem'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,6 +50,24 @@ class ItemController extends Controller {
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
+    }
+
+    /**
+     * Handle ajax request to create item.
+     */
+    public function actionAjaxCreateItem() {
+        $item = new Item;
+        $this->performAjaxValidation($item);
+
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
+            $item->attributes = $_POST['Item'];
+            if ($item->save()) {
+                $itemPic = new ItemPicture;
+                $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' =>$item->id), false, true);
+                Yii::app()->end();
+            }
+        }
+        $this->renderPartial('_simple_form', array('model' => $item), false, true);
     }
 
     /**

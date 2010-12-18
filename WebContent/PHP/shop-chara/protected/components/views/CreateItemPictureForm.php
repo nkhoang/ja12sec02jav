@@ -1,14 +1,3 @@
-<script type="text/javascript">
-    // resize fancybox
-    $(function(){        
-        $('#fancybox-inner').width(430);
-        $('#fancybox-wrap').width(450);
-        $('#fancybox-content').width(430);
-        $.fancybox.center(true);
-    });    
-</script>
-
-
 <?php
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
@@ -17,14 +6,11 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CCli
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item.css" />
-
-<style type="text/css">
-
-</style>
-
-<div id="itemPictureForm">
+<div id="imageScript"></div>
+<div id="itemPictureWidgetForm">
     <div class="form">
         <?php
+        $model = $this->getModel();
         $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'item-picture-form',
                     'enableAjaxValidation' => true,
@@ -90,7 +76,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CCli
                     array(
                         'type' => 'POST',
                         'id' => 'item_picture_submit_button',
-                        'success' => 'function(html) {$("#itemForm").html(html)}'
+                        'success' => 'function(html) {$("#itemPictureWidgetForm").html(html)}'
             )); ?>
         </div>
 

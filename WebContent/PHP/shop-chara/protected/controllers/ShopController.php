@@ -37,43 +37,13 @@ class ShopController extends Controller {
         ));
     }
 
-    public function actionAjaxCreateItem() {
-        $item = new Item;
-        $this->performAjaxValidation($item);
-
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
-            $item->attributes = $_POST['Item'];
-            if ($item->save()) {
-                $itemPic = new ItemPicture;
-                $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' =>$item->id), false, true);
-                Yii::app()->end();
-            }
-        }
-        $this->renderPartial('/item/_simple_form', array('model' => $item), false, true);
-    }
-
-    public function actionAjaxCreateItemPicture() {
-        $itemPic = new ItemPicture;
-        $this->performAjaxValidation($itemPic);
-
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
-            $itemPic->attributes = $_POST['ItemPicture'];
-            $itemID = (int) $_POST['itemID'];
-            $itemPic->item_id = $itemID; // set parent Item
-            if ($itemPic->save()) {
-                // renew Item picture
-                $itemPic = new ItemPicture;
-            }
-        }
-        $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' => $itemID), false, true);
-    }
-
+    
     /**
      * Performs the AJAX validation.
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && ($_POST['ajax'] === 'item-form') || ($_POST['ajax'] === 'item-picture-form')) {
+        if (isset($_POST['ajax']) && ($_POST['ajax'] === 'item-form')) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

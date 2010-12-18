@@ -1,41 +1,52 @@
-var itemCounter = 0, idNumber = 0;
-
+/**
+ *Calculate image ratio.
+ */
 function calculateRatio(targetW, targetH, origW, orgiH){
     return Math.min(Math.min(targetH, orgiH) / Math.max(targetH, orgiH), Math.min(origW, targetW) / Math.max(targetW, origW));
 }
-
+/**
+ * Render image thumbnail from data received from Picasa.
+ */
 function renderThumbnail(data){
-    var album = data.feed.gphoto$name.$t; // get the albumn name.
+    var album = data.feed.gphoto$name.$t; // the album name.
     var itemArr = new Array();
     itemArr[album] = new Array(data.feed.entry.length);
-    for (var i = 0; i < data.feed.entry.length; i++) {
-        updateAlbumnInfo(itemArr, data.feed.entry[i], i, album);
+    for (var i = 0; i < data.feed.entry.length; i++) { // loop through the list and build up the image with all information neccessary.
+        populateImageInformation(itemArr, data.feed.entry[i], i, album);
     }    
 
-    $('#Item_item_id').autocomplete(itemArr[album], { // id of the target textbox.
-        width: 310,
-        minChars: 0,
-        max: 1000,
-        scrollHeight: 300,
-        matchContains: true,
-        formatItem: function(data, i, n, value){ // how item to be displayed.
-            return "<table><tr><td>" + data.picSmall + "</td><td>" + data.description + "-" + data.title + "</td></tr></table>";
-        },
-        formatMatch: function(row, i, max){ // match when typing.
-            return row.description + ' ' + row.title;
-        },
-        formatResult: function(row){ // returned result when hit enter.
-            return row.org;
-        },
-        onEnter: function(inputVal){
-            var $this = $('#Item_item_id');
-            var html = buildThumbnail(inputVal, false);
-            $this.parents('div.row').find('.placeholder').html(html);
-        }
-    });
+    $('#item_picture_link').autocomplete(
+        itemArr[album], { // id of the target textbox.
+            width: 310,
+            minChars: 0,
+            max: 1000,
+            scrollHeight: 300,
+            matchContains: true,
+            formatItem: function(data, i, n, value){ // how item to be displayed.
+                return "<table><tr><td>" + data.picSmall + "</td><td>" + data.description + "-" + data.title + "</td></tr></table>";
+            },
+            formatMatch: function(row, i, max){ // match when typing.
+                return row.description + ' ' + row.title;
+            },
+            formatResult: function(row){ // returned result when hit enter.
+                return row.org;
+            },
+            onEnter: function(inputVal){
+                var $this = $('#item_picture_link');
+                var html = buildPreviewThumbnail(inputVal, false);
+                $this.parents('div.row').find('.placeholder').html(html);
+            }
+        });
 }
 
-function buildThumbnail(link, hiddenField){
+/**
+ * Build preview thumbnail.
+ * Structure:
+ * - div.thumbnailContainer
+ *  - div.thumbnailContent,.loading
+ *   - img
+ */
+function buildPreviewThumbnail(link, hiddenField){
     var $thumbContainer = $('<div class="thumbnailContainer"><div class="thumbnailContent loading"></div></div>');
     var $img = $('<img />').attr({
         'src': link
@@ -48,55 +59,21 @@ function buildThumbnail(link, hiddenField){
             'height': Math.round(ratio * $img[0].height)
         });
         $thumbContainer.find('.thumbnailContent').removeClass('loading').html($img);
-
         var imgSrc = $thumbContainer.find('img').attr('src');
-
-        // build tooltip
-        $thumbContainer.bind('mousemove', function(e){
+        $thumbContainer.bind('mousemove', function(e){ // bind mouseover for tooltip.
             var $this = $(this);
-
-            var $imgDiv = $('<div></div>');
-
-            var $img = $('<img />').attr('src', imgSrc);
-            $imgDiv.html($img);
-
-            manager.showTooltip($this, e, $imgDiv);
+            var $imgDiv = $('<div></div>'); // build tooltip image container.
+            var $img = $('<img />').attr('src', imgSrc); // build image tag.
+            $imgDiv.html($img); // append to the container.
+            manager.showTooltip($this, e, $imgDiv); // show tooltip using Manager->tooltip.
         });
 
-        $thumbContainer.bind('mouseout', function(e){
-            manager.hideTooltip($(this));
+        $thumbContainer.bind('mouseout', function(e){ // mouseout event.
+            manager.hideTooltip($(this)); // hide tooltip.
         });
-        if (hiddenField == undefined || hiddenField) {
-            $thumbContainer.click(function(){
-                var id = $(this).find('input').data('id');
-                subPictureIdArr.push(id);
-
-                $thumbContainer.remove();
-                manager.hideTooltip($(this));
-                itemCounter--;
-            });
-
-            // create hidden field
-            var name = 'subPictures';
-            var idNumber = subPictureIdArr.splice(subPictureIdArr.length - 1, 1);
-
-            var id = name + '[' + idNumber + ']';
-
-            $('<input />').attr({
-                'name': id,
-                'type': 'hidden',
-                'class': 'itemSubPic'
-            }).val(imgSrc).data('id', idNumber).appendTo($thumbContainer);
-
-            itemCounter++;
-        }
     });
     return $thumbContainer;
 }
-
-
-var user = 'myhoang0603'; /* username used to look up */
-
 var albumData = [{    // albumnData contains key value pair of album name and method processing name.
     album: 'CharaThumbnail',    /* album name */
     renderer: 'renderThumbnail' /* rendering method */
@@ -104,26 +81,40 @@ var albumData = [{    // albumnData contains key value pair of album name and me
 // some preconfiguration params.
 var maxres = 1000; // 0 - for all;
 var authkey = '';
+
+function updatePicasaAccount(picasaID, albumID) {
+    var picasaAccount = $(picasaID).val() != '' ? $(picasaID).val() : 'myhoang0603';
+    var picasaAlbum = $(albumID).val() != '' ? $(albumID).val() : 'CharaThumbnail';
+
+    loadAlbum(picasaAccount, picasaAlbum, 'renderThumbnail');
+}
+
+function loadAlbum(user, albumName, rendererName){
+    var url = 'http://picasaweb.google.com/data/feed/api/user/' + user + '/album/' + albumName + '?kind=photo&alt=json-in-script&callback=' + rendererName + '&access=public&start-index=1';
+
+    if (maxres && maxres != 0) {
+        url = url + '&max-results=' + maxres;
+    }
+    if (authkey && authkey != '') {
+        url = url + '&authkey=' + authkey;
+    }
+
+    var $script = $('<script>').attr('src', url);
+    $('#imageScript').html($script); // pass the script to this div.    }
+}
 /**
  * Load items data from Picasa.
  */
 function loadItemsData(){
     for (var i in albumData) {
-        var url = 'http://picasaweb.google.com/data/feed/api/user/' + user + '/album/' + albumData[i].album + '?kind=photo&alt=json-in-script&callback=' + albumData[i].renderer + '&access=public&start-index=1';
-
-        if (maxres && maxres != 0) {
-            url = url + '&max-results=' + maxres;
-        }
-        if (authkey && authkey != '') {
-            url = url + '&authkey=' + authkey;
-        }
-
-        var $script = $('<script>').attr('src', url);
-        $('#imageScript').html($script); // pass the script to this div.
+        loadAlbum('myhoang0603', albumData[i].album, albumData[i].renderer);
     }
 }
 
-function updateAlbumnInfo(itemArr, item, id, album){
+/**
+ * Populate image information.
+ */
+function populateImageInformation(itemArr, item, id, album){
     itemArr[album][id] = {};
     var title = item.title.$t;// the filename
     var imgId = item.gphoto$id.$t;// the file id
@@ -166,9 +157,9 @@ function updateAlbumnInfo(itemArr, item, id, album){
         description2 = description2 + "Taken with: " + camera + "; ";
 
     // title
-    title = "<a href='http://picasaweb.google.com/" + user + "/" + album + "/photo#" + imgId + "'>" + title + "</a>";
+    //title = "<a href='http://picasaweb.google.com/" + user + "/" + album + "/photo#" + imgId + "'>" + title + "</a>";
 
-    if (description.length > 0)
-        title = title + " - " + description;
+    //if (description.length > 0)
+    //    title = title + " - " + description;
 }
 

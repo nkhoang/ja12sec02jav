@@ -26,6 +26,8 @@ $this->breadcrumbs = array(
 </script>
 
 <p>
-    Show item form content by click <a href="<?php echo CController::createUrl('/shop/ajaxCreateItem'); ?>" id="showItemForm"> here </a>
+    Show item form content by click <a href="<?php echo CController::createUrl('/item/ajaxCreateItem'); ?>" id="showItemForm"> here </a>
     <br />
+
+    
 </p>

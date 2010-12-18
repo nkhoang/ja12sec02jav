@@ -6,13 +6,13 @@
 
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
         <!-- Fancy box -->
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.fancybox-1.3.4.css" />        
-        
+
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js" type="text/javascript"></script>
+
         <?php
         $cs = Yii::app()->clientScript;
-        $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.js', CClientScript::POS_HEAD);
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.fancybox-1.3.4.js', CClientScript::POS_HEAD);        
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.mousewheel-3.0.4.pack.js', CClientScript::POS_HEAD);
         ?>
