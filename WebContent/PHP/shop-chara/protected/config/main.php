@@ -72,6 +72,15 @@ return array(
                     'maxFileSize' => 4096,
                     'maxLogFiles' => 4,
                 ),
+                array(
+                    'categories' => 'debug',
+                    'class' => 'CWebLogRoute',
+                    'enabled' => true,
+                    'showInFireBug' => true,
+                    'levels' => 'info, warning, error',
+                ),
+                // the FirePHP LogRoute
+                
             // uncomment the following to show log messages on web pages
             /*
               array(

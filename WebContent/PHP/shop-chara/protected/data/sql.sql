@@ -27,10 +27,22 @@ CREATE TABLE `item` (
   `item_id` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` bigint(20) DEFAULT NULL COMMENT 'Mark item as on sale',
   `quantity` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   `is_hot` tinyint(1) DEFAULT '0',
   `is_discounting` tinyint(1) DEFAULT '0',
   `last_update` datetime DEFAULT NULL,
   `first_added` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_item_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `category`;
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text COLLATE utf8_unicode_ci COMMENT 'description for this category',
+  `title` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -84,6 +96,6 @@ CREATE TABLE `user` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 INSERT INTO USER (first_name, middle_name, last_name, email, username, password)
-VALUES ('Hoang', 'Khanh', 'Nguyen', 'nkhoang.it@gmail.com', 'nkhoang.it', md5('blackdragonmmx'));
+VALUES ('Hoang', 'Khanh', 'Nguyen', 'nkhoang.it@gmail.com', 'nkhoang.it', md5('blackdragon'));
 
 insert into authassignment (itemname, userid) values ('admin','1');

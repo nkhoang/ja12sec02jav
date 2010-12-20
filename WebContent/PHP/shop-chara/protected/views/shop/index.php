@@ -4,7 +4,7 @@ $this->breadcrumbs = array(
 );
 ?>
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
-
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/shop/admin_board.css" />
 <script type="text/javascript" >
 
     $(function(){
@@ -25,9 +25,10 @@ $this->breadcrumbs = array(
     
 </script>
 
-<p>
-    Show item form content by click <a href="<?php echo CController::createUrl('/item/ajaxCreateItem'); ?>" id="showItemForm"> here </a>
-    <br />
-
-    
-</p>
+<div id="admin_board">
+    <div id="category_board">
+    <?php
+        Yii::app()->runController('/shop/listCategories');
+     ?>
+    </div>
+</div>

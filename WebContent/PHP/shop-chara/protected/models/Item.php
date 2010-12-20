@@ -61,6 +61,7 @@ class Item extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'itemPictures' => array(self::HAS_MANY, 'ItemPicture', 'item_id'),
+            'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
         );
     }
 
