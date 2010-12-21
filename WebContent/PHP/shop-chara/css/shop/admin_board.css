@@ -14,14 +14,35 @@
     border:solid 1px #aacfe4;
     padding: 10px;
     float: left;
+    font-size: 11px;
 }
 
 #item_board div.ic {
     height: 50px;
     width: auto;
     border:solid 1px #aacfe4;
+    margin: 2px 0;
+}
+
+#item_board div.ic:hover {
+    background-color: #EFEFEF;
+    cursor: pointer;
 }
 
 #item_board div.img_c img {
     margin: 5px;
+}
+
+#item_board div.it_b {
+    float: left;
+}
+
+#item_board div.it_b .it_title {
+    color: #666;
+    font-weight: bold;
+}
+
+#item_board div.it_b .seperator {
+    height: 1px;
+    border-bottom: 1px solid #EFEFEF;
 }
