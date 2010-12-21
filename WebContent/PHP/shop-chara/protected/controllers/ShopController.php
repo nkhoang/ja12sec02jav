@@ -43,7 +43,7 @@ class ShopController extends Controller {
         $categoryID = -1; // never have category with ID less than 0.
         if ($category_id !== null)
             $categoryID = $category_id;
-            
+
         // get category id from params
         if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
             $categoryID = (int) $_POST['category_id'];
@@ -60,7 +60,7 @@ class ShopController extends Controller {
 
         // build sort for data provider.
         $sort = new CSort('Item');
-        $sort->sortVar = 'itemSort';        
+        $sort->sortVar = 'itemSort';
         $sort->defaultOrder = 'item_id ASC';
         $sort->params = array(
             'category_id' => $categoryID,
@@ -75,7 +75,15 @@ class ShopController extends Controller {
         );
         $sort->applyOrder($criteria); // apply criteria
 
-        $count = count(Item::model()->findAll($criteria)); // count number result.
+        $count = count(Item::model()->with( // load only item picture which have thumbnail flag.
+                array(
+                    'itemPictures' => array(
+                        'condition' => 'is_thumbnail_picture=:thumbnailFlag',
+                        'params' => array(
+                            ':thumbnailFlag' => 1,
+                        ),
+                    ),
+                ))->findAll($criteria)); // count number result.
 
         $pages = new CPagination($count);
         $pages->pageSize = self::ITEM_PAGE_SIZE;
@@ -158,7 +166,7 @@ class ShopController extends Controller {
             ),
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-        
+
         $this->widget('zii.widgets.CListView', array(
             'id' => 'category_list_view',
             'dataProvider' => $dataProvider,

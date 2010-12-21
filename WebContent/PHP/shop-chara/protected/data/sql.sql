@@ -99,3 +99,26 @@ INSERT INTO USER (first_name, middle_name, last_name, email, username, password)
 VALUES ('Hoang', 'Khanh', 'Nguyen', 'nkhoang.it@gmail.com', 'nkhoang.it', md5('blackdragon'));
 
 insert into authassignment (itemname, userid) values ('admin','1');
+
+
+INSERT INTO `item_picture` (`title`, `description`, `link`, `internal_link`, `item_id`, `is_thumbnail_picture`) VALUES
+( 'Item Pic 001', 'Item Pic 001 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 2, 1),
+( 'Item Pic 002', 'Item Pic 002 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 3, 1),
+( 'Item Pic 004', 'Item Pic 004 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 4, 1),
+( 'Item Pic 005', 'Item Pic 005 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 5, 1),
+( 'Item Pic 006', 'Item Pic 006 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 6, 1),
+( 'Item Pic 007', 'Item Pic 007 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 7, 1),
+( 'Item Pic 008', 'Item Pic 008 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 8, 1),
+( 'Item Pic 009', 'Item Pic 009 Description', 'http://t2.gstatic.com/images?q=tbn:ANd9GcR2U5qUtOSj9FiiM5vKL9MLRMV-rNq7NOa6gZj8C7ITCnPUqNPS', 'http://localhost.com', 9, 1);
+
+
+
+INSERT INTO `item` (`description`, `item_id`, `price`, `quantity`, `category_id`, `is_hot`, `is_discounting`, `last_update`, `first_added`) VALUES
+( 'item 001', 'IT001', 123000, 10, 2, 0, 0, NULL, NULL),
+( 'item 002', 'IT002', 45000, 10, 2, 0, 0, NULL, NULL),
+( 'item 003', 'IT003', 10000, 5, 3, 0, 0, NULL, NULL),
+( 'item 004', 'IT004', 12000, 5, 3, 0, 0, NULL, NULL),
+( 'item 005', 'IT005', 12000, 5, 2, 0, 0, NULL, NULL),
+( 'item 006', 'IT006', 12000, 5, 2, 0, 0, NULL, NULL),
+( 'item 007', 'IT007', 12000, 5, 2, 0, 0, NULL, NULL),
+( 'item 008', 'IT008', 12000, 5, 2, 0, 0, NULL, NULL);

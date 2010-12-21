@@ -1,11 +1,7 @@
 
-<a onclick="
-    jQuery.ajax({
-        'type': 'post',
-        'data':{'item_id':'<?php echo $data->item_id; ?>'},
-        'url': '<?php CController::createUrl('/shop/listItems'); ?>',
-        'cache':false,
-        'success':function(html){jQuery('#item_board').html(html)}
-    });
-   " href="#"><?php echo CHtml::encode($data->item_id); ?></a>
-<br />
+<div class="ic">
+    <div class="img_c">
+        <!-- may check image existence here -->
+        <img height="40"  src="<?php echo $data->itemPictures[0]->link ?>"/>
+    </div>
+</div>

@@ -4,14 +4,24 @@
 
 #category_board {
     width: 300px;
-    border: 1px solid #6c6c6c;
+    border:solid 1px #aacfe4;
     padding: 10px;    
     float: left;
 }
 
 #item_board {
     width: 500px;
-    border: 1px solid #6c6c6c;
+    border:solid 1px #aacfe4;
     padding: 10px;
     float: left;
+}
+
+#item_board div.ic {
+    height: 50px;
+    width: auto;
+    border:solid 1px #aacfe4;
+}
+
+#item_board div.img_c img {
+    margin: 5px;
 }
