@@ -32,6 +32,9 @@ $this->breadcrumbs = array(
      ?>
     </div>
     <div id="item_board">
-        
+        <?php
+        Yii::app()->runController('/shop/listItems');
+     ?>
     </div>
+    <div style="clear:both;"></div>
 </div>

@@ -7,5 +7,5 @@
         'cache':false,
         'success':function(html){jQuery('#item_board').html(html)}
     });
-   " href="#"><?php CHtml::encode($data->item_id); ?></a>
+   " href="#"><?php echo CHtml::encode($data->item_id); ?></a>
 <br />

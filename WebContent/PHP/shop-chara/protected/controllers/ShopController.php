@@ -1,7 +1,8 @@
 <?php
 
 class ShopController extends Controller {
-    const CATEGORY_PAGE_SIZE = 20;
+    const CATEGORY_PAGE_SIZE = 1;
+    const ITEM_PAGE_SIZE = 2;
 
     public $layout = "//layouts/shop_column1";
 
@@ -38,8 +39,11 @@ class ShopController extends Controller {
         ));
     }
 
-    public function actionListItems() {
+    public function actionListItems($category_id = null) {
         $categoryID = -1; // never have category with ID less than 0.
+        if ($category_id !== null)
+            $categoryID = $category_id;
+            
         // get category id from params
         if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
             $categoryID = (int) $_POST['category_id'];
@@ -52,12 +56,15 @@ class ShopController extends Controller {
             ':categoryID' => $categoryID,
         );
 
-
-        $criteria->limit = self::CATEGORY_PAGE_SIZE;
+        $criteria->limit = self::ITEM_PAGE_SIZE;
 
         // build sort for data provider.
         $sort = new CSort('Item');
+        $sort->sortVar = 'itemSort';        
         $sort->defaultOrder = 'item_id ASC';
+        $sort->params = array(
+            'category_id' => $categoryID,
+        );
         $sort->attributes = array(
             'item_id' => array(
                 'asc' => 'item_id ASC',
@@ -71,7 +78,8 @@ class ShopController extends Controller {
         $count = count(Item::model()->findAll($criteria)); // count number result.
 
         $pages = new CPagination($count);
-        $pages->pageSize = self::CATEGORY_PAGE_SIZE;
+        $pages->pageSize = self::ITEM_PAGE_SIZE;
+        $pages->pageVar = 'item_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
 
@@ -82,16 +90,26 @@ class ShopController extends Controller {
                             'sort' => $sort,
                         )
         );
-        $pager = array();
+        $pager = array(
+            'htmlOptions' => array(
+                'id' => 'item_pager',
+            ),
+        );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
+        //$pager->htmlOptions = array(
+        //    'id' => 'item_pager',
+        //    'class' => 'abcdef',
+        //);
 
         $this->widget('zii.widgets.CListView', array(
+            'id' => 'item_list_view',
             'dataProvider' => $dataProvider,
             'itemView' => '/item/_data_view', // refers to the partial view named '_post'
             'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
             'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
             'enableSorting' => true,
             'enablePagination' => true,
+            'ajaxUpdate' => array('item_board'),
             'pager' => $pager,
             'sortableAttributes' => array(
                 'item_id' => 'Item ID',
@@ -107,6 +125,7 @@ class ShopController extends Controller {
 
         // build sort for data provider.
         $sort = new CSort('Category');
+        $sort->sortVar = 'categorySort';
         $sort->defaultOrder = 'title ASC';
         $sort->attributes = array(
             'title' => array(
@@ -122,6 +141,7 @@ class ShopController extends Controller {
 
         $pages = new CPagination($count);
         $pages->pageSize = self::CATEGORY_PAGE_SIZE;
+        $pages->pageVar = 'category_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
 
@@ -132,15 +152,21 @@ class ShopController extends Controller {
                             'sort' => $sort,
                         )
         );
-        $pager = array();
+        $pager = array(
+            'htmlOptions' => array(
+                'id' => 'category_pager',
+            ),
+        );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-
+        
         $this->widget('zii.widgets.CListView', array(
+            'id' => 'category_list_view',
             'dataProvider' => $dataProvider,
             'itemView' => '/category/_data_view', // refers to the partial view named '_post'
             'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
             'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
             'enableSorting' => true,
+            'ajaxUpdate' => array('category_board'),
             'enablePagination' => true,
             'pager' => $pager,
             'sortableAttributes' => array(
