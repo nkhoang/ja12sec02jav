@@ -31,4 +31,7 @@ $this->breadcrumbs = array(
         Yii::app()->runController('/shop/listCategories');
      ?>
     </div>
+    <div id="item_board">
+        
+    </div>
 </div>

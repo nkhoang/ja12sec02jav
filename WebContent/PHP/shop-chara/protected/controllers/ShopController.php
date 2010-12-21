@@ -1,7 +1,7 @@
 <?php
 
 class ShopController extends Controller {
-    const CATEGORY_PAGE_SIZE = 1;
+    const CATEGORY_PAGE_SIZE = 20;
 
     public $layout = "//layouts/shop_column1";
 
@@ -22,7 +22,7 @@ class ShopController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'ajaxCreateItem', 'ajaxCreateItemPicture', 'listCategories'),
+                'actions' => array('index', 'ajaxCreateItem', 'ajaxCreateItemPicture', 'listCategories', 'listItems'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -35,6 +35,67 @@ class ShopController extends Controller {
         $item = new Item;
         $this->render('index', array(
             'item' => $item,
+        ));
+    }
+
+    public function actionListItems() {
+        $categoryID = -1; // never have category with ID less than 0.
+        // get category id from params
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
+            $categoryID = (int) $_POST['category_id'];
+        }
+        // build search criteria
+        $criteria = new CDbCriteria; // just to apply sort
+        $criteria->select = '*';
+        $criteria->condition = 'category_id=:categoryID';
+        $criteria->params = array(
+            ':categoryID' => $categoryID,
+        );
+
+
+        $criteria->limit = self::CATEGORY_PAGE_SIZE;
+
+        // build sort for data provider.
+        $sort = new CSort('Item');
+        $sort->defaultOrder = 'item_id ASC';
+        $sort->attributes = array(
+            'item_id' => array(
+                'asc' => 'item_id ASC',
+                'desc' => 'item_id DESC',
+                'title' => 'Item ID',
+                'default' => 'asc',
+            ),
+        );
+        $sort->applyOrder($criteria); // apply criteria
+
+        $count = count(Item::model()->findAll($criteria)); // count number result.
+
+        $pages = new CPagination($count);
+        $pages->pageSize = self::CATEGORY_PAGE_SIZE;
+        $pages->applyLimit($criteria); // get limit and offset
+        $pages->setItemCount($count);
+
+        $dataProvider = new CActiveDataProvider('Item',
+                        array(
+                            'criteria' => $criteria,
+                            'pagination' => $pages,
+                            'sort' => $sort,
+                        )
+        );
+        $pager = array();
+        $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
+
+        $this->widget('zii.widgets.CListView', array(
+            'dataProvider' => $dataProvider,
+            'itemView' => '/item/_data_view', // refers to the partial view named '_post'
+            'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
+            'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
+            'enableSorting' => true,
+            'enablePagination' => true,
+            'pager' => $pager,
+            'sortableAttributes' => array(
+                'item_id' => 'Item ID',
+            ),
         ));
     }
 
@@ -76,7 +137,7 @@ class ShopController extends Controller {
 
         $this->widget('zii.widgets.CListView', array(
             'dataProvider' => $dataProvider,
-            'itemView' => '/category/data_view', // refers to the partial view named '_post'
+            'itemView' => '/category/_data_view', // refers to the partial view named '_post'
             'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
             'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
             'enableSorting' => true,

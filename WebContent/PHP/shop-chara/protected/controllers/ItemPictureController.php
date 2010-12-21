@@ -29,7 +29,7 @@ class ItemPictureController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItemPicture'),
+                'actions' => array('create', 'update', 'ajaxCreateItemPicture', 'ajaxCreateItemPictureWidget'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -93,6 +93,19 @@ class ItemPictureController extends Controller {
         $this->render('update', array(
             'model' => $model,
         ));
+    }
+
+    public function actionAjaxCreateItemPictureWidget() {
+         $itemPic = new ItemPicture;
+        $this->performAjaxValidation($itemPic);
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
+$itemPic->attributes = $_POST['ItemPicture'];
+            $itemID = (int) $_POST['itemID'];
+            $itemPic->item_id = $itemID; // set parent Item
+            //            if ($itemPic->save()) {
+                Yii::app()->user->setFlash('item_picture_save_success', 'Item Picture has been saved!!!!');
+            }
+        }
     }
 
     public function actionAjaxCreateItemPicture() {

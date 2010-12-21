@@ -73,7 +73,7 @@ return array(
                     'maxLogFiles' => 4,
                 ),
                 array(
-                    'categories' => 'debug',
+                    'categories' => 'debug, yii',
                     'class' => 'CWebLogRoute',
                     'enabled' => true,
                     'showInFireBug' => true,

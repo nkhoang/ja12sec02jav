@@ -63,7 +63,7 @@ class ItemController extends Controller {
             $item->attributes = $_POST['Item'];
             if ($item->save()) {
                 $itemPic = new ItemPicture;
-                $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' =>$item->id), false, true);
+                $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' => $item->id), false, true);
                 Yii::app()->end();
             }
         }
@@ -140,6 +140,7 @@ class ItemController extends Controller {
             'dataProvider' => $dataProvider,
         ));
     }
+
     /**
      * Manages all models.
      */
