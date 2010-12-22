@@ -29,20 +29,31 @@
     cursor: pointer;
 }
 
+#item_board div.ic:hover .seperator{
+    border-bottom: 1px solid #000;
+}
+
 #item_board div.img_c img {
     margin: 5px;
 }
 
 #item_board div.it_b {
     float: left;
+    padding: 0 10px;
 }
 
 #item_board div.it_b .it_title {
-    color: #666;
+    color: #0E509E;
     font-weight: bold;
+    margin: 5px 0 5px 0;
 }
 
 #item_board div.it_b .seperator {
     height: 1px;
     border-bottom: 1px solid #EFEFEF;
+}
+
+#item_board div.it_b .it_content {
+    margin: 5px 0 10px 0;
+    text-align: center;
 }

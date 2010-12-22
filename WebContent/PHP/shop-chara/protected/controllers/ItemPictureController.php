@@ -96,13 +96,13 @@ class ItemPictureController extends Controller {
     }
 
     public function actionAjaxCreateItemPictureWidget() {
-         $itemPic = new ItemPicture;
+        $itemPic = new ItemPicture;
         $this->performAjaxValidation($itemPic);
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
-$itemPic->attributes = $_POST['ItemPicture'];
+            $itemPic->attributes = $_POST['ItemPicture'];
             $itemID = (int) $_POST['itemID'];
             $itemPic->item_id = $itemID; // set parent Item
-            //            if ($itemPic->save()) {
+            if ($itemPic->save()) {
                 Yii::app()->user->setFlash('item_picture_save_success', 'Item Picture has been saved!!!!');
             }
         }

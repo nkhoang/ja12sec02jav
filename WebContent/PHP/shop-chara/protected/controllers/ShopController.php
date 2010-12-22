@@ -90,6 +90,9 @@ class ShopController extends Controller {
         $pages->pageVar = 'item_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
+        $pages->params=array(
+            'category_id' => $categoryID,
+        );
 
         $dataProvider = new CActiveDataProvider('Item',
                         array(
@@ -104,10 +107,6 @@ class ShopController extends Controller {
             ),
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-        //$pager->htmlOptions = array(
-        //    'id' => 'item_pager',
-        //    'class' => 'abcdef',
-        //);
 
         $this->widget('zii.widgets.CListView', array(
             'id' => 'item_list_view',
