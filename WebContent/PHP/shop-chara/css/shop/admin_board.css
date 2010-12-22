@@ -1,7 +1,15 @@
+
+/* Board Container */
 #admin_board {
-    height: 200px;
+    
 }
 
+#admin_board .content {
+    min-height: 400px;
+    margin: 5px;
+}
+
+/* Category Board Container */
 #category_board {
     width: 300px;
     border:solid 1px #aacfe4;
@@ -9,19 +17,22 @@
     float: left;
 }
 
+/* Item View Board Container */
+
 #item_board {
-    width: 500px;
+    width: 700px;
     border:solid 1px #aacfe4;
     padding: 10px;
     float: left;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 #item_board div.ic {
     height: 50px;
-    width: auto;
+    width: 100%;
     border:solid 1px #aacfe4;
     margin: 2px 0;
+    float: left;
 }
 
 #item_board div.ic:hover {
@@ -40,12 +51,14 @@
 #item_board div.it_b {
     float: left;
     padding: 0 10px;
+    min-width: 70px;
 }
 
 #item_board div.it_b .it_title {
     color: #0E509E;
     font-weight: bold;
     margin: 5px 0 5px 0;
+    text-align: center;
 }
 
 #item_board div.it_b .seperator {

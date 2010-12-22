@@ -1,0 +1,14 @@
+#it_c {
+    
+}
+
+#it_c div.img_c{
+    float: left;
+    width: 150px;
+    margin: 10px;
+}
+
+#it_c div.form_c {
+    float: left;
+    width: 530px;
+}

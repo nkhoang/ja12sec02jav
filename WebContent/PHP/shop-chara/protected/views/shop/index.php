@@ -25,18 +25,23 @@ $this->breadcrumbs = array(
     
 </script>
 
+Show item form content by click <a href="<?php echo CController::createUrl('/item/ajaxCreateItem'); ?>" id="showItemForm"> here </a>
+    <br />
+
 <div id="admin_board">
-    <div id="category_board">
+    <div id="category_board" class="content">
     <?php
         Yii::app()->runController('/shop/listCategories');
      ?>
     </div>
-    <div id="item_board">
+    <div id="item_board" class="content">
         <?php
         Yii::app()->runController('/shop/listItems');
      ?>
     </div>
     <div style="clear:both;"></div>
 </div>
+
+
 
 

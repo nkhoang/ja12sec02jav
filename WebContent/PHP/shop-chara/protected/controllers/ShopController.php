@@ -16,6 +16,20 @@ class ShopController extends Controller {
     }
 
     /**
+     * Render view item details page to item board.
+     * @params POST param named item_id to receive item id.
+     */
+    public function actionViewItemDetails() {
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
+            $itemID = (int) $_POST['item_id'];
+
+            $this->renderPartial('/item/_widget_data_view', array( // use widget to render this page.
+                'itemID' => $itemID,
+            ));
+        }
+    }
+
+    /**
      * Specifies the access control rules.
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
@@ -23,7 +37,7 @@ class ShopController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'ajaxCreateItem', 'ajaxCreateItemPicture', 'listCategories', 'listItems'),
+                'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -39,6 +53,11 @@ class ShopController extends Controller {
         ));
     }
 
+    /**
+     * The reason we have to resolve both POST and GET request is because we have POST request for admin board
+     * and GET request for paging.
+     * @param <type> $category_id category id.
+     */
     public function actionListItems($category_id = null) {
         $categoryID = -1; // never have category with ID less than 0.
         if ($category_id !== null)
