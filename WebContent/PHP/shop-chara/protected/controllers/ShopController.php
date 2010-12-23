@@ -1,8 +1,8 @@
 <?php
 
 class ShopController extends Controller {
-    const CATEGORY_PAGE_SIZE = 1;
-    const ITEM_PAGE_SIZE = 2;
+    const CATEGORY_PAGE_SIZE = 20;
+    const ITEM_PAGE_SIZE = 20;
 
     public $layout = "//layouts/shop_column1";
 
@@ -22,10 +22,23 @@ class ShopController extends Controller {
     public function actionViewItemDetails() {
         if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
             $itemID = (int) $_POST['item_id'];
+            $item = Item::model()->with('itemPictures')->findByPk($itemID);
 
-            $this->renderPartial('/item/_widget_data_view', array( // use widget to render this page.
+            $itemThumbnail = ItemPicture::model()->find(array(// find just one
+                        'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
+                        'params' => array(
+                            ':itemID' => $itemID,
+                            ':isThumbnail' => 1,
+                        ),
+                    ));            
+
+            $this->renderPartial('/item/_widget_data_view', array(
+                'model' => $item,
                 'itemID' => $itemID,
+                'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link'  : $itemThumbnail->link,
             ));
+        } else {
+            throw new CHttpException(403, Yii::t('yii', 'Missing argument: itemID to render widget.'));
         }
     }
 
@@ -94,22 +107,22 @@ class ShopController extends Controller {
         );
         $sort->applyOrder($criteria); // apply criteria
 
-        $count = count(Item::model()->with( // load only item picture which have thumbnail flag.
-                array(
-                    'itemPictures' => array(
-                        'condition' => 'is_thumbnail_picture=:thumbnailFlag',
-                        'params' => array(
-                            ':thumbnailFlag' => 1,
-                        ),
-                    ),
-                ))->findAll($criteria)); // count number result.
+        $count = count(Item::model()->with(// load only item picture which have thumbnail flag.
+                                array(
+                                    'itemPictures' => array(
+                                        'condition' => 'is_thumbnail_picture=:thumbnailFlag',
+                                        'params' => array(
+                                            ':thumbnailFlag' => 1,
+                                        ),
+                                    ),
+                        ))->findAll($criteria)); // count number result.
 
         $pages = new CPagination($count);
         $pages->pageSize = self::ITEM_PAGE_SIZE;
         $pages->pageVar = 'item_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
-        $pages->params=array(
+        $pages->params = array(
             'category_id' => $categoryID,
         );
 

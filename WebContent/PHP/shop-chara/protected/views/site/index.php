@@ -7,5 +7,7 @@
 
     Test Widget
     <?php $this->widget('CreateItemPictureWidget');?>
+
+    <?php echo phpinfo(); ?>
 </p>
 

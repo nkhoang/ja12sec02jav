@@ -1,50 +1,17 @@
-img.btn {
-    cursor: pointer;
-    vertical-align: middle;
+
+/* Item Board View */
+
+#it_c {
+
 }
 
-#refreshItems{
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-#itemForm dt {
-    width: 120px;
-}
-#itemForm dd {
-    width: 390px;
-}
-/* Thumbnail container */
-.thumbnailContainer {
-    height: 40px;
-    width: 40px;
-    padding: 2px;
-    border: 1px solid #9F9F9F;
+#it_c div.img_c{
     float: left;
-    margin: 3px;
-    cursor: pointer;
+    width: 150px;
+    margin: 10px;
 }
 
-.placeholder .thumbnailContainer {
-    float: none;
-}
-
-.thumbnailContent {
-    height: 100%;
-    width: 100%;
-    background-color: #FFF;
-    text-align: center;
-}
-
-.thumbnailContent img {
-    vertical-align: middle;
-}
-
-.thumbnailContent.loading {
-    background: #FFF url(/images/simple/loading.gif) center center no-repeat;
-}
-
-#thumbnailArea {
-    width: 200px;
+#it_c div.form_c {
+    float: left;
+    width: 530px;
 }

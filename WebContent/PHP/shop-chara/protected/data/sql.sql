@@ -122,3 +122,6 @@ INSERT INTO `item` (`description`, `item_id`, `price`, `quantity`, `category_id`
 ( 'item 006', 'IT006', 12000, 5, 2, 0, 0, NULL, NULL),
 ( 'item 007', 'IT007', 12000, 5, 2, 0, 0, NULL, NULL),
 ( 'item 008', 'IT008', 12000, 5, 2, 0, 0, NULL, NULL);
+
+insert into category (title, description) values ('short', 'Short');
+insert into category (title, description) values ('pains', 'Pains');

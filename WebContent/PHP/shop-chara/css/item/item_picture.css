@@ -1,0 +1,53 @@
+/* Item Form View */
+
+img.btn {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#refreshItems{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#itemForm dt {
+    width: 120px;
+}
+#itemForm dd {
+    width: 390px;
+}
+/* Thumbnail container */
+.thumbnailContainer {
+    height: 40px;
+    width: 40px;
+    padding: 2px;
+    border: 1px solid #9F9F9F;
+    float: left;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.placeholder .thumbnailContainer {
+    float: none;
+}
+
+.thumbnailContent {
+    height: 100%;
+    width: 100%;
+    background-color: #FFF;
+    text-align: center;
+}
+
+.thumbnailContent img {
+    vertical-align: middle;
+}
+
+.thumbnailContent.loading {
+    background: #FFF url(/images/simple/loading.gif) center center no-repeat;
+}
+
+#thumbnailArea {
+    width: 200px;
+}
+

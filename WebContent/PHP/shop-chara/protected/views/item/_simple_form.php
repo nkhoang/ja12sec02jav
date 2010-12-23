@@ -1,5 +1,4 @@
-
-<div id="imageScript"></div>
+<p>You are editing Item id = <b><?php echo $itemID; ?></b></p>
 <div id="itemForm">
     <div class="form">
         <?php
