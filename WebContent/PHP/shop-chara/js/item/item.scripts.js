@@ -156,10 +156,10 @@ function populateImageInformation(itemArr, item, id, album){
     if (camera.length > 0)
         description2 = description2 + "Taken with: " + camera + "; ";
 
-    // title
-    //title = "<a href='http://picasaweb.google.com/" + user + "/" + album + "/photo#" + imgId + "'>" + title + "</a>";
+// title
+//title = "<a href='http://picasaweb.google.com/" + user + "/" + album + "/photo#" + imgId + "'>" + title + "</a>";
 
-    //if (description.length > 0)
-    //    title = title + " - " + description;
+//if (description.length > 0)
+//    title = title + " - " + description;
 }
 

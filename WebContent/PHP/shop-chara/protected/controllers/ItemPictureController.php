@@ -29,7 +29,7 @@ class ItemPictureController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItemPicture', 'ajaxCreateItemPictureWidget'),
+                'actions' => array('create', 'update', 'ajaxCreateItemPicture', 'ajaxUpdateItemPicture'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -95,17 +95,22 @@ class ItemPictureController extends Controller {
         ));
     }
 
-    public function actionAjaxCreateItemPictureWidget() {
-        $itemPic = new ItemPicture;
-        $this->performAjaxValidation($itemPic);
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
-            $itemPic->attributes = $_POST['ItemPicture'];
-            $itemID = (int) $_POST['itemID'];
-            $itemPic->item_id = $itemID; // set parent Item
-            if ($itemPic->save()) {
-                Yii::app()->user->setFlash('item_picture_save_success', 'Item Picture has been saved!!!!');
-            }
+    public function actionAjaxUpdateItemPicture($id) {
+        $model = $this->loadModel($id);
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['ItemPicture'])) {
+            $model->attributes = $_POST['ItemPicture'];
+            if ($model->save())
+                Yii::app()->user->setFlash('itemPictureUpdated','Item Picture Updated!!!!');
         }
+
+        $this->renderPartial('/itemPicture/_edit_form', array(
+            'model' => $model,
+            'itemID' => $id,
+        ));
     }
 
     public function actionAjaxCreateItemPicture() {

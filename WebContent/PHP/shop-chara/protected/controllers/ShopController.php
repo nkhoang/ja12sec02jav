@@ -3,6 +3,7 @@
 class ShopController extends Controller {
     const CATEGORY_PAGE_SIZE = 20;
     const ITEM_PAGE_SIZE = 20;
+    const ITEM_PICTURE_PAGE_SIZE = 20;
 
     public $layout = "//layouts/shop_column1";
 
@@ -30,12 +31,68 @@ class ShopController extends Controller {
                             ':itemID' => $itemID,
                             ':isThumbnail' => 1,
                         ),
-                    ));            
+                    ));
+
+            // build search criteria
+            $criteria = new CDbCriteria; // just to apply sort
+            $criteria->select = '*';
+            $criteria->condition = 'item_id=:itemID';
+            $criteria->params = array(
+                ':itemID' => $itemID,
+            );
+
+            $criteria->limit = self::ITEM_PICTURE_PAGE_SIZE;
+
+            // build sort for data provider.
+            $sort = new CSort('ItemPicture');
+            $sort->sortVar = 'itemPictureSort';
+            $sort->defaultOrder = 'item_id ASC';
+            $sort->params = array(
+                'item_id' => $itemID,
+            );
+            $sort->attributes = array(
+                'item_id' => array(
+                    'asc' => 'item_id ASC',
+                    'desc' => 'item_id DESC',
+                    'title' => 'Item ID',
+                    'default' => 'asc',
+                ),
+            );
+            $sort->applyOrder($criteria); // apply criteria
+
+            $count = count(ItemPicture::model()->findAll($criteria)); // count number result.
+
+            $pages = new CPagination($count);
+            $pages->pageSize = self::ITEM_PICTURE_PAGE_SIZE;
+            $pages->pageVar = 'item_picture_page';
+            $pages->applyLimit($criteria); // get limit and offset
+            $pages->setItemCount($count);
+            $pages->params = array(
+                'item_id' => $itemID,
+            );
+
+            $dataProvider = new CActiveDataProvider('ItemPicture',
+                            array(
+                                'criteria' => $criteria,
+                                'pagination' => $pages,
+                                'sort' => $sort,
+                            )
+            );
+            $pager = array(
+                'htmlOptions' => array(
+                    'id' => 'item_picture_pager',
+                ),
+            );
+            $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
+
+
 
             $this->renderPartial('/item/_widget_data_view', array(
                 'model' => $item,
                 'itemID' => $itemID,
-                'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link'  : $itemThumbnail->link,
+                'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link' : $itemThumbnail->link,
+                'itemPicturesDataProvider' => $dataProvider,
+                'itemPicturePager' => $pager,
             ));
         } else {
             throw new CHttpException(403, Yii::t('yii', 'Missing argument: itemID to render widget.'));
@@ -140,19 +197,10 @@ class ShopController extends Controller {
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
-        $this->widget('zii.widgets.CListView', array(
-            'id' => 'item_list_view',
+
+        $this->renderPartial('/shop/_list_item', array(
             'dataProvider' => $dataProvider,
-            'itemView' => '/item/_data_view', // refers to the partial view named '_post'
-            'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
-            'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
-            'enableSorting' => true,
-            'enablePagination' => true,
-            'ajaxUpdate' => array('item_board'),
             'pager' => $pager,
-            'sortableAttributes' => array(
-                'item_id' => 'Item ID',
-            ),
         ));
     }
 

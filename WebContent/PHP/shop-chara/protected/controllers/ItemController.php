@@ -29,7 +29,7 @@ class ItemController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItem'),
+                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxUpdate'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -88,6 +88,32 @@ class ItemController extends Controller {
 
         $this->render('create', array(
             'model' => $model,
+        ));
+    }
+
+
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionAjaxUpdate($id) {
+        $model = $this->loadModel($id);
+
+        // Uncomment the following line if AJAX validation is needed
+        $this->performAjaxValidation($model);
+
+        if (isset($_POST['Item'])) {
+            $model->attributes = $_POST['Item'];
+            if ($model->save()) {
+                Yii::app()->user->setFlash('itemUpdated','Item Updated!!!!');
+            }
+        }
+
+        $this->renderPartial('/item/_edit_form', array(
+            'model' => $model,
+            'itemID' => $id,
+            'performAction' => 'ajaxUpdate',
         ));
     }
 

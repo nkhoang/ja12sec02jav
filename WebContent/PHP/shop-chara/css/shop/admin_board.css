@@ -1,3 +1,9 @@
+/* General */
+
+a img {
+    outline: none;
+    border: none;
+}
 
 /* Board Container */
 #admin_board {
@@ -69,4 +75,40 @@
 #item_board div.it_b .it_content {
     margin: 5px 0 10px 0;
     text-align: center;
+}
+
+/* Item Picture CSS */
+#item_picture_list_view .item_picture_block {
+    width: auto;
+    overflow: auto;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    position: relative;
+    border: 1px solid #AACFE4;
+    cursor: pointer;
+}
+
+#item_picture_list_view .item_picture_block:hover {
+    background-color: #EFF9FF;
+}
+
+#item_picture_list_view .item_picture_ic.fleft {
+    float: left;
+}
+
+#item_picture_list_view .item_picture_ic {
+    position: relative;
+    width: 40px;
+    margin: 2px auto;
+    border: 1px solid #AACFE4;
+}
+#item_picture_list_view .item_picture_is_thumb {
+    position: absolute;
+    right: 0;
+}
+
+a.showItemPictureForm{
+    border: none;
+    text-decoration: none;
 }

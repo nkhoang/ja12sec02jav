@@ -1,5 +1,24 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item.css" />
 
+<script type="text/javascript" >
+
+    $(function(){
+        $("a.showItemPictureForm").fancybox({
+            'transitionIn'	:	'fade',
+            'transitionOut'	:	'fade',
+            'speedIn'		:	600,
+            'speedOut'		:	200,
+            'overlayShow'	:	true,
+            'centerOnScroll': true,
+            'type' : 'ajax',
+            'ajax' : {
+                type: "POST"
+            }
+        });
+    });
+
+</script>
+
 <div id="it_c">
     <div class="img_c">
         <!-- may check image existence here -->
@@ -7,9 +26,31 @@
     </div>
 
     <div class="form_c">
-        <?php $this->renderPartial('/item/_simple_form', array(
+        <?php
+        $this->renderPartial('/item/_edit_form', array(
             'model' => $model,
-            'itemID' => $itemID
-        )); ?>
+            'itemID' => $itemID,
+            'performAction' => 'ajaxUpdate',
+        ));
+        ?>
+    </div>
+
+    <div id="item_pictures">
+        <?php
+        $this->widget('zii.widgets.CListView', array(
+            'id' => 'item_picture_list_view',
+            'dataProvider' => $itemPicturesDataProvider,
+            'itemView' => '/itemPicture/_data_view', // refers to the partial view named '_post'
+            'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
+            'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
+            'enableSorting' => true,
+            'enablePagination' => true,
+            'ajaxUpdate' => array('item_board'),
+            'pager' => $itemPicturePager,
+            'sortableAttributes' => array(
+                'item_id' => 'Item ID',
+            ),
+        ));
+        ?>
     </div>
 </div>

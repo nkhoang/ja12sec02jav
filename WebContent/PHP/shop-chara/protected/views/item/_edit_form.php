@@ -1,11 +1,23 @@
+<p>You are editing Item id = <b><?php echo $itemID; ?></b></p>
 
 <div id="itemForm">
-    <div class="form">
+
+    <?php if (Yii::app()->user->hasFlash('itemUpdated')): ?>
+
+        <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('itemUpdated'); ?>
+    </div>
+
+    <?php endif; ?>
+
+        <div class="form">
         <?php
         $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'item-form',
+                    'id' => 'edit-item-form',
                     'enableAjaxValidation' => true,
-                    'action' => CController::createUrl('/item/ajaxCreateItem'),
+                    'action' => CController::createUrl('/item/' . $performAction, array(
+                        'id' => $itemID,
+                    )),
                 ));
         ?>
 
@@ -50,16 +62,41 @@
         </div>
 
         <div class="row buttons">
-            <?php
-            echo CHtml::ajaxButton($model->isNewRecord ? 'Create' : 'Save', CController::createUrl('/item/ajaxCreateItem'),
-                    array(
-                        'type' => 'POST',
-                        'success' => 'function(html) {$("#itemForm").html(html);}',
-                    ), array(
-                'id' => 'item_submit_button',
-            ));
-            ?>
+            <input type="button" name="save_button" value="Save" onclick="$.ajax(
+                {
+                    'type': 'post',
+                    'url': '<?php
+            echo CController::createUrl('/item/ajaxUpdate', array(
+                'id' => $itemID,
+            )); ?>',
+                    'cache':false,
+                    'data'  : jQuery(this).parents('form').serialize(),
+                    'success':function(html){
+                        jQuery('div.form_c').html(html);
+                    },
+                    'error' : function(x,e) {
+                        jQuery('div.form_c').html(x.responseText);
+                    }
+                });" />
+            <input type="button" name="back_to_item_list" value="Cancel" onclick="$.ajax(
+    {
+        'type': 'post',
+        'data':{
+            'category_id':'<?php echo $model->category_id; ?>'},
+            'url': '<?php echo CController::createUrl('/shop/listItems'); ?>',
+            'cache':false,
+            'success':function(html){
+                jQuery('#item_board').html(html)
+            },
+            'error' : function(x,e) {
+                jQuery('#item_board').html(x.responseText);
+            }
+        });" />
         </div>
         <?php $this->endWidget(); ?>
     </div>
 </div><!-- form -->
+
+<div id="list_item_picture">
+    
+</div>

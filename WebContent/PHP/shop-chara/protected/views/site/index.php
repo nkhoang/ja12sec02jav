@@ -6,8 +6,6 @@
     To enter shop-chara please visit <?php echo CHtml::link('Shop now!!!!', Yii::app()->urlManager->createUrl('/shop')); ?>
 
     Test Widget
-    <?php $this->widget('CreateItemPictureWidget');?>
-
     <?php echo phpinfo(); ?>
 </p>
 
