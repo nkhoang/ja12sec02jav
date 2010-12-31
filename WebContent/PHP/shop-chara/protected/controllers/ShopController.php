@@ -202,6 +202,7 @@ class ShopController extends Controller {
         $this->renderPartial('/shop/_list_item', array(
             'dataProvider' => $dataProvider,
             'pager' => $pager,
+            'categoryID' => $categoryID,
         ));
     }
 

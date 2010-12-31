@@ -5,6 +5,24 @@ $this->breadcrumbs = array(
 ?>
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/shop/admin_board.css" />
+<script type="text/javascript" >
+
+    $(function(){
+        $("#showCategoryForm, a.showItemPictureForm, #showItemPictureForm").fancybox({
+            'transitionIn'	:	'fade',
+            'transitionOut'	:	'fade',
+            'speedIn'		:	600,
+            'speedOut'		:	200,
+            'overlayShow'	:	true,
+            'centerOnScroll': true,
+            'type' : 'ajax',
+            'ajax' : {
+                type: "POST"
+            }
+        });
+    });
+
+</script>
 
 <div id="admin_board">
     <div id="category_board" class="content">

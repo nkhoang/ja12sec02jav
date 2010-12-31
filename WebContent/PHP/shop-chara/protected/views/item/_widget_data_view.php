@@ -1,24 +1,4 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item.css" />
-
-<script type="text/javascript" >
-
-    $(function(){
-        $("a.showItemPictureForm, #showItemPictureForm").fancybox({
-            'transitionIn'	:	'fade',
-            'transitionOut'	:	'fade',
-            'speedIn'		:	600,
-            'speedOut'		:	200,
-            'overlayShow'	:	true,
-            'centerOnScroll': true,
-            'type' : 'ajax',
-            'ajax' : {
-                type: "POST"
-            }
-        });
-    });
-
-</script>
-
 <div id="it_c">
     <div class="img_c">
         <!-- may check image existence here -->

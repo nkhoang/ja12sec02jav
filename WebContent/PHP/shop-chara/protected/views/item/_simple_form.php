@@ -22,6 +22,7 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'item_id'); ?>
+            <?php echo CHtml::dropDownList('prefix_dropdown_list', $selectedCategoryCode, $prefix); ?>
             <?php echo $form->textField($model, 'item_id', array('maxlength' => 256)); ?>
             <?php echo $form->error($model, 'item_id'); ?>
         </div>

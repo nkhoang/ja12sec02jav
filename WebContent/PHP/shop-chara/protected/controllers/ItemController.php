@@ -55,7 +55,7 @@ class ItemController extends Controller {
     /**
      * Handle ajax request to create item.
      */
-    public function actionAjaxCreateItem() {
+    public function actionAjaxCreateItem($category_id = null) {
         $item = new Item;
         $this->performAjaxValidation($item);
 
@@ -70,11 +70,19 @@ class ItemController extends Controller {
             }
         }
 
+        if ($category_id === null ) {
         // retrieve category list.
         $categories = Category::model()->findAll();
+        } else {
+            $categories = array(
+                Category::model()->findByPk((int) $category_id),
+            );
+        }
 
         $this->renderPartial('_simple_form', array(
             'model' => $item,
+            'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
+            'selectedCategoryCode' => Category::model()->findByPk((int) $category_id)->category_code,
             'categories' => CHtml::listData($categories, 'id', 'title')),
                 false, true);
     }

@@ -22,7 +22,38 @@ a img {
     padding: 10px;    
     float: left;
 }
+#category_board .items {
+    border-bottom: 1px solid #aacfe4;
+}
 
+#category_board div.category_block {
+    height: 35px;
+    position: relative;
+    vertical-align: middle;
+    border-style: solid;
+    border-width: 1px 1px 0px 1px;
+    border-color: #aacfe4;
+}
+
+#category_board div.category_block:hover .controller{
+    display: block;
+}
+
+#category_board div.category_block a {
+    line-height: 35px;
+}
+
+#category_board div.category_block a img {
+    vertical-align: middle;
+    margin: 5px;
+}
+
+#category_board .controller {
+    display: none;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+}
 /* Item View Board Container */
 
 #item_board {
