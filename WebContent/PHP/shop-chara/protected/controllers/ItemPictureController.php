@@ -104,7 +104,7 @@ class ItemPictureController extends Controller {
         if (isset($_POST['ItemPicture'])) {
             $model->attributes = $_POST['ItemPicture'];
             if ($model->save())
-                Yii::app()->user->setFlash('itemPictureUpdated','Item Picture Updated!!!!');
+                Yii::app()->user->setFlash('itemPictureUpdated', 'Item Picture Updated!!!!');
         }
 
         $this->renderPartial('/itemPicture/_edit_form', array(
@@ -113,13 +113,17 @@ class ItemPictureController extends Controller {
         ));
     }
 
-    public function actionAjaxCreateItemPicture() {
+    public function actionAjaxCreateItemPicture($id = null) {
         $itemPic = new ItemPicture;
         $this->performAjaxValidation($itemPic);
+        if ($id !== null) {
+            $itemID = $id;
+        } else {
+            $itemID = (int) $_POST['itemID'];
+        }
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
             $itemPic->attributes = $_POST['ItemPicture'];
-            $itemID = (int) $_POST['itemID'];
             $itemPic->item_id = $itemID; // set parent Item
             if ($itemPic->save()) {
                 // renew Item picture

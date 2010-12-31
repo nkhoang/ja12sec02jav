@@ -61,13 +61,22 @@ class ItemController extends Controller {
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
             $item->attributes = $_POST['Item'];
+            $categoryID = (int) $_POST['category_dropdown_list'];
+            $item->category_id = $categoryID;
             if ($item->save()) {
                 $itemPic = new ItemPicture;
                 $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' => $item->id), false, true);
                 Yii::app()->end();
             }
         }
-        $this->renderPartial('_simple_form', array('model' => $item), false, true);
+
+        // retrieve category list.
+        $categories = Category::model()->findAll();
+
+        $this->renderPartial('_simple_form', array(
+            'model' => $item,
+            'categories' => CHtml::listData($categories, 'id', 'title')),
+                false, true);
     }
 
     /**
@@ -80,6 +89,7 @@ class ItemController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);
 
+
         if (isset($_POST['Item'])) {
             $model->attributes = $_POST['Item'];
             if ($model->save())
@@ -91,13 +101,12 @@ class ItemController extends Controller {
         ));
     }
 
-
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionAjaxUpdate($id) {
+    public function actionAjaxUpdate($id=null) {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
@@ -105,14 +114,20 @@ class ItemController extends Controller {
 
         if (isset($_POST['Item'])) {
             $model->attributes = $_POST['Item'];
+            $categoryID = (int) $_POST['category_dropdown_list'];
+            $model->category_id = $categoryID;
             if ($model->save()) {
-                Yii::app()->user->setFlash('itemUpdated','Item Updated!!!!');
+                Yii::app()->user->setFlash('itemUpdated', 'Item Updated!!!!');
             }
         }
+
+        // retrieve category list.
+        $categories = Category::model()->findAll();
 
         $this->renderPartial('/item/_edit_form', array(
             'model' => $model,
             'itemID' => $id,
+            'categories' => CHtml::listData($categories, 'id', 'title'),
             'performAction' => 'ajaxUpdate',
         ));
     }

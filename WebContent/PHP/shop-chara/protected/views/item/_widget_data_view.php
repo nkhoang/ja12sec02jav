@@ -3,7 +3,7 @@
 <script type="text/javascript" >
 
     $(function(){
-        $("a.showItemPictureForm").fancybox({
+        $("a.showItemPictureForm, #showItemPictureForm").fancybox({
             'transitionIn'	:	'fade',
             'transitionOut'	:	'fade',
             'speedIn'		:	600,
@@ -26,15 +26,21 @@
     </div>
 
     <div class="form_c">
+
         <?php
         $this->renderPartial('/item/_edit_form', array(
             'model' => $model,
             'itemID' => $itemID,
+            'categories' => $categories,
             'performAction' => 'ajaxUpdate',
         ));
         ?>
     </div>
-
+    <div id="item_picture_controller">
+        <a title="Add Item Picture" id="showItemPictureForm" href="<?php echo CController::createUrl('/itemPicture/ajaxCreateItemPicture', array('id' => $itemID,)); ?>"> 
+            <img src="<?php echo Yii::app()->request->baseUrl . '/images/add.png'; ?>" width="32" height="32" />
+        </a>
+    </div>
     <div id="item_pictures">
         <?php
         $this->widget('zii.widgets.CListView', array(

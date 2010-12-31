@@ -1,4 +1,3 @@
-
 <div class="ic" onclick="$.ajax(
     {
         'type': 'post',

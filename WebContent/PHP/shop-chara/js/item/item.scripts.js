@@ -33,10 +33,20 @@ function renderThumbnail(data){
             },
             onEnter: function(inputVal){
                 var $this = $('#item_picture_link');
-                var html = buildPreviewThumbnail(inputVal, false);
-                $this.parents('div.row').find('.placeholder').html(html);
+                if (inputVal.length > 0) {
+                    var html = buildPreviewThumbnail(inputVal);
+                    $this.parents('div.row').find('.placeholder').html(html);
+                } else {
+                    $this.parents('div.row').find('.placeholder').empty();
+                }
+                
             }
         });
+    $('#item_picture_link').live('focusout', function(){
+        if ($(this).val().length == 0) {
+            $(this).parents('div.row').find('.placeholder').empty();
+        }
+    });
 }
 
 /**
@@ -46,12 +56,14 @@ function renderThumbnail(data){
  *  - div.thumbnailContent,.loading
  *   - img
  */
-function buildPreviewThumbnail(link, hiddenField){
-    var $thumbContainer = $('<div class="thumbnailContainer"><div class="thumbnailContent loading"></div></div>');
+function buildPreviewThumbnail(link){
+    var $thumbContainer = $('<div class="thumbnailContainer"><div class="thumbnailContent loading"></div></div>').css({
+        'height': '80px'
+    });
     var $img = $('<img />').attr({
         'src': link
     }).load(function(){
-        var height = $thumbContainer.find('.thumbnailContent').height();
+        var height = parseInt($thumbContainer.css('height'));
         var ratio = calculateRatio($img[0].width, $img[0].height, height, height);
 
         $img.attr({

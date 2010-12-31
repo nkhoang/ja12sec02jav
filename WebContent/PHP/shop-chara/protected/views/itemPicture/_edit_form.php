@@ -3,6 +3,14 @@
     $(function(){
         $.fancybox.resize();
         loadAlbum('myhoang0603', 'CharaThumbnail', 'renderThumbnail');
+
+        // build preview thumbnail
+        var $this = $('#item_picture_link');
+        var inputVal = $this.val();
+        if (inputVal.length > 0) {
+            var html = buildPreviewThumbnail(inputVal);
+            $this.parents('div.row').find('.placeholder').html(html);
+        }
     });    
 </script>
 <div id="imageScript"></div>
@@ -79,9 +87,9 @@
             <div class="row buttons">
 
                 <input type="button" name="save_button" value="Save" onclick="$.ajax(
-                        {
-                            'type': 'post',
-                            'url': '<?php
+                    {
+                        'type': 'post',
+                        'url': '<?php
             echo CController::createUrl('/itemPicture/ajaxUpdateItemPicture', array(
                 'id' => $model->id,
             )); ?>',

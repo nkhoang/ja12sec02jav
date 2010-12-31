@@ -61,11 +61,16 @@
             ?>
         </div>
 
-        <div class="row buttons">
-            <input type="button" name="save_button" value="Save" onclick="$.ajax(
-                {
-                    'type': 'post',
-                    'url': '<?php
+        <?php echo $form->labelEx($model, 'category_id'); ?>
+        <?php
+            echo CHtml::dropDownList('category_dropdown_list', $model->category_id, $categories);
+        ?>
+
+            <div class="row buttons">
+                <input type="button" name="save_button" value="Save" onclick="$.ajax(
+                    {
+                        'type': 'post',
+                        'url': '<?php
             echo CController::createUrl('/item/ajaxUpdate', array(
                 'id' => $itemID,
             )); ?>',
@@ -79,24 +84,20 @@
                     }
                 });" />
             <input type="button" name="back_to_item_list" value="Cancel" onclick="$.ajax(
-    {
-        'type': 'post',
-        'data':{
-            'category_id':'<?php echo $model->category_id; ?>'},
-            'url': '<?php echo CController::createUrl('/shop/listItems'); ?>',
-            'cache':false,
-            'success':function(html){
-                jQuery('#item_board').html(html)
-            },
-            'error' : function(x,e) {
-                jQuery('#item_board').html(x.responseText);
-            }
-        });" />
+                {
+                    'type': 'post',
+                    'data':{
+                        'category_id':'<?php echo $model->category_id; ?>'},
+                    'url': '<?php echo CController::createUrl('/shop/listItems'); ?>',
+                    'cache':false,
+                    'success':function(html){
+                        jQuery('#item_board').html(html)
+                    },
+                    'error' : function(x,e) {
+                        jQuery('#item_board').html(x.responseText);
+                    }
+                });" />
         </div>
         <?php $this->endWidget(); ?>
     </div>
 </div><!-- form -->
-
-<div id="list_item_picture">
-    
-</div>

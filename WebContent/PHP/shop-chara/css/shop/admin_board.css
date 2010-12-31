@@ -41,6 +41,12 @@ a img {
     float: left;
 }
 
+/* item board controller */
+
+#item_controller {
+    text-align: right;
+}
+
 #item_board div.ic:hover {
     background-color: #EFEFEF;
     cursor: pointer;

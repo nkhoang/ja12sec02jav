@@ -1,26 +1,19 @@
 <script type="text/javascript">
     // resize fancybox
-    $(function(){        
-        $('#fancybox-inner').width(430);
-        $('#fancybox-wrap').width(450);
-        $('#fancybox-content').width(430);
-        $.fancybox.center(true);
-    });    
+    $(function(){
+        $.fancybox.resize();
+        loadAlbum('myhoang0603', 'CharaThumbnail', 'renderThumbnail');
+
+        // build preview thumbnail
+        var $this = $('#item_picture_link');
+        var inputVal = $this.val();
+        if (inputVal.length > 0) {
+            var html = buildPreviewThumbnail(inputVal);
+            $this.parents('div.row').find('.placeholder').html(html);
+        }
+    });
 </script>
-
-
-<?php
-$cs = Yii::app()->clientScript;
-$cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
-?>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.autocomplete.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item_picture.css" />
-
-<style type="text/css">
-
-</style>
+<div id="imageScript"></div>
 
 <div id="itemPictureForm">
     <div class="form">
@@ -37,10 +30,10 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CCli
         Please input Picasa account information here:
 
         <label>Picasa Account Name:</label>
-        <input type="text" id="picasa_account_name" />
+        <input type="text" id="picasa_account_name" value="myhoang0603"/>
 
         <label>Album Name:</label>
-        <input type="text" id="picasa_album_name" />
+        <input type="text" id="picasa_album_name" value="CharaThumbnail"/>
 
         <input type="button" id="picasa_account_update" onclick="updatePicasaAccount('#picasa_account_name','#picasa_album_name');" value="Update"/>
 

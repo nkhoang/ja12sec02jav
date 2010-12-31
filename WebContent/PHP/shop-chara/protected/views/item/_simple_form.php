@@ -1,6 +1,13 @@
-
 <div id="itemForm">
-    <div class="form">
+
+    <?php if (Yii::app()->user->hasFlash('itemCreated')): ?>
+
+        <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('itemCreated'); ?>
+    </div>
+
+    <?php endif; ?>
+        <div class="form">
         <?php
         $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'item-form',
@@ -48,8 +55,11 @@
             echo CHtml::activeCheckBox($model, 'is_discounting');
             ?>
         </div>
-
-        <div class="row buttons">
+        <?php echo $form->labelEx($model, 'category_id'); ?>
+        <?php
+            echo CHtml::dropDownList('category_dropdown_list', '', $categories);
+        ?>
+            <div class="row buttons">
             <?php
             echo CHtml::ajaxButton($model->isNewRecord ? 'Create' : 'Save', CController::createUrl('/item/ajaxCreateItem'),
                     array(

@@ -79,7 +79,7 @@ class Item extends CActiveRecord {
             'is_discounting' => 'Is Discounting',
             'last_update' => 'Last Update',
             'first_added' => 'First Added',
-            'category_id' => 'Category ID',
+            'category_id' => 'Category',
         );
     }
 

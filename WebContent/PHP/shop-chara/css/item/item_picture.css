@@ -19,9 +19,8 @@ img.btn {
 }
 /* Thumbnail container */
 .thumbnailContainer {
-    height: 40px;
-    width: 40px;
     padding: 2px;
+    display: inline-block;
     border: 1px solid #9F9F9F;
     float: left;
     margin: 3px;

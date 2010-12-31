@@ -85,11 +85,12 @@ class ShopController extends Controller {
             );
             $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
-
+            $categories = Category::model()->findAll();
 
             $this->renderPartial('/item/_widget_data_view', array(
                 'model' => $item,
                 'itemID' => $itemID,
+                'categories' => CHtml::listData($categories, 'id', 'title'),
                 'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link' : $itemThumbnail->link,
                 'itemPicturesDataProvider' => $dataProvider,
                 'itemPicturePager' => $pager,
