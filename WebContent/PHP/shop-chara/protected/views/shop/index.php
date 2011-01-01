@@ -3,7 +3,6 @@ $this->breadcrumbs = array(
     'Shop',
 );
 ?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/shop/admin_board.css" />
 <script type="text/javascript" >
 

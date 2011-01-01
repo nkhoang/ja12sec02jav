@@ -23,25 +23,9 @@
     });
 
 </script>
-<?php if ($dataProvider->getTotalItemCount(true) > 0) : ?>
-<?php endif; ?>
-    <div id="items_c">
+<div id="items_c">
     <?php
-    // render list view widget for item list view.
-    $this->widget('zii.widgets.CListView', array(
-        'id' => 'item_list_view',
-        'dataProvider' => $dataProvider,
-        'itemView' => '/item/_data_view',
-        'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
-        'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
-        'enableSorting' => true,
-        'enablePagination' => true,
-        'ajaxUpdate' => array('item_board'),
-        'pager' => $pager,
-        'sortableAttributes' => array(
-            'item_id' => 'Item ID',
-        ),
-    ));
+    echo $itemListOutput;
     ?>
 
 </div>

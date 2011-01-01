@@ -139,8 +139,7 @@ class ShopController extends Controller {
         }
 
         if (!isset($categoryID)) {
-            echo 'Please select a category.';
-            return;
+            echo 'Please select a category.'; //[IMPORTANT] do not end from here otherwise javascript file will not be registered.
         }
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
@@ -201,12 +200,26 @@ class ShopController extends Controller {
             ),
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-
+        //
+        // render list view widget for item list view.
+        $itemListOutput = $this->widget('zii.widgets.CListView', array(
+                    'id' => 'item_list_view',
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '/item/_data_view',
+                    'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
+                    'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
+                    'enableSorting' => true,
+                    'enablePagination' => true,
+                    'ajaxUpdate' => array('item_board'),
+                    'pager' => $pager,
+                    'sortableAttributes' => array(
+                        'item_id' => 'Item ID',
+                    ),
+                        ), true);
 
         $this->renderPartial('/shop/_list_item', array(
-            'dataProvider' => $dataProvider,
-            'pager' => $pager,
             'categoryID' => $categoryID,
+            'itemListOutput' => $itemListOutput,
         ));
     }
 
