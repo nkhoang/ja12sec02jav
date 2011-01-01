@@ -22,9 +22,9 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'item_id'); ?>
-            <?php echo CHtml::dropDownList('prefix_dropdown_list', $selectedCategoryCode, $prefix); ?>
-            <?php echo $form->textField($model, 'item_id', array('maxlength' => 256)); ?>
-            <?php echo $form->error($model, 'item_id'); ?>
+            <?php echo $form->dropDownList($model, 'category_prefix', $prefix); ?>
+            <?php echo $form->textField($model, 'number_part', array('size' => 5, 'maxlength' => 5)); ?>
+            <?php echo $form->error($model, 'number_part'); ?>
         </div>
 
         <div class="row">
@@ -61,15 +61,21 @@
             echo CHtml::dropDownList('category_dropdown_list', '', $categories);
         ?>
             <div class="row buttons">
-            <?php
-            echo CHtml::ajaxButton($model->isNewRecord ? 'Create' : 'Save', CController::createUrl('/item/ajaxCreateItem'),
-                    array(
-                        'type' => 'POST',
-                        'success' => 'function(html) {$("#itemForm").html(html);}',
-                    ), array(
-                'id' => 'item_submit_button',
-            ));
-            ?>
+
+                <input type="button" name="save_button" value="Save" onclick="$.ajax(
+                    {
+                        'type': 'post',
+                        'url': '<?php
+            echo CController::createUrl('/item/ajaxCreateItem'); ?>',
+                    'cache':false,
+                    'data'  : jQuery(this).parents('form').serialize(),
+                    'success':function(html){
+                        jQuery('#itemForm').html(html);
+                    },
+                    'error' : function(x,e) {
+                        jQuery('div.form_c').html(x.responseText);
+                    }
+                });" />
         </div>
         <?php $this->endWidget(); ?>
     </div>

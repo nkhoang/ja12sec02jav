@@ -62,7 +62,9 @@ class ItemController extends Controller {
         if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
             $item->attributes = $_POST['Item'];
             $categoryID = (int) $_POST['category_dropdown_list'];
-            $item->category_id = $categoryID;
+            $item->category_id = $categoryID; // populate category id
+            $item->item_id = $item->category_prefix . $item->number_part; // compose 2 parts of the item id.
+
             if ($item->save()) {
                 $itemPic = new ItemPicture;
                 $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' => $item->id), false, true);
@@ -70,19 +72,21 @@ class ItemController extends Controller {
             }
         }
 
-        if ($category_id === null ) {
-        // retrieve category list.
-        $categories = Category::model()->findAll();
-        } else {
-            $categories = array(
-                Category::model()->findByPk((int) $category_id),
-            );
+        if ($category_id === null) {
+            $category_id = (int) $_POST['category_dropdown_list'];
         }
+
+        $categories = array(
+            Category::model()->findByPk((int) $category_id),
+        );
+
+        $item->number_part = Category::getNextItemNumber($category_id);
+        $category = Category::model()->findByPk((int) $category_id);
+        $item->category_prefix = $category->category_code;
 
         $this->renderPartial('_simple_form', array(
             'model' => $item,
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
-            'selectedCategoryCode' => Category::model()->findByPk((int) $category_id)->category_code,
             'categories' => CHtml::listData($categories, 'id', 'title')),
                 false, true);
     }

@@ -19,6 +19,9 @@
  */
 class Item extends CActiveRecord {
 
+    public $number_part;
+    public $category_prefix;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Item the static model class
@@ -41,12 +44,13 @@ class Item extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('price, quantity', 'numerical', 'integerOnly' => true),
+            array('price, quantity, number_part', 'numerical', 'integerOnly' => true),
             array('item_id', 'length', 'max' => 256),
             array('price', 'length', 'max' => 20),
+            array('number_part', 'length', 'max' => 5),
             array('item_id', 'unique'),
-            array('item_id, price, quantity', 'required'),
-            array('description, last_update, first_added, is_hot, is_discounting, category_id', 'safe'),
+            array('price, quantity, number_part', 'required'),
+            array('description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, item_id, price, quantity, is_hot, is_discounting, last_update, first_added', 'safe', 'on' => 'search'),
@@ -105,6 +109,23 @@ class Item extends CActiveRecord {
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+
+    /*
+     * Return the last item of a specific category.
+     */
+
+    public function lastItem($categoryID) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'category_id=:categoryID',
+            'params' => array(
+                ':categoryID' => $categoryID,
+            ),
+            'order' => 'item_id desc',
+            'limit' => 1,
+        ));
+        return $this;
     }
 
     public function hotStuff($limit=5) {

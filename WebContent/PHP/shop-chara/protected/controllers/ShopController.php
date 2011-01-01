@@ -130,13 +130,17 @@ class ShopController extends Controller {
      * @param <type> $category_id category id.
      */
     public function actionListItems($category_id = null) {
-        $categoryID = -1; // never have category with ID less than 0.
-        if ($category_id !== null)
+        if ($category_id !== null) {
             $categoryID = $category_id;
-
+        }
         // get category id from params
         if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
             $categoryID = (int) $_POST['category_id'];
+        }
+
+        if (!isset($categoryID)) {
+            echo 'Please select a category.';
+            return;
         }
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort

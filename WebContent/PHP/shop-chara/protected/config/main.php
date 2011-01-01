@@ -73,11 +73,9 @@ return array(
                     'maxLogFiles' => 4,
                 ),
                 array(
-                    'categories' => 'debug, yii',
                     'class' => 'CWebLogRoute',
                     'enabled' => true,
                     'showInFireBug' => true,
-                    'ignoreAjaxInFireBug' => false,
                     'levels' => 'info, warning, error, debug',
                 ),
                 // the FirePHP LogRoute

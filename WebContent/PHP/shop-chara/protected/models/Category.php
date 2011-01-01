@@ -8,6 +8,8 @@
  * @property string $description
  */
 class Category extends CActiveRecord {
+    const CATEGORY_NUMBER_PART_LENGTH = 5;
+    const CATEGORY_CODE_PART_LENGTH = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -62,6 +64,26 @@ class Category extends CActiveRecord {
             'category_id' => 'Category ID',
         );
     }
+
+    /**
+     * Retrieve the next item number.
+     * @param <type> $categoryID category id.
+     * @return <type> return output string for next item number.
+     */
+    public static function getNextItemNumber($categoryID) {
+        $result = '';
+        $items = Item::model()->lastItem($categoryID)->findAll();
+        if ($items !== null && sizeof($items) > 0) {
+            $itemCode = $items[0]->item_id; // get the itemCode
+            $number_part = substr($itemCode, 3, self::CATEGORY_NUMBER_PART_LENGTH);
+            $item_next_number = (int) $number_part + 1;
+            $result = str_pad($item_next_number, 5, '0', STR_PAD_LEFT);
+        } else {
+            $result = str_pad('1', 5, '0', STR_PAD_LEFT);
+        }
+        return $result;
+    }
+
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
