@@ -41,14 +41,15 @@ class Item extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+// NOTE: you should only define rules for those attributes that
+// will receive user inputs.
         return array(
             array('price, quantity, number_part', 'numerical', 'integerOnly' => true),
             array('item_id', 'length', 'max' => 256),
             array('price', 'length', 'max' => 20),
             array('number_part', 'length', 'max' => 5),
             array('category_prefix', 'checkCategoryCode'),
+            array('number_part', 'checkNextNumber'),
             array('item_id', 'unique'),
             array('price, quantity, number_part', 'required'),
             array('description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
@@ -61,7 +62,24 @@ class Item extends CActiveRecord {
     public function checkCategoryCode($attribute, $params) {
         $category = Category::model()->findByPk($this->category_id);
         if ($category->category_code !== $this->category_prefix) {
-            $this->addError('item_id','Category Code and prefix must be match.');
+            $this->addError('category_prefix', 'Category Code and Category prefix must be match.');
+        }
+    }
+
+    public function checkNextNumber($attribute, $params) {
+        $nextNumber = Category::getNextItemNumberByCategoryCode($this->category_prefix);
+        if (isset($this->id)) {
+            $item = Item::model()->findByPk($this->id); // load item to get the old value
+            $old_category = Category::model()->findByPk($item->category_id);
+            $old_number_part = substr($item->item_id, 2);
+            if ($this->number_part !== $old_number_part && $this->number_part !== $nextNumber){
+                $this->addError('number_part', 'Next number should be.' . $this->category_prefix.':'. $nextNumber .' or the same of its old number '. $old_category->category_code.':'.$old_number_part);
+            }
+        } else {
+            // get next number
+            if ($this->number_part !== $nextNumber) {
+                $this->addError('number_part', 'Next number should be.' . $nextNumber);
+            }
         }
     }
 
@@ -69,8 +87,8 @@ class Item extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
+// NOTE: you may need to adjust the relation name and the related
+// class name for the relations automatically generated below.
         return array(
             'itemPictures' => array(self::HAS_MANY, 'ItemPicture', 'item_id'),
             'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
@@ -100,8 +118,8 @@ class Item extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function search() {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
+// Warning: Please modify the following code to remove attributes that
+// should not be searched.
 
         $criteria = new CDbCriteria;
 

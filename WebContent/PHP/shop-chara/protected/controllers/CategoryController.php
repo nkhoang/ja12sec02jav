@@ -48,7 +48,7 @@ class CategoryController extends Controller {
         }
         $this->renderPartial('/category/_simple_form', array(
             'model' => $model,
-        ));
+                ), false, true);
     }
 
     /**

@@ -76,6 +76,7 @@ return array(
                     'class' => 'CWebLogRoute',
                     'enabled' => true,
                     'showInFireBug' => true,
+                    'ignoreAjaxInFireBug' => false,
                     'levels' => 'info, warning, error, debug',
                 ),
                 // the FirePHP LogRoute

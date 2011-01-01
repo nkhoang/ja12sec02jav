@@ -14,7 +14,7 @@
     });    
 </script>
 <div id="imageScript"></div>
-<div id="itemPictureForm">
+<div id="itemPictureEditForm">
     <div class="form">
 
         <?php if (Yii::app()->user->hasFlash('itemPictureUpdated')): ?>
@@ -27,7 +27,7 @@
 
         <?php
             $form = $this->beginWidget('CActiveForm', array(
-                        'id' => 'item-picture-form',
+                        'id' => 'item-picture-edit-form',
                         'enableAjaxValidation' => true,
                         'action' => CController::createUrl('/itemPicture/create'),
                     ));
@@ -96,10 +96,10 @@
                     'cache':false,
                     'data'  : jQuery(this).parents('form').serialize(),
                     'success':function(html){
-                        jQuery('#item-picture-form').html(html);
+                        jQuery('#itemPictureEditForm').html(html);
                     },
                     'error' : function(x,e) {
-                        jQuery('div.form_c').html(x.responseText);
+                        jQuery('#itemPictureEditForm').html(x.responseText);
                     }
                 });" />
         </div>

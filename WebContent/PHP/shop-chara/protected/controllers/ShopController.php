@@ -98,7 +98,7 @@ class ShopController extends Controller {
                 'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link' : $itemThumbnail->link,
                 'itemPicturesDataProvider' => $dataProvider,
                 'itemPicturePager' => $pager,
-            ));
+            ), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'Missing argument: itemID to render widget.'));
         }

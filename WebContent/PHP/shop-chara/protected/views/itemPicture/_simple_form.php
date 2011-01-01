@@ -76,17 +76,24 @@
 
         <?php echo CHtml::hiddenField('itemID', $itemID); ?> <!-- hidden field for storing item id -->
 
-            <div class="row buttons">
-            <?php
-            echo CHtml::ajaxButton('Next'
-                    , CController::createUrl('/itemPicture/ajaxCreateItemPicture'),
-                    array(
-                        'type' => 'POST',
-                        'id' => 'item_picture_submit_button',
-                        'success' => 'function(html) {$("#itemForm").html(html)}'
-            )); ?>
-        </div>
 
+        <div class="row buttons">
+
+                <input type="button" name="next_button" value="Next" onclick="$.ajax(
+                    {
+                        'type': 'post',
+                        'url': '<?php
+            echo CController::createUrl('/itemPicture/ajaxCreateItemPicture'); ?>',
+                    'cache':false,
+                    'data'  : jQuery(this).parents('form').serialize(),
+                    'success':function(html){
+                        jQuery('#itemPictureForm').html(html);
+                    },
+                    'error' : function(x,e) {
+                        jQuery('#itemPictureForm').html(x.responseText);
+                    }
+                });" />
+        </div>
         <?php $this->endWidget(); ?>
     </div>
 </div><!-- form -->

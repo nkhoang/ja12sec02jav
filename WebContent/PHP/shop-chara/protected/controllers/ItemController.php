@@ -57,12 +57,12 @@ class ItemController extends Controller {
      */
     public function actionAjaxCreateItem($category_id = null) {
         $item = new Item;
+        $categoryID = (int) $_POST['category_dropdown_list']; // make sure that this number must have.
+        $item->category_id = $categoryID; // populate category id
         $this->performAjaxValidation($item);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
             $item->attributes = $_POST['Item'];
-            $categoryID = (int) $_POST['category_dropdown_list'];
-            $item->category_id = $categoryID; // populate category id
             $item->item_id = $item->category_prefix . $item->number_part; // compose 2 parts of the item id.
 
             if ($item->save()) {
@@ -122,14 +122,16 @@ class ItemController extends Controller {
         $model = $this->loadModel($id);
         // set other attributes
         $model->category_prefix = substr($model->item_id, 0, 2);
-        $model->number_part = substr($model->item_id, 2 );
-        // Uncomment the following line if AJAX validation is needed
+        $model->number_part = substr($model->item_id, 2);
+
         $this->performAjaxValidation($model);
 
         if (isset($_POST['Item'])) {
             $model->attributes = $_POST['Item'];
             $categoryID = (int) $_POST['category_dropdown_list'];
             $model->category_id = $categoryID;
+
+            $model->item_id = $model->category_prefix . $model->number_part; // compose 2 parts of the item id.
             if ($model->save()) {
                 Yii::app()->user->setFlash('itemUpdated', 'Item Updated!!!!');
             }
@@ -144,7 +146,7 @@ class ItemController extends Controller {
             'categories' => CHtml::listData($categories, 'id', 'title'),
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
-        ));
+                ), false, true);
     }
 
     /**
@@ -228,7 +230,7 @@ class ItemController extends Controller {
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'item-form') {
+        if (isset($_POST['ajax']) && ($_POST['ajax'] === 'item-form' || $_POST['ajax'] === 'edit-item-form')) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

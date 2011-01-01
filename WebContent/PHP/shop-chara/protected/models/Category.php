@@ -66,6 +66,18 @@ class Category extends CActiveRecord {
         );
     }
 
+    public static function getNextItemNumberByCategoryCode($category_code) {
+        $category = self::model()->findByAttributes(array(
+            'category_code' => $category_code,
+        ));
+
+        if (isset($category)) {
+            return Category::getNextItemNumber($category->id);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Retrieve the next item number.
      * @param <type> $categoryID category id.

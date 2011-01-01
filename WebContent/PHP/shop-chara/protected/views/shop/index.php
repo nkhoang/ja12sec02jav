@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 <script type="text/javascript" >
 
     $(function(){
-        $("#showCategoryForm, a.showItemPictureForm, #showItemPictureForm").fancybox({
+        $("#showCategoryForm, a.showItemPictureForm").fancybox({
             'transitionIn'	:	'fade',
             'transitionOut'	:	'fade',
             'speedIn'		:	600,

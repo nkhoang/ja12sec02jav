@@ -110,7 +110,7 @@ class ItemPictureController extends Controller {
         $this->renderPartial('/itemPicture/_edit_form', array(
             'model' => $model,
             'itemID' => $id,
-        ));
+                ), false, true);
     }
 
     public function actionAjaxCreateItemPicture($id = null) {
@@ -121,6 +121,12 @@ class ItemPictureController extends Controller {
         } else {
             $itemID = (int) $_POST['itemID'];
         }
+
+        // load item by pk.
+        $item = Item::model()->findByPk((int) $itemID);
+        // count number of item picture of this item.
+        $countItemPicture = count(Item::model()->countByAttributes(array('item_id' => $item->id)));
+        $itemPic->title = $item->item_id.'-'.str_pad($countItemPicture + 1, 5, '0', STR_PAD_LEFT);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
             $itemPic->attributes = $_POST['ItemPicture'];
@@ -192,7 +198,7 @@ class ItemPictureController extends Controller {
      * @param CModel the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'item-picture-form') {
+        if (isset($_POST['ajax']) && ($_POST['ajax'] === 'item-picture-form' || $_POST['ajax'] === 'item-picture-edit-form')) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

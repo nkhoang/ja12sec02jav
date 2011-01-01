@@ -1,4 +1,20 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item.css" />
+<script type="text/javascript">
+    $(function(){
+        $("a.showItemPictureForm, #showItemPictureCreateForm").fancybox({
+            'transitionIn'	:	'fade',
+            'transitionOut'	:	'fade',
+            'speedIn'		:	600,
+            'speedOut'		:	200,
+            'overlayShow'	:	true,
+            'centerOnScroll': true,
+            'type' : 'ajax',
+            'ajax' : {
+                type: "POST"
+            }
+        });
+    });
+</script>
 <div id="it_c">
     <div class="img_c">
         <!-- may check image existence here -->
@@ -14,11 +30,11 @@
             'categories' => $categories,
             'prefix' => $prefix,
             'performAction' => 'ajaxUpdate',
-        ));
+                ), false, true); // see documentation for this. very tricky.[IMPORTANT]
         ?>
     </div>
     <div id="item_picture_controller">
-        <a title="Add Item Picture" id="showItemPictureForm" href="<?php echo CController::createUrl('/itemPicture/ajaxCreateItemPicture', array('id' => $itemID,)); ?>"> 
+        <a title="Add Item Picture" id="showItemPictureCreateForm" href="<?php echo CController::createUrl('/itemPicture/ajaxCreateItemPicture', array('id' => $itemID,)); ?>">
             <img src="<?php echo Yii::app()->request->baseUrl . '/images/add.png'; ?>" width="32" height="32" />
         </a>
     </div>
