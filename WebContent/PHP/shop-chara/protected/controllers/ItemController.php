@@ -57,8 +57,7 @@ class ItemController extends Controller {
      */
     public function actionAjaxCreateItem($category_id = null) {
         $item = new Item;
-        $categoryID = (int) $_POST['category_dropdown_list']; // make sure that this number must have.
-        $item->category_id = $categoryID; // populate category id
+        $item->category_id = (int) $category_id;
         $this->performAjaxValidation($item);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['Item'])) {
@@ -72,23 +71,23 @@ class ItemController extends Controller {
             }
         }
 
-        if ($category_id === null) {
-            $category_id = (int) $_POST['category_dropdown_list'];
+        if (is_string($category_id) && strlen($category_id) === 0) {
+            echo 'You should select a category first.';
+        } else {
+            $categories = array(
+                Category::model()->findByPk($item->category_id),
+            );
+
+            $item->number_part = Category::getNextItemNumber($item->category_id);
+            $category = Category::model()->findByPk($item->category_id);
+            $item->category_prefix = $category->category_code;
+
+            $this->renderPartial('_simple_form', array(
+                'model' => $item,
+                'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
+                'categories' => CHtml::listData($categories, 'id', 'title')),
+                    false, true);
         }
-
-        $categories = array(
-            Category::model()->findByPk((int) $category_id),
-        );
-
-        $item->number_part = Category::getNextItemNumber($category_id);
-        $category = Category::model()->findByPk((int) $category_id);
-        $item->category_prefix = $category->category_code;
-
-        $this->renderPartial('_simple_form', array(
-            'model' => $item,
-            'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
-            'categories' => CHtml::listData($categories, 'id', 'title')),
-                false, true);
     }
 
     /**

@@ -140,6 +140,7 @@ class ShopController extends Controller {
         // get category id from params
         if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
             $categoryID = (int) $_POST['category_id'];
+            $scripts = $_POST['scripts'];
         }
 
         if (!isset($categoryID)) {
@@ -224,6 +225,7 @@ class ShopController extends Controller {
         $this->renderPartial('/shop/_list_item', array(
             'categoryID' => $categoryID,
             'itemListOutput' => $itemListOutput,
+            'scripts' => $scripts,
         ));
     }
 

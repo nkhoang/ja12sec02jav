@@ -4,11 +4,13 @@
             <img src="<?php echo Yii::app()->request->baseUrl . '/images/edit.png'; ?>" width="24" height="24" />
         </a>
     </div>
-<a onclick="$.ajax(
-    {
-        'type': 'post',
-        'data':{
-            'category_id':'<?php echo $data->id; ?>'},
+    <a class="category-<?php echo $data->id ?>"onclick="$.ajax(
+        {
+            'type': 'post',
+            'data':{
+                'category_id':'<?php echo $data->id; ?>',
+                'scripts': '$(\'a.category-<?php echo $data->id ?>\').click();'
+            },
             'url': '<?php echo CController::createUrl('/shop/listItems'); ?>',
             'cache':false,
             'success':function(html){
@@ -17,6 +19,6 @@
             'error' : function(x,e) {
                 jQuery('#item_board').html(x.responseText);
             }
-        });"
-   href="#"><?php echo CHtml::encode($data->title); ?></a>
-    </div>
+        }); return false;"
+       href="#"><?php echo CHtml::encode($data->title); ?></a>
+</div>

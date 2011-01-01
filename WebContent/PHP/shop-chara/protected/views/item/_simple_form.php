@@ -58,7 +58,7 @@
         </div>
         <?php echo $form->labelEx($model, 'category_id'); ?>
         <?php
-            echo CHtml::dropDownList('category_dropdown_list', '', $categories);
+            echo $form::dropDownList($model,'category_id', $categories);
         ?>
             <div class="row buttons">
 

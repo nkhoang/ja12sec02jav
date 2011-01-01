@@ -17,6 +17,9 @@
             'type' : 'ajax',
             'ajax' : {
                 type: "POST"
+            },
+            'onClosed': function() {
+                <?php echo $scripts ?>
             }
         });
 
