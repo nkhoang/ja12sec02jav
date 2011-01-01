@@ -120,7 +120,9 @@ class ItemController extends Controller {
      */
     public function actionAjaxUpdate($id=null) {
         $model = $this->loadModel($id);
-
+        // set other attributes
+        $model->category_prefix = substr($model->item_id, 0, 2);
+        $model->number_part = substr($model->item_id, 2 );
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);
 
@@ -140,6 +142,7 @@ class ItemController extends Controller {
             'model' => $model,
             'itemID' => $id,
             'categories' => CHtml::listData($categories, 'id', 'title'),
+            'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
         ));
     }

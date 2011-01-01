@@ -9,7 +9,7 @@
  */
 class Category extends CActiveRecord {
     const CATEGORY_NUMBER_PART_LENGTH = 5;
-    const CATEGORY_CODE_PART_LENGTH = 3;
+    const CATEGORY_CODE_PART_LENGTH = 2;
 
     /**
      * Returns the static model of the specified AR class.
@@ -36,7 +36,8 @@ class Category extends CActiveRecord {
             array('title, category_code', 'required'),
             array('description, title, category_code', 'safe'),
             array('title', 'length', 'max' => 256),
-            array('category_code', 'length', 'max' => 3),
+            array('category_code', 'length', 'max' => 2),
+            array('category_code', 'length', 'min' => 2),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, description, title, category_code', 'safe', 'on' => 'search'),

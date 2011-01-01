@@ -28,7 +28,7 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'category_code'); ?>
-            <?php echo $form->textField($model, 'category_code'); ?>
+            <?php echo $form->textField($model, 'category_code', array('size' => 5, 'maxlength' => 2)); ?>
             <?php echo $form->error($model, 'category_code'); ?>
         </div>
 

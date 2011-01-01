@@ -12,6 +12,7 @@
             'model' => $model,
             'itemID' => $itemID,
             'categories' => $categories,
+            'prefix' => $prefix,
             'performAction' => 'ajaxUpdate',
         ));
         ?>

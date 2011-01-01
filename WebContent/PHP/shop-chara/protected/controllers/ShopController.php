@@ -25,6 +25,9 @@ class ShopController extends Controller {
             $itemID = (int) $_POST['item_id'];
             $item = Item::model()->with('itemPictures')->findByPk($itemID);
 
+            $item->category_prefix = substr($item->item_id, 0, 2);
+            $item->number_part = substr($item->item_id, 2);
+
             $itemThumbnail = ItemPicture::model()->find(array(// find just one
                         'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
                         'params' => array(
@@ -91,6 +94,7 @@ class ShopController extends Controller {
                 'model' => $item,
                 'itemID' => $itemID,
                 'categories' => CHtml::listData($categories, 'id', 'title'),
+                'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
                 'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link' : $itemThumbnail->link,
                 'itemPicturesDataProvider' => $dataProvider,
                 'itemPicturePager' => $pager,

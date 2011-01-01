@@ -48,6 +48,7 @@ class Item extends CActiveRecord {
             array('item_id', 'length', 'max' => 256),
             array('price', 'length', 'max' => 20),
             array('number_part', 'length', 'max' => 5),
+            array('category_prefix', 'checkCategoryCode'),
             array('item_id', 'unique'),
             array('price, quantity, number_part', 'required'),
             array('description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
@@ -55,6 +56,13 @@ class Item extends CActiveRecord {
             // Please remove those attributes that should not be searched.
             array('id, item_id, price, quantity, is_hot, is_discounting, last_update, first_added', 'safe', 'on' => 'search'),
         );
+    }
+
+    public function checkCategoryCode($attribute, $params) {
+        $category = Category::model()->findByPk($this->category_id);
+        if ($category->category_code !== $this->category_prefix) {
+            $this->addError('item_id','Category Code and prefix must be match.');
+        }
     }
 
     /**
@@ -110,7 +118,6 @@ class Item extends CActiveRecord {
             'criteria' => $criteria,
         ));
     }
-
 
     /*
      * Return the last item of a specific category.

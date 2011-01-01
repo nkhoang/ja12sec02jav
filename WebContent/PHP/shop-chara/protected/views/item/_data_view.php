@@ -15,7 +15,6 @@
     });">
     <div class="img_c it_b">
         <!-- may check image existence here -->
-        <?php echo $data->itemPictures[0]->link; ?>
         <?php if (!isset($data->itemPictures[0])): ?>
             <img height="40"  src="<?php  Yii::app()->request->baseUrl . '/images/photo_not_available.jpg' ?>"/>
         <?php else: ?>

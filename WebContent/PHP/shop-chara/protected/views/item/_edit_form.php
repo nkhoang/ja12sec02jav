@@ -27,8 +27,9 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'item_id'); ?>
-            <?php echo $form->textField($model, 'item_id', array('maxlength' => 256)); ?>
-            <?php echo $form->error($model, 'item_id'); ?>
+            <?php echo $form->dropDownList($model, 'category_prefix', $prefix); ?>
+            <?php echo $form->textField($model, 'number_part', array('size' => 5, 'maxlength' => 5)); ?>
+            <?php echo $form->error($model, 'number_part'); ?>
         </div>
 
         <div class="row">
