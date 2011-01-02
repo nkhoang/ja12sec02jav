@@ -10,8 +10,13 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.fancybox-1.3.4.css" />        
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.autocomplete.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item_picture.css" />
-
-
+        
+        <!--[if lt IE 8]><style>
+        .wraptocenter span {
+            display: inline-block;
+            height: 100%;
+        }
+        </style><![endif]-->
 
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js" type="text/javascript"></script>
         <?php

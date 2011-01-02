@@ -22,7 +22,7 @@
                 <?php echo $scripts ?>
             }
         });
-
+        buildTooltip('div.ic div.img_c');
     });
 
 </script>

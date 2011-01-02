@@ -86,6 +86,28 @@ function buildPreviewThumbnail(link){
     });
     return $thumbContainer;
 }
+
+function buildTooltip(selector) {
+    var $object  = $(selector);
+    $object.bind('mousemove', function(e){ // bind mouseover for tooltip.
+        var imgSrc = $(this).find('img').attr('src');
+        var $this = $(this);
+        var $imgDiv = $('<div></div>'); // build tooltip image container.
+        var $img = $('<img />').attr('src', imgSrc); // build image tag.
+        $imgDiv.html($img); // append to the container.
+        manager.showTooltip($this, e, $imgDiv); // show tooltip using Manager->tooltip.
+    });
+
+    $object.bind('click', function(e){ // mouseout event.
+        manager.hideTooltip($(this)); // hide tooltip.
+    });
+
+    $object.bind('mouseout', function(e){ // mouseout event.
+        manager.hideTooltip($(this)); // hide tooltip.
+    });
+}
+
+
 var albumData = [{    // albumnData contains key value pair of album name and method processing name.
     album: 'CharaThumbnail',    /* album name */
     renderer: 'renderThumbnail' /* rendering method */

@@ -15,62 +15,74 @@
     });">
     <div class="img_c it_b">
         <!-- may check image existence here -->
-        <?php if (!isset($data->itemPictures[0])): ?>
-            <img height="40"  src="<?php  Yii::app()->request->baseUrl . '/images/photo_not_available.jpg' ?>"/>
+        <?php if (sizeof($data->itemPictures) === 0): ?>
+            <div class="wraptocenter">
+                <img height="60"  src="<?php echo Yii::app()->request->baseUrl . '/images/photo_not_available.jpg' ?>"/>
+            </div>
         <?php else: ?>
-        <img height="40"  src="<?php echo $data->itemPictures[0]->link ?>"/>
+                <div class="wraptocenter">
+                    <img height="60"  src="<?php echo $data->itemPictures[0]->link ?>"/>
+                </div>
         <?php endif; ?>
-    </div>
+            </div>
 
-    <div class="it_b">
-        <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('item_id')); ?></div>
-        <div class="seperator"></div>
-        <div class="it_content"><?php echo CHtml::encode($data->item_id); ?></div>
-    </div>
+            <div class="it_b">
+                <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('item_id')); ?></div>
+                <div class="seperator"></div>
+                <div class="it_content"><?php echo CHtml::encode($data->item_id); ?></div>
+            </div>
 
-    <div class="it_b">
-        <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('price')); ?></div>
-        <div class="seperator"></div>
-        <div class="it_content"><?php echo CHtml::encode($data->price); ?></div>
-    </div>
+            <div class="it_b">
+                <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('price')); ?></div>
+                <div class="seperator"></div>
+                <div class="it_content"><?php echo CHtml::encode($data->price); ?></div>
+            </div>
 
-    <div class="it_b">
-        <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('quantity')); ?></div>
-        <div class="seperator"></div>
-        <div class="it_content"><?php echo CHtml::encode($data->quantity); ?></div>
-    </div>
-    <div class="it_b">
-        <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('is_hot')); ?></div>
-        <div class="seperator"></div>
-        <div class="it_content"><img width="16" height="16" src="
-            <?php
-            if ($data->is_hot === '0') {
-                echo Yii::app()->request->baseUrl . '/images/off.png';
-            } else {
-                echo Yii::app()->request->baseUrl . '/images/on.png';
-            }
-            ?>" /></div>
+            <div class="it_b">
+                <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('quantity')); ?></div>
+                <div class="seperator"></div>
+                <div class="it_content"><?php echo CHtml::encode($data->quantity); ?></div>
+            </div>
+            <div class="it_b">
+                <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('is_hot')); ?></div>
+                <div class="seperator"></div>
+                <div class="it_content">
+                    <div class="wraptocenter">
+                        <span></span>
+                        <img width="16" height="16" src="
+                <?php
+                if ($data->is_hot === '0') {
+                    echo Yii::app()->request->baseUrl . '/images/off.png';
+                } else {
+                    echo Yii::app()->request->baseUrl . '/images/on.png';
+                }
+                ?>" />
+            </div></div>
     </div>
 
     <div class="it_b">
         <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('is_discounting')); ?></div>
         <div class="seperator"></div>
         <div class="it_content">
-            <img width="16" height="16" src="
-            <?php
-                                     if ($data->is_discounting === '0') {
-                                         echo Yii::app()->request->baseUrl . '/images/off.png';
-                                     } else {
-                                         echo Yii::app()->request->baseUrl . '/images/on.png';
-                                     }
-            ?>" />
-                            </div>
-                        </div>
-
-                        <div class="it_b">
-                            <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('category_id')); ?></div>
-                            <div class="seperator"></div>
-                            <div class="it_content"><?php echo CHtml::encode($data->category_id); ?></div>
+            <div class="wraptocenter">
+                <span></span>
+                <img width="16" height="16" src="
+                <?php
+                     if ($data->is_discounting === '0') {
+                         echo Yii::app()->request->baseUrl . '/images/off.png';
+                     } else {
+                         echo Yii::app()->request->baseUrl . '/images/on.png';
+                     }
+                ?>" />
+            </div>
+        </div>
     </div>
+    <!--
+    <div class="it_b">
+        <div class="it_title"><?php echo CHtml::encode($data->getAttributeLabel('category_id')); ?></div>
+        <div class="seperator"></div>
+        <div class="it_content"><?php echo CHtml::encode($data->category_id); ?></div>
+</div>
+    -->
 </div>
 

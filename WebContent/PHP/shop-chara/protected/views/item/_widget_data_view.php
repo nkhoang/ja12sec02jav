@@ -13,6 +13,8 @@
                 type: "POST"
             }
         });
+
+        buildTooltip('div.item_picture_img');
     });
 </script>
 <div id="it_c">
