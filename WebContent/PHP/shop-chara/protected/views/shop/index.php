@@ -19,6 +19,7 @@ $this->breadcrumbs = array(
                 type: "POST"
             }
         });
+
     });
 
 </script>

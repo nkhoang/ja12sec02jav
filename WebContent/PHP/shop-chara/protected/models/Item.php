@@ -46,7 +46,8 @@ class Item extends CActiveRecord {
         return array(
             array('price, quantity, number_part', 'numerical', 'integerOnly' => true),
             array('item_id', 'length', 'max' => 256),
-            array('price', 'length', 'max' => 20),
+            array('price', 'length', 'max' => 3),
+            array('price', 'length', 'min' => 2),
             array('number_part', 'length', 'max' => 5),
             array('category_prefix', 'checkCategoryCode'),
             array('number_part', 'checkNextNumber'),

@@ -65,7 +65,6 @@ function buildPreviewThumbnail(link){
     }).load(function(){
         var height = parseInt($thumbContainer.css('height'));
         var ratio = calculateRatio($img[0].width, $img[0].height, height, height);
-
         $img.attr({
             'width': Math.round(ratio * $img[0].width),
             'height': Math.round(ratio * $img[0].height)

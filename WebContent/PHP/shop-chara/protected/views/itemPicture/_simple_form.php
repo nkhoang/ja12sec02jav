@@ -16,7 +16,12 @@
 <div id="imageScript"></div>
 
 <div id="itemPictureForm">
-    <div class="form">
+    <?php if (Yii::app()->user->hasFlash('itemPictureCreated')): ?>
+        <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('itemPictureCreated'); ?>
+    </div>
+    <?php endif; ?>
+        <div class="form">
         <?php
         $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'item-picture-form',
@@ -71,28 +76,27 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'is_thumbnail_picture'); ?>
-            <?php echo CHtml::activeCheckBox($model, 'is_thumbnail_picture'); ?>
+            <?php echo $form::checkBox($model, 'is_thumbnail_picture'); ?>
         </div>
 
-        <?php echo CHtml::hiddenField('itemID', $itemID); ?> <!-- hidden field for storing item id -->
+        <?php echo $form::hiddenField($model, 'item_id'); ?> <!-- hidden field for storing item id -->
 
 
-        <div class="row buttons">
+            <div class="row buttons">
 
                 <input type="button" name="next_button" value="Next" onclick="$.ajax(
-                    {
-                        'type': 'post',
-                        'url': '<?php
-            echo CController::createUrl('/itemPicture/ajaxCreateItemPicture'); ?>',
-                    'cache':false,
-                    'data'  : jQuery(this).parents('form').serialize(),
-                    'success':function(html){
-                        jQuery('#itemPictureForm').html(html);
-                    },
-                    'error' : function(x,e) {
-                        jQuery('#itemPictureForm').html(x.responseText);
-                    }
-                });" />
+                        {
+                            'type': 'post',
+                            'url': '<?php echo CController::createUrl('/itemPicture/ajaxCreateItemPicture'); ?>',
+                        'cache':false,
+                        'data'  : jQuery(this).parents('form').serialize(),
+                        'success':function(html){
+                            jQuery('#itemPictureForm').html(html);
+                        },
+                        'error' : function(x,e) {
+                            jQuery('#itemPictureForm').html(x.responseText);
+                        }
+                    });" />
         </div>
         <?php $this->endWidget(); ?>
     </div>

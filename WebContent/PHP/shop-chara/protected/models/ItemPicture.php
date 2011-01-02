@@ -42,7 +42,7 @@ class ItemPicture extends CActiveRecord {
             array('title, link', 'required'),
             array('title, link, internal_link', 'length', 'max' => 256),
             array('link', 'url'),
-            array('description, is_thumbnail_picture', 'safe'),
+            array('description, is_thumbnail_picture, item_id', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, item_id', 'safe', 'on' => 'search'),

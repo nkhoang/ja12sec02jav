@@ -115,28 +115,24 @@ class ItemPictureController extends Controller {
 
     public function actionAjaxCreateItemPicture($id = null) {
         $itemPic = new ItemPicture;
-        $this->performAjaxValidation($itemPic);
         if ($id !== null) {
-            $itemID = $id;
-        } else {
-            $itemID = (int) $_POST['itemID'];
+            $itemPic->item_id = $id;
         }
+        $this->performAjaxValidation($itemPic);
 
         // load item by pk.
-        $item = Item::model()->findByPk((int) $itemID);
+        $item = Item::model()->findByPk((int) $itemPic->item_id);
         // count number of item picture of this item.
-        $countItemPicture = count(Item::model()->countByAttributes(array('item_id' => $item->id)));
+        $countItemPicture = ItemPicture::model()->countByAttributes(array('item_id' => $item->id));
         $itemPic->title = $item->item_id.'-'.str_pad($countItemPicture + 1, 5, '0', STR_PAD_LEFT);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
             $itemPic->attributes = $_POST['ItemPicture'];
-            $itemPic->item_id = $itemID; // set parent Item
             if ($itemPic->save()) {
-                // renew Item picture
-                $itemPic = new ItemPicture;
+                Yii::app()->user->setFlash('itemPictureCreated', 'Item Picture Created!!!!!');
             }
         }
-        $this->renderPartial('_simple_form', array('model' => $itemPic, 'itemID' => $itemID), false, true);
+        $this->renderPartial('_simple_form', array('model' => $itemPic), false, true);
     }
 
     /**

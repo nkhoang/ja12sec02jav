@@ -29,7 +29,7 @@ class ItemController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxUpdate'),
+                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxUpdate', 'getAllItems'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,6 +50,13 @@ class ItemController extends Controller {
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
+    }
+
+    public function actionGetAllItems() {
+        $categoryID = $_POST['category_id'];
+        if (!isset($categoryID)) {
+            echo CJSON::encode(array('errors' => 'Error.'));
+        }
     }
 
     /**

@@ -8,7 +8,7 @@
 
             <?php endif; ?>
                 <div class="item_picture_img">
-                    <img height="40" src="<?php echo $data->link ?>" />
+                    <img height="80" src="<?php echo $data->link ?>" />
             </div>
         </div>
     </div>

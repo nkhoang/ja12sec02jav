@@ -16,6 +16,76 @@ class ShopController extends Controller {
         );
     }
 
+    public function actionShowItems($category_id = null) {
+        Yii::log($category_id, 'info', 'debug');
+        // build search criteria
+        $criteria = new CDbCriteria; // just to apply sort
+        $criteria->select = '*';
+        $criteria->condition = 'category_id=:categoryID';
+        $criteria->params = array(
+            ':categoryID' => $category_id,
+        );
+
+        $criteria->limit = self::ITEM_PAGE_SIZE;
+
+        // build sort for data provider.
+        $sort = new CSort('Item');
+        $sort->sortVar = 'itemSort';
+        $sort->defaultOrder = 'item_id ASC';
+        $sort->params = array(
+            'category_id' => $category_id,
+        );
+        $sort->attributes = array(
+            'item_id' => array(
+                'asc' => 'item_id ASC',
+                'desc' => 'item_id DESC',
+                'title' => 'Item ID',
+                'default' => 'asc',
+            ),
+        );
+        $sort->applyOrder($criteria); // apply criteria
+
+        $count = count(Item::model()->findAll($criteria)); // count number result.
+
+        $pages = new CPagination($count);
+        $pages->pageSize = self::ITEM_PAGE_SIZE;
+        $pages->pageVar = 'item_page';
+        $pages->applyLimit($criteria); // get limit and offset
+        $pages->setItemCount($count);
+        $pages->params = array(
+            'category_id' => $category_id,
+        );
+
+        $dataProvider = new CActiveDataProvider('Item',
+                        array(
+                            'criteria' => $criteria,
+                            'pagination' => $pages,
+                            'sort' => $sort,
+                        )
+        );
+        $pager = array(
+            'htmlOptions' => array(
+                'id' => 'item_pager',
+            ),
+        );
+        $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
+        //
+        // render list view widget for item list view.
+        $this->widget('zii.widgets.CListView', array(
+            'id' => 'item_list_view',
+            'dataProvider' => $dataProvider,
+            'itemView' => '/item/_item_view',
+            'template' => '{items}',
+            'enableSorting' => false,
+            'enablePagination' => true,
+            'ajaxUpdate' => array('item_board'),
+            'pager' => $pager,
+            'sortableAttributes' => array(
+                'item_id' => 'Item ID',
+            ),
+        ));
+    }
+
     /**
      * Render view item details page to item board.
      * @params POST param named item_id to receive item id.
@@ -95,10 +165,10 @@ class ShopController extends Controller {
                 'itemID' => $itemID,
                 'categories' => CHtml::listData($categories, 'id', 'title'),
                 'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
-                'itemThumbnailLink' => $itemThumbnail === null ? 'abc.link' : $itemThumbnail->link,
+                'itemThumbnailLink' => $itemThumbnail === null ? '' : $itemThumbnail->link,
                 'itemPicturesDataProvider' => $dataProvider,
                 'itemPicturePager' => $pager,
-            ), false, true);
+                    ), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'Missing argument: itemID to render widget.'));
         }
@@ -112,7 +182,7 @@ class ShopController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails'),
+                'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails', 'showItems'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
