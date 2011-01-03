@@ -1,6 +1,6 @@
 <div class="category_block">
     <div class="controller">
-        <a title="Edit Category" id="showCategoryForm" href="<?php echo CController::createUrl('/category/ajaxUpdateCategory', array('id' => $data->id,)); ?>">
+        <a title="Edit Category" class="showCategoryForm" href="<?php echo CController::createUrl('/category/ajaxUpdateCategory', array('id' => $data->id,)); ?>">
             <img src="<?php echo Yii::app()->request->baseUrl . '/images/edit.png'; ?>" width="24" height="24" />
         </a>
     </div>

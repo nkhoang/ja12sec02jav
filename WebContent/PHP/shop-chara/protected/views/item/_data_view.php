@@ -13,7 +13,17 @@
             jQuery('#item_board').html(x.responseText);
         }
     });">
+    <div class="it_b">
+        <div class="wraptocenter">
+        <label class="label_radio" for="sample-radio">
+            <input name="sample-radio" id="sample-radio" value="1" type="radio" />
+        </label>
+            </div>
+    </div>
+
     <div class="img_c it_b">
+        
+
         <!-- may check image existence here -->
         <?php if (sizeof($data->itemPictures) === 0): ?>
             <div class="wraptocenter">

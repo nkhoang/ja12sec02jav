@@ -25,6 +25,7 @@
         ?>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/radio.js" type="text/javascript"></script>
 
         <?php
         $cs = Yii::app()->clientScript;

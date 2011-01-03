@@ -341,7 +341,7 @@ class ShopController extends Controller {
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
-        $this->widget('zii.widgets.CListView', array(
+        $categoryListHTML = $this->widget('zii.widgets.CListView', array(
             'id' => 'category_list_view',
             'dataProvider' => $dataProvider,
             'itemView' => '/category/_data_view', // refers to the partial view named '_post'
@@ -354,7 +354,11 @@ class ShopController extends Controller {
             'sortableAttributes' => array(
                 'title' => 'Title',
             ),
-        ));
+        ), true);
+
+        $this->renderPartial('/shop/_list_category', array(
+            'category_list' => $categoryListHTML,
+        ), false, true);
     }
 
     /**

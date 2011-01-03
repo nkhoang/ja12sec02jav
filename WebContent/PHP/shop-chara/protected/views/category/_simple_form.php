@@ -1,4 +1,20 @@
-<div id="categoryForm">
+<script type="text/javascript">
+    $(function(){
+        $('#categoryForm input:first').focus();
+        $('#categoryForm input').keypress(function(e){
+            if(e.which == 13){
+                $('#category_save_btn').click();
+            }
+        });
+            <?php if (Yii::app()->user->hasFlash('categoryUpdated')): ?>
+                        $('.flash-success').fadeOut(2000, function() {
+                            $.fancybox.close();
+                        });
+            <?php endif; ?>
+        });        
+    </script>        
+    <div id="categoryForm">
+
     <?php if (Yii::app()->user->hasFlash('categoryUpdated')): ?>
 
         <div class="flash-success">
@@ -6,7 +22,7 @@
     </div>
 
     <?php endif; ?>
-    
+
         <div class="form">
 
         <?php
@@ -40,7 +56,7 @@
 
 
         <div class="row buttons">
-            <input type="button" name="save_button" value="Save" onclick="$.ajax(
+            <input id="category_save_btn" type="button" name="save_button" value="Save" onclick="$.ajax(
                 {
                     'type': 'post',
                     'url': '<?php
