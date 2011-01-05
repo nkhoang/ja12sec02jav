@@ -136,6 +136,14 @@ div.thumbnail-big {
   overflow: hidden;
 }
 
+#itemsContainer .itemContainer .itemCover .icm .wraptocenter.loading {
+    background: url('../../images/loading.gif') no-repeat center center;
+}
+
+#itemsContainer .itemContainer .itemCover .icm .wraptocenter.loading img {
+    display: none;
+}
+
 
 #itemsContainer .itemContainer .itemCover .icm .thumbnail img {
   cursor: pointer;

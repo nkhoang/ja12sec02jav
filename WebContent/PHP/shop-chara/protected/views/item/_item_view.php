@@ -39,8 +39,8 @@
                     <div class="icl fleft">
                     </div>
                     <div class="icc fleft">
-                        <div class="thumbnail">
-                            <div class="wraptocenter">
+                        <div class="thumbnail ">
+                            <div class="wraptocenter loading">
                                 <img src="<?php echo $data->itemPictures[0]->link; ?>" class="item" >
                             </div>
                         </div>

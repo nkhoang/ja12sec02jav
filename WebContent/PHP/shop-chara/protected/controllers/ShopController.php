@@ -17,7 +17,6 @@ class ShopController extends Controller {
     }
 
     public function actionShowItems($category_id = null) {
-        Yii::log($category_id, 'info', 'debug');
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
         $criteria->select = '*';
@@ -181,8 +180,12 @@ class ShopController extends Controller {
      */
     public function accessRules() {
         return array(
+            array('allow',
+                'actions' => array('showItems'),
+                'users' => array('*'),
+                ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails', 'showItems'),
+                'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users

@@ -13,11 +13,15 @@
             'success': function(html) {
                 $('#itemsContainer').html(html);
                 $('.thumbnail img').each(function(){
-                    $img = $(this);
-                    var ratio = calculateRatio($img[0].width, $img[0].height, 138, 158);
-                    $img.attr({
-                        'width': Math.round(ratio * $img[0].width),
-                        'height': Math.round(ratio * $img[0].height)
+                    $(this).load(function() {
+                        var $this= $(this);
+                        var ratio = calculateRatio($this[0].width, $this[0].height, 138, 158);
+                        $this.attr({
+                            'width': Math.round(ratio * $this[0].width),
+                            'height': Math.round(ratio * $this[0].height)
+                        });
+
+                        $this.parents('div.wraptocenter').removeClass('loading');
                     });
                 });
             }
