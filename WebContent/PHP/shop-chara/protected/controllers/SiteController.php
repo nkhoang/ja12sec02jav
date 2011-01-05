@@ -109,7 +109,7 @@ class SiteController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('index'),
+                'actions' => array('index', 'login', 'logout'),
                 'users' => array('*'),
             ),
             array('deny', // deny all users

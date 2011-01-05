@@ -6,24 +6,28 @@
     To enter shop-chara please visit <?php echo CHtml::link('Shop now!!!!', Yii::app()->urlManager->createUrl('/shop')); ?>
 </p>
 <script type="text/javascript">
+    function preloadAllImage() {
+        $('.thumbnail img').each(function(){
+            $(this).load(function() {
+                var $this= $(this);
+                var ratio = calculateRatio($this[0].width, $this[0].height, 138, 158);
+                $this.attr({
+                    'width': Math.round(ratio * $this[0].width),
+                    'height': Math.round(ratio * $this[0].height)
+                });
+
+                $this.parents('div.wraptocenter').removeClass('loading');
+            });
+        });
+    }
+
     $(function(){
         $.ajax({
             'type': 'post',
             'url': '<?php echo CController::createUrl('/shop/showItems', array('category_id' => 1)); ?>',
             'success': function(html) {
                 $('#itemsContainer').html(html);
-                $('.thumbnail img').each(function(){
-                    $(this).load(function() {
-                        var $this= $(this);
-                        var ratio = calculateRatio($this[0].width, $this[0].height, 138, 158);
-                        $this.attr({
-                            'width': Math.round(ratio * $this[0].width),
-                            'height': Math.round(ratio * $this[0].height)
-                        });
-
-                        $this.parents('div.wraptocenter').removeClass('loading');
-                    });
-                });
+                preloadAllImage();
             }
         });
 
@@ -44,6 +48,10 @@
             var $this = $(this);
             manager.hideTooltip($this);
         });
+
+
+        manager.initPager('<?php echo CController::createUrl('/shop/showItems', array('category_id' => 1)); ?>', preloadAllImage);
+
     });
 </script>
 <div id="body-wrapper">

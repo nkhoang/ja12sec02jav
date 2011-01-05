@@ -1,8 +1,8 @@
 <?php
 
 class ShopController extends Controller {
-    const CATEGORY_PAGE_SIZE = 20;
-    const ITEM_PAGE_SIZE = 20;
+    const CATEGORY_PAGE_SIZE = 2;
+    const ITEM_PAGE_SIZE = 2;
     const ITEM_PICTURE_PAGE_SIZE = 20;
 
     public $layout = "//layouts/shop_column1";
@@ -68,9 +68,9 @@ class ShopController extends Controller {
             ),
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-        //
+        $pageSize = $pager['pages']->getPageSize();
         // render list view widget for item list view.
-        $this->widget('zii.widgets.CListView', array(
+        $itemsHTML =  $this->widget('zii.widgets.CListView', array(
             'id' => 'item_list_view',
             'dataProvider' => $dataProvider,
             'itemView' => '/item/_item_view',
@@ -82,6 +82,11 @@ class ShopController extends Controller {
             'sortableAttributes' => array(
                 'item_id' => 'Item ID',
             ),
+        ), true);
+
+        $this->renderPartial('/shop/_show_item', array(
+           'itemsHTML' => $itemsHTML,
+            'totalPage' => $pageSize,
         ));
     }
 
@@ -361,7 +366,7 @@ class ShopController extends Controller {
 
         $this->renderPartial('/shop/_list_category', array(
             'category_list' => $categoryListHTML,
-        ), false, true);
+        ), false, false);
     }
 
     /**

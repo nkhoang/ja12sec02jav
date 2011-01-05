@@ -1,41 +1,4 @@
-function processAfterLoad(data){
-    // admin flag returned by server
-    if (data.admin) {
-        $('img.captify').captify({
-            speedOver: 'fast',
-            speedOut: 'fast',
-            hideDelay: 500,
-            animation: 'slide',
-            opacity: '0.6',
-            className: 'caption-top',
-            position: 'top',
-            spanWidth: '100%'
-        });
-    }
-
-    // trigger click for fancy box.
-    $('img.item').live('click', function(){
-        $(this).parents('div.icc').find('div.subPictures a.itemSubPic').first().click();
-    });
-
-    $('img.item').live('mousemove', function(e){
-        var $this = $(this);
-        var $imgDiv = $('div.thumbnail-big', $this.parents('div.itemCover'));
-        manager.showTooltip($this, e, $imgDiv);
-    });
-
-    $('img.item').live('mouseout', function(e){
-        var $this = $(this);
-        manager.hideTooltip($this);
-    });
-
-}
-
 var manager = new ItemManager('#itemsContainer');
-$(function(){
-    //manager.loadItems(); // then load items after finish
-});
-
 
 function ItemService(){
 
@@ -80,7 +43,7 @@ function ItemManager(selector, callback){
     var isAdmin = false;
     var isItemLoading = false;
 
-    var cp = 1, tp = 0, MAX_ITEM_PER_PAGE = 9;
+    var cp = 1, tp = 1, MAX_ITEM_PER_PAGE = 9, pagerURL, pager_callback;
     var numberMapper = {
         '0': 'http://lh4.ggpht.com/_4oj_ltkp9pc/S_XYBs3Q9FI/AAAAAAAAAHQ/obHcKfDDcIA/n_0.gif',
         '1': 'http://lh4.ggpht.com/_4oj_ltkp9pc/S_XYB-f3clI/AAAAAAAAAHU/5l7SpWKUWL0/n_1.gif',
@@ -110,6 +73,7 @@ function ItemManager(selector, callback){
         var widthAdj = (currentPageStr.length + totalPageStr.length) * 16 + 13 - 5;
         var currentW = parseInt($('.mam', '#marker').css('width'));
         var markerW = parseInt($('#marker').css('width'));
+        tp = totalPage;
         $('#current_page_number').html(buildNumberImg(currentPage));
         $('#total_page_number').html(buildNumberImg(totalPage));
         // change the width
@@ -124,7 +88,7 @@ function ItemManager(selector, callback){
         // call hide tooltip with parameter only if some component on the screen will be removed
         // this will check to make sure that the current tooltip will not be removed incorrectly.
         if (targetId && targetId != tooltip_target_id) {
-            // do nothing if targetId and current id the tooltip kept is not the same.
+        // do nothing if targetId and current id the tooltip kept is not the same.
         }
         else {
             // no param
@@ -132,8 +96,10 @@ function ItemManager(selector, callback){
         }
     }
 
-    this.initPager = function(){
-        this.updatePager(0, 0);
+    this.initPager = function(url, callback){
+        pagerUrl = url;
+        pager_callback = callback;
+        this.updatePager(1, 1);
         // click on the right arrow
         $('#pager .par .touchArea').click(function(){
             var pagerNumber = $('#pager .pagerInput input');
@@ -296,9 +262,9 @@ function ItemManager(selector, callback){
             }
         }
         else
-            if (tooltip_target_id == null) {
-                buildImgTooltip();
-            }
+        if (tooltip_target_id == null) {
+            buildImgTooltip();
+        }
         $tooltip.css({
             left: posAdj.left,
             top: posAdj.top
@@ -324,82 +290,17 @@ function ItemManager(selector, callback){
     }
 
     this.updatePage = function(){
-        var itemList = itemService.getItemRange(cp, MAX_ITEM_PER_PAGE);
-
-        // clear all.
-        $(selector).empty();
-
-        for (var i = 0; i < itemList.length; i++) {
-            $(selector).append(itemList[i].getHTML());
-        }
-
-        // enable fancy box
-        $('a.itemSubPic').fancybox();
-        if (isAdmin) {
-            $('img.captify').captify({
-                speedOver: 'fast',
-                speedOut: 'fast',
-                hideDelay: 500,
-                animation: 'slide',
-                opacity: '0.6',
-                className: 'caption-top',
-                position: 'top',
-                spanWidth: '100%'
-            });
-        }
-    }
-
-
-    // internal function
-    this.loadItems = function(){
-        if (isItemLoading) {
-            return;
-        }
-        isItemLoading = true;
-        var ajaxUrl = '<c:url value="/item/viewAll.html" />';
-        // make ajax call to server
+        pagerUrl = pagerUrl.replace('.html', '');
+        pagerUrl = pagerUrl + '/item_page/'+ cp + '.html';
         $.ajax({
-            url: ajaxUrl,
-            dataType: 'json',
-            type: 'POST',
-            beforeSend: function(){
-                // show loading indicator
+            'type': 'get',
+            'url' : pagerUrl,
+            'data' : {
+                'ajax': 'item_list_view'
             },
-            success: function(data){
-                // clear all.
-                $(selector).empty();
-                // data will be an array
-                if (data.items) {
-                    // build pager
-                    // calculate total page
-                    tp = (parseInt(data.items.length / MAX_ITEM_PER_PAGE)) + 1;
-                    // the number of item equals to MAX_ITEM_PER_PAGE
-                    if (data.items.length % MAX_ITEM_PER_PAGE == 0) {
-                        tp -= 1;
-                    }
-                    instance.updatePager(1, tp);
-                    // clean item service
-                    itemService.clearAll();
-                    for (var i = 0; i < data.items.length; i++) {
-                        // create a new Item
-                        var item = new Item(data.items[i], data.admin, i);
-                        item.construct();
-                        //$(selector).append(item.getHTML());
-
-                        // use itemService
-                        itemService.addItem(item.getId(), item);
-                    }
-                    instance.updatePage();
-
-                    // process after items have been added to the page.
-                    callback(data);
-                    isAdmin = data.admin;
-                }
-            },
-            error: function(){
-            },
-            complete: function(){
-                isItemLoading = false;
+            'success': function(html){
+                $('#itemsContainer').html(html);
+                pager_callback();
             }
         });
     }
@@ -416,8 +317,8 @@ function findPosX(obj){
             obj = obj.offsetParent;
         }
     else
-        if (obj.x)
-            curleft += obj.x;
+    if (obj.x)
+        curleft += obj.x;
     return curleft;
 }
 
@@ -431,7 +332,7 @@ function findPosY(obj){
             obj = obj.offsetParent;
         }
     else
-        if (obj.y)
-            curtop += obj.y;
+    if (obj.y)
+        curtop += obj.y;
     return curtop;
 }
