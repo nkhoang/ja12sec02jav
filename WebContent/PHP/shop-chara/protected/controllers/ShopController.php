@@ -69,6 +69,7 @@ class ShopController extends Controller {
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
         $pageSize = $pager['pages']->getPageSize();
+        $currentPage = $pager['pages']->getCurrentPage();
         // render list view widget for item list view.
         $itemsHTML =  $this->widget('zii.widgets.CListView', array(
             'id' => 'item_list_view',
@@ -87,6 +88,7 @@ class ShopController extends Controller {
         $this->renderPartial('/shop/_show_item', array(
            'itemsHTML' => $itemsHTML,
             'totalPage' => $pageSize,
+            'currentPage' => $currentPage + 1,
         ));
     }
 

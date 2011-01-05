@@ -73,6 +73,7 @@ function ItemManager(selector, callback){
         var widthAdj = (currentPageStr.length + totalPageStr.length) * 16 + 13 - 5;
         var currentW = parseInt($('.mam', '#marker').css('width'));
         var markerW = parseInt($('#marker').css('width'));
+        cp = currentPage;
         tp = totalPage;
         $('#current_page_number').html(buildNumberImg(currentPage));
         $('#total_page_number').html(buildNumberImg(totalPage));

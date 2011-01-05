@@ -1,7 +1,8 @@
 <script type="text/javascript">
     $(function(){
         tp = <?php echo $totalPage; ?>;
-        manager.updatePager(1, tp);
+        cp = <?php echo $currentPage ?>;
+        manager.updatePager(cp, tp);
     });
     
 </script>
