@@ -71,22 +71,22 @@ class ShopController extends Controller {
         $pageSize = $pager['pages']->getPageSize();
         $currentPage = $pager['pages']->getCurrentPage();
         // render list view widget for item list view.
-        $itemsHTML =  $this->widget('zii.widgets.CListView', array(
-            'id' => 'item_list_view',
-            'dataProvider' => $dataProvider,
-            'itemView' => '/item/_item_view',
-            'template' => '{items}',
-            'enableSorting' => false,
-            'enablePagination' => true,
-            'ajaxUpdate' => array('item_board'),
-            'pager' => $pager,
-            'sortableAttributes' => array(
-                'item_id' => 'Item ID',
-            ),
-        ), true);
+        $itemsHTML = $this->widget('zii.widgets.CListView', array(
+                    'id' => 'item_list_view',
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '/item/_item_view',
+                    'template' => '{items}',
+                    'enableSorting' => false,
+                    'enablePagination' => true,
+                    'ajaxUpdate' => array('item_board'),
+                    'pager' => $pager,
+                    'sortableAttributes' => array(
+                        'item_id' => 'Item ID',
+                    ),
+                        ), true);
 
         $this->renderPartial('/shop/_show_item', array(
-           'itemsHTML' => $itemsHTML,
+            'itemsHTML' => $itemsHTML,
             'totalPage' => $pageSize,
             'currentPage' => $currentPage + 1,
         ));
@@ -96,88 +96,108 @@ class ShopController extends Controller {
      * Render view item details page to item board.
      * @params POST param named item_id to receive item id.
      */
-    public function actionViewItemDetails() {
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
+    public function actionViewItemDetails($item_id = null) {
+        if ($item_id === null) {
             $itemID = (int) $_POST['item_id'];
-            $item = Item::model()->with('itemPictures')->findByPk($itemID);
-
-            $item->category_prefix = substr($item->item_id, 0, 2);
-            $item->number_part = substr($item->item_id, 2);
-
-            $itemThumbnail = ItemPicture::model()->find(array(// find just one
-                        'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
-                        'params' => array(
-                            ':itemID' => $itemID,
-                            ':isThumbnail' => 1,
-                        ),
-                    ));
-
-            // build search criteria
-            $criteria = new CDbCriteria; // just to apply sort
-            $criteria->select = '*';
-            $criteria->condition = 'item_id=:itemID';
-            $criteria->params = array(
-                ':itemID' => $itemID,
-            );
-
-            $criteria->limit = self::ITEM_PICTURE_PAGE_SIZE;
-
-            // build sort for data provider.
-            $sort = new CSort('ItemPicture');
-            $sort->sortVar = 'itemPictureSort';
-            $sort->defaultOrder = 'item_id ASC';
-            $sort->params = array(
-                'item_id' => $itemID,
-            );
-            $sort->attributes = array(
-                'item_id' => array(
-                    'asc' => 'item_id ASC',
-                    'desc' => 'item_id DESC',
-                    'title' => 'Item ID',
-                    'default' => 'asc',
-                ),
-            );
-            $sort->applyOrder($criteria); // apply criteria
-
-            $count = count(ItemPicture::model()->findAll($criteria)); // count number result.
-
-            $pages = new CPagination($count);
-            $pages->pageSize = self::ITEM_PICTURE_PAGE_SIZE;
-            $pages->pageVar = 'item_picture_page';
-            $pages->applyLimit($criteria); // get limit and offset
-            $pages->setItemCount($count);
-            $pages->params = array(
-                'item_id' => $itemID,
-            );
-
-            $dataProvider = new CActiveDataProvider('ItemPicture',
-                            array(
-                                'criteria' => $criteria,
-                                'pagination' => $pages,
-                                'sort' => $sort,
-                            )
-            );
-            $pager = array(
-                'htmlOptions' => array(
-                    'id' => 'item_picture_pager',
-                ),
-            );
-            $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-
-            $categories = Category::model()->findAll();
-
-            $this->renderPartial('/item/_widget_data_view', array(
-                'model' => $item,
-                'itemID' => $itemID,
-                'categories' => CHtml::listData($categories, 'id', 'title'),
-                'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
-                'itemThumbnailLink' => $itemThumbnail === null ? '' : $itemThumbnail->link,
-                'itemPicturesDataProvider' => $dataProvider,
-                'itemPicturePager' => $pager,
-                    ), false, true);
         } else {
-            throw new CHttpException(403, Yii::t('yii', 'Missing argument: itemID to render widget.'));
+            $itemID = $item_id;
         }
+        $item = Item::model()->with('itemPictures')->findByPk($itemID);
+
+        $item->category_prefix = substr($item->item_id, 0, 2);
+        $item->number_part = substr($item->item_id, 2);
+
+        $itemThumbnail = ItemPicture::model()->find(array(// find just one
+                    'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
+                    'params' => array(
+                        ':itemID' => $itemID,
+                        ':isThumbnail' => 1,
+                    ),
+                ));
+
+        // build search criteria
+        $criteria = new CDbCriteria; // just to apply sort
+        $criteria->select = '*';
+        $criteria->condition = 'item_id=:itemID';
+        $criteria->params = array(
+            ':itemID' => $itemID,
+        );
+
+        $criteria->limit = self::ITEM_PICTURE_PAGE_SIZE;
+
+        // build sort for data provider.
+        $sort = new CSort('ItemPicture');
+        $sort->sortVar = 'itemPictureSort';
+        $sort->defaultOrder = 'item_id ASC';
+        $sort->params = array(
+            'item_id' => $itemID,
+        );
+        $sort->attributes = array(
+            'item_id' => array(
+                'asc' => 'item_id ASC',
+                'desc' => 'item_id DESC',
+                'title' => 'Item ID',
+                'default' => 'asc',
+            ),
+        );
+        $sort->applyOrder($criteria); // apply criteria
+
+        $count = count(ItemPicture::model()->findAll($criteria)); // count number result.
+
+        $pages = new CPagination($count);
+        $pages->pageSize = self::ITEM_PICTURE_PAGE_SIZE;
+        $pages->pageVar = 'item_picture_page';
+        $pages->applyLimit($criteria); // get limit and offset
+        $pages->setItemCount($count);
+        $pages->params = array(
+            'item_id' => $itemID,
+        );
+
+        $dataProvider = new CActiveDataProvider('ItemPicture',
+                        array(
+                            'criteria' => $criteria,
+                            'pagination' => $pages,
+                            'sort' => $sort,
+                        )
+        );
+        $pager = array(
+            'htmlOptions' => array(
+                'id' => 'item_picture_pager',
+            ),
+        );
+        $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
+
+        $categories = Category::model()->findAll();
+
+        $this->renderPartial('/item/_edit_form', array(
+                    'model' => $item,
+                    'itemID' => $itemID,
+                    'categories' => CHtml::listData($categories, 'id', 'title'),
+                    'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
+                    'performAction' => 'ajaxUpdate',
+                        ), false, true); // see documentation for this. very tricky.[IMPORTANT]
+
+        $itemPictureListView = $this->widget('zii.widgets.CListView', array(
+                    'id' => 'item_picture_list_view',
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '/itemPicture/_data_view', // refers to the partial view named '_post'
+                    'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
+                    'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
+                    'enableSorting' => true,
+                    'enablePagination' => true,
+                    'ajaxUpdate' => array('item_board'),
+                    'pager' => $pager,
+                    'sortableAttributes' => array(
+                        'item_id' => 'Item ID',
+                    ),
+                        ), true);
+
+        $this->renderPartial('/item/_widget_data_view', array(
+            'itemThumbnailLink' => $itemThumbnail === null ? '' : $itemThumbnail->link,
+            'itemPictureListView' => $itemPictureListView,
+            'editFormHTML' => $editFormHTML,
+            'itemID' => $itemID,
+                ), false, false);
     }
 
     /**
@@ -190,7 +210,7 @@ class ShopController extends Controller {
             array('allow',
                 'actions' => array('showItems'),
                 'users' => array('*'),
-                ),
+            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails'),
                 'users' => array('@'),
@@ -296,6 +316,7 @@ class ShopController extends Controller {
                     'enableSorting' => true,
                     'enablePagination' => true,
                     'ajaxUpdate' => array('item_board'),
+                    'afterAjaxUpdate' => 'js:function(id, data){item_list_view_callback();}', // fix bug related to ajax content update with client javascript.
                     'pager' => $pager,
                     'sortableAttributes' => array(
                         'item_id' => 'Item ID',
@@ -306,7 +327,7 @@ class ShopController extends Controller {
             'categoryID' => $categoryID,
             'itemListOutput' => $itemListOutput,
             'scripts' => $scripts,
-        ));
+        ), false, true);
     }
 
     public function actionListCategories() {
@@ -352,23 +373,24 @@ class ShopController extends Controller {
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
         $categoryListHTML = $this->widget('zii.widgets.CListView', array(
-            'id' => 'category_list_view',
-            'dataProvider' => $dataProvider,
-            'itemView' => '/category/_data_view', // refers to the partial view named '_post'
-            'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
-            'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
-            'enableSorting' => true,
-            'ajaxUpdate' => array('category_board'),
-            'enablePagination' => true,
-            'pager' => $pager,
-            'sortableAttributes' => array(
-                'title' => 'Title',
-            ),
-        ), true);
+                    'id' => 'category_list_view',
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '/category/_data_view', // refers to the partial view named '_post'
+                    'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
+                    'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
+                    'enableSorting' => true,
+                    'ajaxUpdate' => array('category_board'),
+                    'afterAjaxUpdate' => 'js:function(id, data){category_list_view_callback();}', // fix bug related to ajax content update with client javascript.
+                    'enablePagination' => true,
+                    'pager' => $pager,
+                    'sortableAttributes' => array(
+                        'title' => 'Title',
+                    ),
+                        ), true);
 
         $this->renderPartial('/shop/_list_category', array(
             'category_list' => $categoryListHTML,
-        ), false, false);
+                ), false, false);
     }
 
     /**

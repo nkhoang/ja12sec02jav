@@ -44,16 +44,20 @@ class Item extends CActiveRecord {
 // NOTE: you should only define rules for those attributes that
 // will receive user inputs.
         return array(
-            array('price, quantity, number_part', 'numerical', 'integerOnly' => true),
+            array('price, quantity, number_part, weight', 'numerical', 'integerOnly' => true),
             array('item_id', 'length', 'max' => 256),
             array('price', 'length', 'max' => 3),
             array('price', 'length', 'min' => 2),
+            array('weight', 'length', 'min' => 2),
+            array('weight', 'length', 'max' => 4),
+            array('quantity', 'length', 'min' => 1),
+            array('quantity', 'length', 'max' => 2),
             array('number_part', 'length', 'max' => 5),
             array('category_prefix', 'checkCategoryCode'),
             array('number_part', 'checkNextNumber'),
             array('item_id', 'unique'),
             array('price, quantity, number_part', 'required'),
-            array('description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
+            array('weight, description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, item_id, price, quantity, is_hot, is_discounting, last_update, first_added', 'safe', 'on' => 'search'),
@@ -112,6 +116,7 @@ class Item extends CActiveRecord {
             'last_update' => 'Last Update',
             'first_added' => 'First Added',
             'category_id' => 'Category',
+            'weight' => 'Weight',
         );
     }
 

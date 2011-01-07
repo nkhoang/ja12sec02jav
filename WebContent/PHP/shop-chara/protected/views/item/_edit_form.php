@@ -51,6 +51,12 @@
         </div>
 
         <div class="row">
+            <?php echo $form->labelEx($model, 'weight'); ?>
+            <?php echo $form->textField($model, 'weight'); ?>
+            <?php echo $form->error($model, 'weight'); ?>
+        </div>
+
+        <div class="row">
             <?php echo $form->labelEx($model, 'is_hot'); ?>
             <?php echo CHtml::activeCheckBox($model, 'is_hot') ?>
         </div>

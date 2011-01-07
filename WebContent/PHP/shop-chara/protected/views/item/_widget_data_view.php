@@ -31,16 +31,6 @@
             }
         });
 
-        $.ajax({
-            'type':'post',
-            'data': {},
-            'url': '<?php echo CController::createUrl('/item/getAllItems'); ?>',
-            'cache': false,
-            'success': function(html) {
-                console.debug(html);
-            }
-        });
-
         buildTooltip('div.item_picture_img');
         buildTooltip('div.image_thumb');
     });
@@ -59,13 +49,7 @@
             <div class="form_c">
 
         <?php
-                $this->renderPartial('/item/_edit_form', array(
-                    'model' => $model,
-                    'itemID' => $itemID,
-                    'categories' => $categories,
-                    'prefix' => $prefix,
-                    'performAction' => 'ajaxUpdate',
-                        ), false, true); // see documentation for this. very tricky.[IMPORTANT]
+                echo $editFormHTML;
         ?>
             </div>
             <div id="item_picture_controller">
@@ -75,20 +59,7 @@
             </div>
             <div id="item_pictures">
         <?php
-                $this->widget('zii.widgets.CListView', array(
-                    'id' => 'item_picture_list_view',
-                    'dataProvider' => $itemPicturesDataProvider,
-                    'itemView' => '/itemPicture/_data_view', // refers to the partial view named '_post'
-                    'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
-                    'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
-                    'enableSorting' => true,
-                    'enablePagination' => true,
-                    'ajaxUpdate' => array('item_board'),
-                    'pager' => $itemPicturePager,
-                    'sortableAttributes' => array(
-                        'item_id' => 'Item ID',
-                    ),
-                ));
+               echo $itemPictureListView;
         ?>
     </div>
 </div>

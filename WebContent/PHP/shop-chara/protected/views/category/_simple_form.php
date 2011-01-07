@@ -28,7 +28,7 @@
         <?php
         $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'category-form',
-                    'enableAjaxValidation' => false,
+                    'enableAjaxValidation' => true,
                 ));
         ?>
 

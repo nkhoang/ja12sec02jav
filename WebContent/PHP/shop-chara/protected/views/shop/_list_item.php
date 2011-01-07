@@ -7,6 +7,15 @@
 <script type="text/javascript" >
 
     $(function(){
+        item_list_view_callback();
+    });
+    function item_list_view_callback(){
+
+        $('#item_board .sorter a, #item_board li.page a, #item_board li.next a, #item_board li.previous a').click(function(){ // fix: save the state of list view paging.
+            // update paging information
+            item_paging_url = $(this).attr('href');
+        });
+
         $("#showItemForm").fancybox({
             'transitionIn'	:	'fade',
             'transitionOut'	:	'fade',
@@ -19,7 +28,18 @@
                 type: "POST"
             },
             'onClosed': function() {
-                <?php echo $scripts ?>
+                if (item_paging_url != null) {
+                    $.ajax({
+                    'url': item_paging_url,
+                    'type': 'post',
+                    'success': function(html) {
+                        $('#item_board').html(html);
+                    }
+                });
+                } else {
+                    <?php echo $scripts ?> // scripts must retrieve from server in order to render with extra parmameters.
+                }
+                
             }
         });
         buildTooltip('div.ic div.img_c .wraptocenter');
@@ -43,7 +63,7 @@
                 event.preventDefault();
             });
         });
-    });
+    }
 
 </script>
 <div id="items_c">

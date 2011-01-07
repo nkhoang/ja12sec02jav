@@ -27,6 +27,7 @@ CREATE TABLE `item` (
   `item_id` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` bigint(20) DEFAULT NULL COMMENT 'Mark item as on sale',
   `quantity` int(11) DEFAULT NULL,
+  `weight` int(4) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `is_hot` tinyint(1) DEFAULT '0',
   `is_discounting` tinyint(1) DEFAULT '0',
@@ -43,6 +44,7 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` text COLLATE utf8_unicode_ci COMMENT 'description for this category',
   `title` varchar(256) DEFAULT NULL,
+  `category_code` char(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

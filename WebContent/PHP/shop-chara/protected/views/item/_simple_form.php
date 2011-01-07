@@ -41,8 +41,14 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'quantity'); ?>
-            <?php echo $form->textField($model, 'quantity'); ?>
+            <?php echo $form->textField($model, 'quantity', array('size' => 4, 'maxlength' => 2)); ?>
             <?php echo $form->error($model, 'quantity'); ?>
+        </div>
+
+        <div class="row">
+            <?php echo $form->labelEx($model, 'weight'); ?>
+            <?php echo $form->textField($model, 'weight', array('size' => 6, 'maxlength' => 4)); ?>
+            <?php echo $form->error($model, 'weight'); ?>
         </div>
 
         <div class="row">
