@@ -38,6 +38,7 @@ class Category extends CActiveRecord {
             array('title', 'length', 'max' => 256),
             array('category_code', 'length', 'max' => 2),
             array('category_code', 'length', 'min' => 2),
+            array('category_code', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, description, title, category_code', 'safe', 'on' => 'search'),

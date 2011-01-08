@@ -1,15 +1,10 @@
 <p>You are editing Item id = <b><?php echo $itemID; ?></b></p>
-
 <div id="itemForm">
-
     <?php if (Yii::app()->user->hasFlash('itemUpdated')): ?>
-
         <div class="flash-success">
         <?php echo Yii::app()->user->getFlash('itemUpdated'); ?>
     </div>
-
     <?php endif; ?>
-
         <div class="form">
         <?php
         $form = $this->beginWidget('CActiveForm', array(

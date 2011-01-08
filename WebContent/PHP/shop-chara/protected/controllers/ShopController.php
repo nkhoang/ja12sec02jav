@@ -96,9 +96,16 @@ class ShopController extends Controller {
         if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
 
             $item_id = (int) $_POST['item_id'];
+            // get curren category from session
+            $category_id = Yii::app()->session['item_category_index'];
+            $category = Category::model()->findByPk($category_id);
+            $item = Item::model()->findByPk($item_id);
+
 
             $this->renderPartial('/item/_item_details_view', array(
                 'itemID' => $item_id,
+                'categoryName' => $category->title,
+                'itemID' => $item->item_id,
                     ), false, true);
         } else {
             throw new CHttpException(400, 'Invalid parameter.');
@@ -167,7 +174,7 @@ class ShopController extends Controller {
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
         $this->renderPartial('/shop/_list_item_picture', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider,            
             'pager' => $pager,
                 ), false, true);
     }
@@ -296,13 +303,20 @@ class ShopController extends Controller {
                     ),
                         ), true);
 
+        $category = Category::model()->findByPk($categoryID);
+
         $this->renderPartial('/shop/_list_item', array(
             'categoryID' => $categoryID,
+            'categoryName' => $category->title,
             'itemListOutput' => $itemListOutput,
                 ), false, true);
     }
 
     public function actionListCategories() {
+        $processOutput = false;
+        if ($_POST['processOutput']) {
+            $processOutput = true;
+        }
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
         $criteria->select = '*';
@@ -361,7 +375,7 @@ class ShopController extends Controller {
                         ), true);
         $this->renderPartial('/shop/_list_category', array(
             'category_list' => $categoryListHTML,
-                ), false, true);
+                ), false, $processOutput);
     }
 
     /**

@@ -3,7 +3,7 @@
         <?php
         $this->breadcrumbs = array(
             'Category' => array('/shop/listCategories'),
-            $categoryID,
+            $categoryName,
         );
         ?>
 

@@ -83,7 +83,7 @@ class ItemController extends Controller {
             'categories' => CHtml::listData($categories, 'id', 'title'),
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
-                )); // see documentation for this. very tricky.[IMPORTANT]
+        )); // see documentation for this. very tricky.[IMPORTANT]
     }
 
     /**
@@ -99,29 +99,26 @@ class ItemController extends Controller {
             $item->item_id = $item->category_prefix . $item->number_part; // compose 2 parts of the item id.
 
             if ($item->save()) {
-                $itemPic = new ItemPicture;
-                $this->renderPartial('/itemPicture/_simple_form', array('model' => $itemPic, 'itemID' => $item->id), false, true);
-                Yii::app()->end();
+                Yii::app()->user->setFlash('itemSaved', 'Item Saved!!!!');
             }
         }
 
-        if (is_string($category_id) && strlen($category_id) === 0) {
-            echo 'You should select a category first.';
+        $categories = array(
+            Category::model()->findByPk($item->category_id),
+        );
+
+        if (isset($item->id)) {
         } else {
-            $categories = array(
-                Category::model()->findByPk($item->category_id),
-            );
-
             $item->number_part = Category::getNextItemNumber($item->category_id);
-            $category = Category::model()->findByPk($item->category_id);
-            $item->category_prefix = $category->category_code;
-
-            $this->renderPartial('_simple_form', array(
-                'model' => $item,
-                'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
-                'categories' => CHtml::listData($categories, 'id', 'title')),
-                    false, true);
         }
+        $category = Category::model()->findByPk($item->category_id);
+        $item->category_prefix = $category->category_code;
+
+        $this->renderPartial('_simple_form', array(
+            'model' => $item,
+            'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
+            'categories' => CHtml::listData($categories, 'id', 'title')),
+                false, true);
     }
 
     /**

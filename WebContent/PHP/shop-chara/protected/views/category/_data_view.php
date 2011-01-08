@@ -15,6 +15,7 @@
             'success':function(html){
                 //jQuery('#admin_board').html(html);
                 var reply = $(html);
+                console.debug(html);
                 var target = $('#admin_board');
                 target.html('');
                 target.append(reply.filter('script[src]').filter(function() { return $.inArray($(this).attr('src'), script_files) === -1; }));

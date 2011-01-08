@@ -1,6 +1,17 @@
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item.css" />
 <script type="text/javascript">
     $(function(){
+
+        $('div.breadcrumbs a').click(function(e){ // using ajax to load content.
+            $.ajax({
+                'url': $(this).attr('href'),
+                'type': 'post',
+                'success': function(html){
+                    $('#admin_board').html(html);
+                }
+            });
+            e.preventDefault();
+        });
         $.ajax({
             'url': '<?php echo CController::createUrl('/shop/showItemPicture', array('item_id' => $itemID)); ?>',
             'type': 'post',
@@ -50,6 +61,22 @@
         buildTooltip('div.image_thumb');
     });
 </script>
+<?php
+$this->breadcrumbs = array(
+    'Category' => array('/shop/listCategories'),
+    $categoryName => array('/shop/listItems'),
+    $itemID,
+);
+?>
+
+<?php
+$this->widget('zii.widgets.CBreadcrumbs', array(
+    'links' => $this->breadcrumbs,
+    'homeLink' => false,
+));
+?>
+
+
 <div id="it_c">
     <div class="img_c image_thumb">
         <?php if ($itemThumbnailLink === ''): ?>

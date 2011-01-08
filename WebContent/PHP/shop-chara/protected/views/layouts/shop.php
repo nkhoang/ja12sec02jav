@@ -10,6 +10,9 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.fancybox-1.3.4.css" />        
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.autocomplete.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item_picture.css" />
+        <link rel="stylesheet" type="text/css" href="/shop-chara/assets/fd5a7ada/listview/styles.css" />
+        <link rel="stylesheet" type="text/css" href="/shop-chara/assets/31d20b7/pager.css" />
+
 
 <!--[if lt IE 8]><style>
 .wraptocenter span {
@@ -27,7 +30,6 @@
         ?>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/radio.js" type="text/javascript"></script>
 
         <?php
         $cs = Yii::app()->clientScript;

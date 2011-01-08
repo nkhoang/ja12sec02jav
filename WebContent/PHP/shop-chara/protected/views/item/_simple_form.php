@@ -1,10 +1,30 @@
+
 <div class="content">
+    <script type="text/javascript">
+        $(function(){
+            $('#itemForm input:first').focus();
+            $('#itemForm input').keypress(function(e){
+                if(e.which == 13){
+                    $('#item_save_button').click();
+                }
+            });
+<?php if (Yii::app()->user->hasFlash('itemSaved')): ?>
+            $('.flash-success').fadeOut(1000, function() {
+                $.ajax({
+                    'url': '<?php echo CController::createUrl('itemPicture/ajaxCreateItemPicture', array('id' => $model->id))?>',
+                    'type': 'post',
+                    'success': function(html){
+                        $('#fancybox-content').html(html);
+                    }
+                });
+            });
+<?php endif; ?>
+        });
+        </script>
     <div id="itemForm">
-
-        <?php if (Yii::app()->user->hasFlash('itemCreated')): ?>
-
+        <?php if (Yii::app()->user->hasFlash('itemSaved')): ?>
             <div class="flash-success">
-            <?php echo Yii::app()->user->getFlash('itemCreated'); ?>
+            <?php echo Yii::app()->user->getFlash('itemSaved'); ?>
         </div>
 
         <?php endif; ?>
@@ -36,7 +56,7 @@
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'price'); ?>
-                <?php echo $form->textField($model, 'price', array('size' => 20, 'maxlength' => 20)); ?>
+                <?php echo $form->textField($model, 'price', array('size' => 5, 'maxlength' => 3)); ?>
                 <?php echo $form->error($model, 'price'); ?>
             </div>
 
@@ -69,7 +89,7 @@
             ?>
                 <div class="row buttons">
 
-                    <input type="button" name="save_button" value="Save" onclick="$.ajax(
+                    <input type="button" id="item_save_button" name="save_button" value="Save" onclick="$.ajax(
                         {
                             'type': 'post',
                             'url': '<?php echo CController::createUrl('/item/ajaxCreateItem'); ?>',
