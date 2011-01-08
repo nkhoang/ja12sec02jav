@@ -10,17 +10,19 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.fancybox-1.3.4.css" />        
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.autocomplete.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item_picture.css" />
-        
-        <!--[if lt IE 8]><style>
-        .wraptocenter span {
-            display: inline-block;
-            height: 100%;
-        }
-        </style><![endif]-->
+
+<!--[if lt IE 8]><style>
+.wraptocenter span {
+    display: inline-block;
+    height: 100%;
+}
+</style><![endif]-->
 
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js" type="text/javascript"></script>
         <?php
         $cs = Yii::app()->clientScript;
+        $cs->registerCoreScript('bbq');
+        $cs->registerCoreScript('yiilistview');
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
         ?>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
@@ -32,28 +34,14 @@
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.fancybox-1.3.4.js', CClientScript::POS_HEAD);
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.mousewheel-3.0.4.pack.js', CClientScript::POS_HEAD);
         ?>
-
-
-
-
-
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
-
     <body>
-
         <div class="container" id="page">
-
-            <div id="header">
-                <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-            </div><!-- header -->
-
             <?php echo $content; ?>
 
             <div id="footer">
             </div><!-- footer -->
-
         </div><!-- page -->
-
     </body>
 </html>

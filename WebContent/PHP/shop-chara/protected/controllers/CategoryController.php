@@ -34,8 +34,12 @@ class CategoryController extends Controller {
         );
     }
 
-    public function actionAjaxUpdateCategory($id) {
-        $model = $this->loadModel($id);
+    public function actionAjaxUpdateCategory($id = null) {
+        if ($id !== null) {
+            $model = $this->loadModel($id);
+        } else {
+            $model = new Category;
+        }
 
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation($model);

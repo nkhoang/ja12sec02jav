@@ -27,7 +27,9 @@ a img {
 
 /* Board Container */
 #admin_board {
-    width: 1250px;
+    width: 900px;
+    border:solid 1px #aacfe4;
+    margin: 0 auto;
 }
 
 #admin_board .content {
@@ -37,8 +39,7 @@ a img {
 
 /* Category Board Container */
 #category_board {
-    width: 300px;
-    border:solid 1px #aacfe4;
+    width: 100%;
     padding: 10px;    
     float: left;
 }
@@ -78,7 +79,6 @@ a img {
 
 #item_board {
     width: 800px;
-    border:solid 1px #aacfe4;
     padding: 10px;
     float: left;
     font-size: 12px;
@@ -92,7 +92,9 @@ a img {
 }
 
 /* item board controller */
-
+#category_controller {
+    text-align: right;
+}
 #item_controller {
     text-align: right;
 }

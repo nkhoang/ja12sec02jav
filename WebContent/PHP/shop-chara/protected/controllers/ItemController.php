@@ -29,7 +29,7 @@ class ItemController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxUpdate', 'getAllItems'),
+                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxEditItem', 'ajaxUpdate', 'getAllItems'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -57,6 +57,33 @@ class ItemController extends Controller {
         if (!isset($categoryID)) {
             echo CJSON::encode(array('errors' => 'Error.'));
         }
+    }
+
+    public function actionAjaxEditItem($item_id = null) {
+        $item = Item::model()->with('itemPictures')->findByPk($item_id);
+
+        $item->category_prefix = substr($item->item_id, 0, 2);
+        $item->number_part = substr($item->item_id, 2);
+
+        $itemThumbnail = ItemPicture::model()->find(array(// find just one
+                    'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
+                    'params' => array(
+                        ':itemID' => $item_id,
+                        ':isThumbnail' => 1,
+                    ),
+                ));
+
+
+
+        $categories = Category::model()->findAll();
+
+        $this->render('/item/_edit_form', array(
+            'model' => $item,
+            'itemID' => $item_id,
+            'categories' => CHtml::listData($categories, 'id', 'title'),
+            'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
+            'performAction' => 'ajaxUpdate',
+                )); // see documentation for this. very tricky.[IMPORTANT]
     }
 
     /**

@@ -66,7 +66,6 @@ class Item extends CActiveRecord {
 
     public function checkCategoryCode($attribute, $params) {
         $category = Category::model()->findByPk($this->category_id);
-        Yii::log($category->category_code, 'info', 'debug');
         if ($category->category_code !== $this->category_prefix) {
             $this->addError('category_prefix', 'Category Code and Category prefix must be match.');
         }

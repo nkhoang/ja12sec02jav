@@ -1,9 +1,9 @@
 <?php
 
 class ShopController extends Controller {
-    const CATEGORY_PAGE_SIZE = 2;
+    const CATEGORY_PAGE_SIZE = 20;
     const ITEM_PAGE_SIZE = 2;
-    const ITEM_PICTURE_PAGE_SIZE = 20;
+    const ITEM_PICTURE_PAGE_SIZE = 2;
 
     public $layout = "//layouts/shop_column1";
 
@@ -92,35 +92,40 @@ class ShopController extends Controller {
         ));
     }
 
-    /**
-     * Render view item details page to item board.
-     * @params POST param named item_id to receive item id.
-     */
-    public function actionViewItemDetails($item_id = null) {
-        if ($item_id === null) {
-            $itemID = (int) $_POST['item_id'];
+    public function actionViewItemDetails() {
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
+
+            $item_id = (int) $_POST['item_id'];
+
+            $this->renderPartial('/item/_item_details_view', array(
+                'itemID' => $item_id,
+                    ), false, true);
         } else {
-            $itemID = $item_id;
+            throw new CHttpException(400, 'Invalid parameter.');
         }
-        $item = Item::model()->with('itemPictures')->findByPk($itemID);
+    }
 
-        $item->category_prefix = substr($item->item_id, 0, 2);
-        $item->number_part = substr($item->item_id, 2);
-
-        $itemThumbnail = ItemPicture::model()->find(array(// find just one
-                    'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
-                    'params' => array(
-                        ':itemID' => $itemID,
-                        ':isThumbnail' => 1,
-                    ),
-                ));
-
+    /**
+     * Show item Picture belong to an item id.
+     * @param <type> $item_id  Item id of this item picture.
+     */
+    public function actionShowItemPicture($item_id = null) {
+        if ($item_id === null) {
+            if (isset(Yii::app()->session['item_item_picture_index'])) {
+                $item_id = Yii::app()->session['item_item_picture_index'];
+            }
+        }
+        // get category id from params
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
+            $item_id = (int) $_POST['item_id'];
+            Yii::app()->session['item_item_picture_index'] = $item_id;
+        }
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
         $criteria->select = '*';
         $criteria->condition = 'item_id=:itemID';
         $criteria->params = array(
-            ':itemID' => $itemID,
+            ':itemID' => $item_id,
         );
 
         $criteria->limit = self::ITEM_PICTURE_PAGE_SIZE;
@@ -129,9 +134,6 @@ class ShopController extends Controller {
         $sort = new CSort('ItemPicture');
         $sort->sortVar = 'itemPictureSort';
         $sort->defaultOrder = 'item_id ASC';
-        $sort->params = array(
-            'item_id' => $itemID,
-        );
         $sort->attributes = array(
             'item_id' => array(
                 'asc' => 'item_id ASC',
@@ -149,9 +151,6 @@ class ShopController extends Controller {
         $pages->pageVar = 'item_picture_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
-        $pages->params = array(
-            'item_id' => $itemID,
-        );
 
         $dataProvider = new CActiveDataProvider('ItemPicture',
                         array(
@@ -167,37 +166,10 @@ class ShopController extends Controller {
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
-        $categories = Category::model()->findAll();
-
-        $this->renderPartial('/item/_edit_form', array(
-                    'model' => $item,
-                    'itemID' => $itemID,
-                    'categories' => CHtml::listData($categories, 'id', 'title'),
-                    'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
-                    'performAction' => 'ajaxUpdate',
-                        ), false, true); // see documentation for this. very tricky.[IMPORTANT]
-
-        $itemPictureListView = $this->widget('zii.widgets.CListView', array(
-                    'id' => 'item_picture_list_view',
-                    'dataProvider' => $dataProvider,
-                    'itemView' => '/itemPicture/_data_view', // refers to the partial view named '_post'
-                    'template' => '{sorter}{items} <div style="clear:both"></div>{pager}{summary}',
-                    'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
-                    'enableSorting' => true,
-                    'enablePagination' => true,
-                    'ajaxUpdate' => array('item_board'),
-                    'pager' => $pager,
-                    'sortableAttributes' => array(
-                        'item_id' => 'Item ID',
-                    ),
-                        ), true);
-
-        $this->renderPartial('/item/_widget_data_view', array(
-            'itemThumbnailLink' => $itemThumbnail === null ? '' : $itemThumbnail->link,
-            'itemPictureListView' => $itemPictureListView,
-            'editFormHTML' => $editFormHTML,
-            'itemID' => $itemID,
-                ), false, false);
+        $this->renderPartial('/shop/_list_item_picture', array(
+            'dataProvider' => $dataProvider,
+            'pager' => $pager,
+                ), false, true);
     }
 
     /**
@@ -212,7 +184,7 @@ class ShopController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'listCategories', 'listItems', 'viewItemDetails'),
+                'actions' => array('index', 'listCategories', 'listItems', 'showItemPicture', 'viewItemDetails'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -223,6 +195,11 @@ class ShopController extends Controller {
 
     public function actionIndex() {
         $item = new Item;
+        Yii::app()->clientScript->registerScript('register_static_css_js', "
+            $(function() {
+                 script_files = $('script[src]').map(function() { return $(this).attr('src'); }).get();
+                 css_files = $('link[href]').map(function() { return $(this).attr('href'); }).get();
+            });");
         $this->render('index', array(
             'item' => $item,
         ));
@@ -233,14 +210,16 @@ class ShopController extends Controller {
      * and GET request for paging.
      * @param <type> $category_id category id.
      */
-    public function actionListItems($category_id = null) {
-        if ($category_id !== null) {
-            $categoryID = $category_id;
+    public function actionListItems($categoryID = null) {
+        if ($categoryID === null) {
+            if (isset(Yii::app()->session['item_category_index'])) {
+                $categoryID = Yii::app()->session['item_category_index'];
+            }
         }
         // get category id from params
         if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
             $categoryID = (int) $_POST['category_id'];
-            $scripts = $_POST['scripts'];
+            Yii::app()->session['item_category_index'] = $categoryID;
         }
 
         if (!isset($categoryID)) {
@@ -260,9 +239,6 @@ class ShopController extends Controller {
         $sort = new CSort('Item');
         $sort->sortVar = 'itemSort';
         $sort->defaultOrder = 'item_id ASC';
-        $sort->params = array(
-            'category_id' => $categoryID,
-        );
         $sort->attributes = array(
             'item_id' => array(
                 'asc' => 'item_id ASC',
@@ -288,9 +264,6 @@ class ShopController extends Controller {
         $pages->pageVar = 'item_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
-        $pages->params = array(
-            'category_id' => $categoryID,
-        );
 
         $dataProvider = new CActiveDataProvider('Item',
                         array(
@@ -326,8 +299,7 @@ class ShopController extends Controller {
         $this->renderPartial('/shop/_list_item', array(
             'categoryID' => $categoryID,
             'itemListOutput' => $itemListOutput,
-            'scripts' => $scripts,
-        ), false, true);
+                ), false, true);
     }
 
     public function actionListCategories() {
@@ -387,10 +359,9 @@ class ShopController extends Controller {
                         'title' => 'Title',
                     ),
                         ), true);
-
         $this->renderPartial('/shop/_list_category', array(
             'category_list' => $categoryListHTML,
-                ), false, false);
+                ), false, true);
     }
 
     /**

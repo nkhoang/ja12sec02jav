@@ -1,35 +1,43 @@
-<script type="text/javascript" >
-    $(function(){
-        category_list_view_callback();
-    });
-    function category_list_view_callback() {
-        $('#category_board .sorter a, #category_board li.page a,#category_board li.next a,#category_board li.previous a').click(function(){ // fix: save the state of list view paging.
-            // update paging information
-            category_paging_url = $(this).attr('href');
-        });
+<div class="content">
+    <div id="category_board">
+        <script type="text/javascript" >
+            $(function(){
+                category_list_view_callback();
+            });
+            function category_list_view_callback() {
+                $('#category_board .sorter a, #category_board li.page a,#category_board li.next a,#category_board li.previous a').click(function(){ // fix: save the state of list view paging.
+                    // update paging information
+                    category_paging_url = $(this).attr('href');
+                });
 
-        $("a.showCategoryForm").fancybox({
-            'transitionIn'	:	'fade',
-            'transitionOut'	:	'fade',
-            'speedIn'		:	600,
-            'speedOut'		:	200,
-            'overlayShow'	:	true,
-            'centerOnScroll': true,
-            'type' : 'ajax',
-            'ajax' : {
-                type: "POST"
-            },
-            'onClosed': function(){
-                $.ajax({
-                    'url': category_paging_url,
-                    'type': 'post',
-                    'success': function(html) {
-                        $('#category_board').html(html);
+                $("a.showCategoryCreateForm, a.showCategoryForm").fancybox({
+                    'transitionIn'	:	'fade',
+                    'transitionOut'	:	'fade',
+                    'speedIn'		:	600,
+                    'speedOut'		:	200,
+                    'overlayShow'	:	true,
+                    'centerOnScroll': true,
+                    'type' : 'ajax',
+                    'ajax' : {
+                        type: "POST"
+                    },
+                    'onClosed': function(){
+                        $.ajax({
+                            'url': category_paging_url,
+                            'type': 'post',
+                            'success': function(html) {
+                                $('#admin_board').html(html);
+                            }
+                        });
                     }
                 });
             }
-        });
-    }
-</script>
-
-<?php echo $category_list; ?>
+        </script>
+        All chara categories are listed below, you can click on category to list its items:
+        <div id="category_controller">
+            <a title="Creat a new category" class="showCategoryCreateForm" href="<?php echo CController::createUrl('/category/ajaxUpdateCategory'); ?>"> <img src="<?php echo Yii::app()->request->baseUrl . '/images/add.png'; ?>" width="32" height="32" /></a>
+        </div>
+        <?php echo $category_list; ?>
+    </div>
+    <div style="clear:both;"></div>
+</div>

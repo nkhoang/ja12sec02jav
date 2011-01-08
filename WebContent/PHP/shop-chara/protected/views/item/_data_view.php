@@ -7,10 +7,10 @@
         'url': '<?php echo CController::createUrl('/shop/viewItemDetails'); ?>',
         'cache':false,
         'success':function(html){
-            jQuery('#item_board').html(html);
+            jQuery('#admin_board').html(html);
         },
         'error' : function(x,e) {
-            jQuery('#item_board').html(x.responseText);
+            jQuery('#admin_board').html(x.responseText);
         }
     });">
     <div class="it_b">
