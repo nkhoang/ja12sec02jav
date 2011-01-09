@@ -24,8 +24,6 @@
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js" type="text/javascript"></script>
         <?php
         $cs = Yii::app()->clientScript;
-        $cs->registerCoreScript('bbq');
-        $cs->registerCoreScript('yiilistview');
         $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
         ?>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
@@ -39,9 +37,11 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
+        <h1>Welcome to Miss Chara Admin page</h1>
+
+        <div>You're logged in as <b><?php echo Yii::app()->user->getName(); ?></b></div>
         <div class="container" id="page">
             <?php echo $content; ?>
-
             <div id="footer">
             </div><!-- footer -->
         </div><!-- page -->
