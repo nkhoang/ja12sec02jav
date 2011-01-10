@@ -1,5 +1,4 @@
-<p>You are editing Item id = <b><?php echo $itemID; ?></b></p>
-<div id="itemForm">
+<div id="editItemForm">
     <?php if (Yii::app()->user->hasFlash('itemUpdated')): ?>
         <div class="flash-success">
         <?php echo Yii::app()->user->getFlash('itemUpdated'); ?>
@@ -10,9 +9,6 @@
         $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'edit-item-form',
                     'enableAjaxValidation' => true,
-                    'action' => CController::createUrl('/item/' . $performAction, array(
-                        'id' => $itemID,
-                    )),
                 ));
         ?>
 
@@ -65,7 +61,7 @@
 
         <?php echo $form->labelEx($model, 'category_id'); ?>
         <?php
-            echo CHtml::dropDownList('category_dropdown_list', $model->category_id, $categories);
+            echo $form::dropDownList($model, 'category_id', $categories);
         ?>
 
             <div class="row buttons">
@@ -74,7 +70,7 @@
                         'type': 'post',
                         'url': '<?php
             echo CController::createUrl('/item/ajaxUpdate', array(
-                'id' => $itemID,
+                'item_id' => $model->id,
             )); ?>',
                     'cache':false,
                     'data'  : jQuery(this).parents('form').serialize(),
@@ -83,20 +79,6 @@
                     },
                     'error' : function(x,e) {
                         jQuery('div.form_c').html(x.responseText);
-                    }
-                });" />
-            <input type="button" name="back_to_item_list" value="Cancel" onclick="$.ajax(
-                {
-                    'type': 'post',
-                    'data':{
-                        'category_id':'<?php echo $model->category_id; ?>'},
-                    'url': '<?php echo CController::createUrl('/shop/listItems'); ?>',
-                    'cache':false,
-                    'success':function(html){
-                        jQuery('#item_board').html(html)
-                    },
-                    'error' : function(x,e) {
-                        jQuery('#item_board').html(x.responseText);
                     }
                 });" />
         </div>

@@ -29,7 +29,7 @@ class ItemController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxEditItem', 'ajaxUpdate', 'getAllItems'),
+                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxEditItem', 'ajaxUpdate', 'getAllItems', 'deleteItems'),
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -61,29 +61,18 @@ class ItemController extends Controller {
 
     public function actionAjaxEditItem($item_id = null) {
         $item = Item::model()->with('itemPictures')->findByPk($item_id);
-
         $item->category_prefix = substr($item->item_id, 0, 2);
         $item->number_part = substr($item->item_id, 2);
 
-        $itemThumbnail = ItemPicture::model()->find(array(// find just one
-                    'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
-                    'params' => array(
-                        ':itemID' => $item_id,
-                        ':isThumbnail' => 1,
-                    ),
-                ));
-
-
-
         $categories = Category::model()->findAll();
 
-        $this->render('/item/_edit_form', array(
+        $this->renderPartial('/item/_edit_form', array(
             'model' => $item,
             'itemID' => $item_id,
             'categories' => CHtml::listData($categories, 'id', 'title'),
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
-        )); // see documentation for this. very tricky.[IMPORTANT]
+                ), false, true); // see documentation for this. very tricky.[IMPORTANT]
     }
 
     /**
@@ -108,6 +97,7 @@ class ItemController extends Controller {
         );
 
         if (isset($item->id)) {
+
         } else {
             $item->number_part = Category::getNextItemNumber($item->category_id);
         }
@@ -143,13 +133,28 @@ class ItemController extends Controller {
         ));
     }
 
+    public function actionDeleteItems() {
+        $items = $_POST['delete_items'];
+        if (!isset($items)) {
+            echo 'Failed to serve your request.';
+        }
+        $delete_items = preg_split("/[\s,]+/", $items);
+
+        foreach($delete_items as $item_id) {
+            $this->loadModel($item_id)->delete();
+        }
+
+        echo 'Your selected items have been deleted';
+    }
+
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionAjaxUpdate($id=null) {
-        $model = $this->loadModel($id);
+    public function actionAjaxUpdate($item_id=null) {
+        $model = $this->loadModel($item_id);
+
         // set other attributes
         $model->category_prefix = substr($model->item_id, 0, 2);
         $model->number_part = substr($model->item_id, 2);
@@ -158,8 +163,6 @@ class ItemController extends Controller {
 
         if (isset($_POST['Item'])) {
             $model->attributes = $_POST['Item'];
-            $categoryID = (int) $_POST['category_dropdown_list'];
-            $model->category_id = $categoryID;
 
             $model->item_id = $model->category_prefix . $model->number_part; // compose 2 parts of the item id.
             if ($model->save()) {

@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/item/item_picture.css" />
         <link rel="stylesheet" type="text/css" href="/shop-chara/assets/fd5a7ada/listview/styles.css" />
         <link rel="stylesheet" type="text/css" href="/shop-chara/assets/31d20b7/pager.css" />
-
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/shop/admin_board.css" />
 
 <!--[if lt IE 8]><style>
 .wraptocenter span {
@@ -41,7 +41,9 @@
 
         <div>You're logged in as <b><?php echo Yii::app()->user->getName(); ?></b></div>
         <div class="container" id="page">
+            <div id="admin_board">
             <?php echo $content; ?>
+                </div>
             <div id="footer">
             </div><!-- footer -->
         </div><!-- page -->

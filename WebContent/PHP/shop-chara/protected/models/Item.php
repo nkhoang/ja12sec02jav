@@ -56,7 +56,7 @@ class Item extends CActiveRecord {
             array('category_prefix', 'checkCategoryCode'),
             array('number_part', 'checkNextNumber'),
             array('item_id', 'unique'),
-            array('price, quantity, number_part', 'required'),
+            array('price, quantity, number_part, weight', 'required'),
             array('weight, description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

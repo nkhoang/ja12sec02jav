@@ -1,7 +1,7 @@
 <?php
 
 class ShopController extends Controller {
-    const CATEGORY_PAGE_SIZE = 20;
+    const CATEGORY_PAGE_SIZE = 2;
     const ITEM_PAGE_SIZE = 2;
     const ITEM_PICTURE_PAGE_SIZE = 2;
 
@@ -92,24 +92,30 @@ class ShopController extends Controller {
         ));
     }
 
-    public function actionViewItemDetails() {
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
-
-            $item_id = (int) $_POST['item_id'];
-            // get curren category from session
-            $category_id = Yii::app()->session['item_category_index'];
-            $category = Category::model()->findByPk($category_id);
-            $item = Item::model()->findByPk($item_id);
-
-
-            $this->renderPartial('/item/_item_details_view', array(
-                'itemID' => $item_id,
-                'categoryName' => $category->title,
-                'itemID' => $item->item_id,
-                    ), false, true);
-        } else {
+    /**
+     * Show details view of an item. Must provide item id.
+     * @param <type> $item_id item id.
+     */
+    public function actionViewItemDetails($item_id = null) {
+        if ($item_id === null) {
             throw new CHttpException(400, 'Invalid parameter.');
         }
+        // get curren category from session
+        $item = Item::model()->findByPk($item_id);
+        $category = Category::model()->findbyPk($item->category_id);
+
+        $itemThumbnail = ItemPicture::model()->find(array(// find just one
+                    'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
+                    'params' => array(
+                        ':itemID' => $item->id,
+                        ':isThumbnail' => 1,
+                    ),
+                ));
+        $this->render('/item/_item_details_view', array(
+            'category' => $category,
+            'itemID' => $item->id,
+            'itemThumbnailLink' => $itemThumbnail->link,
+        ));
     }
 
     /**
@@ -174,7 +180,7 @@ class ShopController extends Controller {
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
 
         $this->renderPartial('/shop/_list_item_picture', array(
-            'dataProvider' => $dataProvider,            
+            'dataProvider' => $dataProvider,
             'pager' => $pager,
                 ), false, true);
     }
@@ -212,26 +218,13 @@ class ShopController extends Controller {
         ));
     }
 
-    /**
-     * The reason we have to resolve both POST and GET request is because we have POST request for admin board
-     * and GET request for paging.
-     * @param <type> $category_id category id.
-     */
-    public function actionListItems($categoryID = null) {
-        if ($categoryID === null) {
-            if (isset(Yii::app()->session['item_category_index'])) {
-                $categoryID = Yii::app()->session['item_category_index'];
-            }
-        }
-        // get category id from params
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['category_id'])) {
-            $categoryID = (int) $_POST['category_id'];
-            Yii::app()->session['item_category_index'] = $categoryID;
+    public function actionRenderItemList($category_id = null) {
+        $processOutput = $_POST['processOutput'];
+        if ($category_id === null) {
+            throw new CHttpException(400, 'Invalid request.');
         }
 
-        if (!isset($categoryID)) {
-            echo 'Please select a category.'; //[IMPORTANT] do not end from here otherwise javascript file will not be registered.
-        }
+        $categoryID = $category_id;
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
         $criteria->select = '*';
@@ -287,7 +280,7 @@ class ShopController extends Controller {
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
         //
         // render list view widget for item list view.
-        $itemListOutput = $this->widget('zii.widgets.CListView', array(
+        $this->widget('zii.widgets.CListView', array(
                     'id' => 'item_list_view',
                     'dataProvider' => $dataProvider,
                     'itemView' => '/item/_data_view',
@@ -301,19 +294,30 @@ class ShopController extends Controller {
                     'sortableAttributes' => array(
                         'item_id' => 'Item ID',
                     ),
-                        ), true);
+                        ));
+    }
 
+    /**
+     * The reason we have to resolve both POST and GET request is because we have POST request for admin board
+     * and GET request for paging.
+     * @param <type> $category_id category id.
+     */
+    public function actionListItems($category_id = null) {
         $category = Category::model()->findByPk($categoryID);
 
         $this->renderPartial('/shop/_list_item', array(
             'categoryID' => $categoryID,
             'categoryName' => $category->title,
             'itemListOutput' => $itemListOutput,
-                ), false, true);
+                ), false, $processOutput);
     }
 
+    /**
+     * List current available categories.
+     * AJAX called from 'shop/index'.
+     */
     public function actionListCategories() {
-        $processOutput = false;
+        $processOutput = false; // handle for fancybox onClosed event.
         if ($_POST['processOutput']) {
             $processOutput = true;
         }
