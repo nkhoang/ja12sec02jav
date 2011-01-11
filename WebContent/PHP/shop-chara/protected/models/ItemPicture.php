@@ -42,12 +42,28 @@ class ItemPicture extends CActiveRecord {
             array('title, link', 'required'),
             array('title, link, internal_link', 'length', 'max' => 256),
             array('link', 'url'),
+            array('link, internal_link', 'unique'), // make sure that link is unique
             array('description, is_thumbnail_picture, item_id', 'safe'),
+            array('is_thumbnail_picture', 'checkThumbnail'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, item_id', 'safe', 'on' => 'search'),
         );
-    }    
+    }
+
+    /**
+     * Check to make sure that there must be one item picture marked as thumbnail.
+     * @param <type> $attribute Not in use.
+     * @param <type> $params Not in use.
+     */
+    public function checkThumbnail($attribute, $params) {
+        $thumbnailCount = ItemPicture::model()->count('item_id = :itemID AND is_thumbnail_picture = 1', array(
+                    ':itemID' => $this->item_id,
+                ));
+        if ($thumbnailCount === '0' && $this->is_thumbnail_picture === '0') {
+            $this->addError('is_thumbnail_picture', 'This item has not been assigned any thumbnail picture. Make sure you have one.');
+        }
+    }
 
     /**
      * @return array relational rules.

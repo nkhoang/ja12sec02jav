@@ -30,17 +30,12 @@ class Category extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('title, category_code', 'required'),
             array('description, title, category_code', 'safe'),
             array('title', 'length', 'max' => 256),
-            array('category_code', 'length', 'max' => 2),
-            array('category_code', 'length', 'min' => 2),
+            array('category_code', 'length', 'max' => 2, 'min' => 2),
             array('category_code', 'unique'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('id, description, title, category_code', 'safe', 'on' => 'search'),
         );
     }
@@ -69,8 +64,8 @@ class Category extends CActiveRecord {
 
     public static function getNextItemNumberByCategoryCode($category_code) {
         $category = self::model()->findByAttributes(array(
-            'category_code' => $category_code,
-        ));
+                    'category_code' => $category_code,
+                ));
 
         if (isset($category)) {
             return Category::getNextItemNumber($category->id);
@@ -97,7 +92,6 @@ class Category extends CActiveRecord {
         }
         return $result;
     }
-
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.

@@ -113,7 +113,7 @@ class ShopController extends Controller {
                 ));
         $this->render('/item/_item_details_view', array(
             'category' => $category,
-            'itemID' => $item->id,
+            'item' => $item,
             'itemThumbnailLink' => $itemThumbnail->link,
         ));
     }
@@ -123,15 +123,9 @@ class ShopController extends Controller {
      * @param <type> $item_id  Item id of this item picture.
      */
     public function actionShowItemPicture($item_id = null) {
-        if ($item_id === null) {
-            if (isset(Yii::app()->session['item_item_picture_index'])) {
-                $item_id = Yii::app()->session['item_item_picture_index'];
-            }
-        }
-        // get category id from params
-        if (Yii::app()->request->isAjaxRequest && isset($_POST['item_id'])) {
-            $item_id = (int) $_POST['item_id'];
-            Yii::app()->session['item_item_picture_index'] = $item_id;
+        $processOutput = false;
+        if ($_POST['processOutput']) {
+            $processOutput = $_POST['processOutput'];
         }
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
@@ -146,12 +140,12 @@ class ShopController extends Controller {
         // build sort for data provider.
         $sort = new CSort('ItemPicture');
         $sort->sortVar = 'itemPictureSort';
-        $sort->defaultOrder = 'item_id ASC';
+        $sort->defaultOrder = 'title ASC';
         $sort->attributes = array(
-            'item_id' => array(
-                'asc' => 'item_id ASC',
-                'desc' => 'item_id DESC',
-                'title' => 'Item ID',
+            'title' => array(
+                'asc' => 'title ASC',
+                'desc' => 'title DESC',
+                'title' => 'Title',
                 'default' => 'asc',
             ),
         );
@@ -182,7 +176,7 @@ class ShopController extends Controller {
         $this->renderPartial('/shop/_list_item_picture', array(
             'dataProvider' => $dataProvider,
             'pager' => $pager,
-                ), false, true);
+                ), false, $processOutput);
     }
 
     /**
@@ -197,7 +191,7 @@ class ShopController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'listCategories', 'listItems', 'showItemPicture', 'viewItemDetails'),
+                'actions' => array('index', 'listCategories', 'listItems', 'showItemPicture', 'viewItemDetails', 'renderItemList'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -219,7 +213,10 @@ class ShopController extends Controller {
     }
 
     public function actionRenderItemList($category_id = null) {
-        $processOutput = $_POST['processOutput'];
+        $processOutput = false;
+        if ($_POST['processOutput']) {
+            $processOutput = $_POST['processOutput'];
+        }
         if ($category_id === null) {
             throw new CHttpException(400, 'Invalid request.');
         }
@@ -280,7 +277,7 @@ class ShopController extends Controller {
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
         //
         // render list view widget for item list view.
-        $this->widget('zii.widgets.CListView', array(
+        $item_list_view = $this->widget('zii.widgets.CListView', array(
                     'id' => 'item_list_view',
                     'dataProvider' => $dataProvider,
                     'itemView' => '/item/_data_view',
@@ -294,22 +291,23 @@ class ShopController extends Controller {
                     'sortableAttributes' => array(
                         'item_id' => 'Item ID',
                     ),
-                        ));
+                        ), true);
+
+        $this->renderPartial('/shop/_item_list_view', array(
+            'item_list_view' => $item_list_view,
+                ), false, $processOutput);
     }
 
     /**
-     * The reason we have to resolve both POST and GET request is because we have POST request for admin board
-     * and GET request for paging.
+     * Render list item page. Item list view will be render via AJAX.
      * @param <type> $category_id category id.
      */
     public function actionListItems($category_id = null) {
-        $category = Category::model()->findByPk($categoryID);
+        $category = Category::model()->findByPk($category_id);
 
-        $this->renderPartial('/shop/_list_item', array(
-            'categoryID' => $categoryID,
-            'categoryName' => $category->title,
-            'itemListOutput' => $itemListOutput,
-                ), false, $processOutput);
+        $this->render('/shop/_list_item_page', array(
+            'category' => $category,
+        ));
     }
 
     /**

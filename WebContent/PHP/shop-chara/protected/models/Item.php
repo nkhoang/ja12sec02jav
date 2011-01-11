@@ -44,19 +44,16 @@ class Item extends CActiveRecord {
 // NOTE: you should only define rules for those attributes that
 // will receive user inputs.
         return array(
+            array('price, quantity, number_part, weight', 'required'),
             array('price, quantity, number_part, weight', 'numerical', 'integerOnly' => true),
             array('item_id', 'length', 'max' => 256),
-            array('price', 'length', 'max' => 3),
-            array('price', 'length', 'min' => 2),
-            array('weight', 'length', 'min' => 2),
-            array('weight', 'length', 'max' => 4),
-            array('quantity', 'length', 'min' => 1),
-            array('quantity', 'length', 'max' => 2),
+            array('price', 'length', 'max' => 3, 'min' => 2),
+            array('weight', 'length', 'min' => 2, 'max' => 4),
+            array('quantity', 'length', 'min' => 1, 'max' => 2),
             array('number_part', 'length', 'max' => 5),
             array('category_prefix', 'checkCategoryCode'),
             array('number_part', 'checkNextNumber'),
             array('item_id', 'unique'),
-            array('price, quantity, number_part, weight', 'required'),
             array('weight, description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -64,6 +61,11 @@ class Item extends CActiveRecord {
         );
     }
 
+    /**
+     * Check category code and make sure that it have the same code value as Category list.
+     * @param <type> $attribute Not in use.
+     * @param <type> $params Not in use.
+     */
     public function checkCategoryCode($attribute, $params) {
         $category = Category::model()->findByPk($this->category_id);
         if ($category->category_code !== $this->category_prefix) {
@@ -71,14 +73,21 @@ class Item extends CActiveRecord {
         }
     }
 
+    /**
+     * Make sure that it can detect item in editing mode or creation mode.
+     * If in creation mode it will allow the number = next available number only
+     * otherwise it must allow number equals to current number  and recommend the next available number.
+     * @param <type> $attribute Not in use.
+     * @param <type> $params Not in use.
+     */
     public function checkNextNumber($attribute, $params) {
         $nextNumber = Category::getNextItemNumberByCategoryCode($this->category_prefix);
         if (isset($this->id)) {
             $item = Item::model()->findByPk($this->id); // load item to get the old value
             $old_category = Category::model()->findByPk($item->category_id);
             $old_number_part = substr($item->item_id, 2);
-            if ($this->number_part !== $old_number_part && $this->number_part !== $nextNumber){
-                $this->addError('number_part', 'Next number should be.' . $this->category_prefix.':'. $nextNumber .' or the same of its old number '. $old_category->category_code.':'.$old_number_part);
+            if ($this->number_part !== $old_number_part && $this->number_part !== $nextNumber) {
+                $this->addError('number_part', 'Next number should be.' . $this->category_prefix . ':' . $nextNumber . ' or the same of its old number ' . $old_category->category_code . ':' . $old_number_part);
             }
         } else {
             // get next number

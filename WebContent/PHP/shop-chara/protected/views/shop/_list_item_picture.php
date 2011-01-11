@@ -8,10 +8,11 @@
         'summaryText' => 'Total: {count}', // @see CBaseListView::renderSummary(),
         'enableSorting' => true,
         'enablePagination' => true,
-        'ajaxUpdate' => array('item_board'),
+        'ajaxUpdate' => array('item_pictures'),
+        'afterAjaxUpdate' => 'js:function(id, data){item_picture_list_view_callback();}', // fix bug related to ajax content update with client javascript.
         'pager' => $pager,
         'sortableAttributes' => array(
-            'item_id' => 'Item ID',
+            'title' => 'Title',
         ),
     ));
     ?>

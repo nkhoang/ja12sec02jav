@@ -2,7 +2,7 @@
     // resize fancybox
     $(function(){
         $.fancybox.resize();
-        loadAlbum('myhoang0603', 'CharaThumbnail', 'renderThumbnail');
+        loadAlbum('myhoang0603', 'CharaBigThumbnail', 'renderThumbnail');
 
         // build preview thumbnail
         var $this = $('#item_picture_link');
@@ -11,6 +11,13 @@
             var html = buildPreviewThumbnail(inputVal);
             $this.parents('div.row').find('.placeholder').html(html);
         }
+
+        $('#itemPictureForm input:first').focus();
+<?php if (Yii::app()->user->hasFlash('itemPictureCreated')): ?>
+        $('.flash-success').fadeOut(1000, function() {
+            $.fancybox.close();
+        });
+<?php endif; ?>
     });
 </script>
 <div id="imageScript"></div>
@@ -80,11 +87,8 @@
         </div>
 
         <?php echo $form::hiddenField($model, 'item_id'); ?> <!-- hidden field for storing item id -->
-
-
             <div class="row buttons">
-
-                <input type="button" name="next_button" value="Next" onclick="$.ajax(
+                <input id="item_picture_save_button" type="button" name="next_button" value="Next" onclick="$.ajax(
                         {
                             'type': 'post',
                             'url': '<?php echo CController::createUrl('/itemPicture/ajaxCreateItemPicture'); ?>',
@@ -92,6 +96,9 @@
                         'data'  : jQuery(this).parents('form').serialize(),
                         'success':function(html){
                             jQuery('#itemPictureForm').html(html);
+                            $('input[button]').click(function(){
+                                return false;
+                            })
                         },
                         'error' : function(x,e) {
                             jQuery('#itemPictureForm').html(x.responseText);
