@@ -6,7 +6,7 @@ class ItemController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/shop_column1';
 
     /**
      * @return array action filters
@@ -25,7 +25,7 @@ class ItemController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'showGallery'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -73,6 +73,17 @@ class ItemController extends Controller {
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
                 ), false, true); // see documentation for this. very tricky.[IMPORTANT]
+    }
+
+    public function actionShowGallery($item_id = null) {
+        if ($item_id === null) {
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+        }
+
+        $itemPictures = Item::model()->findByPk($item_id)->itemPictures;
+        $this->renderPartial('/item/_gallery_view', array(
+            'itemPictures' => $itemPictures,
+        ));
     }
 
     /**

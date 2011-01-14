@@ -1,5 +1,6 @@
 <script type="text/javascript">
     $(function(){
+        /*
         $('a.itemSubPic').fancybox({ // enable fancy box
             titleShow: true,
             titlePosition: 'over',
@@ -10,6 +11,16 @@
                     $("#fancybox-title").hide();
                 });
             }
+        });
+         */
+        $('a.item_link').fancybox({
+            'transitionIn'	:	'fade',
+            'transitionOut'	:	'fade',
+            'speedIn'		:	600,
+            'speedOut'		:	200,
+            'overlayShow'	:	true,
+            'centerOnScroll': true,
+            'type' : 'ajax'
         });
     });
 </script>
@@ -41,10 +52,10 @@
                     <div class="icc fleft">
                         <div class="thumbnail ">
                             <div class="wraptocenter loading">
-                                <img src="<?php echo $data->itemPictures[0]->link; ?>" class="item" >
+                                <a class="item_link" title="Image Gallery" href="<?php echo CController::createUrl('/item/showGallery', array('item_id' => $data->id)); ?>"><img src="<?php echo $data->itemPictures[0]->link; ?>" class="item"/></a>
                             </div>
                         </div>
-                        <div id="img-tooltip-0" class="thumbnail-big"><img src="<?php echo $data->itemPictures[0]->link; ?>"></div>
+                        <div class="thumbnail-big"><img src="<?php echo $data->itemPictures[0]->link; ?>"></div>
                         <?php foreach ($data->itemPictures as $itemPicture): ?>
                             <div class="subPictures"><a title="<?php echo $itemPicture->title; ?>" href="<?php echo $itemPicture->link; ?>" rel="subPicGroup-<?php echo $data->id; ?>" class="itemSubPic subPicGroup-<?php echo $data->id; ?>"></a></div>
                         <?php endforeach; ?>

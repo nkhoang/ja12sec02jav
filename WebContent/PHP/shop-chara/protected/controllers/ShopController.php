@@ -16,7 +16,7 @@ class ShopController extends Controller {
         );
     }
 
-    public function actionShowItems($category_id = null) {
+    public function actionShowItems($category_id = null, $item_page = 1) {
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
         $criteria->select = '*';
@@ -31,9 +31,6 @@ class ShopController extends Controller {
         $sort = new CSort('Item');
         $sort->sortVar = 'itemSort';
         $sort->defaultOrder = 'item_id ASC';
-        $sort->params = array(
-            'category_id' => $category_id,
-        );
         $sort->attributes = array(
             'item_id' => array(
                 'asc' => 'item_id ASC',
@@ -51,9 +48,6 @@ class ShopController extends Controller {
         $pages->pageVar = 'item_page';
         $pages->applyLimit($criteria); // get limit and offset
         $pages->setItemCount($count);
-        $pages->params = array(
-            'category_id' => $category_id,
-        );
 
         $dataProvider = new CActiveDataProvider('Item',
                         array(
@@ -69,7 +63,7 @@ class ShopController extends Controller {
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
         $pageSize = $pager['pages']->getPageSize();
-        $currentPage = $pager['pages']->getCurrentPage();
+        $currentPage = $item_page;
         // render list view widget for item list view.
         $itemsHTML = $this->widget('zii.widgets.CListView', array(
                     'id' => 'item_list_view',
@@ -78,7 +72,7 @@ class ShopController extends Controller {
                     'template' => '{items}',
                     'enableSorting' => false,
                     'enablePagination' => true,
-                    'ajaxUpdate' => array('item_board'),
+                    'ajaxUpdate' => array('itemsContainer'),
                     'pager' => $pager,
                     'sortableAttributes' => array(
                         'item_id' => 'Item ID',
@@ -88,7 +82,7 @@ class ShopController extends Controller {
         $this->renderPartial('/shop/_show_item', array(
             'itemsHTML' => $itemsHTML,
             'totalPage' => $pageSize,
-            'currentPage' => $currentPage + 1,
+            'currentPage' => $currentPage,
         ));
     }
 

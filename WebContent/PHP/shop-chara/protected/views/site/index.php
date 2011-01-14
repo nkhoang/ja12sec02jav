@@ -48,10 +48,7 @@
             var $this = $(this);
             manager.hideTooltip($this);
         });
-
-
         manager.initPager('<?php echo CController::createUrl('/shop/showItems', array('category_id' => 1)); ?>', preloadAllImage);
-
     });
 </script>
 <div id="body-wrapper">
@@ -165,7 +162,7 @@
                 <div id="page_number">
                     <div id="number_container">
                         <div id="current_page_number"></div>
-                        <img src="http://lh3.ggpht.com/_4oj_ltkp9pc/S_XYVBipyXI/AAAAAAAAAHw/bzEvOwr9tMs/n_slash.gif" style="vertical-align: middle; margin-top: -7px;"/>
+                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/chara/n_slash.gif" style="vertical-align: middle; margin-top: -7px;"/>
                         <div id="total_page_number"></div>
                     </div>
                 </div>
@@ -174,7 +171,7 @@
                     <div class="pam fleft"></div>
                     <div class="par fleft"><div class="touchArea"></div>
                         <div class="pagerInput"><input type="text" maxlength="2" size="1"/></div>
-                        <div class="currentPage"><img src="http://lh5.ggpht.com/_4oj_ltkp9pc/S_ZIeNTClPI/AAAAAAAAAIA/l0u2KVRJ-xY/n_2.gif"></div>
+                        <div class="currentPage"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/chara/n_2.gif"></div>
                     </div>
                 </div>
             </div>

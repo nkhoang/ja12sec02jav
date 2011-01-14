@@ -292,10 +292,9 @@ function ItemManager(selector, callback){
 
     this.updatePage = function(){
         pagerUrl = pagerUrl.replace('.html', '');
-        pagerUrl = pagerUrl + '/item_page/'+ cp + '.html';
         $.ajax({
             'type': 'get',
-            'url' : pagerUrl,
+            'url' : pagerUrl + '/item_page/'+ cp + '.html',
             'data' : {
                 'ajax': 'item_list_view'
             },
