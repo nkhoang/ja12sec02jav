@@ -103,8 +103,22 @@ class ItemPictureController extends Controller {
 
         if (isset($_POST['ItemPicture'])) {
             $model->attributes = $_POST['ItemPicture'];
-            if ($model->save())
+            // load item picture which marked as thumbnail
+            $itemPictureWithThumb = ItemPicture::model()->findAll('is_thumbnail_picture = 1 and item_id =:itemID', array(
+                ':itemID' => $model->item_id,
+            ));
+            if ($model->save()) {
+                if ($model->is_thumbnail_picture === '1') {
+                    // remove the old one
+                    if (count($itemPictureWithThumb) > 0) {
+                        foreach ($itemPictureWithThumb as $itemPic) {
+                            $itemPic->is_thumbnail_picture = '0';
+                            $itemPic->save();
+                        }
+                    }
+                }
                 Yii::app()->user->setFlash('itemPictureUpdated', 'Item Picture Updated!!!!');
+            }
         }
 
         $this->renderPartial('/itemPicture/_edit_form', array(
@@ -124,7 +138,7 @@ class ItemPictureController extends Controller {
         $item = Item::model()->findByPk((int) $itemPic->item_id);
         // count number of item picture of this item.
         $countItemPicture = ItemPicture::model()->countByAttributes(array('item_id' => $item->id));
-        $itemPic->title = $item->item_id.'-'.str_pad($countItemPicture + 1, 5, '0', STR_PAD_LEFT);
+        $itemPic->title = $item->item_id . '-' . str_pad($countItemPicture + 1, 5, '0', STR_PAD_LEFT);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
             $itemPic->attributes = $_POST['ItemPicture'];

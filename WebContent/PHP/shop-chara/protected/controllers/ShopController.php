@@ -16,6 +16,11 @@ class ShopController extends Controller {
         );
     }
 
+    /**
+     * Show items in main index page.
+     * @param <type> $category_id category id.
+     * @param <type> $item_page current page.
+     */
     public function actionShowItems($category_id = null, $item_page = 1) {
         // build search criteria
         $criteria = new CDbCriteria; // just to apply sort
@@ -24,19 +29,25 @@ class ShopController extends Controller {
         $criteria->params = array(
             ':categoryID' => $category_id,
         );
-
-        $criteria->limit = self::ITEM_PAGE_SIZE;
+        $criteria->with = 'itemPictures';
 
         // build sort for data provider.
         $sort = new CSort('Item');
         $sort->sortVar = 'itemSort';
-        $sort->defaultOrder = 'item_id ASC';
+        $sort->multiSort = true;
+        $sort->defaultOrder = array('item_id asc', 'is_thumbnail_picture desc');
         $sort->attributes = array(
             'item_id' => array(
-                'asc' => 'item_id ASC',
-                'desc' => 'item_id DESC',
+                'asc' => 'item_id asc',
+                'desc' => 'item_id desc',
                 'title' => 'Item ID',
                 'default' => 'asc',
+            ),
+            'is_thumbnail_picture' => array(
+                'asc' => 'itemPictures.is_thumbnail_picture asc',
+                'desc' => 'itemPictures.is_thumbnail_picture desc',
+                'title' => 'Item Pictures',
+                'default' => 'desc',
             ),
         );
         $sort->applyOrder($criteria); // apply criteria
@@ -62,7 +73,8 @@ class ShopController extends Controller {
             ),
         );
         $pager['pages'] = $dataProvider->getPagination(); //$pager['pages']->getPageCount()
-        $pageSize = $pager['pages']->getPageSize();
+
+        $pageCount = $pager['pages']->getPageCount();
         $currentPage = $item_page;
         // render list view widget for item list view.
         $itemsHTML = $this->widget('zii.widgets.CListView', array(
@@ -81,7 +93,7 @@ class ShopController extends Controller {
 
         $this->renderPartial('/shop/_show_item', array(
             'itemsHTML' => $itemsHTML,
-            'totalPage' => $pageSize,
+            'totalPage' => $pageCount,
             'currentPage' => $currentPage,
         ));
     }

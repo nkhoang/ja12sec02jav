@@ -12813,3 +12813,1300 @@ Stack trace:
 #1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
 #2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
 #3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/14 23:32:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/14 23:32:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/14 23:34:25 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:34:25 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/14 23:34:32 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:34:32 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/14 23:36:54 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:36:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/14 23:40:58 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:40:58 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/14 23:41:27 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:41:27 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/14 23:44:47 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:44:47 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/14 23:44:49 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/14 23:44:49 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 07:16:49 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 07:16:49 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 07:16:54 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id DESC, itemPictures.is_thumbnail_picture DESC LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 07:16:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 07:19:09 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id desc, itemPictures.is_thumbnail_picture desc LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (56)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 07:19:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(56): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 07:21:47 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10` FROM `item` `t`  WHERE (category_id=:categoryID) ORDER BY item_id desc, itemPictures.is_thumbnail_picture desc LIMIT 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (57)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 07:21:47 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'itemPictures.is_thumbnail_picture' in 'order clause'' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(57): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 07:22:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:22:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:23:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:23:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:23:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:23:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:26:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:26:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:29:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:29:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:29:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:29:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_n.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_n.png
+2011/01/15 07:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_ne.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_ne.png
+2011/01/15 07:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_e.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_e.png
+2011/01/15 07:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_se.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_se.png
+2011/01/15 07:30:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_s.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_s.png
+2011/01/15 07:30:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_sw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_sw.png
+2011/01/15 07:30:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_w.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_w.png
+2011/01/15 07:30:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_nw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_nw.png
+2011/01/15 07:31:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:31:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_n.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_n.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_ne.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_ne.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_e.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_e.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_se.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_se.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_s.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_s.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_sw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_sw.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_w.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_w.png
+2011/01/15 07:34:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_nw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_nw.png
+2011/01/15 07:34:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:34:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:34:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_n.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_n.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_ne.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_ne.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_e.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_e.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_se.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_se.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_s.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_s.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_sw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_sw.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_w.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_w.png
+2011/01/15 07:34:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_nw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_nw.png
+2011/01/15 07:34:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:34:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:35:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:36:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:37:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:37:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:37:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:38:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:38:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:38:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:38:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:38:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:38:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:38:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:38:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:39:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:39:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:39:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:39:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:39:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_n.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_n.png
+2011/01/15 07:39:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_ne.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_ne.png
+2011/01/15 07:39:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_e.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_e.png
+2011/01/15 07:39:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_se.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_se.png
+2011/01/15 07:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_s.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_s.png
+2011/01/15 07:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_sw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_sw.png
+2011/01/15 07:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_w.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_w.png
+2011/01/15 07:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_nw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_nw.png
+2011/01/15 07:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:41:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:41:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_n.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_n.png
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_ne.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_ne.png
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_e.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_e.png
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_se.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_se.png
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_s.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_s.png
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_sw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_sw.png
+2011/01/15 07:41:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_w.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_w.png
+2011/01/15 07:41:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_nw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_nw.png
+2011/01/15 07:42:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:42:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:42:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_n.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_n.png
+2011/01/15 07:42:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_ne.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_ne.png
+2011/01/15 07:42:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_e.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_e.png
+2011/01/15 07:42:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_se.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_se.png
+2011/01/15 07:42:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_s.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_s.png
+2011/01/15 07:42:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_sw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_sw.png
+2011/01/15 07:42:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_w.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_w.png
+2011/01/15 07:42:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "fancybox/fancy_shadow_nw.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('fancybox/fancy_...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/fancybox/fancy_shadow_nw.png
+2011/01/15 07:43:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:43:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:43:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:43:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:43:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:43:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:44:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:44:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:44:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:44:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:45:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:45:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:45:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 07:45:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 07:53:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/shirt_active_snc.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/sh...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/shirt_active_snc.gif
+2011/01/15 08:07:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/marker_mid.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/ma...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/marker_mid.gif
+2011/01/15 08:07:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/marker_mid.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/ma...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/marker_mid.gif
+2011/01/15 09:46:48 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php:269
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php(242): CDbConnection->open()
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php(221): CDbConnection->setActive(true)
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CModule.php(372): CDbConnection->init()
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(406): CModule->getComponent('db')
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(589): CApplication->getDb()
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2167): CActiveRecord->getDbConnection()
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(353): CActiveRecordMetaData->__construct(Object(Item))
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(368): CActiveRecord::model('Item')
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(62): CActiveRecord->getMetaData()
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(204): CActiveRecord->__construct()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(57): ShopController->actionIndex()
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('index')
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/index')
+#21 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#22 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#23 {main} REQUEST_URI=/shop-chara/shop/index.html
+2011/01/15 09:46:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php:269
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php(242): CDbConnection->open()
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php(221): CDbConnection->setActive(true)
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CModule.php(372): CDbConnection->init()
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(406): CModule->getComponent('db')
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(589): CApplication->getDb()
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2167): CActiveRecord->getDbConnection()
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(353): CActiveRecordMetaData->__construct(Object(Item))
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CSort.php(222): CActiveRecord::model('Item')
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CSort.php(200): CSort->getOrderBy()
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(48): CSort->applyOrder(Object(CDbCriteria))
+#10 [internal function]: ShopController->actionShowItems('1', 1)
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#21 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#22 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#23 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#24 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 09:46:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 0' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php:269
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php(242): CDbConnection->open()
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbConnection.php(221): CDbConnection->setActive(true)
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CModule.php(372): CDbConnection->init()
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(406): CModule->getComponent('db')
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(589): CApplication->getDb()
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2167): CActiveRecord->getDbConnection()
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(353): CActiveRecordMetaData->__construct(Object(Item))
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(368): CActiveRecord::model('Item')
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(62): CActiveRecord->getMetaData()
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(204): CActiveRecord->__construct()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(57): ShopController->actionIndex()
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('index')
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/index')
+#21 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#22 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#23 {main} REQUEST_URI=/shop-chara/shop/index.html
+2011/01/15 09:52:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/mit_mir.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/mi...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/mit_mir.png
+2011/01/15 09:52:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/mit_mic.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/mi...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/mit_mic.png
+2011/01/15 09:52:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/mit_mil.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/mi...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/mit_mil.png
+2011/01/15 09:52:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_about.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_about.png
+2011/01/15 09:52:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_indicator_home.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_indicator_home.gif
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/mib.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/mi...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/mib.png
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnt_mnl.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnt_mnl.png
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnt_mnr.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnt_mnr.png
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnm_mnc.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnm_mnc.png
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnm_mnl.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnm_mnl.png
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnt_mnc.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnt_mnc.png
+2011/01/15 09:57:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnm_mnr.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnm_mnr.png
+2011/01/15 09:59:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnb_mnl.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnb_mnl.png
+2011/01/15 09:59:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnb_mnc.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnb_mnc.png
+2011/01/15 09:59:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/chara/menu_container_mnb_mnr.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/chara/me...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/chara/menu_container_mnb_mnr.png
+2011/01/15 10:07:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 10:07:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 10:33:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 10:33:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 11:07:43 [info] [debug] 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (71)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:09:05 [info] [debug] 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (71)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:09:31 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10`, `itemPictures`.`id` AS `t1_c0`, `itemPictures`.`title` AS `t1_c1`, `itemPictures`.`description` AS `t1_c2`, `itemPictures`.`link` AS `t1_c3`, `itemPictures`.`internal_link` AS `t1_c4`, `itemPictures`.`item_id` AS `t1_c5`, `itemPictures`.`is_thumbnail_picture` AS `t1_c6` FROM `item` `t`  LEFT OUTER JOIN `item_picture` `itemPictures` ON (`itemPictures`.`item_id`=`t`.`id`)  WHERE (category_id=:categoryID) ORDER BY item_id desc
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (47)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:09:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'item_id' in order clause is ambiguous' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(47): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 11:09:54 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10`, `itemPictures`.`id` AS `t1_c0`, `itemPictures`.`title` AS `t1_c1`, `itemPictures`.`description` AS `t1_c2`, `itemPictures`.`link` AS `t1_c3`, `itemPictures`.`internal_link` AS `t1_c4`, `itemPictures`.`item_id` AS `t1_c5`, `itemPictures`.`is_thumbnail_picture` AS `t1_c6` FROM `item` `t`  LEFT OUTER JOIN `item_picture` `itemPictures` ON (`itemPictures`.`item_id`=`t`.`id`)  WHERE (category_id=:categoryID) ORDER BY item_id desc
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (48)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:09:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'item_id' in order clause is ambiguous' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(48): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 11:10:31 [error] [system.db.CDbCommand] Error in querying SQL: SELECT `t`.`id` AS `t0_c0`, `t`.`description` AS `t0_c1`, `t`.`item_id` AS `t0_c2`, `t`.`price` AS `t0_c3`, `t`.`quantity` AS `t0_c4`, `t`.`category_id` AS `t0_c5`, `t`.`is_hot` AS `t0_c6`, `t`.`is_discounting` AS `t0_c7`, `t`.`last_update` AS `t0_c8`, `t`.`first_added` AS `t0_c9`, `t`.`weight` AS `t0_c10`, `itemPictures`.`id` AS `t1_c0`, `itemPictures`.`title` AS `t1_c1`, `itemPictures`.`description` AS `t1_c2`, `itemPictures`.`link` AS `t1_c3`, `itemPictures`.`internal_link` AS `t1_c4`, `itemPictures`.`item_id` AS `t1_c5`, `itemPictures`.`is_thumbnail_picture` AS `t1_c6` FROM `item` `t`  LEFT OUTER JOIN `item_picture` `itemPictures` ON (`itemPictures`.`item_id`=`t`.`id`)  WHERE (category_id=:categoryID) ORDER BY item_id desc
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (48)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:10:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'item_id' in order clause is ambiguous' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(735): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(395): CJoinElement->runQuery(Object(CJoinQuery))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveFinder.php(72): CJoinElement->find(Object(CDbCriteria))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1242): CActiveFinder->query(Object(CDbCriteria), true)
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php(48): CActiveRecord->findAll(Object(CDbCriteria))
+#7 [internal function]: ShopController->actionShowItems('1', 1)
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ShopController), Array)
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('showItems')
+#18 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/showItems/...')
+#19 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#20 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#21 {main} REQUEST_URI=/shop-chara/shop/showItems/category_id/1.html
+2011/01/15 11:10:56 [info] [debug] 3
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (68)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:11:12 [info] [debug] 3
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (69)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:11:46 [info] [debug] 3
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (69)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:11:46 [info] [debug] 2
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ShopController.php (70)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:14:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 11:14:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 11:14:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 11:14:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 11:19:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 11:19:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 11:31:06 [error] [system.db.CDbCommand] Error in querying SQL: SELECT * FROM `item_picture` `t` WHERE is_thumbnail_picture = 1 and item_id := itemID
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ItemPictureController.php (109)
+in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php (13)
+2011/01/15 11:31:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':= itemID' at line 1' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php:409
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\CDbCommand.php(294): CDbCommand->queryInternal('fetchAll', 2, Array)
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1237): CDbCommand->queryAll()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1323): CActiveRecord->query(Object(CDbCriteria), true)
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\protected\controllers\ItemPictureController.php(109): CActiveRecord->findAll('is_thumbnail_pi...', Array)
+#4 [internal function]: ItemPictureController->actionAjaxUpdateItemPicture('75')
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(54): ReflectionMethod->invokeArgs(Object(ItemPictureController), Array)
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(300): CInlineAction->run()
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#11 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#13 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('ajaxUpdateItemP...')
+#15 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('itemPicture/aja...')
+#16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#18 {main} REQUEST_URI=/shop-chara/itemPicture/ajaxUpdateItemPicture/id/75.html

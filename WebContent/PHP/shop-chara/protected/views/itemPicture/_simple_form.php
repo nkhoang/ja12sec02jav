@@ -83,10 +83,10 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'is_thumbnail_picture'); ?>
-            <?php echo $form::checkBox($model, 'is_thumbnail_picture'); ?>
+            <?php echo $form->checkBox($model, 'is_thumbnail_picture'); ?>
         </div>
 
-        <?php echo $form::hiddenField($model, 'item_id'); ?> <!-- hidden field for storing item id -->
+        <?php echo $form->hiddenField($model, 'item_id'); ?> <!-- hidden field for storing item id -->
             <div class="row buttons">
                 <input id="item_picture_save_button" type="button" name="next_button" value="Next" onclick="$.ajax(
                         {

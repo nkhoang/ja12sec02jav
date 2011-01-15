@@ -14,13 +14,14 @@
         });
          */
         $('a.item_link').fancybox({
-            'transitionIn'	:	'fade',
-            'transitionOut'	:	'fade',
             'speedIn'		:	600,
             'speedOut'		:	200,
             'overlayShow'	:	true,
             'centerOnScroll': true,
-            'type' : 'ajax'
+            'type' : 'ajax',
+            'onComplete': function(html) {
+                loadGalleria();
+            }
         });
     });
 </script>
@@ -52,53 +53,64 @@
                     <div class="icc fleft">
                         <div class="thumbnail ">
                             <div class="wraptocenter loading">
-                                <a class="item_link" title="Image Gallery" href="<?php echo CController::createUrl('/item/showGallery', array('item_id' => $data->id)); ?>"><img src="<?php echo $data->itemPictures[0]->link; ?>" class="item"/></a>
-                            </div>
-                        </div>
-                        <div class="thumbnail-big"><img src="<?php echo $data->itemPictures[0]->link; ?>"></div>
+
+                                <a class="item_link" title="Image Gallery"
+                                   href="<?php echo CController::createUrl('/item/showGallery', array('item_id' => $data->id)); ?>">
+                                       <?php foreach ($data->itemPictures as $itemPicture): ?>
+                                       <?php if ($itemPicture->is_thumbnail_picture === '1'): ?>
+                                            <img src="<?php echo $itemPicture->link; ?>" class="item"/>
+                                    <?php break; ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+
+                                           </a>
+
+                                       </div>
+                                   </div>
+                                   <div class="thumbnail-big"><img src="<?php echo $data->itemPictures[0]->link; ?>"></div>
                         <?php foreach ($data->itemPictures as $itemPicture): ?>
-                            <div class="subPictures"><a title="<?php echo $itemPicture->title; ?>" href="<?php echo $itemPicture->link; ?>" rel="subPicGroup-<?php echo $data->id; ?>" class="itemSubPic subPicGroup-<?php echo $data->id; ?>"></a></div>
+                                                   <div class="subPictures"><a title="<?php echo $itemPicture->title; ?>" href="<?php echo $itemPicture->link; ?>" rel="subPicGroup-<?php echo $data->id; ?>" class="itemSubPic subPicGroup-<?php echo $data->id; ?>"></a></div>
                         <?php endforeach; ?>
 
-                            <!-- Item code -->
-                            <div class="itemCode fleft">
-                                <img src="<?php echo Yii::app()->request->baseUrl . '/images/chara/item_code.gif' ?>" height="15" width="125">
-                                <div class="codeDescription fleft">
-                                    <div class="codeName"><?php echo $data->item_id ?></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="icr fleft">
-                        </div>
-                    </div>
-                    <div class="icb fleft">
-                        <div class="icl fleft">
-                        </div>
-                        <div class="icc fleft">
-                        </div>
-                        <div class="icr fleft">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="itr fleft">
-            </div>
-        </div>
-        <div class="itb fleft">
-            <div class="itl fleft">
-            </div>
-            <div class="itc fleft">
-            </div>
-            <div class="itr fleft">
-            </div>
-        </div>
-        <div class="sticker fleft">
-            <img src="http://docs.google.com/File?id=d5brrvd_1032g6rkm2gn_b" height="57" width="56">
-        </div>
-        <div class="itemTag fleft">
-            <img src="http://docs.google.com/File?id=d5brrvd_1133dsdsrrhh_b" height="65" width="47">
-            <div class="itemPrice">
-                <div class="price"><?php echo $data->price; ?></div>
+                                                   <!-- Item code -->
+                                                   <div class="itemCode fleft">
+                                                       <img src="<?php echo Yii::app()->request->baseUrl . '/images/chara/item_code.gif' ?>" height="15" width="125">
+                                                       <div class="codeDescription fleft">
+                                                           <div class="codeName"><?php echo $data->item_id ?></div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               <div class="icr fleft">
+                                               </div>
+                                           </div>
+                                           <div class="icb fleft">
+                                               <div class="icl fleft">
+                                               </div>
+                                               <div class="icc fleft">
+                                               </div>
+                                               <div class="icr fleft">
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="itr fleft">
+                                   </div>
+                               </div>
+                               <div class="itb fleft">
+                                   <div class="itl fleft">
+                                   </div>
+                                   <div class="itc fleft">
+                                   </div>
+                                   <div class="itr fleft">
+                                   </div>
+                               </div>
+                               <div class="sticker fleft">
+                                   <img src="<?php echo Yii::app()->request->baseUrl . '/images/chara/sticker.png' ?>" height="57" width="56">
+                               </div>
+                               <div class="itemTag fleft">
+                                   <img src="<?php echo Yii::app()->request->baseUrl . '/images/chara/item_tag.png' ?>" height="65" width="47">
+                                   <div class="itemPrice">
+                                       <div class="price"><?php echo $data->price; ?></div>
         </div>
     </div>
 </div>

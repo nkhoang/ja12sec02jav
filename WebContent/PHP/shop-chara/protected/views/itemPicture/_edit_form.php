@@ -2,7 +2,7 @@
     // resize fancybox
     $(function(){
         $.fancybox.resize();
-        loadAlbum('myhoang0603', 'CharaThumbnail', 'renderThumbnail');
+        loadAlbum('myhoang0603', 'CharaBigThumbnail', 'renderThumbnail');
 
         // build preview thumbnail
         var $this = $('#item_picture_link');
@@ -41,7 +41,7 @@
             <input type="text" id="picasa_account_name" value="myhoang0603"/>
 
             <label>Album Name:</label>
-            <input type="text" id="picasa_album_name" value="CharaThumbnail"/>
+            <input type="text" id="picasa_album_name" value="CharaBigThumbnail"/>
 
             <input type="button" id="picasa_account_update" onclick="updatePicasaAccount('#picasa_account_name','#picasa_album_name');" value="Update"/>
 

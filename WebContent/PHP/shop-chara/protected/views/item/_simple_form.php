@@ -85,7 +85,7 @@
             </div>
             <?php echo $form->labelEx($model, 'category_id'); ?>
             <?php
-                echo $form::dropDownList($model, 'category_id', $categories);
+                echo $form->dropDownList($model, 'category_id', $categories);
             ?>
                 <div class="row buttons">
 
