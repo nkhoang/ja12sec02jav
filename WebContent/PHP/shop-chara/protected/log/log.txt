@@ -14110,3 +14110,135 @@ Stack trace:
 #16 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
 #17 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
 #18 {main} REQUEST_URI=/shop-chara/itemPicture/ajaxUpdateItemPicture/id/75.html
+2011/01/15 12:03:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 12:03:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 12:04:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 12:04:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 12:07:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 12:07:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 12:09:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 12:09:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 12:11:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 12:11:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:25:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:25:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 14:25:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:25:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 14:26:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:26:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 14:27:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:27:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 14:29:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:29:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-loader.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-load...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-loader.gif
+2011/01/15 14:33:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png
+2011/01/15 14:34:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "js/classic-map.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('js/classic-map....')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/js/classic-map.png

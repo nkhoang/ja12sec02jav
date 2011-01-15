@@ -58,7 +58,7 @@
                                    href="<?php echo CController::createUrl('/item/showGallery', array('item_id' => $data->id)); ?>">
                                        <?php foreach ($data->itemPictures as $itemPicture): ?>
                                        <?php if ($itemPicture->is_thumbnail_picture === '1'): ?>
-                                            <img src="<?php echo $itemPicture->link; ?>" class="item"/>
+                                    <img src="<?php echo $itemPicture->link; ?>" alt="<?php echo CHtml::encode($data->description);?>" title="<?php echo CHtml::encode($data->description);?>" class="item"/>
                                     <?php break; ?>
                                     <?php endif; ?>
                                     <?php endforeach; ?>

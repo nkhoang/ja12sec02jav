@@ -1,13 +1,13 @@
 /*
- * Galleria Classic Theme
- * Copyright (c) 2010, Aino
- * Licensed under the MIT license.
- */
+* Galleria Classic Theme
+* Copyright (c) 2010, Aino
+* Licensed under the MIT license.
+*/
 
 .galleria-container {
     position: relative;
     overflow: hidden;
-    background: #FFF;
+    background: #fff;
 }
 .galleria-container img {
     -moz-user-select: none;
@@ -61,7 +61,7 @@
     right: 10px;
     z-index: 2;
     display: none;
-    background: url(classic-loader.gif) no-repeat 2px 2px;
+    background: url(../images/loading.gif) no-repeat 20px 20px;
 }
 .galleria-info {
     width: 50%;
@@ -71,7 +71,7 @@
     position: absolute;
 }
 .galleria-info-text {
-    background-color: #000;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
     padding: 12px;
     display: none;
     /* IE7 */ zoom:1;
@@ -84,7 +84,7 @@
 .galleria-info-description {
     font: italic 12px/1.4 georgia,serif;
     margin: 0;
-    color: #bbb;
+    color: #fff;
 }
 .galleria-info-title+.galleria-info-description {
     margin-top: 7px;
@@ -197,6 +197,6 @@
 .galleria-info-close,
 .galleria-image-nav-left,
 .galleria-image-nav-right {
-    background-image: url(classic-map.png);
+    background-image: url(../images/galleria/classic-map.png);
     background-repeat: no-repeat;
 }

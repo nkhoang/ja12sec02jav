@@ -19,7 +19,8 @@
             height:400,
             width: 350,
             autoplay:3000,
-            easing: 'linear'
+            easing: 'linear',
+            show_info: true
         });
         $('.gallery_demo').fadeIn();
     }
@@ -28,7 +29,7 @@
 <div class="demo">
     <ul class="gallery_demo">
         <?php foreach ($itemPictures as $itemPic): ?>
-            <li><img src='<?php echo CHtml::encode($itemPic->link); ?>' alt="" title=""></li>
+            <li><img src='<?php echo CHtml::encode($itemPic->link); ?>' alt="<?php echo CHtml::encode($itemPic->description);?>" title="<?php echo CHtml::encode($itemPic->title);?>"></li>
         <?php endforeach; ?>
     </ul>
 </div>
