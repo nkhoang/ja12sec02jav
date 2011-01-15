@@ -71,6 +71,23 @@ class CategoryController extends Controller {
 
         if (isset($_POST['Category'])) {
             $model->attributes = $_POST['Category'];
+            if (isset($model->id)) { // check to make sure that category is in EDIT mode.
+                $old_category_code = $this->loadModel($model->id)->category_code; // should change category code accordingly.
+                if (isset($old_category_code) && strlen($old_category_code) > 0) { // the old category code may be null or blank.
+                    if ($model->category_code !== $old_category_code) { // need to change others accordingly.
+                        $items = Item::model()->findAll('category_id = :categoryID', array( // search items which need to be changed.
+                            ':categoryID' => $model->id,
+                        ));
+                        foreach ($items as $item) {
+                            $updated_item = Item::changeCategoryCodeFromId($item, $model->category_code);
+                            if (isset($updated_item)) {
+                                if ($updated_item->update('item_id')){ // save updated item.
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             if ($model->save()) {
                 Yii::app()->user->setFlash('categoryUpdated', 'Category Updated!!!!');
             }

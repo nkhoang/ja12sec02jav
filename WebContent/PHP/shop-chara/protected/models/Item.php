@@ -98,6 +98,20 @@ class Item extends CActiveRecord {
     }
 
     /**
+     * Update category code for all related items.
+     * @param <type> $model model to be updated.
+     * @param <type> $category_code new category code.
+     * @return <type> updated model.
+     */
+    public static function changeCategoryCodeFromId($model, $category_code) {
+        $item_id = $model->item_id;
+        // get the number part
+        $number_part = substr($item_id, 2);
+        $model->item_id = $category_code . $number_part;
+        return $model;
+    }
+
+    /**
      * @return array relational rules.
      */
     public function relations() {

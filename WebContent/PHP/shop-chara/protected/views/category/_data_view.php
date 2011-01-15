@@ -3,7 +3,7 @@
         <a title="Edit <?php echo CHtml::encode($data->title); ?>" class="showCategoryForm" href="<?php echo CController::createUrl('/category/ajaxUpdateCategory', array('id' => $data->id,)); ?>">
             <img src="<?php echo Yii::app()->request->baseUrl . '/images/edit.png'; ?>" width="24" height="24" />
         </a>
-        <a title="Delete <?php echo CHtml::encode($data->title); ?>" onclick="var answer = confirm('Are you sure you want to delete ' + '<?php echo CHtml::encode($data->title);?>');
+        <a href="#" title="Delete <?php echo CHtml::encode($data->title); ?>" onclick="var answer = confirm('Are you sure you want to delete ' + '<?php echo CHtml::encode($data->title);?>');
                 if (answer) {
                     $.ajax({
                         'url': '<?php echo CController::createUrl('/category/deleteCategory', array(
@@ -24,7 +24,7 @@
                             alert('Failed to complete your request. Please try again later');
                         }
                     });
-                }" >
+                }; return false;" >
             <img src="<?php echo Yii::app()->request->baseUrl . '/images/delete_item.png'; ?>" width="24" height="24" />
         </a>
     </div>

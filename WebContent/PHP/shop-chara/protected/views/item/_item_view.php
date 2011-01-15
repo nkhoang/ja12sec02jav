@@ -62,7 +62,6 @@
                                     <?php break; ?>
                                     <?php endif; ?>
                                     <?php endforeach; ?>
-
                                            </a>
 
                                        </div>
