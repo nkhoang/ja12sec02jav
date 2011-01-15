@@ -25,7 +25,7 @@ class CategoryController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('ajaxUpdateCategory'),
+                'actions' => array('ajaxUpdateCategory', 'deleteCategory'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -34,6 +34,31 @@ class CategoryController extends Controller {
         );
     }
 
+    /**
+     * Delete category id.
+     * @param <type> $category_id category id.
+     */
+    public function actionDeleteCategory($category_id = null) {
+        if ($category_id === null) {
+            throw new CHttpException(404, 'The requested page does not exist.');
+        }
+        $items = Item::model()->findAll('category_id =:categoryID', array(
+            ':categoryID' => $category_id,
+        ));
+        if (count($items) > 0 ) {
+            foreach($items as $item) {
+                $item->delete();
+            }
+        }
+        $this->loadModel($category_id)->delete();
+
+        echo 'success';
+    }
+
+    /**
+     * update category id.
+     * @param <type> $id category_id
+     */
     public function actionAjaxUpdateCategory($id = null) {
         if ($id !== null) {
             $model = $this->loadModel($id);
