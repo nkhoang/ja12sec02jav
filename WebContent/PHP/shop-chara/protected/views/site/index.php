@@ -7,7 +7,6 @@
             image.src = $this.attr('src');
             if (image.complete) { // IE fixed.
                 var ratio = calculateRatio(image.width, image.height, 138, 158);
-                alert(ratio);
                 $this.attr({
                     'width': Math.round(ratio * image.width),
                     'height': Math.round(ratio * image.height)
@@ -17,7 +16,6 @@
             } else {
                 $(image).load(function(){
                     var ratio = calculateRatio(image.width, image.height, 138, 158);
-                    alert(ratio);
                     $this.attr({
                         'width': Math.round(ratio * image.width),
                         'height': Math.round(ratio * image.height)
@@ -132,6 +130,7 @@
                     </div>
                 </div>
                 -->
+                <!--
                 <div class="tab shirt first last active">
                     <div class="snt">
                     </div>
@@ -146,6 +145,8 @@
                     <div class="snb">
                     </div>
                 </div>
+                -->
+                <?php echo $sub_navigation; ?>
             </div>
             <div id="contentContainer">
                 <div class="ctt">

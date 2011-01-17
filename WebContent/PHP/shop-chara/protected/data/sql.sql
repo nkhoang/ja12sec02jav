@@ -127,3 +127,5 @@ INSERT INTO `item` (`description`, `item_id`, `price`, `quantity`, `category_id`
 
 insert into category (title, description) values ('short', 'Short');
 insert into category (title, description) values ('pains', 'Pains');
+
+ALTER TABLE category ADD COLUMN hide INT(1) DEFAULT 0;

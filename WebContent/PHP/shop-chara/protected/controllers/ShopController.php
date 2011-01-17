@@ -386,6 +386,7 @@ class ShopController extends Controller {
                 ), false, $processOutput);
     }
 
+
     /**
      * Performs the AJAX validation.
      * @param CModel the model to be validated

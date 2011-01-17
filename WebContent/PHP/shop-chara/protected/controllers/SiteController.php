@@ -27,9 +27,24 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+        $criteria = new CDbCriteria; // just to apply sort
+        $criteria->select = '*';
+
+        $dataProvider = new CActiveDataProvider('Category',
+                        array(
+                            'criteria' => $criteria,
+                        )
+        );
+        $sub_navigation = $this->widget('zii.widgets.CListView', array(
+                    'id' => 'sub_navigation_list_view',
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '/shop/_navigation_tab',
+                    'template' => '{items}',
+                        ), true);
+
+        $this->render('index', array(
+            'sub_navigation' => $sub_navigation,
+        ));
     }
 
     /**
