@@ -95,9 +95,9 @@ body {
     background: url(../images/chara/btn_hover_right.gif) no-repeat 0 0;
 }
 
-#subNav div.active div.snt {
-    height: 27px;
-    background: url(../images/chara/btn_hover_left_normal_right.gif) no-repeat 0 0;
+#subNav div.last.active div.snt {
+    height: 0px;
+    background: none;
 }
 
 #subNav div.snm {
@@ -190,6 +190,12 @@ body {
     width: 56px;
     height: 21px;
     background: url(../images/chara/subnav_last_snb.gif) no-repeat 0 0;
+}
+
+#subNav div.nextActive div.snb {
+    background: url(../images/chara/btn_hover_left_normal_right.gif) no-repeat 0 0;
+    height: 21px;
+    width: 56px;
 }
 
 /* Content for Items  + 13 px margin left*/

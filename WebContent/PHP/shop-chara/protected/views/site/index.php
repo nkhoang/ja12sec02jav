@@ -1,5 +1,13 @@
 <?php $this->pageTitle = Yii::app()->name; ?>
 <script type="text/javascript">
+    function updateTabSelection(ele) {
+        $('#subNav .tab').removeClass('active').removeClass('nextActive');
+        var $tab = $(ele).find('.tab');
+        if (!$tab.hasClass('first')) {
+            $(ele).prev().find('.tab').addClass('nextActive');
+        }
+        $tab.addClass('active');
+    }
     function preloadAllImage() {
         $('.thumbnail img').each(function(){
             var $this= $(this);
@@ -29,14 +37,9 @@
     }
 
     $(function(){
-        $.ajax({
-            'type': 'post',
-            'url': '<?php echo CController::createUrl('/shop/showItems', array('category_id' => 9)); ?>',
-            'success': function(html) {
-                $('#itemsContainer').html(html);
-                preloadAllImage();
-            }
-        });
+        // handle navigation selection and class adding.
+        $('#subNav .tab:last').addClass('last');
+        $('#subNav .tab:first').addClass('active');
 
         // propagate click to show fancybox.
         $('img.item').live('click', function(){
