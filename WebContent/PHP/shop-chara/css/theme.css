@@ -90,7 +90,7 @@ body {
     background: url(../images/chara/btn_normal_right.gif) no-repeat 0 0;
 }
 
-#subNav div.first.active div.snt {
+#subNav div.first.active div.snt, #subNav div.first.last.active div.snt {
     height: 22px;
     background: url(../images/chara/btn_hover_right.gif) no-repeat 0 0;
 }

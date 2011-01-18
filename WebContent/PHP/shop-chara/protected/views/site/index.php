@@ -39,7 +39,7 @@
     $(function(){
         // handle navigation selection and class adding.
         $('#subNav .tab:last').addClass('last');
-        $('#subNav .tab:first').addClass('active');
+        $('#subNav .tab:first').addClass('active').parents('a').click();
 
         // propagate click to show fancybox.
         $('img.item').live('click', function(){
