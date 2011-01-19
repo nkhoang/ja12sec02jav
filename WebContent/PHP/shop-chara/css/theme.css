@@ -125,7 +125,7 @@ body {
 }
 
 #subNav div.tab.short:hover div.snc {
-    background: #E4E3DC url(../images/chara/btn_hover_side_middle_pains) no-repeat center center;
+    background: #E4E3DC url(../images/chara/btn_hover_side_middle_pains.gif) no-repeat center center;
 }
 
 #subNav div.tab.short.active:hover div.snc {
@@ -207,6 +207,7 @@ body {
     /*height: 760px;*/
     height: 560px;
     min-height: 300px;
+    z-index: 100; /* fix subnav shadown */
 }
 
 #contentContainer .ctc {
@@ -247,7 +248,7 @@ body {
 #contentContainer .ctm .ctl {
     width: 39px;
     height: 100%;
-    background: url(../images/chara/content_container_ctm_ctl.gif) repeat-y 0 0;
+    background: url(../images/chara/content_container_ctm_ctl.png) repeat-y 0 0;
     float: left;
 }
 
