@@ -78,6 +78,9 @@ body {
     margin-top: 30px;
 }
 
+#subNav a {
+    outline: none;
+}
 /* handle in case bottom has class: hidden */
 #subNav div.snt {
     z-index: 100;
@@ -101,6 +104,13 @@ body {
 }
 
 #subNav div.snm {
+    height: 90px;
+}
+
+#subNav .active div.snm {
+    height: 96px;
+}
+#subNav .first.active div.snm {
     height: 90px;
 }
 
