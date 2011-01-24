@@ -120,6 +120,12 @@
     <!-- Dependencies calculated by AppFuse when running full-source plugin -->
     <dependencies>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>1.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>${jdbc.groupId}</groupId>
             <artifactId>${jdbc.artifactId}</artifactId>
             <version>${jdbc.version}</version>
@@ -423,9 +429,14 @@
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.1.13</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+        <!--
         <jdbc.url>jdbc:mysql://misschara.com/${db.name}?createDatabaseIfNotExist=false&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8</jdbc.url>
         <jdbc.username>misschar_lucene</jdbc.username>
         <jdbc.password>#W!9#yyLfppK</jdbc.password>
+        -->
+        <jdbc.url>jdbc:mysql://localhost/misschar_lucene?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8</jdbc.url>
+        <jdbc.username>root</jdbc.username>
+        <jdbc.password>root</jdbc.password>
 
         <!-- Properties calculated by AppFuse when running full-source plugin -->
         <aspectj.version>1.6.9</aspectj.version>

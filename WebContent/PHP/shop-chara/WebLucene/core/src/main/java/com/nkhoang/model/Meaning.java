@@ -57,7 +57,7 @@ public class Meaning {
 
     public void addExample(String ex) {
         Example example = new Example(StringEscapeUtils.escapeSql(ex));
-        example.setMeaning(this);
+        //example.setMeaning(this);
         this.examples.add(example);
     }
 
@@ -81,7 +81,7 @@ public class Meaning {
     }
 
     public void setContent(String content) {
-        this.content = StringEscapeUtils.escapeXml(content);
+        this.content = StringEscapeUtils.escapeSql(content);
     }
 
 

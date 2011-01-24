@@ -36,40 +36,35 @@ import java.util.Set;
 public class VocabularyServiceTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(VocabularyServiceTest.class);
 
+    @Autowired
     private VocabularyService vocabularyService;
+    @Autowired
+    private SpreadsheetServiceImpl spreadsheetService;
 
     @Test
     public void run() {
     }
 
     @Test
-    public void testLookupEN() throws Exception {
-        //Word w = lookup("take");
-        //w = lookupENLongman(w, "take");
-        //w = lookupENCambridge(w, "take");
-
-
-        //String test = showWord(w);
-
-
+    public void testVocabularyService() throws Exception {
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"applicationContext-dao.xml", "applicationContext-resources.xml",
+                "applicationContext-service.xml"});
         if (vocabularyService == null) {
-            ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "applicationContext-dao.xml", "applicationContext-resources.xml",
-            "applicationContext-service.xml" });
-
-            if (vocabularyService == null) {
-                vocabularyService = (VocabularyService) context.getBean("vocabularyService");
-            }
-
+            vocabularyService = (VocabularyService) context.getBean("vocabularyService");
         }
+        if (spreadsheetService == null) {
+            spreadsheetService = (SpreadsheetServiceImpl) context.getBean("spreadsheetService");
+        }
+        List<String> words = spreadsheetService.getWordList();
 
-
+        if (words.size() > 0) {
+            LOGGER.info("Total words:  " + words.size());
+        }
         vocabularyService.removeAll();
 
-        //vocabularyService.save("take");
-
-        //LOGGER.info(test);
-
-
+        for (String w : words) {
+            vocabularyService.save(w);
+        }
     }
 
     public String showWord(Word w) {

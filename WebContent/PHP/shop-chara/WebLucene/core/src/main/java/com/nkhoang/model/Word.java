@@ -84,7 +84,7 @@ public class Word {
     }
 
     public void addMeaning(Meaning meaning) {
-        meaning.setWord(this);
+        //meaning.setWord(this);
         this.meanings.add(meaning);
     }
 
@@ -129,7 +129,7 @@ public class Word {
 
 
     public void setPron(String pron) {
-        this.pron = StringEscapeUtils.escapeHtml(pron);
+        this.pron = StringEscapeUtils.escapeSql(pron);
     }
 
 
@@ -183,6 +183,6 @@ public class Word {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = StringEscapeUtils.escapeSql(content);
     }
 }

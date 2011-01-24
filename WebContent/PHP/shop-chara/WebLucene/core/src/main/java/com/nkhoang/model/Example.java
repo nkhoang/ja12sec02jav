@@ -50,7 +50,7 @@ public class Example {
     }
 
     public void setContent(String content) {
-        this.content = StringEscapeUtils.escapeXml(content);
+        this.content = StringEscapeUtils.escapeSql(content);
     }
 
     public Meaning getMeaning() {

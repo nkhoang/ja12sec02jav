@@ -127,7 +127,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     if (prons != null && prons.size() > 0) {
                         String pron = prons.get(0).getTextExtractor().toString();
                          LOGGER.info("Pron: " + pron + " escape: " + StringEscapeUtils.escapeSql(pron));
-                        aWord.setPron(StringEscapeUtils.escapeSql(pron));
+                        aWord.setPron(pron);
 
                     }
                     // get mp3 file
@@ -170,7 +170,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             Source source = checkWordExistence("http://www.ldoceonline.com/dictionary/", word.toLowerCase(), "Entry");
             int i = 1;
             if (source == null) {
-                LOGGER.info("Check URL with index");
+                //LOGGER.info("Check URL with index");
                 // check it again
                 source = checkWordExistence("http://www.ldoceonline.com/dictionary/", word.toLowerCase() + "_" + i, "Entry");
             }
@@ -180,7 +180,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                 List<Element> kinds = source.getAllElementsByClass("wordclassSelected");
                 if (kinds != null && kinds.size() > 0) {
                     kind = kinds.get(0).getTextExtractor().toString();
-                    LOGGER.info("Kind: " + kind);
+                    // LOGGER.info("Kind: " + kind);
                 }
                 // process meaning
 
@@ -202,8 +202,8 @@ public class VocabularyServiceImpl implements VocabularyService {
                         Element ftdef = null;
                         if (ftdefs != null && ftdefs.size() > 0) {
                             ftdef = ftdefs.get(0);
-                            mainM.setContent(StringEscapeUtils.escapeSql(gramStr + " " + ftdef.getTextExtractor().toString()));
-                            LOGGER.info("Meaning: " + StringEscapeUtils.escapeSql(ftdef.getTextExtractor().toString()));
+                            mainM.setContent(gramStr + " " + ftdef.getTextExtractor().toString());
+                            //LOGGER.info("Meaning: " + StringEscapeUtils.escapeSql(ftdef.getTextExtractor().toString()));
                         } else {
                             LOGGER.info("Could not check definition for this word: " + word);
                         }
@@ -264,7 +264,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         if (grams != null && grams.size() > 0) {
             String str = grams.get(0).getTextExtractor().toString();
             str = StringEscapeUtils.escapeSql(str);
-            m.setContent(StringEscapeUtils.escapeSql(str));
+            m.setContent(str);
             LOGGER.info(nametag + ": " + StringEscapeUtils.escapeSql(str));
         }
 
@@ -315,7 +315,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     if (prons != null && prons.size() > 0) {
                         String pron = prons.get(0).getContent().toString();
                         LOGGER.info("Pron: " + pron + " escape: " + StringEscapeUtils.escapeSql(pron));
-                        aWord.setPron(StringEscapeUtils.escapeSql(pron));
+                        aWord.setPron(pron);
                     }
 
                     // get mp3 file
