@@ -5,10 +5,12 @@ import com.nkhoang.model.Meaning;
 import com.nkhoang.model.Word;
 import com.nkhoang.service.BaseManagerTestCase;
 import com.nkhoang.service.VocabularyService;
+import com.nkhoang.util.lucene.LuceneWriterUtils;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -45,8 +48,8 @@ public class VocabularyServiceTest {
     public void run() {
     }
 
-    @Test
-    public void testVocabularyService() throws Exception {
+    @Before
+    public void setup() {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"applicationContext-dao.xml", "applicationContext-resources.xml",
                 "applicationContext-service.xml"});
         if (vocabularyService == null) {
@@ -55,6 +58,18 @@ public class VocabularyServiceTest {
         if (spreadsheetService == null) {
             spreadsheetService = (SpreadsheetServiceImpl) context.getBean("spreadsheetService");
         }
+    }
+
+    @Test
+    public void testIndexer() throws IOException {
+        List<Word> words = vocabularyService.getAll();
+        for (Word w : words) {
+            LuceneWriterUtils.writeWordToIndex(w);
+        }
+        LuceneWriterUtils.closeLuceneWriter();
+    }
+
+    public void testVocabularyService() throws Exception {
         List<String> words = spreadsheetService.getWordList();
 
         if (words.size() > 0) {

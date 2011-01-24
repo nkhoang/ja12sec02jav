@@ -50,6 +50,10 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
     }
 
+    public List<Word> getAll() {
+        return wordDao.getAll();
+    }
+
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
         if (wordDao.find(lookupWord)) {
             LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);

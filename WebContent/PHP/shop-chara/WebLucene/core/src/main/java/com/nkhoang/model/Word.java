@@ -124,19 +124,13 @@ public class Word {
         return kindIdMap;
     }
 
-
-
-
-
     public void setPron(String pron) {
         this.pron = StringEscapeUtils.escapeSql(pron);
     }
 
-
     public String getPron() {
         return pron;
     }
-
 
     public void setSoundSource(String soundSource) {
         this.soundSource = soundSource;

@@ -3,6 +3,7 @@ package com.nkhoang.service;
 import com.nkhoang.model.Word;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,4 +15,5 @@ import java.io.IOException;
 public interface VocabularyService {
     Word save(String lookupWord) throws IOException, IllegalArgumentException;
     void removeAll();
+    List<Word> getAll();
 }
