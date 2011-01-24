@@ -1,25 +1,22 @@
 package com.nkhoang.service.impl;
 
-import com.ctc.wstx.util.StringUtil;
 import com.nkhoang.model.Meaning;
 import com.nkhoang.model.Word;
-import com.nkhoang.service.BaseManagerTestCase;
 import com.nkhoang.service.VocabularyService;
-import com.nkhoang.util.lucene.LuceneWriterUtils;
+import com.nkhoang.util.lucene.LuceneUtils;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.search.Query;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,12 +58,25 @@ public class VocabularyServiceTest {
     }
 
     @Test
+    public void testSearcher() throws IOException {
+        Word w = new Word();
+        w.setDescription("*ent*");
+        w.setContent("English");
+
+        Query query = LuceneUtils.buildQuery(w);
+        LOGGER.info("Query: " + query.toString());
+        List<String> idsResult = LuceneUtils.performSearch(query, LuceneUtils.getLuceneSearcher());
+        if (idsResult.size() > 0) {
+            LOGGER.info("Id : " + idsResult.get(0));
+        }
+    }
+
     public void testIndexer() throws IOException {
         List<Word> words = vocabularyService.getAll();
         for (Word w : words) {
-            LuceneWriterUtils.writeWordToIndex(w);
+            LuceneUtils.writeWordToIndex(w);
         }
-        LuceneWriterUtils.closeLuceneWriter();
+        LuceneUtils.closeLuceneWriter();
     }
 
     public void testVocabularyService() throws Exception {
