@@ -1,0 +1,22 @@
+This file exists so that a unit test which tests sending email with an attachment succeeds.
+
+ALTER TABLE Example MODIFY
+    content VARCHAR(4000)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci;# MySQL returned an empty result set (i.e. zero rows).
+
+
+
+ALTER TABLE Meaning MODIFY
+    content VARCHAR(4000)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci;# MySQL returned an empty result set (i.e. zero rows).
+
+
+ALTER TABLE Word MODIFY
+    pron VARCHAR(4000)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci;# MySQL returned an empty result set (i.e. zero rows).
+
+@OneToMany(fetch = FetchType.EAGER, mappedBy = "word")
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
