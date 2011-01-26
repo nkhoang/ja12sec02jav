@@ -55,8 +55,14 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
+        lookupWord = lookupWord.toLowerCase().trim(); // lowercase and trim whitespaces.
+        if (StringUtils.contains(lookupWord, ' ')){ // check to make sure only one character
+            LOGGER.info(lookupWord + " contains invalid character found. Return null.");
+            return null;
+        }
         if (wordDao.find(lookupWord)) {
             LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
+            return null;
         }
         LOGGER.info("Saving word : " + lookupWord);
         Word word = null;
@@ -95,6 +101,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      *
      * @param aWord Word obj to be updated.
      * @param word  word in String.
+     *
      * @throws IOException connection problems.
      */
     private void lookupPron(Word aWord, String word) throws IOException {
@@ -130,7 +137,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     // get Pron
                     if (prons != null && prons.size() > 0) {
                         String pron = prons.get(0).getTextExtractor().toString();
-                         LOGGER.info("Pron: " + pron + " escape: " + StringEscapeUtils.escapeSql(pron));
+                        LOGGER.info("Pron: " + pron + " escape: " + StringEscapeUtils.escapeSql(pron));
                         aWord.setPron(pron);
 
                     }
@@ -160,12 +167,12 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-
     /**
      * tag for kind: wordclassSelected
      *
      * @param aWord
      * @param word
+     *
      * @return
      */
     public Word lookupENLongman(Word aWord, String word) {
@@ -259,6 +266,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      * Process Sub example for tag GramExa
      *
      * @param s source to process.
+     *
      * @return Meaning found.
      */
     private Meaning processSubExampleLongman(Element s, String nametag) {
@@ -391,9 +399,13 @@ public class VocabularyServiceImpl implements VocabularyService {
         try {
             URL url = new URL(urlLink + word);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);
             connection.setRequestMethod("GET");
             // get inputStream
             InputStream is = connection.getInputStream();
+            if (is == null) {
+                LOGGER.error("Connection to " + urlLink + " has been broken.");
+            }
             // create source HTML
             Source source = new Source(is);
 
@@ -416,9 +428,13 @@ public class VocabularyServiceImpl implements VocabularyService {
             URL url = new URL("http://m.vdict.com/?word=" + word + "&dict=1&searchaction=Lookup");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000); // set connection timeout
             connection.setRequestMethod("GET");
             // get inputStream
             InputStream is = connection.getInputStream();
+            if (is == null) {
+                LOGGER.error("Connection to " + url.toString() + " has been broken.");
+            }
             // create source HTML
             Source source = new Source(is);
             List<Element> contentEles = source.getAllElementsByClass("result");
@@ -500,7 +516,6 @@ public class VocabularyServiceImpl implements VocabularyService {
             return null;
         }
     }
-
 
 
     public MeaningDao getMeaningDao() {

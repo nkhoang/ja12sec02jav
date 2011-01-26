@@ -41,10 +41,6 @@ public class VocabularyServiceTest {
     @Autowired
     private SpreadsheetServiceImpl spreadsheetService;
 
-    @Test
-    public void run() {
-    }
-
     @Before
     public void setup() {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"applicationContext-dao.xml", "applicationContext-resources.xml",
@@ -57,19 +53,29 @@ public class VocabularyServiceTest {
         }
     }
 
+
     @Test
-    public void testSearcher() throws IOException {
+    public void clearAll() {
+        vocabularyService.removeAll();
+    }
+
+
+    public void testSearcher() throws Exception {
         Word w = new Word();
-        w.setDescription("*ent*");
-        w.setContent("English");
+        //w.setDescription("fluen");
+        w.setContent("giao cho ");
 
         Query query = LuceneUtils.buildQuery(w);
         LOGGER.info("Query: " + query.toString());
         List<String> idsResult = LuceneUtils.performSearch(query, LuceneUtils.getLuceneSearcher());
         if (idsResult.size() > 0) {
-            LOGGER.info("Id : " + idsResult.get(0));
+            for (String id : idsResult) {
+                LOGGER.info("Id : " + id);
+            }
+
         }
     }
+
 
     public void testIndexer() throws IOException {
         List<Word> words = vocabularyService.getAll();
@@ -79,13 +85,15 @@ public class VocabularyServiceTest {
         LuceneUtils.closeLuceneWriter();
     }
 
+
+
     public void testVocabularyService() throws Exception {
         List<String> words = spreadsheetService.getWordList();
 
         if (words.size() > 0) {
             LOGGER.info("Total words:  " + words.size());
         }
-        vocabularyService.removeAll();
+        // vocabularyService.removeAll();
 
         for (String w : words) {
             vocabularyService.save(w);

@@ -5,14 +5,20 @@ import com.nkhoang.model.Word;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.analysis.WhitespaceAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.NIOFSDirectory;
+import org.apache.lucene.util.Version;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.text.StyledEditorKit;
@@ -53,8 +59,8 @@ public class LuceneUtils {
             if (_luceneIndexSearcher == null) {
                 File indexDir = new File(INDEX_DIR);
                 //NIOFS is supposed to be faster on unix based system
-                Directory dir = NIOFSDirectory.open(indexDir);
-                //RAMDirectory dir = new RAMDirectory(NIOFSDirectory.open(indexDir));
+                Directory dir = FSDirectory.open(indexDir);
+                //RAMDirectory dir = new RAMDirectory(NIOFSDirectory.open(indexDir));                
                 _luceneIndexSearcher = new IndexSearcher(dir, true);
             }
         }
@@ -88,7 +94,7 @@ public class LuceneUtils {
         return ids;
     }
 
-    public static Query buildQuery(Word w) {
+    public static Query buildQuery(Word w) throws Exception {
         BooleanQuery query = new BooleanQuery();
         // buiil query base on 2 main fields.
         if (StringUtils.isNotBlank(w.getDescription())) {
@@ -98,7 +104,7 @@ public class LuceneUtils {
             descriptionQuery.add(createTermClause(LuceneSearchField.DESCRIPTION, term, BooleanClause.Occur.SHOULD));
             descriptionQuery.add(createWildcardClause(LuceneSearchField.DESCRIPTION, term, BooleanClause.Occur.SHOULD));
 
-            query.add(descriptionQuery, BooleanClause.Occur.SHOULD);
+            query.add(descriptionQuery, BooleanClause.Occur.MUST);
         }
         if (StringUtils.isNotBlank(w.getContent())) {
             BooleanQuery contentQuery = new BooleanQuery();
@@ -107,9 +113,12 @@ public class LuceneUtils {
             contentQuery.add(createFuzzyClause(LuceneSearchField.CONTENT, term, BooleanClause.Occur.SHOULD));
             contentQuery.add(createTermClause(LuceneSearchField.CONTENT, term, BooleanClause.Occur.SHOULD));
             contentQuery.add(createWildcardClause(LuceneSearchField.CONTENT, term, BooleanClause.Occur.SHOULD));
-            query.add(contentQuery, BooleanClause.Occur.SHOULD);
+            query.add(contentQuery, BooleanClause.Occur.MUST);
         }
-        return query;
+        
+        QueryParser parser = new QueryParser(Version.LUCENE_29, LuceneSearchField.DESCRIPTION, new SimpleAnalyzer());
+
+        return parser.parse(query.toString());
     }
 
     private static BooleanClause createTermClause(String field, String term, BooleanClause.Occur occur) {
@@ -149,7 +158,7 @@ public class LuceneUtils {
                 //NIOFS is supposed to be faster on unix based system
                 Directory dir = NIOFSDirectory.open(indexDir);
                 //RAMDirectory dir = new RAMDirectory(NIOFSDirectory.open(indexDir));
-                Analyzer analyzer = new WhitespaceAnalyzer();
+                Analyzer analyzer = new SimpleAnalyzer();
                 _luceneIndexWriter = new IndexWriter(dir, analyzer,
                         IndexWriter.MaxFieldLength.UNLIMITED);
             }
