@@ -54,7 +54,7 @@ public class VocabularyServiceTest {
     }
 
 
-    @Test
+   @Test
     public void clearAll() {
         vocabularyService.removeAll();
     }

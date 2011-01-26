@@ -1,8 +1,10 @@
 package com.nkhoang.service.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nkhoang.dao.MeaningDao;
 import com.nkhoang.dao.WordDao;
+import com.nkhoang.model.GSONStrategy;
 import com.nkhoang.model.Meaning;
 import com.nkhoang.model.Word;
 import com.nkhoang.service.VocabularyService;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -56,7 +59,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
         lookupWord = lookupWord.toLowerCase().trim(); // lowercase and trim whitespaces.
-        if (StringUtils.contains(lookupWord, ' ')){ // check to make sure only one character
+        if (StringUtils.contains(lookupWord, ' ')) { // check to make sure only one character
             LOGGER.info(lookupWord + " contains invalid character found. Return null.");
             return null;
         }
@@ -79,17 +82,20 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
 
         if (word != null) {
-
-
-            try {
-                word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-                Gson gson = new Gson();
-                String jsonContent = gson.toJson(word);
-                word.setContent(jsonContent);
-                wordDao.save(word);
-            } catch (Exception e) {
-                LOGGER.info(e.toString());
-                LOGGER.info("Could not save word:" + word.toString());
+            if (word.getMeanings().size() > 0) {
+                try {
+                    word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
+                    List<String> exlucdeAttrs = new ArrayList<String>();
+                    exlucdeAttrs.add("kindIdMap");
+                    Gson gson = new GsonBuilder().setExclusionStrategies(
+                            new GSONStrategy(exlucdeAttrs)).create();
+                    String jsonContent = gson.toJson(word);
+                    word.setContent(jsonContent);
+                    wordDao.save(word);
+                } catch (Exception e) {
+                    LOGGER.info(e.toString());
+                    LOGGER.info("Could not save word:" + word.toString());
+                }
             }
         }
         return word;
@@ -494,14 +500,10 @@ public class VocabularyServiceImpl implements VocabularyService {
                                             meaning.addExample(example);
                                             LOGGER.info("Example: " + example);
                                         }
-
-
                                     }
                                 }
                             }
                             if (meaning != null) {
-
-
                                 // log.info(meaning.getContent());
                                 aWord.addMeaning(meaning);
                             }
