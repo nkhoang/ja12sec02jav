@@ -54,7 +54,7 @@ public class VocabularyServiceTest {
     }
 
 
-   @Test
+
     public void clearAll() {
         vocabularyService.removeAll();
     }
@@ -86,7 +86,7 @@ public class VocabularyServiceTest {
     }
 
 
-
+                   @Test
     public void testVocabularyService() throws Exception {
         List<String> words = spreadsheetService.getWordList();
 

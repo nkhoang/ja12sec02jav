@@ -220,6 +220,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                         if (ftdefs != null && ftdefs.size() > 0) {
                             ftdef = ftdefs.get(0);
                             mainM.setContent(gramStr + " " + ftdef.getTextExtractor().toString());
+                            mainM.setKindId(aWord.getKindidmap().get(kind));
                             //LOGGER.info("Meaning: " + StringEscapeUtils.escapeSql(ftdef.getTextExtractor().toString()));
                         } else {
                             LOGGER.info("Could not check definition for this word: " + word);
