@@ -48,47 +48,41 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.mousewheel-3.0.4.pack.
 
 <div style="color:white">You're logged in as <b><?php echo Yii::app()->user->getName(); ?></b></div>
 <div class="container">
-    <div id="admin_board">
-        <div class="section" id="DashboardContent">
-            <div class="sectiontr"></div>
-            <div class="sectiontl"></div>
-            <div id="titleHolder">
-                <table cellspacing="0" cellpadding="0" border="0" class="title">
-                    <tbody>
-                    <tr>
-                        <td class="titlecontent">
-                            <div id="titletl"></div>
-                            <div id="titletr"></div>
-                            <ul class="options">
-                                <li><a class="bfoButton" href="javascript:tw.NewProject()"><span>Add project</span></a>
-                                </li>
-                            </ul>
-                            <h2>Admin Board</h2></td>
-                    </tr>
-                    </tbody>
-                </table>
+
+    <div class="section" id="DashboardContent">
+        <div class="sectiontr"></div>
+        <div class="sectiontl"></div>
+        <div id="titleHolder">
+            <table cellspacing="0" cellpadding="0" border="0" class="title">
+                <tbody>
+                <tr>
+                    <td class="titlecontent">
+                        <div id="titletl"></div>
+                        <div id="titletr"></div>
+                        <ul class="options">
+                            <li><a class="bfoButton" href="javascript:tw.NewProject()"><span>Add project</span></a>
+                            </li>
+                        </ul>
+                        <h2>Admin Board</h2></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="sectionContent minHeight">
+
+            <div id="admin_board">
+                <?php echo $content; ?>
             </div>
+        </div>
+        <div class="sectionbl">
+            <div class="sectionbr">
 
-            <div class="sectionContent minHeight">
-                <div class="noPrint" id="pageFilter">
-asdfad
-                </div>
-                <div id="projectActivity">
-
-                    <div id="projectActivity">
-                    <?php echo $content; ?>
-                    </div>
-                </div>
-            </div>
-            <div class="sectionbl">
-                <div class="sectionbr">
-
-                </div>
             </div>
         </div>
     </div>
-    <!-- footer -->
 </div>
+<!-- footer -->
+
 <!-- page -->
 
 </body>

@@ -30,22 +30,24 @@ a img {
     border: none;
 }
 
-/* Board Container */
-#admin_board {
-    width: 900px;
+#DashboardContent {
+    margin: 30px;
+}
 
+/* Board Container */
+#admin_board {    
     margin:  10px auto;
 }
 
 #admin_board .content {
     min-height: 400px;
     margin: 5px;
+    width: 100%;
 }
 
 /* Category Board Container */
 #category_board {
     width: 100%;
-    padding: 10px;    
     float: left;
 }
 #category_board .items {

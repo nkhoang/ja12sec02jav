@@ -124,11 +124,15 @@ class ItemPictureController extends Controller {
         $this->renderPartial('/itemPicture/_edit_form', array(
             'model' => $model,
             'itemID' => $id,
-                ), false, true);
+        ), false, true);
     }
 
     public function actionAjaxCreateItemPicture($id = null) {
         $itemPic = new ItemPicture;
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
+            $itemPic->attributes = $_POST['ItemPicture'];
+        }
+
         if ($id !== null) {
             $itemPic->item_id = $id;
         }
@@ -141,7 +145,7 @@ class ItemPictureController extends Controller {
         $itemPic->title = $item->item_id . '-' . str_pad($countItemPicture + 1, 5, '0', STR_PAD_LEFT);
 
         if (Yii::app()->request->isAjaxRequest && isset($_POST['ItemPicture'])) {
-            $itemPic->attributes = $_POST['ItemPicture'];
+
             if ($itemPic->save()) {
                 Yii::app()->user->setFlash('itemPictureCreated', 'Item Picture Created!!!!!');
             }
@@ -182,7 +186,7 @@ class ItemPictureController extends Controller {
      */
     public function actionAdmin() {
         $model = new ItemPicture('search');
-        $model->unsetAttributes();  // clear any default values
+        $model->unsetAttributes(); // clear any default values
         if (isset($_GET['ItemPicture']))
             $model->attributes = $_GET['ItemPicture'];
 

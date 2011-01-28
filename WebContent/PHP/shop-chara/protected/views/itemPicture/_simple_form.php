@@ -36,7 +36,7 @@
                     'action' => CController::createUrl('/itemPicture/create'),
                 ));
         ?>
-        You're adding item picture for Item <b>id: <?php echo $itemID ?> </b>
+        You're adding item picture for Item <b>id: <?php echo $model->item_id ?> </b>
 
         <br />
         Please input Picasa account information here:
