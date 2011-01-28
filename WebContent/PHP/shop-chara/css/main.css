@@ -5,17 +5,10 @@ body
 {
 	margin: 0;
 	padding: 0;
-	color: #555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
-}
+	color: white;
 
-#page
-{
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background: white;
-	border: 1px solid #C9E0ED;
+	font: normal 10pt Arial,Helvetica,sans-serif;
+	background: #134584;
 }
 
 #header

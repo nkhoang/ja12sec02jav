@@ -9,7 +9,7 @@
         updateTabSelection(this);
         return false; ">
     <div class="tab <?php echo strtolower(CHtml::encode($data->title)) ?> <?php if ($index === 0)
-    echo first; ?>">
+    echo 'first'; ?>">
         <div class="snt">
         </div>
         <div class="snm">

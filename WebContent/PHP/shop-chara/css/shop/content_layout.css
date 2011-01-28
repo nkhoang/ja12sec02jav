@@ -1,0 +1,5347 @@
+* {
+    outline: 0 none;
+}
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, img {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+}
+ul, ol {
+    list-style: none outside none;
+}
+a {
+    text-decoration: underline;
+}
+a:link {
+    color: #0055FF;
+}
+a:visited {
+    color: #0055FF;
+}
+a:hover {
+    color: #0077FF;
+}
+a img {
+    border: medium none;
+}
+.txt12 {
+    font-size: 12px !important;
+}
+a.red {
+    color: #FF0000 !important;
+    padding: 1px 3px;
+    text-decoration: underline !important;
+}
+a.red:hover {
+    background-color: #FF0000 !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+a.blue {
+    color: #1D6DFF !important;
+    padding: 1px 3px !important;
+    text-decoration: underline !important;
+}
+a.blue:hover {
+    background-color: #1D6DFF !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+a.green {
+    color: #248008 !important;
+    padding: 1px 3px !important;
+    text-decoration: underline !important;
+}
+a.green:hover {
+    background-color: #248008 !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+input.action, form input[type="submit"] {
+    padding: 5px 6px;
+}
+form {
+    margin: 0;
+    padding: 0;
+}
+small {
+    color: #AAAAAA;
+    font-weight: normal;
+}
+#header h1 {
+    color: #FFFFFF;
+    font: 26px/28px 'LiberationSansRegular',Arial,sans-serif;
+    letter-spacing: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 8px 0 18px 12px;
+    text-align: left;
+}
+html > body #header h1 {
+    width: auto;
+}
+h1 span {
+    border: medium none;
+    color: #DBE3FA;
+    font-size: 18px;
+    font-weight: normal;
+    padding-bottom: 5px;
+}
+h1.projectViewTitle {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+h2 {
+    color: #333333;
+    font: 22px/22px 'LiberationSansRegular',Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+h2 span {
+    border-color: -moz-use-text-color -moz-use-text-color -moz-use-text-color #DDDDDD;
+    border-style: none none none dashed;
+    border-width: medium medium medium 1px;
+    color: #666666;
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+h3 {
+    border: medium none;
+    color: #333333;
+    font-family: helvetica,arial,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+h3 span {
+    border: medium none;
+    color: #666666;
+    font-size: 11px;
+    font-weight: normal;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+a h3 {
+    text-decoration: underline;
+}
+h4 {
+    color: #333333;
+    font-family: helvetica,arial,sans-serif;
+    font-size: 13px;
+    margin: 5px 0;
+    padding: 0;
+}
+h3#late {
+    background-color: #D60000;
+    border: medium none;
+    color: #FFFFFF;
+    margin-bottom: 15px;
+}
+h3#late a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+h3#late a:hover {
+    text-decoration: underline;
+}
+h3#late span {
+    color: #FFFFFF;
+    font-size: 12px;
+}
+h3#today, h3#current {
+    background-color: #3961A3;
+    border: medium none;
+    color: #FFFFFF;
+    margin-bottom: 15px;
+}
+h3#today a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+h3#today a:hover {
+    text-decoration: underline;
+}
+h3#today span {
+    color: #FFFFFF;
+    font-size: 12px;
+}
+h3#upcoming {
+    background-color: #FFD600;
+    border: medium none;
+    color: #222222;
+    margin-bottom: 15px;
+}
+h3#upcoming a {
+    color: #222222;
+    text-decoration: none;
+}
+h3#upcoming a:hover {
+    text-decoration: underline;
+}
+h3#upcoming span {
+    color: #222222;
+    font-size: 12px;
+}
+h3#completed, h3#complete {
+    background-color: #008000;
+    border: medium none;
+    color: #FFFFFF;
+}
+h3#underline {
+    background-color: #FFFFFF;
+    border-color: -moz-use-text-color -moz-use-text-color #222222;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding: 2px 5px;
+}
+h3#underline a {
+    color: #222222;
+    text-decoration: none;
+}
+h3#underline a:hover {
+    text-decoration: underline;
+}
+.hidden {
+    display: none;
+}
+a.help {
+    font-size: 11px;
+    text-decoration: none;
+}
+div.QuickItemPopup {
+    background: url("../images/layout/back_quickItem.png") no-repeat scroll 0 0 transparent;
+    height: 53px;
+    position: absolute;
+    width: 350px;
+}
+div.QuickItemPopup div {
+    color: #222222;
+    font-size: 13px;
+    padding: 6px 2px 0 8px;
+}
+div.QuickItemPopup.BL_Down {
+    background-image: url("../images/layout/back_quickItem_BL_Down.png");
+}
+div.QuickItemPopup.BR_Right {
+    background-image: url("../images/layout/back_quickItem_BR_Right.png");
+    width: 357px;
+}
+div.QuickItemPopup.BL_Down.help {
+    background-image: url("../images/layout/back_quickItem_BL_Down.help.png");
+}
+div.QuickItemPopup.BL_Down.help div {
+    color: #444444;
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 23px;
+}
+div.QuickItemPopup.BR_Right div {
+    margin: 2px 12px 5px 5px;
+}
+div.QuickItemPopup.BL_Left {
+    background-image: url("../images/layout/back_quickItem_BL_Left.png");
+    width: 357px;
+}
+div.QuickItemPopup.BL_Left div {
+    overflow: hidden;
+    padding: 4px 5px 5px 16px;
+}
+div.QuickItemPopup td {
+    vertical-align: middle;
+}
+div.QuickItemPopup input.c {
+    width: 94%;
+}
+div.QuickItemPopup a {
+    color: blue;
+    margin: 0;
+    padding: 0;
+}
+div.sortBar {
+    color: #222222;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+div.sortBar ul li.sel a {
+    color: #222222;
+    font-weight: bold;
+}
+div#notificationMessage {
+    background-color: #FFFFCC;
+    border: 1px solid #E9E9E9;
+    font-size: 12px;
+    margin: 5px 10px 12px;
+    padding: 10px;
+}
+#topLeftDashTabsNew {
+    margin: 0;
+    overflow: hidden;
+    padding: 8px 0 0;
+}
+#topLeftDashTabsNew ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0 10px 0 8px;
+}
+#topLeftDashTabsNew ul li {
+    color: #AAAAAA;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+#topLeftDashTabsNew ul li a {
+    -moz-border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 0 1px;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+#topLeftDashTabsNew ul li a {
+    float: none;
+}
+#topLeftDashTabsNew ul li a:hover {
+    background: none repeat scroll 0 0 #222222;
+    color: #FFFFFF;
+}
+#topLeftDashTabsNew ul li.sel a, #topLeftDashTabsNew ul li.onPath a {
+    background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;
+}
+#topLeftDashTabsNew ul li#qa.sel {
+    background-image: url("../images/layout/q_tw_left_on.gif");
+}
+#topLeftDashTabsNew ul li#qa.sel a {
+    background-image: url("../images/layout/q_tw_right_on.gif");
+    color: #FFFFFF;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+#topLeftDashTabsNew ul li#qa {
+    background: url("../images/layout/q_tw_left_on.gif") no-repeat scroll left top transparent;
+    float: left;
+    margin: 0;
+    padding: 0 0 0 9px;
+}
+#topLeftDashTabsNew ul li#qa a {
+    background: url("../images/layout/q_tw_right_on.gif") no-repeat scroll right top transparent;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 1.05em;
+    font-weight: normal;
+    padding: 8px 15px 8px 6px;
+    text-decoration: none;
+}
+div#search {
+    background: url("../images/qsearch/bgSearch.png") no-repeat scroll 0 0 transparent;
+    height: 26px;
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    width: 250px;
+    z-index: 33;
+}
+body#search div#search {
+    display: none;
+}
+form#searchForm {
+    height: 26px;
+    width: 250px;
+}
+form#searchForm input.textbox {
+    background: url("../images/layout/bgSearchInput.gif") no-repeat scroll 0 7px transparent;
+    border: 0 none;
+    color: #AAAAAA;
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+    left: 8px;
+    line-height: 20px;
+    margin: 0;
+    padding: 5px 0 0 16px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    z-index: 8;
+}
+form#searchForm input.textbox:focus, form#searchForm input.textbox.fc {
+    color: #000000;
+    font-weight: bold;
+}
+form#searchForm input.button {
+    border: 0 none;
+    height: 16px;
+    margin: 0;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 16px;
+    z-index: 9;
+}
+p#sidebarProjDesc {
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 10px 0 15px;
+    padding: 10px 0;
+    text-align: left;
+}
+p#sidebarProjDesc span {
+    color: #808080;
+    font-size: 10px;
+    font-style: italic;
+}
+#EditSidebarProjDesc textarea {
+    font-size: 14px;
+    margin-top: 10px;
+}
+div#projDescEditToolbar {
+    background-color: #E4EBFA;
+    margin-bottom: 15px;
+    padding: 2px 5px 2px 0;
+}
+div#projDescEditToolbar input {
+    font-size: 0.85em;
+    height: 20px;
+    padding: 2px;
+}
+td.sidebar {
+    min-width: 250px;
+    overflow: hidden;
+    vertical-align: top;
+    width: 250px;
+}
+td.sidebar.wide {
+    min-width: 250px;
+    overflow: hidden;
+    width: 250px;
+}
+td.sidebar div.sidebarHolder {
+    background: none repeat scroll 0 0 #F1F4FD;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+div.sidebartl {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -214px -15px #134584;
+    float: left;
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 7px;
+}
+div.sidebartr {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -221px -15px #134584;
+    float: right;
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 7px;
+}
+div.sidebarbl {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -214px -22px #134584;
+    float: left;
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 7px;
+}
+div.sidebarbr {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -221px -22px #134584;
+    float: right;
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 7px;
+}
+td.sidebar div.sidebarContent {
+    background: none repeat scroll 0 0 #F1F4FD;
+    min-height: 400px;
+    min-width: 200px;
+    overflow: hidden;
+    padding: 0 5px 10px;
+}
+td.sidebar div.sidebarContent h4, td.sidebar div.sidebarContent h4 {
+    margin: 0 5px 0 0;
+}
+td.sidebar div.sidebarContent h3, td.sidebar div.sidebarContent h3, td.sidebar h3 {
+    font-size: 14px;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px 0 5px;
+    text-align: left;
+}
+td.sidebar div.sidebarContent p {
+    margin: 0;
+    padding: 0 0 10px;
+}
+div#logo {
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 0 5px #BBBBBB;
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-top: 10px;
+    padding: 10px;
+}
+div#logo p {
+    color: #888888;
+    line-height: 150%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+td.sidebar ul.extended, td.sidebar ul.extended {
+    margin: 10px 0 10px 20px;
+    padding: 0 0 0 20px;
+}
+td.sidebar ul.extended li, td.sidebar ul.extended li {
+    margin: 5px 0;
+    padding: 0 0 2px;
+}
+li.complete a {
+    color: #999999;
+    text-decoration: line-through;
+}
+td.sidebar ul {
+    margin: 0;
+    padding: 0 0 10px;
+}
+td.sidebar ul li {
+    border: medium none;
+    color: #222222;
+    display: block;
+    list-style: none outside none;
+    margin: 0;
+    padding: 3px 0;
+}
+td.sidebar ul.simple {
+    margin-top: 10px;
+}
+td.sidebar ul.simple li, td.sidebar ul.simple li {
+    background: url("../images/li_taskList.gif") no-repeat scroll 5px 5px transparent;
+    border: medium none;
+    clear: both !important;
+    color: #222222;
+    float: none !important;
+    list-style: none outside none;
+    margin: 0;
+    overflow: hidden;
+    padding: 3px 0 3px 17px;
+    width: 185px;
+}
+td.sidebar ul.simple li a, td.sidebar ul.extended li a {
+    color: #222222;
+    font-size: 11px;
+}
+td.sidebar ul.simple li a:hover, td.sidebar ul.extended li a:hover {
+    color: #0066EE;
+}
+td.sidebar ul.simple li.large a {
+    font-size: 14px;
+}
+li#projStar {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 0 -170px transparent;
+    padding-left: 25px;
+}
+li#projStar {
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+li#projStar.unstar {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 0 -48px transparent;
+}
+li#projStar.star {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 0 -170px transparent;
+}
+td.sidebar ul li a.rhs {
+    color: #555555;
+    display: block;
+    font-size: 12px;
+    text-decoration: none;
+}
+td.sidebar #subscribeToICalendar {
+    font-size: 12px;
+    padding: 5px 5px 5px 10px;
+}
+td.sidebar a.iCal {
+    background: url("../images/ical.gif") no-repeat scroll 0 0 transparent;
+    padding: 2px 0 2px 18px;
+}
+td.sidebar h4 {
+    border: medium none;
+    color: #333333;
+    font-size: 12px;
+    margin: 5px 0 3px;
+    padding: 0;
+}
+div#inactiveProjects {
+    margin: 20px 0 0;
+}
+td.sidebar div#trialMsg {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #339944;
+    margin: 10px 0 0;
+    padding: 5px;
+}
+h4#company {
+    border-bottom: 1px solid #E7ECFB;
+    color: #999999;
+    font-weight: normal;
+    margin: 5px 0;
+    padding: 5px 0 2px;
+    text-transform: uppercase;
+}
+td.sidebar div.userCard {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px;
+    width: 202px;
+}
+div.editUserVCard div.userCard {
+    overflow: hidden;
+    width: 190px;
+}
+div.editUserVCardHolder {
+    overflow: hidden;
+    width: 215px;
+}
+td.sidebar div.userCard p {
+    font-size: 0.9em;
+    line-height: 13px;
+    margin: 2px 0;
+    padding: 0;
+}
+td.sidebar div.userCard h4#userCardH4 {
+    border: medium none;
+    color: #333333;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+td.sidebar div.userCard p.vspaced {
+    margin-bottom: 10px;
+}
+td.sidebar div.userCard p.bold {
+    font-weight: bold;
+}
+td.sidebar div.userCard p.topline {
+    border-top: 1px dotted #EFEFEF;
+    margin-top: 10px;
+}
+td.sidebar div.userCard .gray {
+    color: #808080;
+}
+td.sidebar div.userCard .userTitle {
+    border: medium none;
+    color: #004444;
+    font-size: 11px;
+    margin: 5px 0;
+}
+td.sidebar div.userCard .bigger {
+    font-size: 1em;
+}
+td.sidebar div.userCard p a:hover {
+    color: red;
+}
+td.sidebar div.userCard div.opts span.isAdmin {
+    color: #449977;
+}
+td.sidebar div.userCard div.userPhoto {
+    float: right;
+}
+td.sidebar div.userPhoto {
+    background: none repeat scroll 0 0 #FEFEFE;
+    border: 1px solid #DDDDDD;
+    padding: 4px;
+    width: 48px;
+}
+td.sidebar h3#currentTaskLists {
+    background: url("../images/icons/taskList.gif") no-repeat scroll -2px 50% transparent;
+    margin-top: 10px;
+    padding-left: 18px;
+}
+td.sidebar h3#userTaskLists {
+    background: url("../images/icons/users.gif") no-repeat scroll 0 10px transparent;
+    padding-left: 20px;
+}
+td.sidebar h3#completedTaskLists {
+    background: url("../images/icons/taskList_complete.gif") no-repeat scroll 0 10px transparent;
+    padding-left: 25px;
+}
+div#upgradeMsg {
+    -moz-border-radius: 5px 5px 5px 5px;
+    overflow: hidden;
+    padding: 10px;
+}
+div#upgradeMsg p {
+    padding: 10px;
+}
+div#upgradeMsg p.highlight {
+    background-color: #FFFF76;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px;
+}
+div#upgradeMsg p.highlight span {
+    color: #FF0000;
+    font-weight: bold;
+}
+div#upgradeMsg h3 {
+    background: none repeat scroll 0 0 transparent;
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    padding: 0;
+}
+.huh, .huh2 {
+    visibility: hidden;
+}
+.hs:hover .huh, .hs2:hover .huh2 {
+    visibility: visible;
+}
+div.projectAnnouncement {
+    background-color: #EEEEEE;
+    background-image: url("../images/pcbg.png");
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    border: 10px solid #EEEEEE;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+div.projectAnnouncement div.l {
+    background-image: url("../images/pcl.png");
+    display: block;
+    float: left;
+    height: 31px;
+    width: 70px;
+}
+div.projectAnnouncement div.r {
+    background-image: url("../images/pcr.png");
+    display: block;
+    float: right;
+    height: 31px;
+    width: 70px;
+}
+div.projectAnnouncement p {
+    background-color: #FCFCE6;
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px;
+}
+ul.square {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+ul.square li {
+    background: url("../images/icons/li_square.gif") no-repeat scroll 25px 14px transparent;
+    clear: both;
+    margin: 0;
+    padding: 10px 0 10px 40px;
+}
+ul.square li, ul.square li div, ul.square li span {
+    font-size: 14px;
+}
+.notAvailable {
+    color: #999999;
+}
+body div#projectDates {
+    clear: both;
+    display: block;
+    font-size: 11px;
+    margin: 15px 0 0;
+    padding: 5px 0;
+}
+body div#projectDates span.left {
+    background-color: #FFFFFF;
+    border: 1px solid #808080;
+    color: #000000;
+    display: block;
+    float: left;
+    margin-top: -25px;
+    padding: 5px;
+}
+body div#projectDates span.right {
+    background-color: #FFFFFF;
+    border: 1px solid #808080;
+    color: #000000;
+    display: block;
+    float: right;
+    margin-top: -25px;
+    padding: 5px;
+}
+body div#projectDates span.left strong, body div#projectDates span.right strong {
+    color: #808080;
+    display: block;
+    font-size: 9px;
+    text-align: left;
+}
+body div#projectDates span a {
+    color: #000000;
+    text-decoration: none;
+}
+body div#projectDates span a:hover {
+    background-color: #1D6DFF;
+    color: #FFFFFF;
+}
+body div#projectDates span.right strong {
+    text-align: right;
+}
+body div#projectDates hr {
+    background-color: #808080;
+    color: #808080;
+    height: 0;
+    margin-top: 5px;
+    padding: 0;
+}
+body div#projectProgress {
+    border: 1px solid #000000;
+    clear: both;
+    font-size: 11px;
+    margin: 15px 0 0;
+}
+body div#projectProgress.current {
+    background-color: #A7C6F1;
+    border: 1px solid #215FB1;
+    color: #153715;
+    padding: 2px 5px;
+}
+body div#projectProgress.complete {
+    background-color: #DAF0DA;
+    border: 1px solid #4EAD4E;
+    color: #153715;
+    padding: 2px 5px;
+}
+body div#projectProgress.late {
+    background-color: #F1C1C1;
+    border: 1px solid #B62222;
+    color: #450D0D;
+    padding: 2px 5px;
+}
+body div#projectProgress.upcoming {
+    background-color: #FBC031;
+    border: 1px solid #765400;
+    color: #112A4B;
+    padding: 2px 5px;
+}
+div.msTaskListHolder {
+    clear: both;
+    padding: 10px;
+}
+div.msTaskListHolder .taskList div.options {
+    background: none repeat scroll 0 0 transparent;
+}
+div.msTaskListHolder .taskList div.completed div.taskRHS a {
+    color: #333333;
+    font-size: 10px;
+    text-decoration: none;
+}
+div.msTaskListHolder .taskList div.completed div.taskRHS a:hover {
+    text-decoration: underline;
+}
+div.showMore {
+    background-color: #DDDDDD;
+    margin: 4px 0;
+    overflow: hidden;
+    padding: 4px 5px 4px 15px;
+}
+div#CloneProgressBar {
+    background-color: #DDDDDD;
+    display: block;
+    height: 10px;
+}
+div#CloneProgress {
+    background-color: green;
+    display: block;
+    height: 10px;
+    width: 0;
+}
+div#projectTime {
+    background-color: #FFFFCC;
+    font-size: 14px;
+    padding: 10px;
+}
+div#LightBoxHolder {
+    display: block;
+    overflow: hidden;
+    z-index: 0;
+}
+div#pageFilter {
+    background-color: #F5F5F5;
+    border-bottom: 1px solid #EEEEEE;
+    border-top: 1px solid #EEEEEE;
+    color: #888888;
+    font-size: 12px;
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 8px 10px;
+}
+div#pageFilter a {
+    color: #336633;
+    font-size: 0.9em;
+    padding: 2px;
+}
+div#pageFilter a:hover {
+    background: none repeat scroll 0 0 #336633;
+    color: #FFFFFF;
+}
+div#pageFilter.mine {
+    background-color: #F1F6EC;
+}
+div#pageFilter.all {
+    color: #666666;
+}
+span.private {
+    margin-left: 5px;
+}
+.section {
+    -moz-border-radius: 6px 6px 6px 6px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    min-width: 300px;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+}
+.sectionForm {
+    -moz-border-radius: 6px 6px 6px 6px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: 0 10px 10px;
+    min-width: 300px;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+}
+.sectionFormLightbox {
+    -moz-border-radius: 10px 10px 10px 10px;
+    -moz-box-shadow: 2px 2px 10px #444444;
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: 0 10px 10px;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+}
+div.translucentWrapper {
+    -moz-border-radius: 10px 10px 10px 10px;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+}
+div.sectiontl {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -215px 0 #134584;
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 7px;
+}
+div.sectiontr {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -220px 0 #134584;
+    float: right;
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 7px;
+}
+div.sectionbl {
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 0 0 7px;
+}
+div.sectionbr {
+    height: 7px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+.section h2 {
+    padding: 10px 0 10px 25px;
+}
+.sectionContent {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #DCE2F8;
+    border-left: 1px solid #DCE2F8;
+    border-right: 1px solid #DCE2F8;
+    margin: 0 7px;
+    overflow: hidden;
+    padding: 10px;
+}
+.minHeight {
+    min-height: 450px;
+}
+.sectionContent h3 {
+    background-color: #F1F1F1;
+    border-bottom: 1px solid #ECECEC;
+    border-top: 1px solid #ECECEC;
+    font-size: 14px;
+    margin: 5px 0;
+    padding: 5px;
+}
+div.title {
+    background: url("../../images/transGradLight.png") repeat-x scroll 0 0 #DBE3FA;
+    height: 42px;
+    margin: 0 7px;
+    overflow: hidden;
+}
+div.sectionFormLightbox div.title {
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+}
+div.titlecontent {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+div.titlecontent h2 {
+    margin: 0;
+}
+div.titlelhs {
+    background: url("../images/layout/title_lhs.jpg") no-repeat scroll 0 0 #DBE3FA;
+    float: left;
+    height: 42px;
+    width: 12px;
+}
+div.titlerhs {
+    background: url("../images/layout/title_rhs.jpg") no-repeat scroll 0 0 #DBE3FA;
+    float: right;
+    height: 42px;
+    width: 12px;
+}
+div#titletl {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -229px 0 transparent;
+    float: left;
+    height: 49px;
+    width: 12px;
+}
+div#titletr {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll -235px 0 transparent;
+    float: right;
+    height: 49px;
+    width: 12px;
+}
+div.title img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    float: left;
+    margin: 0 10px 0 -5px;
+    padding: 5px;
+}
+div.title h2, div.title h3 {
+    padding: 0;
+}
+div.title ul.options {
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+div.title ul.options li {
+    border: medium none;
+    color: #555555;
+    display: inline;
+    font-size: 11px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+div.title div.titlecontent h2 {
+    margin: 10px 0 0 15px;
+}
+div#titleHolder {
+    margin: 0 7px;
+    overflow: hidden;
+}
+table.title {
+    width: 100%;
+}
+td.titlecontent {
+    background: url("../../images/transGradLight.png") repeat-x scroll 0 0 #DBE3FA;
+    margin: 0;
+}
+td.titlecontent h2 {
+    margin: 10px 10px 0;
+}
+td.titlelhs {
+    background: url("../images/layout/title_lhs.jpg") no-repeat scroll 0 0 #DBE3FA;
+    height: 42px;
+    width: 6px;
+}
+td.titlerhs {
+    background: url("../images/layout/title_rhs.jpg") no-repeat scroll right top #DBE3FA;
+    height: 42px;
+    width: 6px;
+}
+td.titlecontent img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    float: left;
+    margin: 0 10px 0 -5px;
+    padding: 5px;
+}
+td.titlecontent h2, td.titlecontent h3 {
+    padding: 0;
+}
+td.titlecontent div.options {
+    float: right;
+    margin: 10px 0 0;
+    overflow: hidden;
+    padding: 0;
+}
+td.titlecontent ul.options {
+    float: right;
+    margin: 6px 0 0;
+    padding: 0;
+}
+td.titlecontent ul.options li {
+    border: medium none;
+    color: #555555;
+    display: inline;
+    font-size: 11px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+div.copy {
+    text-align: left;
+}
+div.copy p {
+    font-size: 12px;
+    line-height: 16px;
+}
+form input[type="text"], form input[type="password"], form textarea, form select {
+    border: 1px solid #AAAAAA;
+    padding: 3px 4px;
+}
+form input[type="text"]:focus, form textarea:focus, form select:focus {
+    background: none repeat scroll 0 0 #FFFFCC;
+    border: 1px solid #3D7BAD;
+}
+.text, .textarea {
+    font: 18px arial,sans-serif;
+    padding: 5px;
+}
+input.text, textarea.text {
+    width: 96%;
+}
+form .select {
+    color: #222222;
+    padding: 5px;
+    width: 96%;
+}
+select.text {
+    padding: 1px;
+}
+form input.text.medium {
+    width: 260px;
+}
+form input.text.tiny {
+    width: 80px;
+}
+form hr {
+    border-color: #CCCCCC -moz-use-text-color -moz-use-text-color;
+    border-right: medium none;
+    border-style: dashed none none;
+    border-width: 1px medium medium;
+}
+label {
+    font-size: 11px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+label.large {
+    color: #333333;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 0 4px;
+}
+form.smallLabels label, label.small {
+    color: #333333;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 0 5px;
+}
+.inline {
+    display: inline !important;
+}
+label.noPad {
+    padding-top: 0;
+}
+form th label {
+    margin: 0;
+}
+form label span {
+    color: #666666;
+    font-size: 0.85em;
+    font-weight: normal;
+    margin-left: 5px;
+}
+form p {
+    color: #111111;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 5px 0 0;
+}
+form span.req {
+    color: #FF0055;
+    font-size: 0.8em;
+    margin: 0;
+}
+form div.p {
+    padding: 2px;
+}
+a.scb {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll -2px -240px transparent;
+    color: #777777;
+    font-size: 10px;
+    margin: 3px 0 0;
+    padding: 3px 0 0 16px;
+}
+a.scb.off {
+    background-position: -2px -208px;
+}
+a.scb:hover span {
+    color: #167FC2 !important;
+    text-decoration: underline;
+}
+a.mp {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 0 -270px transparent;
+    color: #777777;
+    float: left;
+    font-size: 10px;
+    margin: 3px 0 0 40px;
+    padding: 3px 0 0 16px;
+}
+a.mp:hover {
+    background-position: 0 -302px;
+}
+a.mp:hover span {
+    color: #167FC2 !important;
+    text-decoration: underline;
+}
+a.mc {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 0 -270px transparent;
+    color: #777777;
+    font-size: 10px;
+    padding: 3px 0 0 16px;
+}
+a.mc:hover {
+    background-position: 0 -302px;
+}
+a.mc:hover span {
+    color: #167FC2 !important;
+    text-decoration: underline;
+}
+div.note {
+    color: #999999;
+    padding: 0 3px 3px;
+}
+optgroup {
+    background-color: #DAE2F9;
+    color: #222222;
+    font-style: normal;
+    font-weight: bold;
+}
+optgroup option {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+}
+table.overview {
+    width: 100%;
+}
+table.overview tr.date th {
+    padding: 10px 0;
+}
+table.overview tr.date th h4 {
+    background: url("../images/layout/back_h4date.gif") no-repeat scroll 0 4px #E9E9E9;
+    border: medium none;
+    color: #222222;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 20px 0 0;
+    padding: 5px;
+    text-transform: uppercase;
+}
+table.overview tr.date th h4.today {
+    background: url("../images/layout/back_h4date.gif") no-repeat scroll 0 4px #E9E9E9;
+    border: medium none;
+    color: #222222;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    text-transform: uppercase;
+}
+table.overview th, table.overview td {
+    padding: 5px;
+}
+table.overview td {
+    border-bottom: 1px solid #E9E9E9;
+    font-size: 12px;
+}
+table.overview td span.st {
+    -moz-border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+}
+table.overview td span.st_milestone {
+    background-color: #AD7331;
+}
+table.overview td span.st_file {
+    background-color: #73D6C6;
+}
+table.overview td span.st_notebook {
+    background-color: #CE4AC6;
+}
+table.overview td span.st_project {
+    background-color: #4A944A;
+}
+table.overview td span.st_invoice {
+    background-color: #3FB2C0;
+}
+table.overview td span.st_task {
+    background-color: #D6635A;
+}
+table.overview td span.st_tasklist {
+    background-color: #1E42A8;
+}
+table.overview td span.st_comment {
+    background-color: #10B510;
+}
+table.overview td span.st_resource {
+    background-color: #EF9833;
+}
+table.overview td span.st_message {
+    background-color: #8C73FF;
+}
+table.overview td span.st_reply {
+    background-color: #56A7F2;
+}
+table.overview tr.completed td span.st {
+    background-color: #CCCCCC;
+}
+table.overview td.type {
+    width: 55px;
+}
+table.overview td.type p {
+    background: url("../images/status/statusiconSprite.png") no-repeat scroll 0 0 #FFFFFF;
+    display: block;
+    height: 17px;
+    margin: 0;
+    padding: 0;
+    width: 55px;
+}
+table.overview tr.task td.type p {
+    background-position: 0 -17px;
+}
+table.overview tr.resource td.type p {
+    background-position: 0 -255px;
+}
+table.overview tr.deleted.type td.type p, table.overview tr.completed.task td.type p {
+    background-position: 0 -34px;
+}
+table.overview tr.milestone td.type p {
+    background-position: 0 -85px;
+}
+table.overview tr.completed.milestone td.type p {
+    background-position: 0 -289px;
+}
+table.overview tr.tasklist td.type p {
+    background-position: 0 -238px;
+}
+table.overview tr.completed.tasklist td.type p, table.overview tr.deleted.tasklist td.type p {
+    background-position: 0 -221px;
+}
+table.overview tr.notebook td.type p {
+    background-position: 0 -153px;
+}
+table.overview tr.message td.type p {
+    background-position: 0 -357px;
+}
+table.overview tr.comment td.type p {
+    background-position: 0 -391px;
+}
+table.overview tr.milestone_comment td.type p, table.overview tr.file_comment td.type p, table.overview tr.task_comment td.type p, table.overview tr.resource_comment td.type p, table.overview tr.notebook_comment td.type p {
+    background-position: 0 -51px;
+}
+table.overview tr.project td.type p {
+    background-position: 0 -323px;
+}
+table.overview tr.file td.type p {
+    background-position: 0 -187px;
+}
+table.overview tr.file.completed td.type p {
+    background-position: 0 -204px;
+}
+table.overview tr.billingInvoice td.type p {
+    background-position: 0 -410px;
+}
+table.overview td.item span {
+    color: #999999;
+}
+table.overview td.item span.taskDue {
+    color: #999999;
+    font-style: italic;
+}
+table.overview td.item span.late {
+    color: #FF0000;
+}
+table.overview td.item span.today {
+    color: #000000;
+}
+table.overview td.item span.today em {
+    background-color: #FFD71D;
+    color: #000000;
+    font-style: normal;
+    padding: 0 3px;
+}
+table.overview td.item span.tomorrow em {
+    background-color: #FED0AA;
+    color: #000000;
+    font-style: normal;
+    padding: 0 3px;
+}
+body#dashboard table.overview td.item span a, body#dashboard table.overview td.item a, body#projectoverview table.overview td.item span a, body#projectoverview table.overview td.item a {
+    color: #0000FF;
+}
+table.overview tr.completed td.item span, table.overview tr.deleted td.item {
+    color: #555555;
+    text-decoration: line-through;
+}
+table.overview tr.message.flag1 td.item a.mainLink, table.overview tr.comment.flag1 td.item a.mainLink {
+    background: url("../images/icons/attach.png") no-repeat scroll 100% 1px transparent;
+    padding-right: 20px;
+}
+table.overview tr.task.flag1 td.item a.mainLink, table.overview tr.task.flag1 td.item a.mainLink {
+    background: url("../images/icons/attach.png") no-repeat scroll 100% 1px transparent;
+    padding-right: 20px;
+}
+body#dashboard #projectActivity table.overview td.item a, body#projectoverview #projectActivity table.overview td.item a {
+    color: #1D6DFF;
+}
+body#dashboard #projectActivity table.overview td.item a:hover, body#projectoverview #projectActivity table.overview td.item a:hover {
+    color: #229507;
+}
+body#dashboard #projectActivity table.overview tr.completed td.item a, body#projectoverview #projectActivity table.overview tr.completed td.item a, body#dashboard #projectActivity table.overview tr.deleted td.item a, body#projectoverview #projectActivity table.overview tr.deleted td.item a {
+    color: #909090;
+    text-decoration: none;
+}
+table.overview tr.completed td.detail, table.overview tr.completed td.detail span, table.overview tr.completed td.item, table.overview tr.completed td.item span {
+    color: #909090;
+    text-decoration: line-through;
+}
+table.overview td.action {
+    color: #999999;
+    font-size: 11px;
+    text-align: right;
+    white-space: nowrap;
+}
+table.overview td.name {
+    color: #000000;
+    font-size: 11px;
+    font-weight: bold;
+    width: 85px;
+}
+table.overview td.date {
+    color: #222222;
+    font-size: 11px;
+    text-align: right;
+    white-space: nowrap;
+}
+body#projectoverview #projectActivity tr.sectionDatePadding td {
+    border: medium none;
+    height: 10px;
+}
+body#projectoverview #projectActivity tr.sectionDate td {
+    background-color: #E9E9E9;
+    padding: 5px;
+}
+body#projectoverview #projectActivity tr.sectionDate td span {
+    background: url("../images/icons/activityDate.gif") no-repeat scroll 6px 5px #E9E9E9;
+    color: #333333;
+    font-family: helvetica,arial,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 5px 10px 5px 28px;
+}
+body#projectoverview #projectActivity tr.sectionDate td span.today em {
+    background-color: #FFD71D;
+    font-style: normal;
+    padding: 2px 5px;
+}
+body#dashboard #projectActivity span.today {
+    background-color: #FFD71D;
+    padding: 2px 5px;
+}
+body#dashboard #projectActivity span.yesterday, body#projectoverview #projectActivity span.yesterday, body#projectoverview #projectActivity tr.sectionDate td span.yesterday {
+    background-color: #FED0AA;
+    padding: 2px 5px;
+}
+body#dashboard table.overview td a:link, body#dashboard table.overview td a:visited, body#projectoverview table.overview td a:link, body#projectoverview table.overview td a:visited {
+    color: #666666;
+    text-decoration: underline;
+}
+body#dashboard table.overview td a:hover, body#projectoverview table.overview td a:hover {
+    color: #FF0000;
+}
+body#milestones div#lateMilestones {
+    border: medium none;
+}
+div#lateMilestones ul {
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+div#lateMilestones li {
+    background: url("../images/icons/lateMilestone.gif") no-repeat scroll 8px 50% transparent;
+    border-bottom: 1px solid #EEEEEE;
+    color: #222222;
+    list-style: none outside none;
+    margin: 0;
+    padding: 6px 5px 6px 28px;
+    vertical-align: top;
+}
+div#lateMilestones li strong {
+    color: red;
+}
+div#lateMilestones li a {
+    color: #2200FF;
+    font-weight: bold;
+}
+div.div {
+    border-top: 1px dashed #CCCCCC;
+    clear: both;
+    margin: 10px 0 0;
+    padding: 0 0 10px;
+}
+div.divNoPad {
+    border-top: 1px dashed #CCCCCC;
+    clear: both;
+    margin: 10px 0 0;
+    padding: 0;
+}
+div.divPad {
+    border-top: 1px dashed #CCCCCC;
+    clear: both;
+    margin: 10px 0 0;
+    padding: 10px;
+    vertical-align: middle;
+}
+div.divPad div {
+    font-size: 12px;
+}
+div.pad {
+    padding: 8px 10px;
+}
+div.padLeft {
+    display: block;
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+div.padTop {
+    clear: both;
+    padding: 10px 0 0;
+}
+div.lBdr {
+    border: 1px solid #EEEEEE;
+}
+.lhs {
+    float: left;
+}
+.rhs {
+    float: right;
+}
+#mainArea {
+    font-size: 11px;
+    margin: 0;
+    min-height: 300px;
+    padding: 0;
+}
+#sidebar {
+    padding-left: 10px;
+}
+#mainArea hr {
+    color: #CCCCCC;
+    size: 1px;
+}
+#mainArea .subtle, div.taskRHS .subtle, .subtle {
+    color: #777777;
+    font-size: 10px;
+}
+#mainArea a.subtle, div.taskRHS a.subtle {
+    text-decoration: underline;
+}
+#mainArea a.subtle:hover, div.taskRHS a.subtle:hover {
+    background-color: #555555;
+    color: #FFFFFF !important;
+    text-decoration: underline;
+}
+a.simpleButton {
+    background: url("../images/button/LHSIconSprite5.png") no-repeat scroll 0 -260px transparent;
+    border: medium none;
+    display: block;
+    float: left;
+    height: 20px;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+    padding: 0 0 0 21px;
+    text-decoration: none;
+}
+a.simpleButton span {
+    background: url("../images/button/LHSIconSprite5.png") no-repeat scroll 100% 0 transparent;
+    color: #000000;
+    display: block;
+    float: left;
+    font-size: 10px;
+    height: 16px;
+    line-height: 100%;
+    padding: 4px 10px 0 0;
+    white-space: nowrap;
+}
+a.simpleButton:hover {
+    background-position: 0 -900px;
+    text-decoration: none;
+}
+a.simpleButton:hover span {
+    background: url("../images/button/LHSIconSprite5.png") no-repeat scroll 100% -20px transparent;
+    text-decoration: none;
+}
+a.simpleButton.upgrade {
+    background-position: 0 -40px;
+}
+a.simpleButton.time {
+    background-position: 0 -60px;
+}
+a.simpleButton.excel {
+    background-position: 0 -100px;
+}
+a.simpleButton.comment {
+    background-position: 0 -180px;
+}
+a.simpleButton.move {
+    background-position: 0 -220px;
+}
+a.simpleButton.updown {
+    background-position: 0 -240px;
+}
+a.simpleButton.show {
+    background-position: 0 -300px;
+}
+a.simpleButton.delete {
+    background-position: 0 -340px;
+}
+a.simpleButton.email {
+    background-position: 0 -380px;
+}
+a.simpleButton.report {
+    background-position: 0 -420px;
+}
+a.simpleButton.prev {
+    background-position: 0 -460px;
+}
+a.simpleButton.pdf {
+    background-position: 0 -500px;
+}
+a.simpleButton.remind {
+    background-position: 0 -540px;
+}
+a.simpleButton.close {
+    background-position: 0 -580px;
+}
+a.simpleButton.cancel {
+    background-position: 0 -620px;
+}
+a.simpleButton.switch {
+    background-position: 0 -660px;
+}
+a.simpleButton.edit {
+    background-position: 0 -700px;
+}
+a.simpleButton.next {
+    background-position: 0 -740px;
+}
+a.simpleButton.back {
+    background-position: 0 -780px;
+}
+a.simpleButton.progress {
+    background-position: 0 -820px;
+}
+a.simpleButton.dd {
+    background-position: 0 -840px;
+}
+a.simpleButton.upload {
+    background-position: 0 -860px;
+}
+a.simpleButton.pause {
+    background-image: url("../images/button/pause.png");
+    background-position: 0 0;
+}
+a.simpleButton.resume {
+    background-image: url("../images/button/resume.png");
+    background-position: 0 0;
+}
+a.simpleButton.print {
+    background-image: url("../images/button/print.png");
+    background-position: 0 0;
+}
+a.simpleButton.archive {
+    background-image: url("../images/button/archive.png");
+    background-position: 0 0;
+}
+a.simpleButton.rss {
+    background-image: url("../images/button/rss.png");
+    background-position: 0 0;
+}
+a.simpleButton.dd span {
+    padding-left: 0;
+}
+a.simpleButton.comment span {
+    padding-left: 5px;
+}
+a.bfoButton {
+    background: url("../images/button/LHSIconSprite5.png") no-repeat scroll -21px -110px transparent;
+    border: medium none;
+    display: block;
+    float: left;
+    height: 35px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 0 0 33px;
+    text-decoration: none;
+}
+a.bfoButton span {
+    background: url("../images/button/LHSIconSprite5.png") no-repeat scroll 100% -40px transparent;
+    color: #000000;
+    display: block;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 100%;
+    padding: 10px 15px 0 2px;
+    white-space: nowrap;
+}
+a.bfoButton:hover {
+    background-position: -21px -145px;
+    text-decoration: none;
+}
+a.bfoButton:hover span {
+    background: url("../images/button/LHSIconSprite5.png") no-repeat scroll 100% -75px transparent;
+    text-decoration: none;
+}
+a.bfoTimer {
+    background-position: -21px -183px;
+}
+a.bfoTimer:hover {
+    background-position: -21px -218px;
+}
+span.me {
+    background: none repeat scroll 0 0 #EFFFDD;
+    font-weight: bold;
+}
+div.ajaxMsg, span.ajaxMsg {
+    background: url("../images/ajax/loader1.gif") no-repeat scroll 0 50% transparent;
+    color: #999999;
+    font-size: 9px;
+    margin: 0;
+    min-height: 10px;
+    padding: 2px 0 2px 12px;
+}
+td.titlecontent span.ajaxMsg {
+    background: url("../images/loader1.gif") no-repeat scroll 100% 50% transparent;
+    color: #999999;
+    float: right;
+    font-size: 9px;
+    margin: 12px 10px 0 0;
+    min-height: 10px;
+    padding: 2px 14px 2px 0;
+}
+div.blankSlate {
+    background: none repeat scroll 0 0 #FFFFDD;
+    border-bottom: 1px solid #FFCC00;
+    border-top: 1px solid #FFCC00;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+}
+div.blankSlate a {
+    margin: 0;
+    padding: 0;
+}
+div.blankSlate h3, body#dashboard div.blankSlate h3 {
+    background: none repeat scroll 0 0 transparent !important;
+    border: medium none !important;
+    color: #088016 !important;
+    font-family: sans-serif !important;
+    font-size: 21px !important;
+    font-weight: bold !important;
+    line-height: 100% !important;
+    margin: 5px 0 15px !important;
+    padding: 0 !important;
+}
+div.blankSlate ul {
+    margin: 10px auto 0;
+    padding: 0;
+    width: 300px;
+}
+div.blankSlate ul li {
+    background: url("../images/li.gif") no-repeat scroll 0 2px transparent;
+    font-size: 12px;
+    list-style: none outside none;
+    padding: 0 0 4px 16px;
+    text-align: left;
+}
+div.blankSlate.info {
+    background-image: url("../images/icons/information.png");
+    border-color: #AAAAAA;
+}
+div.blankSlate.error {
+    background-color: #EEEEEE;
+    background-image: url("../images/icons/exclamation.png");
+    border-color: #AAAAAA;
+}
+div.blankSlateExample {
+    margin: 50px 0 20px;
+    text-align: center;
+}
+#mainArea div#lateMilestones h3 {
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-topright: 2px;
+    background: none repeat scroll 0 0 #CC0000;
+    border-bottom: 2px solid #C00000;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 3px 3px 3px 8px;
+}
+div#projectOverviewUpComingMilestonesDayChooser, div#dashboardUpComingMilestonesDayChooser {
+    float: right;
+    font-size: 11px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 3px 5px 3px 0;
+    position: relative;
+}
+div#upcomingMilestones {
+    margin: 10px 0 0;
+}
+div#projectOverviewUpComingMilestones, div#dashboardUpComingMilestones {
+    color: #222222;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+}
+div#projectOverviewUpComingMilestonesDayChooser a, div#dashboardUpComingMilestonesDayChooser a {
+    color: #AAAAAA;
+    display: block;
+    float: left;
+    font-size: 11px;
+    margin: 0 5px;
+    padding: 2px 5px;
+    position: relative;
+}
+div#projectOverviewUpComingMilestonesDayChooser a:hover, div#dashboardUpComingMilestonesDayChooser a:hover {
+    color: #229507;
+}
+div#projectOverviewUpComingMilestonesDayChooser a.sel {
+    background-color: #B6E169;
+    color: #000000;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+}
+#mainArea div#completedMilestones h3 {
+    background: none repeat scroll 0 0 #009900;
+    color: #FFFFFF;
+    padding: 3px 3px 3px 8px;
+}
+div#lateMilestones div.content, div#upcomingMilestones div.content, div#completedMilestones div.content {
+    margin: 8px 0 8px 8px;
+}
+body#all_milestones div#upcomingMilestones div.content {
+    margin: 8px 0;
+}
+div.milestone {
+    margin: 0;
+    overflow: hidden;
+    padding: 10px 10px 20px 100px;
+}
+#useEmailNotificationDiv {
+    margin: 10px 0 0;
+    overflow: hidden;
+}
+#useEmailNotificationDiv input {
+    float: left;
+}
+#useEmailNotificationDiv label {
+    font-weight: normal;
+    margin: 0;
+    padding: 2px 0 0;
+}
+body#milestones .calendarPos {
+    height: 240px;
+}
+body#milestones #milestoneFormLHS {
+    padding-right: 10px;
+}
+body#milestones #milestoneFormLHS div.pad {
+    margin: 0 0 20px;
+    padding: 0;
+}
+div.milestone {
+    border-bottom: 1px solid #EBEBEB;
+    margin: 10px;
+    overflow: hidden;
+}
+div.msName {
+    border: medium none;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 4px 0 0;
+    position: relative;
+}
+div.msName span a {
+    font-size: 13px;
+}
+td.msInfo {
+    padding-left: 25px;
+}
+div#msDue14, div#msUpcoming {
+    background-color: #FFE88D;
+    color: #222222;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 5px;
+}
+#msLate {
+    color: #D60000;
+    font-size: 11px;
+}
+.msUpcoming, .msCompleted {
+    margin: 0 0 4px;
+}
+.msUpcoming {
+    color: #DB9E1B;
+    font-size: 11px;
+}
+.msCompleted {
+    color: #469048;
+    font-size: 11px;
+}
+div.milestoneDateAndName {
+    padding: 4px 0;
+}
+div#lateMilestones div.milestoneDateAndName {
+    color: #CC0000;
+}
+body#dashboard div#lateMilestones, body#projectoverview div#lateMilestones {
+    margin-bottom: 10px;
+}
+div#upcomingMilestones div.milestoneDateAndName {
+    color: #CC9933;
+}
+div#completedMilestones div.milestoneDateAndName {
+    color: #009900;
+}
+div.milestoneDateAndName span {
+    color: #666666;
+}
+div.milestone h4 span {
+    font-size: 12px;
+    font-weight: normal;
+}
+div.milestone ul.msTaskLists {
+    margin: 5px 0 0;
+    padding: 0;
+}
+div.milestone ul.msTaskLists li.msTaskList {
+    background: url("../images/li_taskList.gif") no-repeat scroll 25px 5px transparent;
+    border: medium none;
+    color: #CCCCCC;
+    list-style: none outside none;
+    margin: 0;
+    padding: 2px 0 2px 40px;
+}
+div.milestone ul.msTaskLists li.msTaskList a.tl {
+    font-size: 12px;
+}
+div.editMilestoneForm {
+    border: 1px solid #AAAAAA;
+    margin: 10px 0;
+}
+table#miniCalendar {
+    margin: 0 0 15px;
+    width: 100%;
+}
+table#miniCalendar th {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px dotted #DDDDDD;
+    color: #666666;
+    font-size: 10px;
+    font-weight: bold;
+    height: 20px;
+    max-width: 260px;
+    padding: 2px 2px 2px 4px;
+}
+table#miniCalendar td {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    color: #BBBBBB;
+    font-size: 9px;
+    max-width: 260px;
+    padding: 2px;
+}
+body#milestones table#miniCalendar td {
+    color: #FFFFFF;
+    padding: 2px;
+}
+table#miniCalendar td.notInMonth {
+    background: none repeat scroll 0 0 #ECECEC;
+    color: #EEEEEE;
+}
+table#miniCalendar td.today {
+    background: none repeat scroll 0 0 #B3D3EB;
+}
+table#miniCalendar td.today div.date {
+    color: #444444;
+    font-size: 9px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+table#miniCalendar td div.date span {
+    color: #BBBBBB;
+}
+table#miniCalendar td.today div.date span {
+    background: none repeat scroll 0 0 #FFD71D;
+    color: #000000;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 3px 4px;
+}
+body#dashboard table#miniCalendar td.content, body#milestones table#miniCalendar td.content {
+    background: none repeat scroll 0 0 #F1F9FF;
+    color: #000000;
+    vertical-align: top;
+}
+body#dashboard table#miniCalendar td.content.today, body#milestones table#miniCalendar td.content.today {
+    background: none repeat scroll 0 0 #F1F9FF;
+    border: 1px solid #76B0EC;
+    color: #000000;
+    vertical-align: top;
+}
+table#miniCalendar td.content div.date {
+    font-size: 9px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+table#miniCalendar td.content div.date span {
+    background: none repeat scroll 0 0 #76B0EC;
+    color: #FFFFFF;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 3px 4px;
+}
+table#miniCalendar td div.c {
+    font-size: 11px;
+    padding: 10px;
+}
+table#miniCalendar td div.proj a {
+    font-weight: normal;
+    text-decoration: underline;
+}
+table#miniCalendar td div.proj div.projItems {
+    padding: 5px 0;
+}
+table#miniCalendar td div.proj div.projItems a {
+    background: url("../images/li_taskList.gif") no-repeat scroll 0 0 transparent;
+    color: #333333;
+    display: block;
+    font-weight: normal;
+    padding: 0 0 2px 10px;
+    text-decoration: none;
+}
+table#miniCalendar td div.proj div.projItems a:hover {
+    color: #FF0000;
+    text-decoration: underline;
+}
+table#miniCalendar td.filler {
+    background: none repeat scroll 0 0 #E7E7E7;
+}
+table#miniCalendar th.month {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #999999;
+    border-top: 1px solid #999999;
+    font-size: 14px;
+    padding: 8px;
+    width: 36px;
+}
+body#all_milestones table#miniCalendar a {
+    color: #0000FF;
+}
+#cp {
+    border-top: 3px solid #134584;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+    padding: 20px 50px 0 10px;
+}
+#cp a {
+    color: #EAC410;
+    font-size: 14px;
+}
+#cp a:hover {
+    color: #F2D342;
+}
+#cpLoading {
+    margin-left: 20px;
+}
+#chooseProject {
+    border-top: 2px solid #16437E;
+    color: #CCCCCC;
+    display: block;
+    float: right;
+    font-size: 8px;
+    padding: 20px 50px 0 10px;
+    white-space: nowrap;
+}
+#chooseProject select {
+    font-size: 11px;
+}
+#chooseProject a {
+    color: #FFFFFF;
+}
+#cpProjLoading {
+    background: url("../images/loader1.gif") no-repeat scroll 0 20px transparent;
+    border-top: 2px solid #16437E;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+    font-size: 9px;
+    margin: 0;
+    padding: 20px 50px 0 14px;
+}
+#quickSearch {
+    border-top: 2px solid #16437E;
+    color: #CCCCCC;
+    display: block;
+    float: right;
+    font-size: 8px;
+    padding: 20px 50px 0 10px;
+    white-space: nowrap;
+}
+#quickSearch input {
+    font-size: 11px;
+}
+#quickSearch a {
+    color: #FFFFFF;
+}
+body#all_tasks div.projectTaskList div.projectTaskListContent th {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #FFFFFF;
+    padding: 10px 10px 0 0;
+    text-align: right;
+}
+body#all_tasks div.projectTaskList h4 {
+    border: 0 none;
+    font-size: 12px;
+    margin: 5px;
+    padding: 5px;
+}
+body#all_tasks div.projectTaskList h4 a {
+    text-decoration: none;
+}
+body#all_tasks div.taskList {
+    margin: 0;
+    padding: 0;
+}
+.f {
+    display: none;
+}
+div#rss a.rss, #feeds a.rss {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 0 -138px transparent;
+    display: block;
+    height: 18px;
+    padding-left: 22px;
+}
+a.ical {
+    background-image: url("../images/ical.gif");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 40px;
+    line-height: 20px;
+    padding-left: 50px;
+}
+div.ical_allMilestones {
+    overflow: hidden;
+    padding: 10px;
+    text-align: right;
+}
+div.ical_milestones {
+    overflow: hidden;
+    padding-top: 10px;
+}
+div#rss {
+    overflow: hidden;
+}
+div#rss a.rss {
+    color: #FF4600;
+    font-size: 12px;
+}
+div#rss a.rss:hover {
+    color: #229507;
+}
+.highlight {
+    background: none repeat scroll 0 0 #FFFFCC;
+}
+div.msgNotifyListLightBox {
+    max-height: 200px;
+    overflow: auto;
+}
+div.msgNotifyList h4 {
+    border: medium none;
+    clear: both;
+    color: #777777;
+    font-weight: normal;
+    margin: 0 0 5px;
+}
+div.msgNotifyList div.groupHolder {
+    clear: both;
+    display: block;
+    margin: 0 0 5px;
+    overflow: hidden;
+    padding: 5px 10px 5px 0;
+}
+div.msgNotifyList div.group {
+    border-left: 1px dotted #BBBBBB;
+    margin-left: 5px;
+    overflow: hidden;
+    padding: 10px 0 5px 20px;
+}
+div.msgNotifyList div.group div {
+    display: block;
+    float: left;
+    margin: 2px 10px 2px 0;
+    min-width: 140px;
+    overflow: hidden;
+}
+div.msgNotifyList div.group div input {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+div.msgNotifyList div.group div label {
+    color: #444444;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0 0 2px 5px;
+}
+div.milestone ul.msTaskLists.last {
+    border-bottom: medium none;
+}
+div.milestone ul.msTaskLists li.msAddTaskList {
+    background: none repeat scroll 0 0 transparent;
+    overflow: hidden;
+    padding: 10px 10px 0 15px;
+}
+div.milestone div.milestoneContent ul.msTaskLists li a.red:hover {
+    color: #FFFFFF !important;
+}
+div.milestone ul.msTaskLists li {
+    color: #000000;
+}
+span.jsAgo {
+    display: none;
+}
+div.round_top {
+    background: url("../images/formcurves/top.gif") repeat-x scroll 0 0 transparent;
+    overflow: hidden;
+}
+div.round_top span.rtl {
+    background: url("../images/formcurves/tl.gif") no-repeat scroll 0 0 #FFFFFF;
+    display: block;
+    float: left;
+    height: 8px;
+    width: 7px;
+}
+div.round_top span.rtr {
+    background: url("../images/formcurves/tr.gif") no-repeat scroll 0 0 #FFFFFF;
+    display: block;
+    float: right;
+    height: 8px;
+    width: 7px;
+}
+div.round_mid1 {
+    background: url("../images/formcurves/lhs.gif") repeat-y scroll 0 0 #FFFFFF;
+    overflow: hidden;
+    padding-left: 7px;
+}
+div.round_mid1 div.round_mid2 {
+    background: url("../images/formcurves/rhs.gif") repeat-y scroll right top #F3F3F3;
+    overflow: hidden;
+    padding-right: 7px;
+}
+div.round_bot {
+    background: url("../images/formcurves/bot.gif") repeat-x scroll 0 0 transparent;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+div.round_bot span.rbl {
+    background: url("../images/formcurves/bl.gif") no-repeat scroll 0 0 #FFFFFF;
+    display: block;
+    float: left;
+    height: 8px;
+    width: 7px;
+}
+div.round_bot span.rbr {
+    background: url("../images/formcurves/br.gif") no-repeat scroll 0 0 #FFFFFF;
+    display: block;
+    float: right;
+    height: 8px;
+    width: 7px;
+}
+div.panel {
+    margin: 0 0 15px;
+    padding: 10px 10px 0;
+    position: relative;
+}
+div.panel span.title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 25px;
+    padding: 0;
+}
+div.white h3 {
+    background-color: yellow;
+    overflow: hidden;
+}
+:first-child + html div.white h3 {
+    margin-top: -14px;
+}
+span.late {
+    color: #CC0000;
+}
+span.upcoming {
+    color: #5C4700;
+}
+span.completed {
+    color: #009900;
+}
+span.sidebar, span.gray {
+    color: #000000;
+}
+div.panelcurve {
+    background-position: right top;
+    background-repeat: no-repeat;
+    height: 9px;
+    position: absolute;
+    width: 10px;
+}
+div.tl {
+    left: -2px;
+    top: -2px;
+}
+div.tr {
+    right: -2px;
+    top: -2px;
+}
+div.bl {
+    bottom: -2px;
+    left: -2px;
+}
+div.br {
+    bottom: -2px;
+    right: -2px;
+}
+* html div.panel {
+    height: 1%;
+}
+* html div.bl, * html div.br {
+    bottom: -7px;
+}
+div.late {
+    background-color: #FFE9E9;
+    border: 2px solid #FFB0B0;
+}
+div.ltl {
+    background-image: url("../images/panelCurves/lateTL.png");
+}
+div.ltr {
+    background-image: url("../images/panelCurves/lateTR.png");
+}
+div.lbl {
+    background-image: url("../images/panelCurves/lateBL.png");
+}
+div.lbr {
+    background-image: url("../images/panelCurves/lateBR.png");
+}
+div.upcoming {
+    background-color: #FFFAE9;
+    border: 2px solid #FFCF0F;
+}
+div.utl {
+    background-image: url("../images/panelCurves/upcomingTL.png");
+}
+div.utr {
+    background-image: url("../images/panelCurves/upcomingTR.png");
+}
+div.ubl {
+    background-image: url("../images/panelCurves/upcomingBL.png");
+}
+div.ubr {
+    background-image: url("../images/panelCurves/upcomingBR.png");
+}
+div.comp {
+    background-color: #E9FFE9;
+    border: 2px solid #7AFF7A;
+}
+div.ctl {
+    background-image: url("../images/panelCurves/completedTL.png");
+}
+div.ctr {
+    background-image: url("../images/panelCurves/completedTR.png");
+}
+div.cbl {
+    background-image: url("../images/panelCurves/completedBL.png");
+}
+div.cbr {
+    background-image: url("../images/panelCurves/completedBR.png");
+}
+div.sidebar {
+    background-color: #FFFFFF;
+    border: 2px solid #B4CCEE;
+    margin: 10px 0 0;
+}
+div.sidebar notoppadding {
+    padding-top: 0;
+}
+div.sidebar p {
+    margin: 0;
+    padding: 0;
+}
+div.sbtl {
+    background-image: url("../images/panelCurves/sidebarTL.png");
+}
+div.sbtr {
+    background-image: url("../images/panelCurves/sidebarTR.png");
+}
+div.sbbl {
+    background-image: url("../images/panelCurves/sidebarBL.png");
+}
+div.sbbr {
+    background-image: url("../images/panelCurves/sidebarBR.png");
+}
+div.gray {
+    background-color: #F5F5F5;
+    border: 2px solid #C9C9C9;
+    margin: 0 0 15px;
+    padding: 0;
+}
+div.gtl {
+    background-image: url("../images/panelCurves/grayTL.png");
+}
+div.gtr {
+    background-image: url("../images/panelCurves/grayTR.png");
+}
+div.gbl {
+    background-image: url("../images/panelCurves/grayBL.png");
+}
+div.gbr {
+    background-image: url("../images/panelCurves/grayBR.png");
+}
+div.white {
+    background-color: #FFFFFF;
+    border: 2px solid #C9C9C9;
+    margin: 0 0 15px;
+    padding: 0;
+}
+div.wtl {
+    background-image: url("../images/panelCurves/whiteTL.png");
+}
+div.wtr {
+    background-image: url("../images/panelCurves/whiteTR.png");
+}
+div.wbl {
+    background-image: url("../images/panelCurves/whiteBL.png");
+}
+div.wbr {
+    background-image: url("../images/panelCurves/whiteBR.png");
+}
+div#subCats {
+    background-color: #DBE3FA;
+    border-left: 1px solid #DBE3FA;
+    margin: -10px 7px 0;
+    overflow: hidden;
+}
+div#subCats ul {
+    list-style: none outside none;
+    margin: 5px 0 0;
+    padding: 8px 0 0;
+}
+div#subCats ul li {
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    border: 1px solid #DDDDDD;
+    float: left;
+    list-style: none outside none;
+    margin: 5px 2px 0;
+    padding: 0;
+    position: relative;
+}
+div#subCats ul li.sel {
+    border-bottom: 1px solid #FFFFFF;
+    border-top: 1px solid #DDDDDD;
+    margin-top: 0;
+}
+div#subCats ul li.sel a {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-weight: bold;
+    padding-bottom: 5px;
+    padding-top: 8px;
+}
+div#subCats ul li a {
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    background: none repeat scroll 0 0 #EEEEEE;
+    color: #808080;
+    display: block;
+    font-size: 11px;
+    padding: 4px 15px;
+    text-decoration: none;
+}
+div#subCats ul li a:hover {
+    background-color: #FAFAFA;
+    color: #333333;
+}
+div#subCats ul li.new {
+    border: medium none;
+}
+div#subCats ul li.new a {
+    background-color: transparent;
+    color: #8080EE;
+    font-size: 11px;
+    text-decoration: underline;
+}
+div#subCats ul li.new a:hover {
+    background-color: transparent;
+    color: #0000FF;
+    text-decoration: underline;
+}
+span.redAlert, span.yellowAlert, span.greenAlert, span.blueAlert, span.purpleAlert, span.cyanAlert, span.brightYellowAlert {
+    background-image: url("../images/alertSprite.png");
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    font-family: arial;
+    font-size: 11px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 21px;
+    position: absolute;
+    right: -5px;
+    text-align: center;
+    top: -12px;
+    width: 23px;
+}
+span.redAlert {
+    background-position: 0 -120px;
+}
+span.blueAlert {
+    background-position: 0 -24px;
+}
+span.purpleAlert {
+    background-position: 0 -264px;
+}
+span.yellowAlert {
+    background-position: 0 -216px;
+}
+span.brightYellowAlert {
+    background-position: 0 -168px;
+    color: #222222;
+}
+span.greenAlert {
+    background-position: 0 -72px;
+}
+span.cyanAlert {
+    background-position: 0 -312px;
+}
+div.overlay {
+    background-image: url("../images/lightbox/overlay.png");
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+}
+* html div.overlay {
+    background-color: #333333;
+}
+div.lbox {
+    background: none repeat scroll 0 0 transparent;
+    margin: 0;
+    overflow: hidden;
+    padding: 7px 0 0;
+}
+div.lbox div.lbClose {
+    background: url("../images/lightbox/x.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 25px;
+    position: absolute;
+    right: 2px;
+    top: 0;
+    width: 25px;
+    z-index: 99999;
+}
+div.lbox div.lboxContents .section {
+    margin: 0;
+    padding: 0;
+}
+div.lbox div.lboxContents .title {
+    margin: 10px 10px 0;
+}
+div.lbox div.lboxContents .sectionContent {
+    background-color: #FFFFFF;
+    margin: 0 10px 10px;
+}
+div.lbox div.lboxContents div#message {
+    margin: 0;
+}
+div.sectionForm {
+    -moz-box-shadow: 0 0 17px #444444;
+}
+#CalendarControl * {
+    margin: 0;
+    padding: 0;
+}
+#CalendarControlIFrame {
+    display: none;
+    height: 250px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 250px;
+    z-index: 99;
+}
+#CalendarControl {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #FAFAFA;
+    display: none;
+    margin: 0;
+    padding: 10px;
+    position: absolute;
+    z-index: 100;
+}
+#CalendarControl table {
+    font-family: arial,helvetica,sans-serif;
+    font-size: 12px;
+}
+#CalendarControl th {
+    color: #777777;
+    font-weight: bold;
+    text-align: center;
+}
+#CalendarControl th a {
+    color: #FFFFFF;
+    font-weight: normal;
+    padding: 2px 1px;
+    text-decoration: none;
+}
+#CalendarControl td {
+    font-size: 12px;
+    text-align: center;
+}
+#CalendarControl .header {
+    border-top: 1px solid #222222;
+    color: #222222;
+}
+#CalendarControl .weekday {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    text-align: center;
+}
+#CalendarControl .weekend {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    text-align: center;
+}
+#CalendarControl .current {
+    background-color: #000000;
+    border: 1px solid #FF0000;
+    color: #FFFFFF;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+#CalendarControl .weekday, #CalendarControl .weekend, #CalendarControl .current, #CalendarControl .today {
+    border: 1px solid #FFFFFF;
+    display: block;
+    text-decoration: none;
+    width: 2em;
+}
+#CalendarControl .today {
+    background-color: #FAFAFA;
+    border: 1px dashed #AAAAAA;
+    color: #222222;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+#CalendarControl .current:hover {
+    color: #FFFFFF;
+}
+#CalendarControl .weekday:hover, #CalendarControl .weekend:hover, #CalendarControl .today:hover {
+    background-color: #FE6248;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+#CalendarControl .previous {
+    text-align: left;
+}
+#CalendarControl .next {
+    text-align: right;
+}
+#CalendarControl .previous a, #CalendarControl .next a {
+    border: 1px solid #DDDDDD;
+    color: #AAAAAA;
+    font-size: 1.4em;
+    font-weight: normal;
+    padding: 3px;
+    text-decoration: none;
+    width: 20px;
+}
+#CalendarControl .previous a:hover, #CalendarControl .next a:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #AAAAAA;
+}
+#CalendarControl .title {
+    color: #222222;
+    font-weight: bold;
+    text-align: center;
+}
+#CalendarControl .empty {
+    background-color: #EEEEEE;
+    border: 1px solid #FFFFFF;
+}
+#CalendarControl tr.footer td {
+    background: url("../images/icons/calendar.gif") no-repeat scroll 5px 0 #EFEFEF;
+    color: #000000;
+    font-weight: bold;
+    height: 12px;
+    padding: 2px 0 2px 25px;
+    text-align: left;
+}
+#CalendarControl tr.footer #dueDate {
+    color: #AA2222;
+}
+textarea#commentBody {
+    height: 100px;
+}
+span.comment {
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    height: 16px;
+    margin: 0 5px 0 0;
+    width: 16px;
+}
+span.commentOff {
+    background-image: url("../images/icons/comment_off.png");
+}
+span.commentOn {
+    background-image: url("../images/icons/comment_on.png");
+}
+div.commentView {
+    margin: 0;
+    overflow: hidden;
+    padding: 10px;
+}
+div.commentTitle {
+    background-color: #373737;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+:first-child + html div.commentViewTasks {
+    margin-left: 50px;
+    padding-left: 0;
+}
+div.comment {
+    margin: 0 0 10px;
+    overflow: hidden;
+    padding: 5px 5px 5px 10px;
+}
+div.on {
+    background-color: #EAEAEE;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #DDDDDD;
+    overflow: hidden;
+}
+div.off {
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
+div.me {
+    background-color: #D1EFD1;
+    border-bottom: 2px solid #00A700;
+    border-top: 2px solid #00A700;
+    overflow: hidden;
+}
+div.commentPoster {
+    clear: both;
+    color: #222222;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 5px;
+    overflow: hidden;
+}
+div.commentPoster span.commentDate {
+    color: #222222;
+    font-size: 12px;
+    font-weight: normal;
+}
+div.commentPoster a {
+    float: right;
+    font-size: 11px;
+    font-weight: bold;
+}
+div.commentPic {
+    float: left;
+    overflow: hidden;
+    width: 70px;
+}
+div.commentPic img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    padding: 3px;
+}
+div.commentBody {
+    color: #000000;
+    font-size: 12px;
+    line-height: 14px;
+    margin-left: 70px;
+    overflow: hidden;
+}
+div.btnDrpDwnDiv.rhs {
+    float: right;
+    margin: 0 0 0 6px;
+}
+div.btnDrpDwnDiv.lhs {
+    float: left;
+    margin: 0 6px 0 0;
+}
+a.btnDrpDwn {
+    cursor: pointer;
+    display: block;
+    height: 21px;
+    overflow: hidden;
+    text-decoration: none !important;
+}
+a.btnDrpDwn span.l {
+    background: none repeat scroll 0 0 #CCCCCC;
+    display: block;
+    float: left;
+    height: 19px;
+    margin-top: 1px;
+    width: 1px;
+}
+a.btnDrpDwn span.mid {
+    background: url("../images/btnDrpDwnBck.gif") no-repeat scroll 0 50% #FFFFFF;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    display: block;
+    float: left;
+    font-size: 10px;
+    height: 19px;
+    min-width: 17px;
+    padding: 0;
+    text-decoration: none !important;
+}
+a.btnDrpDwn span.mid.txt {
+    color: #222222;
+    font-size: 10px;
+    height: 17px;
+    padding: 2px 6px 0 20px;
+}
+a.btnDrpDwn:hover span.l {
+    background-color: #AAAAAA;
+}
+a.btnDrpDwn:hover span.mid {
+    border-bottom: 1px solid #AAAAAA;
+    border-top: 1px solid #AAAAAA;
+    color: #3F4EA6;
+}
+a.btnDrpDwn:hover span.mid.txt {
+    color: #000000;
+    font-size: 10px;
+    height: 17px;
+    padding: 2px 6px 0 20px;
+}
+div#btnDrpDwnOn {
+    left: 100px;
+    position: absolute;
+    top: 100px;
+    z-index: 6;
+}
+div#btnDrpDwnOn a.btnDrpDwn span.l {
+    background: none repeat scroll 0 0 #AAAAAA;
+}
+div#btnDrpDwnOn a.btnDrpDwn span.mid {
+    background: url("../images/btnDrpDwnBckOn.gif") no-repeat scroll 0 50% #FFFFFF;
+    border-bottom: medium none;
+    border-top: 1px solid #AAAAAA;
+    font-size: 10px;
+    height: 19px;
+    min-width: 17px;
+    padding: 0;
+}
+div#btnDrpDwnOn a.btnDrpDwn span.mid.txt {
+    color: #222222;
+    font-size: 10px;
+    height: 17px;
+    padding: 2px 6px 0 20px;
+}
+div#butDrpMnu {
+    left: 100px;
+    position: absolute;
+    top: 100px;
+    width: 188px;
+    z-index: 3;
+}
+div#butDrpMnu0 {
+    background: none repeat scroll 0 0 #AAAAAA;
+    height: 1px;
+    margin: 0 1px;
+    overflow: hidden;
+    width: 186px;
+}
+div#butDrpMnu1 {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #AAAAAA;
+    border-right: 1px solid #AAAAAA;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+div#butDrpMnu2 {
+    background: none repeat scroll 0 0 #AAAAAA;
+    height: 1px;
+    margin: 0 1px;
+    overflow: hidden;
+    width: 186px;
+}
+div#butDrpMnu1 div.dropTitle {
+    background: url("../images/layout/backDropTitle.png") repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #EFF6FB;
+    color: #555555;
+    font-size: 9px;
+    margin-bottom: 5px;
+    padding: 3px 5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+div#butDrpMnu1 a {
+    background-position: 3px 50%;
+    background-repeat: no-repeat;
+    border: 1px solid #FFFFFF;
+    display: block;
+    font-size: 10px;
+    margin: 0 5px;
+    padding: 4px 0 4px 24px;
+    text-decoration: none;
+}
+div#butDrpMnu1 a:hover {
+    background-color: #EAF6FD;
+    border: 1px solid #D8F0FA;
+}
+div#butDrpMnu1.ie {
+    border: 1px solid #EEEEEE;
+    margin: 0 4px 0 40px;
+    overflow: hidden;
+}
+div#butDrpMnu1.ie a {
+    background-position: 3px 2px;
+    background-repeat: no-repeat;
+    border: 1px solid #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 10px;
+    margin: 0 4px 0 0;
+    padding: 4px 4px 4px 24px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+div#butDrpMnu1.ie a:hover {
+    background-color: #EAF6FD;
+    border: 1px solid #D8F0FA;
+}
+div#butDrpMnu1 div.break {
+    background-color: #EEEEEE;
+    height: 1px;
+    margin: 3px 1px;
+    overflow: hidden;
+    width: 170px;
+}
+div#butDrpMnu1 div.title {
+    color: #555555;
+    font-size: 10px;
+    padding: 4px;
+}
+div#butDrpMnu1 a.user_edit {
+    background-image: url("../images/icons/user_edit.png");
+}
+div#butDrpMnu1 a.users {
+    background-image: url("../images/icons/users.gif");
+}
+div#butDrpMnu1 a.settings {
+    background-image: url("../images/icons/settings.png");
+}
+div#butDrpMnu1 a.subscription {
+    background-image: url("../images/icons/exec.png");
+}
+div#butDrpMnu1 a.detailsComments {
+    background-image: url("../images/icons/detailsComments.png");
+}
+div#butDrpMnu1 a.edit {
+    background-image: url("../images/icons/edit.png");
+}
+div#butDrpMnu1 a.time {
+    background-image: url("../images/icons/time_add.png");
+}
+div#butDrpMnu1 a.startTimer {
+    background-image: url("../images/icons/start_timer.png");
+}
+div#butDrpMnu1 a.move {
+    background-image: url("../images/icons/move.png");
+}
+div#butDrpMnu1 a.progress {
+    background-image: url("../images/icons/percentage.png");
+}
+div#butDrpMnu1 a.mailreminder {
+    background-image: url("../images/icons/mailreminder.png");
+}
+div#butDrpMnu1 a.files {
+    background-image: url("../images/icons/attach.png");
+}
+div#butDrpMnu1 a.comment {
+    background-image: url("../images/icons/comment.png");
+}
+div#butDrpMnu1 a.delete {
+    background-image: url("../images/icons/delete.png");
+}
+div#butDrpMnu1 a.pdf {
+    background-image: url("../images/icons/pdf.gif");
+}
+div#butDrpMnu1 a.newprog {
+    background-image: url("../images/icons/programme_new.png");
+}
+div#butDrpMnu1 a.up {
+    background-image: url("../images/icons/up.gif");
+}
+div#butDrpMnu1 a.down {
+    background-image: url("../images/icons/down.gif");
+}
+div#butDrpMnu1 a.setPending {
+    background-image: url("../images/icons/modules_pendingapproval.gif");
+}
+div#butDrpMnu1 a.conditApprove {
+    background-image: url("../images/icons/ToConditionalApproval.png");
+}
+div#butDrpMnu1 a.approve {
+    background-image: url("../images/icons/correct.gif");
+}
+div#butDrpMnu1ie {
+    margin: 0 0 0 50px;
+    overflow: hidden;
+    padding: 0;
+}
+div#butDrpMnu1ie div#butDrpMnu1 {
+    border: 0 none;
+    margin: 0;
+    overflow: hidden;
+}
+div#topRight div.btnDrpDwnDiv {
+    background-color: #173A66;
+    float: left;
+    margin: -2px 10px 0 0;
+}
+div#topRight div.btnDrpDwnDiv a {
+    font-weight: normal;
+    padding: 0;
+    text-decoration: underline;
+}
+div#topRight div.btnDrpDwnDiv a.btnDrpDwn span.mid {
+    background: url("../images/btnDrpDwnBckBlk.gif") no-repeat scroll 0 50% transparent;
+    border-color: transparent;
+    color: #FFFFFF;
+    font-size: 11px;
+}
+div#topRight div.btnDrpDwnDiv a.btnDrpDwn span.l, div#topRight div.btnDrpDwnDiv a.btnDrpDwn span.trmyac {
+    background: none repeat scroll 0 0 transparent;
+}
+div#topRight div.btnDrpDwnDiv a.btnDrpDwn:hover span.mid {
+    background: url("../images/btnDrpDwnBckBlk.gif") no-repeat scroll 0 50% transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#btnDrpDwnOn.trcp a.btnDrpDwn span.mid.txt, #btnDrpDwnOn.trdrp a.btnDrpDwn span.mid.txt, #btnDrpDwnOn.trnew a.btnDrpDwn span.mid.txt, #btnDrpDwnOn.trmyac a.btnDrpDwn span.mid.txt {
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+}
+#btnDrpDwnOn.trdrp a.btnDrpDwn, #btnDrpDwnOn.trnew a.btnDrpDwn {
+    text-decoration: none;
+}
+#Tabs {
+    margin: -2px 25px 0;
+    overflow: hidden;
+    padding: 0;
+}
+#Tabs.sub {
+    margin-left: 45px;
+}
+#Tabs ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0 5px 0 0;
+}
+#Tabs ul li {
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    background-color: #205B92;
+    float: left;
+    margin: 0 2px 0 0;
+    padding: 0 0 0 5px;
+}
+#Tabs ul li a {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 6px 5px 6px 1px;
+    text-decoration: none;
+}
+#Tabs ul li a {
+    float: none;
+}
+#Tabs ul li a:hover {
+    color: #FFFFFF;
+}
+#Tabs ul li:hover {
+    background-color: #2567A5;
+}
+#Tabs ul li.sel {
+    background-color: #FFFFFF;
+}
+#Tabs ul li.sel a {
+    color: #1A4F85;
+    font-weight: bold;
+}
+#MainTabs {
+    float: left;
+    height: 26px;
+    overflow: hidden;
+}
+div#topRight {
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    z-index: 10;
+}
+div#topRight ul#topRightNav {
+    float: right;
+    height: 26px;
+}
+div#topRight ul#topRightNav li {
+    float: left;
+}
+div#topRight ul#topRightNav li.first {
+    background-image: none;
+}
+div#topRight ul#topRightNav li a:link, div#topRight ul#topRightNav li a:visited {
+    background: url("../images/layout/bgTopRightNav.png") repeat scroll center top transparent;
+    color: #FFFFFF;
+    float: left;
+    font-size: 11px;
+    padding: 6px 10px 7px 0;
+    text-decoration: none;
+}
+div#topRight ul#topRightNav li a:hover, div#topRight ul#topRightNav li a:active {
+    background-position: center bottom;
+}
+div#topRight ul#topRightNav li.first a:link, div#topRight ul#topRightNav li.first a:visited {
+    background-image: url("../images/layout/bgTopRightNav_first.png");
+    background-position: left top;
+}
+div#topRight ul#topRightNav li.first a:hover, div#topRight ul#topRightNav li.first a:active {
+    background-position: left bottom;
+}
+div#topRight ul#topRightNav li.last a:link, div#topRight ul#topRightNav li.last a:visited {
+    background-image: url("../images/layout/bgTopRightNav_last.png");
+    background-position: right top;
+}
+div#topRight ul#topRightNav li.last a:hover, div#topRight ul#topRightNav li.last a:active {
+    background-position: right bottom;
+}
+div#topRight ul#topRightNav li a:link span, div#topRight ul#topRightNav li a:visited span {
+    background: url("../images/layout/bgTopRightNav_arrow.png") no-repeat scroll right bottom transparent;
+    padding: 0 20px 0 15px;
+}
+div#topRight ul#topRightNav li a:hover span, div#topRight ul#topRightNav li a:active span {
+    background-position: right top;
+}
+div#topRight ul#topRightNav li#navsignout a span {
+    background-image: url("../images/layout/bgTopRightNav_signout.png");
+    padding-right: 23px;
+}
+div#topRight ul#topRightNav li#navhelp a span {
+    background-image: url("../images/layout/bgTopRightNav_help.png");
+    padding-right: 23px;
+}
+div#topRight ul#topRightNav li#navsites a span {
+    background-image: url("../images/layout/bgTopRightNav_sites.png");
+    padding-right: 23px;
+}
+body {
+    background-color: #134584;
+    background-image: url("../images/layout/bgShade.png");
+    color: #000000;
+    font-family: 'Lucida Grande',verdana,arial,helvetica,sans-serif;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+}
+div, li, tr, td {
+    font-size: 11px;
+    text-align: left;
+}
+#message, div.msg {
+    -moz-box-shadow: 0 0 14px #333333;
+    background: url("../images/icons/information.png") no-repeat scroll 10px 50% #FFFEEB;
+    border-bottom: 1px solid #222222;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 0;
+    padding: 10px 20px 10px 40px;
+    width: 100%;
+}
+#message {
+    left: 0;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+div#systemMsg {
+    -moz-border-radius: 6px 6px 6px 6px;
+    background: url("../images/icons/information.png") no-repeat scroll 10px 50% #FFFFCC;
+    border: 1px solid #000000;
+    color: #000000;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 3px;
+    padding: 6px 8px 8px 36px;
+}
+div#message h3 {
+    border: medium none;
+    color: #333333;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0 0 5px !important;
+    padding: 0;
+}
+#message ul, div.msg ul {
+    margin: 5px 0 0;
+    padding: 0;
+}
+#message ul li, div.msg ul li {
+    background: url("../images/li.gif") no-repeat scroll 0 2px transparent;
+    list-style: none outside none;
+    padding: 0 0 0 16px;
+}
+#message.info, div.msg div.info {
+    background-image: url("../images/icons/information.png");
+    border-color: #AAAAAA;
+}
+#message.error, div.msg div.err {
+    background: url("../images/icons/exclamation.png") no-repeat scroll 10px 50% #FFFDF1;
+    border-bottom: 1px solid #808080;
+    font-size: 17px !important;
+}
+#message.pushEvent {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-box-shadow: 0 0 14px #888888;
+    background: url("../images/icons/information.png") no-repeat scroll 5px 5px #FFFDF1;
+    border-color: #777777 #777777 -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    bottom: 0;
+    font-size: 11px !important;
+    height: auto;
+    left: auto;
+    line-height: 13px !important;
+    min-height: 18px;
+    padding: 6px 5px 5px 26px;
+    right: 50px;
+    top: auto;
+    width: 260px;
+}
+#message h3 {
+    background-color: transparent;
+}
+#message em {
+    font-weight: bold;
+    padding: 4px;
+}
+#message a {
+    font-weight: bold;
+}
+#header {
+    background: url("../images/layout/transGradDark.png") repeat-x scroll left bottom #134584;
+    margin: 0;
+    min-width: 890px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+:first-child + html #header {
+    background-position: 0 60px;
+}
+#topNavBarNew {
+    overflow: hidden;
+    padding-bottom: 3px;
+    padding-top: 0;
+}
+a#trHelp {
+    background-color: #9F0326;
+    color: #FFFFFF;
+    margin-left: 10px;
+    padding: 2px 4px 3px;
+}
+a#trHelp:hover {
+    text-decoration: underline;
+}
+#topLeft {
+    color: #FAFAFA;
+    font-family: verdana;
+    font-size: 9px;
+    margin: 0;
+    padding: 0 30px 0 32px;
+}
+#topRight {
+    color: #FFFFFF;
+    font-size: 9px;
+    margin: 0;
+    padding: 0 10px 0 12px;
+}
+#topRight a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#topRight {
+    float: right;
+}
+#topRight div#trmyac {
+    float: left;
+}
+#topRight a.logout {
+    color: #EEEEEE;
+    text-decoration: underline;
+}
+#footer {
+    clear: both;
+    margin: 10px;
+    overflow: hidden;
+}
+#footer span.twpmlogo {
+    background: url("../../images/interfaceSprite2.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 51px;
+    width: 206px;
+}
+#footer ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+#footer li {
+    border: medium none;
+    display: inline;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+#footer ul li a:link, #footer ul li a:visited {
+    color: #AAAAAA;
+    display: block;
+    float: left;
+    font-size: 10px;
+    padding: 4px 5px;
+}
+#footer ul li a:hover {
+    color: #FFFFFF;
+}
+#footer ul li#navfeedback a {
+    -moz-border-radius: 2px 2px 2px 2px;
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 2px -14px #F2F2F2;
+    color: #333333;
+    margin-left: 20px;
+    padding: 4px 4px 4px 21px;
+    text-decoration: none;
+}
+#footer ul li#navfeedback a:hover {
+    background-color: #FFFFFF;
+}
+body#feedback #footer ul li#navfeedback {
+    display: none;
+}
+#footer ul li#navprivacypolicy a {
+    border: medium none;
+    margin-left: 30px;
+}
+#mainArea a.rhs {
+    color: #000000;
+    float: none;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+#mainArea a.rhs:hover {
+    color: #229507;
+}
+#mainArea a.rhs2 {
+    color: #000000;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+#mainArea a.rhs2:hover {
+    color: #229507;
+}
+#statusBar {
+    background-color: #E5E5E5;
+    border-top: 1px solid #B5B5B5;
+    bottom: 0;
+    height: 33px;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    z-index: 99;
+}
+#statusBar div.statusBarInner {
+    border-top: 1px solid #FFFFFF;
+    color: #000000;
+    font-size: 11px;
+    overflow: hidden;
+    padding: 5px;
+    text-align: left;
+}
+#statusBar div.statusBarInner span#twTimer {
+    background-color: #222222;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 5px;
+}
+#statusBar div.statusBarInner span#twTimerLink, #statusBar div.statusBarInner span#twIsBillable {
+    display: block;
+    float: left;
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+#statusBar div.statusBarInner span#twTimerLink {
+    border-left: 1px solid #CCCCCC;
+    margin-left: 15px;
+    padding-left: 10px;
+}
+#statusBar div.statusBarInner span#twTimerLink a {
+    color: #222222;
+    line-height: 20px;
+    text-decoration: none;
+}
+#statusBar div.statusBarInner span#twTimerLink a:hover {
+    text-decoration: underline;
+}
+#statusBar div.statusBarInner span#twIsBillable label {
+    display: inline;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+ul#companyList {
+    background: url("../images/people/companyList_back.gif") repeat-y scroll 204px 0 transparent;
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 10px 0;
+    width: 213px;
+}
+ul#companyList li {
+    color: #666666;
+    display: block;
+    min-height: 26px;
+}
+ul#companyList li a {
+    background: url("../images/people/companyList_li_back.gif") no-repeat scroll 0 100% transparent;
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    min-height: 18px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-top: 6px;
+    text-decoration: none;
+}
+ul#companyList li.sel a, ul#companyList li.sel a:hover {
+    background: url("../images/people/companyList_li_sel.png") no-repeat scroll right center #1A3352;
+    color: #FFFFFF;
+    font-weight: bold;
+    line-height: 1.4em;
+    margin-bottom: 1px;
+    margin-top: 1px;
+    padding-left: 10px;
+    text-decoration: none;
+}
+ul#companyList li a:hover {
+    color: #049BC7;
+    text-decoration: underline;
+}
+div.companyGroup {
+    background-color: #FFFFFF;
+    margin: 0 7px 10px 0;
+    overflow: hidden;
+    padding: 0 0 10px;
+}
+div.companyGroup h3.companyGroupTitle {
+    background: url("../images/people/companyGroupNotch.gif") no-repeat scroll 0 50% #F1F5FF;
+    border-bottom: 1px solid #D4DEF9;
+    border-right: 1px solid #D4DEF9;
+    border-top: 1px solid #D4DEF9;
+    color: #444444;
+    font-size: 21px;
+    margin: 0;
+    padding: 10px 15px;
+}
+div.companyGroup h3 span {
+    color: #555577;
+    font-size: 14px;
+}
+div.installationLogo {
+    text-align: center;
+}
+div.holder {
+    float: left;
+    overflow: hidden;
+    padding-top: 10px;
+    width: 220px;
+}
+div.companyOptions {
+    float: left;
+    margin: 20px 0 0;
+    overflow: hidden;
+    width: 260px;
+}
+div.companyOptions ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+div.companyOptions li {
+    clear: both;
+    display: block;
+    padding: 6px;
+}
+div.databox {
+    margin: 0;
+    overflow: hidden;
+    padding: 10px;
+}
+div.userCard {
+    -moz-border-radius: 4px 4px 4px 4px;
+    -moz-box-shadow: 0 0 5px #DDDDDD;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    font-size: 11px;
+    margin: 0 10px 10px 0;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    white-space: nowrap;
+    width: 230px;
+}
+body#people div.userCard h4, body#myaccount div.userCard h4 {
+    border: medium none;
+    color: #333333;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+div.userCard p {
+    font-size: 0.9em;
+    line-height: 13px;
+    margin: 2px 0;
+    padding: 0;
+}
+div.userCard p.vspaced {
+    margin-bottom: 10px;
+}
+div.userCard p.bold {
+    font-weight: bold;
+}
+div.userCard p.topline {
+    border-top: 1px dotted #EFEFEF;
+    margin-top: 10px;
+}
+div.userCard .gray {
+    color: #808080;
+}
+div.userCard .userTitle {
+    border: medium none;
+    color: #004444;
+    font-size: 11px;
+}
+div.userCard .bigger {
+    font-size: 1em;
+}
+div.userPhoto, div.companyPhoto {
+    background: none repeat scroll 0 0 #FEFEFE;
+    border: 1px solid #DDDDDD;
+    padding: 4px;
+    width: 48px;
+}
+div.companyPhoto {
+    width: 200px;
+}
+body#people div.userCard p a, body#myaccount div.userCard p a {
+    color: #555555;
+    text-decoration: none;
+}
+body#people div.userCard p a:hover, body#myaccount div.userCard p a:hover {
+    color: red;
+    text-decoration: underline;
+}
+div.userCard div.opts {
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 0 5px #DDDDDD;
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #BBBBBB;
+    bottom: 5px;
+    clear: both;
+    color: #AAAAAA;
+    left: 5px;
+    margin: 3px;
+    padding: 5px 5px 5px 3px;
+    position: absolute;
+}
+body#people div.userCard div.opts a:hover, body#myaccount div.userCard div.opts a:hover {
+    color: blue;
+}
+div.userCard span.isAdmin {
+    background: url("../images/users/userCardIsAdminStamp.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 16px;
+    position: absolute;
+    right: 13px;
+    top: 54px;
+    width: 16px;
+}
+div.userCard div.userPhoto {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+div.userCard:hover {
+    background-color: #EEEEEE;
+    border-color: #CCCCCC #BBBBBB #BBBBBB #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+}
+div.userCard:hover div.userPhoto {
+    border: 1px solid #999999;
+}
+div.userCard.sel {
+    -moz-box-shadow: 0 0 5px #999999;
+    background-color: #EAEAFF;
+    border: 1px solid #666666;
+    cursor: pointer;
+}
+div.userCard.sel div.userPhoto {
+    border: 1px solid #999999;
+}
+div#userAPIBox {
+    clear: both;
+    overflow: hidden;
+}
+div#userAPIBox p.desc {
+    font-size: 10px;
+}
+div.termsAndConditions {
+    border: 1px solid #888888;
+    height: 150px;
+    margin: 10px;
+    overflow: auto;
+    padding: 10px;
+    width: 500px;
+}
+div.termsAndConditions p {
+    font-size: 10px;
+    margin-left: 5px;
+}
+div.termsAndConditions ol {
+    list-style: decimal outside none;
+    margin: 20px;
+    padding-left: 20px;
+}
+div.termsAndConditions ol li {
+    margin: 10px 5px;
+}
+div.APITokenDiv {
+    padding-bottom: 20px;
+}
+ul#APITokenHolder {
+    list-style: none outside none;
+    margin: 10px 0;
+    padding: 0;
+}
+ul#APITokenHolder li {
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}
+ul#APITokenHolder li input {
+    border: 1px solid #ABADB3;
+    font-size: 12px;
+    padding: 5px 2px;
+    width: 218px;
+}
+div.inlineButtonGroup a#p2SwitchToList span {
+    background: url("../images/icons/bgSwitchToList.png") no-repeat scroll center center transparent;
+    display: block;
+}
+div.inlineButtonGroup a#p2SwitchToCards span {
+    background: url("../images/icons/bgSwitchToCards.png") no-repeat scroll center center transparent;
+    display: block;
+}
+ul.htmlPill {
+    width: 225px;
+}
+ul.htmlPill li {
+    display: block;
+    font-size: 14px;
+    list-style: none outside none;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    z-index: 1;
+}
+ul.htmlPill li a.l1 {
+    border-bottom: 1px dotted #DDDDDD !important;
+    color: #222222;
+    display: block;
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0;
+    padding: 8px 5px 8px 0;
+    text-decoration: none;
+}
+ul.htmlPill.complete li a.l1 {
+    color: #888888;
+    text-decoration: line-through;
+}
+ul.htmlPill li a.l1.sel {
+    color: #222222;
+    font-weight: bold;
+}
+ul.htmlPill li a.l1.sel span.zh {
+    background-color: #FFFFCC;
+}
+ul.htmlPill li span.pill, ul.htmlPill li span.pillDisabled {
+    background: url("../images/r.png") no-repeat scroll right top #8D9CBB;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    height: 17px;
+    padding: 0 7px 0 0;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    z-index: 1;
+}
+ul.htmlPill li span.pill span, ul.htmlPill li span.pillDisabled span {
+    background: url("../images/l.png") no-repeat scroll left top transparent;
+    display: inline-block;
+    height: 15px;
+    min-width: 15px;
+    padding: 2px 0 0 7px;
+    text-align: center;
+    width: auto !important;
+}
+ul.htmlPill li span.pillDisabled {
+    background-color: #808080;
+    color: #DADADA;
+    text-decoration: none;
+}
+ul.htmlPill.disabled li span {
+    text-decoration: none;
+}
+ul.htmlPill li a.l1:hover {
+    color: #000000;
+}
+ul.htmlPill li a.l1.sel span.pill {
+    background-color: #000000;
+}
+ul.htmlPill li a.l1:hover span.pill {
+    background-color: #666666;
+}
+a.bubble {
+    background-color: #EEEEEE;
+    color: #999999;
+    display: inline-block;
+    font-family: 'Lucida Grande',verdana,arial,helvetica,sans-serif;
+    font-size: 12px;
+    height: 17px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+a.taskListBubble {
+    background-color: #808080;
+    color: #FFFFFF;
+}
+a.bubble span.n {
+    display: block;
+    float: left;
+    height: 17px;
+    width: auto;
+}
+a.bubble span.l {
+    background-image: url("../images/pills/white_l.png");
+    display: block;
+    float: left;
+    height: 17px;
+    width: 9px;
+}
+a.bubble span.r {
+    background-image: url("../images/pills/white_r.png");
+    display: block;
+    float: left;
+    height: 17px;
+    width: 9px;
+}
+a.bubble:hover {
+    background-color: black;
+}
+a.bubble:hover span.n {
+    color: #FFFFFF;
+}
+span.bubble {
+    background-color: #EEEEEE;
+    color: #666666;
+    display: inline-block;
+    font-family: 'Lucida Grande',verdana,arial,helvetica,sans-serif;
+    font-size: 10px;
+    height: 17px;
+    line-height: 17px;
+    margin: 0 8px 0 0;
+    min-width: 80px;
+    padding: 0;
+    text-decoration: none;
+}
+:first-child + html span.bubble {
+    max-width: 80px;
+}
+span.mine {
+    background-color: #E7FFCB;
+    color: #000000;
+}
+span.bubble span.n {
+    height: 17px;
+}
+span.bubble span.l {
+    background-image: url("../images/pills/white_l.png");
+    display: block;
+    float: left;
+    height: 17px;
+    width: 9px;
+}
+span.bubble span.r {
+    background-image: url("../images/pills/white_r.png");
+    display: block;
+    float: right;
+    height: 17px;
+    width: 9px;
+}
+a.taskBubble {
+    background-color: #EEEEEE;
+    color: #666666;
+    display: inline-block;
+    font-family: 'Lucida Grande',verdana,arial,helvetica,sans-serif;
+    font-size: 10px;
+    height: 17px;
+    line-height: 17px;
+    margin: 0 8px 0 0;
+    min-width: 80px;
+    padding: 0;
+    text-decoration: none;
+}
+:first-child + html a.taskBubble {
+    max-width: 80px;
+}
+a.mine {
+    background-color: #E7FFCB;
+    color: #000000;
+}
+a.taskBubble span.n {
+    height: 17px;
+}
+a.taskBubble span.l {
+    background-image: url("../images/pills/white_l.png");
+    display: block;
+    float: left;
+    height: 17px;
+    width: 9px;
+}
+a.taskBubble span.r {
+    background-image: url("../images/pills/white_r.png");
+    display: block;
+    float: right;
+    height: 17px;
+    width: 9px;
+}
+a.taskBubble:hover {
+    background-color: black;
+}
+a.taskBubble:hover span.n {
+    color: #FFFFFF;
+}
+div#taskListTemplateToolbarHolder {
+    background-color: #E5E5E5;
+    overflow: hidden;
+    padding: 10px;
+}
+body#dashboard div#projectActivityLateTasks, body#projectoverview div#projectActivityLateTasks {
+    padding-top: 10px;
+}
+body#dashboard div#projectActivityLateTasks .taskListTasks a, body#projectoverview div#projectActivityLateTasks .taskListTasks a {
+    color: #000000;
+    text-decoration: none;
+}
+body#dashboard div#projectActivityLateTasks .taskListTasks a:hover, body#projectoverview div#projectActivityLateTasks .taskListTasks a:hover {
+    color: #0563A5;
+    text-decoration: underline;
+}
+body#dashboard div.taskList h3 a, body#projectoverview div.taskList h3 a {
+    color: #000000;
+    text-decoration: none;
+}
+body#dashboard div.taskList h3 a:hover, body#projectoverview div.taskList h3 a:hover {
+    color: #222222;
+    text-decoration: underline;
+}
+body#dashboard div#projectActivityUpcomingTasks, body#projectoverview div#projectActivityUpcomingTasks {
+    padding-top: 10px;
+}
+h3.tlh3 {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background: url("../images/icons/taskList.gif") no-repeat scroll 6px 5px #F1F1F1;
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 5px 10px 5px 28px;
+}
+body#dashboard div#projectActivityUpcomingTasks .taskListTasks a, body#projectoverview div#projectActivityUpcomingTasks .taskListTasks a {
+    color: #000000;
+    text-decoration: none;
+}
+body#dashboard div#projectActivityUpcomingTasks .taskListTasks a:hover, body#projectoverview div#projectActivityUpcomingTasks .taskListTasks a:hover {
+    color: #0563A5;
+    text-decoration: underline;
+}
+body#all_tasks #projectActivity h3#project {
+    background-color: #E5E5E5;
+    margin: 10px 0 15px;
+    padding: 8px 5px 8px 10px;
+}
+body#all_tasks #projectActivity h3 a {
+    text-decoration: none;
+}
+body#all_tasks #projectActivity p {
+    margin: 0;
+    padding: 0 0 10px 10px;
+}
+body#all_tasks #projectActivity p.description {
+    margin: 0;
+    padding: 10px 0 10px 10px;
+}
+body#all_tasks #projectActivity h3 a {
+    color: #222222;
+}
+body#all_tasks #projectActivity h3 a:hover {
+    color: #229507;
+}
+body#all_tasks div.task div.taskRHS a:link, body#all_tasks div.task div.taskRHS a:visited {
+    color: #333333;
+    text-decoration: none;
+}
+body#all_tasks div.task div.taskRHS a:hover, div.taskRHS a:hover span.me {
+    text-decoration: underline;
+}
+body#all_tasks div#AllTaskListsContent {
+    margin: 10px 0 10px 20px;
+    overflow: hidden;
+}
+div.taskList {
+    margin: 0;
+    overflow: hidden;
+    padding: 0 0 1px;
+}
+div.taskList h3 {
+    margin: 0;
+}
+div#TaskLists.reorder h3.taskListDrag {
+    cursor: move;
+}
+div#TaskLists.reorder div.taskListContent {
+    display: none;
+}
+div#TaskLists.reorder span.taskListOpts {
+    display: none;
+}
+span.taskListOpts {
+    color: #AAAAAA;
+    float: right;
+    margin: 10px 10px 0 0;
+}
+div.taskListContent {
+    padding: 5px 0 15px 10px;
+}
+div.taskListContent ul li {
+    background: none repeat scroll 0 0 transparent;
+    list-style: none outside none;
+}
+div.taskList p.description {
+    color: #888888;
+    margin: 10px 0 15px 20px;
+    padding: 0;
+}
+div.taskListTasks {
+    margin: 5px 0 0;
+}
+div.taskList p.tasklistMilestone {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background-color: #EFF6FD;
+    border: 1px solid #E6F1FC;
+    font-style: normal;
+    margin: 0 0 10px;
+    padding: 5px 10px 5px 20px;
+}
+div.taskList p.tasklistMilestone span {
+    font-weight: bold;
+}
+div.taskList p.late {
+    background-color: #FDF2F2;
+    border: 1px solid #FAE2E2;
+}
+div.taskList p.completed {
+    background-color: #EFF9EF;
+    border: 1px solid #E6F6E6;
+}
+div.taskList div.options {
+    background: none repeat scroll 0 0 #FEFEFE;
+    display: block;
+    margin: 5px 0 5px 62px;
+    overflow: hidden;
+    padding: 5px 0 0;
+    width: 100%;
+}
+body#tasks div.task div.taskRHS a:link, body#tasks div.task div.taskRHS a:visited {
+    color: #000000;
+    text-decoration: none;
+}
+body#tasks div.task div.taskRHS a:hover {
+    color: #1D6DFF;
+    text-decoration: underline;
+}
+body#tasks div.task div.taskRHS a.red, projectoverview#tasks div.task div.taskRHS a.red, body#all_tasks div.task div.taskRHS a.red {
+    color: #FF0000;
+    padding: 1px 3px;
+    text-decoration: underline;
+}
+body#tasks div.task div.taskRHS a.red:hover, projectoverview#tasks div.task div.taskRHS a.red:hover, body#all_tasks div.task div.taskRHS a.red:hover {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    padding: 1px 3px;
+    text-decoration: none;
+}
+body#tasks div.taskList h3 {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background-image: url("../images/icons/taskList.gif");
+    background-position: 6px 5px;
+    background-repeat: no-repeat;
+    margin-bottom: 5px;
+    padding: 5px 10px 5px 28px;
+}
+body#tasks div.taskList h3 a {
+    color: #000000;
+    text-decoration: none;
+}
+div.taskList h3 a:hover {
+    color: #222222;
+}
+div.taskToolbar {
+    -moz-border-radius: 6px 6px 6px 6px;
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #DDDDDD;
+    color: #333333;
+    display: block;
+    font-size: 12px;
+    margin: 3px 0 8px 62px;
+    overflow: hidden;
+    padding: 5px 5px 5px 14px;
+}
+div.addTaskForm, div.editTaskForm, div.editTaskListForm {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #DDDDDD;
+    margin: 0 0 5px;
+    padding: 5px;
+}
+div.addTaskForm {
+    margin: 5px 0 5px 62px;
+}
+div.addTaskForm .text, .textarea, div.editTaskForm .text, .textarea {
+    width: 95%;
+}
+div.addTaskForm label, div.editTaskForm label {
+    display: block;
+    padding-top: 5px;
+}
+div.taskList div.task {
+    clear: both;
+    list-style: none outside none;
+    margin: 4px 0;
+    overflow: hidden;
+    padding: 0;
+}
+div.taskLHS {
+    float: left;
+    width: 57px;
+}
+span.handle {
+    cursor: move;
+    display: none;
+}
+div.taskLHS input {
+    float: right;
+}
+div.taskLHS span {
+    float: right;
+    padding-top: 4px;
+}
+div.taskLHS div.btnDrpDwnDiv {
+    float: right;
+    margin: 0 3px;
+}
+span.time {
+    cursor: pointer;
+    display: inline;
+    margin-left: 5px;
+}
+span.file {
+    cursor: pointer;
+    display: inline;
+    margin-left: 5px;
+}
+div.taskRHSH {
+    margin: 0 0 0 62px;
+    padding: 0;
+    position: relative;
+}
+div.taskRHS {
+    color: #333333;
+    font-size: 11px;
+    line-height: 18px;
+    margin: 0;
+    padding: 3px 0 0;
+}
+div.taskList div.task.completed {
+    clear: both;
+    list-style: none outside none;
+    margin: 2px 0 0;
+    padding: 0;
+}
+div.taskList div.task.completed div.taskRHS {
+    color: #999999;
+    font-size: 9px;
+}
+div.taskList div.task.completed div.taskRHS img {
+    margin-top: 2px;
+}
+div.taskRHS div.taskDescription {
+    border: 1px solid #EBEFFF;
+    color: #333333;
+    line-height: 150%;
+    margin: 2px 0;
+    overflow: hidden;
+    padding: 10px 0 10px 10px;
+    width: 98%;
+}
+div.taskRHS div.taskDescription a.simpleButton {
+    line-height: 100%;
+    margin: 10px 0 0;
+    padding: 0 0 0 21px;
+}
+div.taskRHS div.taskDescription a.simpleButton span {
+    padding: 4px 10px 0 0;
+}
+div.taskRHS span.late {
+    color: #FF0000;
+}
+div.taskList div.completed span.private {
+    font-size: 9px;
+    padding: 0 2px;
+}
+div.taskList span.priority {
+    padding-left: 5px;
+}
+div.taskRHS span.today {
+    -moz-border-radius: 5px 5px 5px 5px;
+    color: #000000;
+}
+div.taskRHS span.today {
+    color: #205CAC;
+    font-style: normal;
+}
+div.taskRHS span.tomorrow {
+    color: #FFA201;
+    font-style: normal;
+}
+a.taskComment1 {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 2px -398px transparent;
+    color: #666666 !important;
+    font: bold 11px arial,sans-serif;
+    margin: 0 5px;
+    padding: 2px 7px 6px 8px;
+    text-decoration: none;
+}
+a.taskComment2 {
+    background: url("../images/icons/iconSprite4.png") no-repeat scroll 2px -430px transparent;
+    color: #666666 !important;
+    font: bold 11px arial,sans-serif;
+    margin: 0 5px;
+    padding: 2px 7px 6px 8px;
+    text-decoration: none;
+}
+a.taskComment1.unread {
+    background-position: 2px -334px;
+    color: #FFFFFF !important;
+}
+a.taskComment2.unread {
+    background-position: 1px -366px;
+    color: #FFFFFF !important;
+}
+a.taskComment1:hover {
+    background-position: 2px -334px;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+a.taskComment2:hover {
+    background-position: 1px -366px;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+span.taskDue {
+    color: #999999;
+    display: inline-block;
+    font-size: 10px;
+    font-style: normal;
+    margin: 0 3px 0 6px;
+    padding: 2px 3px;
+}
+span.taskLate {
+    color: #C00000;
+    display: inline-block;
+    font-size: 10px;
+    font-style: normal;
+    margin: 0 3px 0 6px;
+    padding: 2px 3px;
+}
+span.who {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background: none repeat scroll 0 0 #F6F6F6;
+    color: #888888;
+    line-height: 16px;
+    margin: 0 0 0 5px;
+    padding: 0 5px;
+}
+span.who.me {
+    background: none repeat scroll 0 0 #CCFFCC;
+    color: #000000;
+    font-weight: normal;
+}
+div#TaskContent div.taskList {
+    background-color: #F2F3FE;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 20px;
+}
+div#TaskContent div.taskList div.task {
+    background-color: #FFFFFF;
+    border-color: #E9E9E9 #D7D7D7 #D7D7D7 #E9E9E9;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 20px 0;
+    padding: 15px;
+}
+div#TaskContent div.taskList div.task label {
+    display: inline;
+    font-size: 16px;
+    font-weight: normal;
+}
+div#TaskContent div.taskList div.task label.completed {
+    text-decoration: line-through;
+}
+div#TaskContent div.taskComments div.commentViewTasks {
+    margin: 10px 0 0;
+    padding: 0;
+}
+div#TaskContent div.taskComments div.commentTitle {
+    margin-bottom: 10px;
+}
+div#TaskContent div.taskComments div.comment {
+    margin: 10px 5px;
+}
+div.taskList div.tlBlankSlate {
+    background-color: #FFFFDD;
+    border-bottom: 1px solid #FFCC00;
+    border-top: 1px solid #FFCC00;
+    font-size: 12px;
+    margin: 10px 0 0 10px;
+    padding: 10px;
+}
+div.fileTitle {
+    background-color: #373737;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+table.priorityGrid td {
+    border: 1px solid #EEEEEE;
+    padding: 7px;
+}
+table.priorityGrid td input {
+    float: left;
+}
+table.priorityGrid td label {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background-color: #EEEEEE;
+    border: 1px solid #DDDDDD;
+    color: #AAAAAA;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 18px;
+    height: 40px;
+    padding: 5px 5px 5px 10px;
+    width: 220px;
+}
+table.priorityGrid td label span {
+    color: #AAAAAA;
+    display: block;
+    font-size: 14px;
+    padding: 0 5px 0 18px;
+}
+table.priorityGrid td label.sel {
+    background-color: #1D6DFF;
+    color: white;
+}
+table.priorityGrid td.pg1 label.sel {
+    background-color: red;
+}
+table.priorityGrid td.pg2 label.sel {
+    background-color: orange;
+}
+table.priorityGrid td.pg3 label.sel {
+    background-color: #1D6DFF;
+}
+table.priorityGrid td.pg4 label.sel {
+    background-color: green;
+}
+table.priorityGrid td label.sel span {
+    color: white;
+}
+table.priorityGrid td.pg1 {
+    border-bottom: 1px dashed #CCCCCC;
+    border-right: 1px dashed #CCCCCC;
+}
+table.priorityGrid td.pg2 {
+    border-bottom: 1px dashed #CCCCCC;
+}
+table.priorityGrid td.pg3 {
+    border-right: 1px dashed #CCCCCC;
+}
+a.datePicker {
+    background: url("../images/icons/datepick.gif") no-repeat scroll 2px 2px transparent;
+    cursor: pointer;
+    display: block;
+    height: 18px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-indent: -2000px;
+    width: 18px;
+}
+div.datepicker {
+    background-color: transparent;
+    background-image: url("../images/datePickerBG.png");
+    background-repeat: no-repeat;
+    font-size: 10px;
+    height: 208px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    width: 253px;
+    z-index: 100;
+}
+div.datepickerunder {
+    background-color: transparent;
+    background-image: url("../images/datePickerBG_under.png");
+    background-repeat: no-repeat;
+    font-size: 10px;
+    height: 208px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    width: 253px;
+    z-index: 100;
+}
+table.dpt67 {
+    font-size: 10px;
+    margin: 10px 0 0 25px;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    width: 215px;
+    z-index: 100;
+}
+table.dpt67 thead tr th {
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+table.dpt67 tbody tr {
+    margin: 0;
+    padding: 0;
+}
+table.dpt67 tbody tr td {
+    border: 1px solid transparent;
+    height: 14px;
+    margin: 1px;
+    overflow: hidden;
+    padding: 2px;
+    text-align: center;
+    width: 16px;
+}
+table.dpt67 tbody tr td:hover, table.dpt67 tbody tr td.outbound:hover, table.dpt67 tbody tr td.today:hover {
+    border: 1px solid #CCCCCC;
+    color: #0DAF0D;
+    cursor: pointer;
+    font-weight: bold;
+}
+table.dpt67 tbody tr td.wday {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #FFFFFF;
+    cursor: text;
+}
+table.dpt67 tbody tr td.wday:hover {
+    font-weight: normal;
+}
+table.dpt67 tbody tr td.outbound {
+    background: none repeat scroll 0 0 #E9E9E9;
+    color: #C0C0C0;
+}
+table.dpt67 tbody tr td.today {
+    background: none repeat scroll 0 0 #A3D5FF;
+    border: 1px solid #E1F1FF;
+}
+table.dpt67 tbody tr td.current {
+    background-color: #FFD71D;
+    border: 1px solid #E3BB03;
+    color: #222222;
+}
+table.dpt67 tbody tr td.nclick, table.dpt67 tbody tr td.nclick_outbound {
+    color: #AAAAAA;
+    cursor: default;
+}
+table.dpt67 tbody tr td.nclick_outbound {
+    background: none repeat scroll 0 0 #E8E4E4;
+}
+table.dpt67 tbody tr td.nclick:hover, table.dpt67 tbody tr td.nclick_outbound:hover {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #EAEAEA;
+}
+table.dpt67 tbody tr td.nclick_outbound:hover {
+    background: none repeat scroll 0 0 #E8E4E4;
+}
+table.dpt67 tfoot {
+    cursor: pointer;
+    font-size: 10px;
+    padding: 0;
+    text-align: center;
+}
+div.showFileVersions {
+    background-color: #F6F6F6;
+    padding: 5px 5px 5px 0;
+}
+div.projectFile {
+    overflow: hidden;
+    padding: 10px 25px 10px 0;
+}
+div.projectFile div.fileMarkerOn {
+    float: left;
+    height: 35px;
+    margin: 0;
+    padding: 15px 0 0;
+    width: 20px;
+}
+div.projectFile div.fileMarkerOff {
+    display: none;
+    float: left;
+    margin: 0;
+    padding: 15px 0 0;
+    width: 0;
+}
+div.projectFile div.fileIcon {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 60px;
+}
+div.projectFile div.fileRHS {
+    margin: 0 0 0 60px;
+    padding: 10px 0 0;
+    position: relative;
+}
+body#files div.projectFile h3 {
+    margin: 0;
+    padding: 0;
+}
+body#files div.projectFile h3 a {
+    color: #000000;
+    font-size: 15px;
+    padding: 5px 0 0;
+    text-decoration: underline;
+}
+body#files div.projectFile h3 a:hover {
+    color: #229507;
+}
+div.projectFile div.fileDesc {
+    color: #888888;
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    padding: 3px 0 0;
+    text-decoration: none;
+}
+div.projectFile div.fileVersionInfo {
+    color: #777777;
+    display: block;
+    font-size: 10px;
+    padding: 5px 0 0;
+    text-decoration: none;
+}
+body#files div.projectFile div.fileVersionInfo a {
+    color: #777777;
+}
+body#files div.projectFile div.fileVersionInfo a:hover {
+    color: #0000FF;
+}
+body#files div.projectFile h3 span.private {
+    margin-left: 10px;
+}
+div#sideFileUsage {
+    margin: 10px 0 0;
+    overflow: hidden;
+    width: 200px;
+}
+div#sideFileUsage p {
+    margin: 0 0 3px;
+    padding: 0;
+}
+div#sideFileUsage p strong {
+    display: block;
+    float: left;
+    width: 100px;
+}
+div#sideFileUsage p em.green {
+    color: #008000;
+}
+div#sideFileUsage p em.red {
+    color: #FF0000;
+}
+span.progressBar span {
+    color: #444444;
+    padding-left: 2px;
+}
+h3 {
+    margin-top: 20px;
+}
+a.filename {
+    color: #000000;
+    font-size: 16px;
+    text-decoration: none;
+}
+a.filename:hover {
+    text-decoration: underline;
+}
+div#FileContent {
+    overflow: hidden;
+}
+div#FileContent div.fileCategory {
+    background-color: #F2F3FE;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 20px;
+}
+div#FileContent div.fileCategory div.file {
+    background-color: #FFFFFF;
+    border-color: #E9E9E9 #D7D7D7 #D7D7D7 #E9E9E9;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 15px;
+}
+div#FileContent div.fileCategory div.file div.icon {
+    float: left;
+    height: 48px;
+    width: 48px;
+}
+div#FileContent div.thumb {
+    color: #999999;
+    float: right;
+    font-size: 9px;
+    margin-left: 20px;
+    text-align: center;
+    width: 140px;
+}
+div#FileContent div.thumb span {
+    display: block;
+    text-align: center;
+}
+div#FileContent div.thumb2 {
+    background-color: #FFFFFF;
+    border-color: #E9E9E9 #D7D7D7 #D7D7D7 #E9E9E9;
+    border-style: solid;
+    border-width: 1px;
+    height: 140px;
+    overflow: hidden;
+    padding: 5px;
+    width: 140px;
+}
+div#FilesContentList div.thumb a {
+    border: 1px solid #EEEEEE;
+    display: block;
+    height: 48px;
+    padding: 2px;
+    width: 48px;
+}
+div#FilesContentList div.thumb span {
+    color: #AAAAAA;
+    display: block;
+    font-size: 9px;
+    margin: 2px 0 0 4px;
+}
+div#FileContent div.fileCategory div.file div.filename {
+    float: left;
+    font-size: 18px;
+    line-height: 28px;
+    min-height: 48px;
+    padding-left: 20px;
+}
+div#FileContent div.fileCategory div.file label.completed {
+    text-decoration: line-through;
+}
+div#FileContent div.fileComments div.commentViewFiles {
+    margin: 10px 0 0;
+    padding: 0;
+}
+div#FileContent div.fileComments div.commentTitle {
+    margin-bottom: 10px;
+}
+div#FileContent div.fileComments div.comment {
+    margin: 10px 5px;
+}
+div#zipFiles {
+    margin: 10px 0 0;
+}
+div#zipFiles ul {
+    margin: 0;
+    padding: 0;
+}
+div#zipFiles ul li {
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 5px 0 5px 25px;
+}
+div#zipFiles ul li#selectFilesForZip {
+    background-image: url("../images/icons/selectFiles.png");
+}
+div#zipFiles ul li#downloadFilesForZip {
+    background-image: url("../images/icons/zipIcon.png");
+}
+div#zipFiles ul li a {
+    font-size: 14px;
+}
+ul.tabnav {
+    border-bottom: 1px solid #CCCCCC;
+    clear: both;
+    font: bold 12px verdana,arial,sans-serif;
+    list-style-type: none;
+    margin: 1em 0;
+    padding: 3px 10px 5px;
+    text-align: left;
+}
+ul.tabnav li {
+    display: inline;
+}
+ul.tabnav li.tab.sel {
+    border-bottom: 1px solid #FFFFFF;
+}
+ul.tabnav li.tab a {
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    background-color: #EEEEEE;
+    background-position: 4px 3px;
+    background-repeat: no-repeat;
+    border-color: #DDDDDD #DDDDDD -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    color: #444444;
+    font-weight: normal;
+    margin-right: 0;
+    outline: medium none;
+    padding: 5px 6px 5px 10px;
+    text-decoration: underline;
+}
+ul.tabnav li.tab.sel a {
+    background-color: #FFFFFF;
+    background-repeat: no-repeat;
+    border-color: #CCCCCC;
+    color: #000000;
+    padding-top: 6px;
+    position: relative;
+    text-decoration: none;
+    top: 1px;
+}
+ul.tabnav li.tab a:hover {
+    background-color: #FAFAFA;
+    background-repeat: no-repeat;
+    color: #333333;
+}
+div#timeScaleHolder {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background-color: #F3F3F3;
+    border: 1px solid #EEEEEE;
+    margin: 0;
+    overflow: hidden;
+}
+form.taskLogTimeForm {
+    -moz-border-radius: 5px 5px 5px 5px;
+    margin: 5px;
+}
+form.borderBGColor {
+    background-color: #FFFFFF;
+    border: 1px solid #DEDFDE;
+}
+form.taskLogTimeForm h3 {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background-image: url("../images/icons/time_add.png");
+    background-position: 6px 5px;
+    background-repeat: no-repeat;
+    margin: 5px;
+    padding: 5px 10px 5px 28px;
+}
+body#time form.taskLogTimeForm table tr th {
+    width: 100px;
+}
+table#timesheet {
+    margin: 0 0 40px;
+    width: 100%;
+}
+table#timesheet tr.row th, table#timesheet tr.row td {
+    border-bottom: 1px solid #DDEEFF;
+}
+table#timesheet tr.row th, table#timesheet tr.row td {
+    padding: 5px;
+}
+table#timesheet tr#timesheetHeader th {
+    background: none repeat scroll 0 0 #F5FFFF;
+    border-bottom: 1px solid #C9E5FF;
+    border-top: 1px solid #C9E5FF;
+    color: #424242;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 5px 5px 8px;
+    text-transform: uppercase;
+}
+table#timesheet tr#timesheetFooter th, table#timesheet tr#timesheetFooter td {
+    border-top: 1px solid #F5FFFF;
+    font-weight: bold;
+}
+table#timesheet tr.timesheetFooter th.total {
+    padding: 6px;
+    text-align: right;
+}
+table#timesheet tr td.date {
+    padding: 0;
+}
+table#timesheet tr td.date span {
+    background: url("../images/icons/timeItem.png") no-repeat scroll 2px 4px transparent;
+    display: block;
+    padding: 5px 5px 5px 22px;
+}
+table#timesheet tr td.date.billable span {
+    background-image: url("../images/icons/timeItem_billable.png");
+}
+table#timesheet tr td a {
+    color: #444455;
+}
+table#timesheet tr td a:hover {
+    color: #5555FF;
+}
+table#timesheet tr td a.editIcon {
+    background: url("../images/icons/page_white_edit.png") no-repeat scroll 0 1px transparent;
+    display: block;
+    float: left;
+    padding: 2px 5px 2px 18px;
+}
+table#timesheet tr td a.delIcon {
+    background: url("../images/icons/trash_off.gif") no-repeat scroll 2px 4px transparent;
+    display: block;
+    float: left;
+    overflow: hidden;
+    padding: 2px 9px 2px 20px;
+    text-indent: -5000px;
+}
+table#timesheet tr td a.delIcon:hover {
+    background-image: url("../images/icons/trash_on.gif");
+}
+div#timeReport {
+    overflow: hidden;
+}
+div#timeReportChooserWidgetHolder {
+    background-color: #F6F6F6;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 10px;
+}
+table#timeReportChooserWidget td.desc {
+    padding: 5px 10px 0;
+}
+h3.timeReportUser {
+    margin-top: 20px;
+}
+table#timeScaleTable td {
+    padding: 0 5px;
+}
+table#timeScaleTable td.select {
+    padding-left: 5px;
+}
+table#timeScaleTable td.cancel {
+    padding: 0 0 0 20px;
+}
+a#ChooseTimeScaleLink {
+    display: block;
+    padding: 5px 0 0 10px;
+}
+div#megaWrap {
+    background: none repeat scroll 0 0 transparent;
+    color: #333333;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 62.5%;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 500px;
+    z-index: 9999;
+}
+div#megaContent {
+    background: url("../images/megaMenu/bgMegaMenuLarge.png") no-repeat scroll center top transparent;
+    height: 100%;
+    overflow: hidden;
+    padding: 0 30px 20px;
+    width: 440px;
+}
+div#megaSearch {
+    background: url("../images/megaMenu/bgMegaMenuLarge.png") no-repeat scroll center bottom transparent;
+    height: 46px;
+    padding: 9px 30px 0;
+    width: 440px;
+}
+ul#megaNavList {
+    height: 35px;
+    margin: 40px 0 0;
+}
+ul#megaNavList li {
+    background: url("../images/megaMenu/bgMegaNavTabRight.gif") no-repeat scroll right top transparent;
+    float: left;
+    margin: 0 8px 0 0;
+    padding: 0;
+}
+ul#megaNavList li a:link, ul#megaNavList li a:visited {
+    background: url("../images/megaMenu/bgMegaNavTabLeft.gif") no-repeat scroll left top transparent;
+    color: #666666;
+    float: left;
+    font-size: 1.2em;
+    height: 100%;
+    padding: 3px 15px 6px;
+    text-decoration: none;
+}
+ul#megaNavList li a:hover, ul#megaNavList li a:active {
+    color: #111111;
+}
+div#megaContent ul#megaNavList li.sel a {
+    background: url("../images/megaMenu/bgMegaNavTabLeftSel.gif") no-repeat scroll left top transparent;
+    color: #FFFFFF;
+}
+div#megaContent ul#megaNavList li.sel {
+    background: url("../images/megaMenu/bgMegaNavTabRightSel.gif") no-repeat scroll right top transparent;
+}
+ul.magabig li a:link, ul.magabig li a:visited, ol.magabig li a:link, ol.magabig li a:visited {
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-bottom: 1px solid #EEEEEE;
+    color: #000000;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    height: 100%;
+    padding: 5px 0 5px 32px;
+    text-decoration: none;
+}
+ol.magabig li a:link, ol.magabig li a:visited {
+    font-size: 17px;
+    letter-spacing: -1px;
+    padding: 10px 0 10px 32px;
+}
+ol.magabig li a:link, ol.magabig li a:visited {
+    background-image: url("../images/megaMenu/latestNumbers.png");
+    background-repeat: no-repeat;
+}
+ul.magabig li a:hover, ul.magabig li a:active, ol.magabig li a:hover, ol.magabig li a:active {
+    background-color: #F3F3F3;
+    background-image: url("../images/megaMenu/latestNumbersHi.png");
+    color: #00AA00;
+}
+ol.magabig li#latest1 a, ol.magabig li#latest1 a {
+    background-position: 5px 12px;
+}
+ol.magabig li#latest2 a {
+    background-position: 5px -88px;
+}
+ol.magabig li#latest3 a {
+    background-position: 5px -188px;
+}
+ol.magabig li#latest4 a {
+    background-position: 5px -288px;
+}
+ol.magabig li#latest5 a {
+    background-position: 5px -388px;
+}
+ul.magabig li a span, ol.magabig li a span {
+    color: #555555;
+    display: block;
+    font-size: 0.8em;
+    font-weight: normal;
+}
+ul.magabig li a span em, ol.magabig li a span em {
+    color: #999999;
+    font-style: italic;
+}
+ul.magabig li a {
+    background-position: 2px 50%;
+    background-repeat: no-repeat;
+}
+ul.magabig li a.user_edit {
+    background-image: url("../images/icons/user_edit.png");
+}
+ul.magabig li a.users {
+    background-image: url("../images/icons/users.gif");
+}
+ul.magabig li a.settings {
+    background-image: url("../images/icons/settings.png");
+}
+ul.magabig li a.subscription {
+    background-image: url("../images/icons/visa.png");
+}
+ul.magabig li a.colors {
+    background-image: url("../images/icons/colours.png");
+}
+ul.magabig li a.stats {
+    background-image: url("../images/icons/statistics.png");
+}
+ul.magabig li a.status {
+    background-image: url("../images/icons/status.png");
+}
+ul.magabig li a.myac {
+    background-image: url("../images/icons/vcard_edit.png");
+}
+ul.magabig li a.logout {
+    background-image: url("../images/icons/logout.png");
+}
+ul.megaList li {
+    float: left;
+    padding: 0 5px 0 0;
+    width: 210px;
+}
+ul.megaList li a:link, ul.megaList li a:visited {
+    -moz-border-radius: 5px 5px 5px 5px;
+    background-image: url("../images/megaMenu/star.gif");
+    background-repeat: no-repeat;
+    border-bottom: 1px solid #EEEEEE;
+    color: #444444;
+    display: block;
+    font-size: 1.2em;
+    padding: 5px 0 5px 27px;
+    text-decoration: none;
+}
+ul.megaList li a:hover, ul.megaList li a:active {
+    background-color: #F3F3F3;
+    color: #FF1D6D;
+}
+ul.megaList li.starred a {
+    background-position: 6px 5px;
+}
+ol.magabig li.more a, ul.megaList li.more a {
+    background: none repeat scroll 0 0 transparent;
+}
+ul.megaList li.unstarred a {
+    background-position: 6px -81px;
+}
+form#megaSearchForm {
+    background: url("../images/megaMenu/bgMegaSearch.gif") no-repeat scroll 0 0 transparent;
+    height: 27px;
+    position: relative;
+    width: 192px;
+    z-index: 10;
+}
+form#megaSearchForm p {
+    margin: 0;
+    padding: 0;
+}
+form#megaSearchForm input.textbox {
+    background-color: transparent;
+    border: 0 none;
+    color: #666666;
+    font-family: Verdana,sans-serif;
+    font-size: 11px;
+    height: 16px;
+    padding: 6px 0 0 24px;
+    width: 140px;
+}
+form#megaSearchForm input.button {
+    background-color: transparent;
+    border: 0 none;
+    position: absolute;
+    right: 6px;
+    top: 7px;
+    z-index: 11;
+}
+div#megaWrap.medium {
+    width: 350px;
+}
+div#megaWrap.medium div#megaContent {
+    background: url("../images/megaMenu/bgMegaMenuMedium.png") no-repeat scroll center top transparent;
+    padding: 30px 20px 10px;
+    width: 305px;
+}
+div#megaWrap.medium div#megaFooter {
+    background: url("../images/megaMenu/bgMegaMenuMedium.png") no-repeat scroll center bottom transparent;
+    height: 15px;
+    padding: 0 20px;
+    width: 305px;
+}
+div#megaWrap.small {
+    width: 240px;
+}
+div#megaWrap.small div#megaContent {
+    background: url("../images/megaMenu/bgMegaMenuSmall.png") no-repeat scroll center top transparent;
+    padding: 30px 20px 10px;
+    width: 195px;
+}
+div#megaWrap.small div#megaFooter {
+    background: url("../images/megaMenu/bgDropdowns.png") no-repeat scroll center bottom transparent;
+    height: 15px;
+    padding: 0 20px;
+    width: 195px;
+}
+#megaContent ul.magabig.users {
+    border-bottom: 1px solid #E4E4E4;
+    margin: 0;
+    max-height: 250px;
+    overflow: auto;
+    padding: 0;
+}
+#megaContent ul.magabig.users li {
+    clear: both;
+    margin: 0;
+}
+#megaContent ul.magabig.users li.company {
+    margin: 0;
+    padding: 0;
+}
+#megaContent ul.magabig.users li.company div {
+    border-bottom: 1px dotted #AAAAAA;
+    color: #000000;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 0;
+    overflow: hidden;
+    padding: 6px 8px 6px 0;
+}
+#megaContent ul.magabig.users li.company div span.mini {
+    color: #EEEEEE;
+    float: right;
+    font-size: 10px;
+}
+#megaContent ul.magabig.users li.company div span.mini a {
+    background: none repeat scroll 0 0 transparent;
+    color: #666666;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: normal;
+    margin: 0 3px 0 0;
+    padding: 0;
+    text-decoration: underline;
+}
+#megaContent ul.magabig.users li.company div span.mini a:hover {
+    color: blue;
+}
+#megaContent ul.magabig.users li ul {
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 4px 0 5px;
+}
+#megaContent ul.magabig.users li ul li {
+    background-color: transparent;
+    border-bottom: 1px dotted #F5F5F5;
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+#megaContent ul.magabig.users li ul li a {
+    background-color: transparent;
+    background-image: url("../images/icons/users.gif");
+    background-position: 10px 50%;
+    border: medium none;
+    color: #222222;
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    overflow: hidden;
+    padding-left: 30px;
+}
+#megaContent ul.magabig.users li a:hover {
+    color: green;
+}
+#megaContent ul.magabig.users li.checked {
+    border-color: #EEEEEE;
+    color: #E5F5FF;
+}
+#megaContent ul.magabig.users li.checked a {
+    color: black;
+    font-weight: bold;
+}
+a.inlineButton {
+    -moz-border-radius: 3px 3px 3px 3px;
+    background: url("../images/twcalendar/inlineButtonBack.gif") repeat-x scroll 0 50% #E7E3E7;
+    border-color: #CCCCCC #AAAAAA #AAAAAA #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    color: #444444;
+    display: inline-block;
+    font-size: 11px;
+    line-height: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    z-index: 2000;
+}
+a.inlineButton.disabled {
+    background: none repeat scroll 0 0 #EFEFEF;
+    border: 1px solid #CCCCCC;
+    color: #666666;
+}
+span.inlineButtonContent {
+    cursor: pointer;
+    display: block !important;
+    float: left;
+    padding: 0 8px !important;
+}
+span.inlineButtonContent.leftIcon {
+    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-position: -30px 2px;
+    background-repeat: no-repeat;
+}
+span.inlineButtonContent.rightIcon {
+    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-position: -42px 2px;
+    background-repeat: no-repeat;
+}
+span.inlineButtonContent.dropIcon {
+    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-position: -17px 2px;
+    background-repeat: no-repeat;
+}
+span.inlineButtonContent.dropIconRHS {
+    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-position: -17px 2px;
+    background-repeat: no-repeat;
+    padding-left: 0;
+    padding-right: 10px;
+}
+a.inlineButton:hover {
+    border-color: #888888;
+}
+a.inlineButton.disabled:hover {
+    border-color: #CCCCCC;
+}
+a.inlineButton.left {
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-topright: 0;
+    margin: 0;
+}
+a.inlineButton.mid {
+    -moz-border-radius: 0 0 0 0;
+    border-left: medium none;
+    margin: 0;
+}
+a.inlineButton.right {
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topleft: 0;
+    border-left: medium none;
+}
+a.inlineButton.sel {
+    background-color: #E7E7E7;
+    background-image: url("../images/twcalendar/inlineButtonBack-sel.gif");
+    border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA;
+    color: #000000;
+}
+span.inlineButtonGroupSplit {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-left: 1px solid #EEEEEE;
+    color: #222222;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 5px 0 6px;
+    overflow: hidden;
+    width: 1px;
+}
+div.inlineButtonGroup {
+    display: inline-block;
+    padding: 0 0 10px;
+    white-space: nowrap;
+}
+span.inlineButtonGroupText {
+    color: #999999;
+    display: inline-block;
+    font-size: 9px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 3px;
+    overflow: hidden;
+}
+a.inlineButton.on {
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomright: 0;
+    background-color: #FFFFFF;
+    background-image: none;
+    border-color: #CCCCCC #AAAAAA -moz-use-text-color #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+}
+a.inlineButton.on span.inlineButtonContent {
+    padding-bottom: 2px !important;
+}
