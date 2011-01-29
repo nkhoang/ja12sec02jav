@@ -17877,3 +17877,763 @@ Stack trace:
 #1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
 #2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
 #3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:14:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:14:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:14:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:14:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:14:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:14:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:14:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:14:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:14:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:16:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:16:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:16:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:16:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:17:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:17:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:17:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:17:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:17:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:18:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:18:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:18:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:34:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:34:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:34:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:34:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:34:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:34:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:35:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:35:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:35:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:37:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:37:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:37:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:37:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:37:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:37:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:38:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:38:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:38:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:39:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:39:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:39:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:39:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:39:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:39:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:40:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:40:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:40:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:41:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:41:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:41:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:41:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:41:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:41:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:42:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:42:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:42:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:45:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:45:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:45:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:55:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:55:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:55:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:55:10 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\auth\CAccessControlFilter.php:153
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\auth\CAccessControlFilter.php(115): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('reloadThumbnail...')
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/reloadThum...')
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#11 {main} REQUEST_URI=/shop-chara/shop/reloadThumbnailPicture/item_id/43.html
+2011/01/29 19:55:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:55:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:55:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 19:55:40 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\auth\CAccessControlFilter.php:153
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\auth\CAccessControlFilter.php(115): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(1084): CFilter->filter(Object(CFilterChain))
+#3 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(283): CFilterChain->run()
+#6 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CController.php(257): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(324): CController->run('reloadThumbnail...')
+#8 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('shop/reloadThum...')
+#9 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#10 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#11 {main} REQUEST_URI=/shop-chara/shop/reloadThumbnailPicture/item_id/43.html
+2011/01/29 19:55:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 19:55:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 19:55:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 20:01:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 20:01:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 20:11:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 20:11:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 20:11:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 20:11:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 20:11:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 20:11:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 20:15:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 20:15:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:09:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:09:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:09:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:09:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:09:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:09:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:09:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:09:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 21:18:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:18:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:18:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:18:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:18:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:18:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 21:18:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:18:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:18:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:18:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:18:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:18:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 21:18:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:18:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:25:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:25:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:25:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:25:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:28:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:28:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:28:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:29:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:29:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:30:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:30:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:31:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:31:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:31:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:31:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/icons/taskList.gif".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('images/icons/ta...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/images/icons/taskList.gif
+2011/01/29 21:48:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png
+2011/01/29 21:48:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/layout/bgShade.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/layo...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/layout/bgShade.png
+2011/01/29 21:48:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "css/images/button/LHSIconSprite5.png".' in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php:328
+Stack trace:
+#0 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\web\CWebApplication.php(121): CWebApplication->runController('css/images/butt...')
+#1 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\base\CApplication.php(135): CWebApplication->processRequest()
+#2 F:\Softs\Softs\Development\XAMPP\xampp\htdocs\shop-chara\index.php(13): CApplication->run()
+#3 {main} REQUEST_URI=/shop-chara/css/images/button/LHSIconSprite5.png

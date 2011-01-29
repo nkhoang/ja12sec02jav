@@ -47,7 +47,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.mousewheel-3.0.4.pack.
 <h1>Welcome to Miss Chara Admin page</h1>
 
 <div style="color:white">You're logged in as <b><?php echo Yii::app()->user->getName(); ?></b></div>
-<div class="container">
+<div id="main_container">
 
     <div class="section" id="DashboardContent">
         <div class="sectiontr"></div>

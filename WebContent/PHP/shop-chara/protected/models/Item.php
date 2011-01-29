@@ -171,10 +171,15 @@ class Item extends CActiveRecord {
      * @return <type> null or ItemPicture object.
      */
     public function getThumbnailPicture() {
-        foreach ($this->itemPictures as $itemPic) {
-            if ($itemPic->is_thumbnail_picture === '1') {
-                return $itemPic;
-            }
+        $itemThumbnail = ItemPicture::model()->find(array( // find just one
+            'condition' => 'item_id=:itemID AND is_thumbnail_picture=:isThumbnail',
+            'params' => array(
+                ':itemID' => $this->id,
+                ':isThumbnail' => 1,
+            ),
+        ));
+        if (isset($itemThumbnail)) {
+            return $itemThumbnail;
         }
         return null;
     }

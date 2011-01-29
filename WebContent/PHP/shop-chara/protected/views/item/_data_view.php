@@ -10,13 +10,13 @@
 
         <div class="img_c it_b">
             <!-- may check image existence here -->
-        <?php if (sizeof($data->itemPictures) === 0 || $data->getThumbnailPicture() !== null): ?>
+        <?php if (sizeof($data->itemPictures) === 0 || $data->getThumbnailPicture() === null): ?>
             <div class="wraptocenter">
                 <img height="60" src="<?php echo Yii::app()->request->baseUrl . '/images/photo_not_available.jpg' ?>"/>
             </div>
         <?php else: ?>
             <div class="wraptocenter">
-                <img height="60" src="<?php echo $data->itemPictures[0]->link ?>"/>
+                <img height="60" src="<?php echo $data->getThumbnailPicture()->link ?>"/>
             </div>
         <?php endif; ?>
         </div>

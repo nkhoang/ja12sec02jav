@@ -27,6 +27,17 @@
                 item_picture_paging_url = $(this).attr('href');
             });
 
+            $.ajax({
+                'url': '<?php echo CController::createUrl('/shop/reloadThumbnailPicture', array('item_id' => $item->id));?>',
+                'type': 'POST',
+                'success': function(html) {
+                    $('#admin_board div.image_thumb img').attr('src', html);
+                },
+                'error': function(x, e) {
+                    alert(x.responseText);
+                }
+            });
+
             buildTooltip('div.item_picture_img');
             buildTooltip('div.image_thumb');
 
@@ -70,6 +81,7 @@
                 'type': 'post',
                 'success': function(html) {
                     $('#item_pictures').html(html);
+                    
                     item_picture_list_view_callback();
                 }
             });

@@ -98,6 +98,7 @@ class ShopController extends Controller {
         ));
     }
 
+
     /**
      * Show details view of an item. Must provide item id.
      * @param <type> $item_id item id.
@@ -124,6 +125,21 @@ class ShopController extends Controller {
             'item' => $item,
             'itemThumbnailLink' => $itemThumbnail->link,
         ));
+    }
+
+    /**
+     * Reload item picture for Item details view page.
+     * @param <type> $item_id item id.
+     */
+    public function actionReloadThumbnailPicture($item_id = null) {
+        if ($item_id === null) {
+            throw new Exception(404, 'Your request is invalid');
+        }
+        $item = Item::model()->findByPk($item_id);
+        if (!isset($item)) {
+            throw new Exception(404, 'Your request is invalid');
+        }
+        echo $item->getThumbnailPicture()->link;
     }
 
     /**
@@ -199,7 +215,7 @@ class ShopController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'listCategories', 'listItems', 'showItemPicture', 'viewItemDetails', 'renderItemList'),
+                'actions' => array('index', 'reloadThumbnailPicture', 'listCategories', 'listItems', 'showItemPicture', 'viewItemDetails', 'renderItemList'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users

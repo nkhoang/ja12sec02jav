@@ -45,7 +45,7 @@ div.thumbnail-big {
 
 
 #itemsContainer .itemContainer .itm {
-  height: 196px;
+  height: 242px;
 }
 
 #itemsContainer .itemContainer .itm .itl {
@@ -194,10 +194,18 @@ div.thumbnail-big {
 }
 
 
-#itemsContainer .itemContainer .itemCode {
+#itemsContainer .itemContainer .itemCode, #itemsContainer .itemContainer .itemMaterial, #itemsContainer .itemContainer .itemSize  {
   position: relative;
   width: 166px;
   top: 16px;
+}
+
+#itemsContainer .itemContainer .itemMaterial .materialDescription
+,#itemsContainer .itemContainer .itemSize .sizeDescription{
+    position: absolute;
+  width: 100%;
+  left: 40px;
+  top: 1px;
 }
 
 #itemsContainer .itemContainer .itemCode .codeDescription {
