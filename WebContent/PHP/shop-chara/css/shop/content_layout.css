@@ -3819,21 +3819,19 @@ ul.htmlPill li a.l1.sel {
 ul.htmlPill li a.l1.sel span.zh {
     background-color: #FFFFCC;
 }
-ul.htmlPill li span.pill, ul.htmlPill li span.pillDisabled {
-    background: url("../images/r.png") no-repeat scroll right top #8D9CBB;
+.category_block span.pill, ul.htmlPill li span.pillDisabled {
+    background: url("../../images/r.png") no-repeat scroll right top #8D9CBB;
     color: #FFFFFF;
     display: inline-block;
     font-size: 10px;
     font-weight: bold;
     height: 17px;
     padding: 0 7px 0 0;
-    position: absolute;
-    right: 0;
     top: 6px;
     z-index: 1;
 }
-ul.htmlPill li span.pill span, ul.htmlPill li span.pillDisabled span {
-    background: url("../images/l.png") no-repeat scroll left top transparent;
+.category_block span.pill span, ul.htmlPill li span.pillDisabled span {
+    background: url("../../images/l.png") no-repeat scroll left top transparent;
     display: inline-block;
     height: 15px;
     min-width: 15px;
@@ -3841,7 +3839,7 @@ ul.htmlPill li span.pill span, ul.htmlPill li span.pillDisabled span {
     text-align: center;
     width: auto !important;
 }
-ul.htmlPill li span.pillDisabled {
+.category_block span.pillDisabled {
     background-color: #808080;
     color: #DADADA;
     text-decoration: none;
@@ -3855,7 +3853,7 @@ ul.htmlPill li a.l1:hover {
 ul.htmlPill li a.l1.sel span.pill {
     background-color: #000000;
 }
-ul.htmlPill li a.l1:hover span.pill {
+.category_block:hover span.pill {
     background-color: #666666;
 }
 a.bubble {
@@ -3881,14 +3879,14 @@ a.bubble span.n {
     width: auto;
 }
 a.bubble span.l {
-    background-image: url("../images/pills/white_l.png");
+    background-image: url("../../images/pills/white_l.png");
     display: block;
     float: left;
     height: 17px;
     width: 9px;
 }
 a.bubble span.r {
-    background-image: url("../images/pills/white_r.png");
+    background-image: url("../../images/pills/white_r.png");
     display: block;
     float: left;
     height: 17px;
@@ -3924,14 +3922,14 @@ span.bubble span.n {
     height: 17px;
 }
 span.bubble span.l {
-    background-image: url("../images/pills/white_l.png");
+    background-image: url("../../images/pills/white_l.png");
     display: block;
     float: left;
     height: 17px;
     width: 9px;
 }
 span.bubble span.r {
-    background-image: url("../images/pills/white_r.png");
+    background-image: url("../../images/pills/white_r.png");
     display: block;
     float: right;
     height: 17px;
@@ -3961,14 +3959,14 @@ a.taskBubble span.n {
     height: 17px;
 }
 a.taskBubble span.l {
-    background-image: url("../images/pills/white_l.png");
+    background-image: url("../../images/pills/white_l.png");
     display: block;
     float: left;
     height: 17px;
     width: 9px;
 }
 a.taskBubble span.r {
-    background-image: url("../images/pills/white_r.png");
+    background-image: url("../../images/pills/white_r.png");
     display: block;
     float: right;
     height: 17px;
@@ -4009,7 +4007,7 @@ body#dashboard div#projectActivityUpcomingTasks, body#projectoverview div#projec
 }
 h3.tlh3 {
     -moz-border-radius: 5px 5px 5px 5px;
-    background: url("../images/icons/taskList.gif") no-repeat scroll 6px 5px #F1F1F1;
+    background: url("../../images/icons/taskList.gif") no-repeat scroll 6px 5px #F1F1F1;
     font-size: 14px;
     margin-bottom: 5px;
     padding: 5px 10px 5px 28px;
@@ -4140,7 +4138,7 @@ body#tasks div.task div.taskRHS a.red:hover, projectoverview#tasks div.task div.
 }
 body#tasks div.taskList h3 {
     -moz-border-radius: 5px 5px 5px 5px;
-    background-image: url("../images/icons/taskList.gif");
+    background-image: url("../../images/icons/taskList.gif");
     background-position: 6px 5px;
     background-repeat: no-repeat;
     margin-bottom: 5px;
@@ -4281,7 +4279,7 @@ div.taskRHS span.tomorrow {
     font-style: normal;
 }
 a.taskComment1 {
-    background: url("../images/icons/iconSprite4.png") no-repeat scroll 2px -398px transparent;
+    background: url("../../images/icons/iconSprite4.png") no-repeat scroll 2px -398px transparent;
     color: #666666 !important;
     font: bold 11px arial,sans-serif;
     margin: 0 5px;
@@ -4289,7 +4287,7 @@ a.taskComment1 {
     text-decoration: none;
 }
 a.taskComment2 {
-    background: url("../images/icons/iconSprite4.png") no-repeat scroll 2px -430px transparent;
+    background: url("../../images/icons/iconSprite4.png") no-repeat scroll 2px -430px transparent;
     color: #666666 !important;
     font: bold 11px arial,sans-serif;
     margin: 0 5px;
@@ -4448,7 +4446,7 @@ table.priorityGrid td.pg3 {
     border-right: 1px dashed #CCCCCC;
 }
 a.datePicker {
-    background: url("../images/icons/datepick.gif") no-repeat scroll 2px 2px transparent;
+    background: url("../../images/icons/datepick.gif") no-repeat scroll 2px 2px transparent;
     cursor: pointer;
     display: block;
     height: 18px;
@@ -4460,7 +4458,7 @@ a.datePicker {
 }
 div.datepicker {
     background-color: transparent;
-    background-image: url("../images/datePickerBG.png");
+    background-image: url("../../images/datePickerBG.png");
     background-repeat: no-repeat;
     font-size: 10px;
     height: 208px;
@@ -4474,7 +4472,7 @@ div.datepicker {
 }
 div.datepickerunder {
     background-color: transparent;
-    background-image: url("../images/datePickerBG_under.png");
+    background-image: url("../../images/datePickerBG_under.png");
     background-repeat: no-repeat;
     font-size: 10px;
     height: 208px;
@@ -4763,10 +4761,10 @@ div#zipFiles ul li {
     padding: 5px 0 5px 25px;
 }
 div#zipFiles ul li#selectFilesForZip {
-    background-image: url("../images/icons/selectFiles.png");
+    background-image: url("../../images/icons/selectFiles.png");
 }
 div#zipFiles ul li#downloadFilesForZip {
-    background-image: url("../images/icons/zipIcon.png");
+    background-image: url("../../images/icons/zipIcon.png");
 }
 div#zipFiles ul li a {
     font-size: 14px;
@@ -4834,7 +4832,7 @@ form.borderBGColor {
 }
 form.taskLogTimeForm h3 {
     -moz-border-radius: 5px 5px 5px 5px;
-    background-image: url("../images/icons/time_add.png");
+    background-image: url("../../images/icons/time_add.png");
     background-position: 6px 5px;
     background-repeat: no-repeat;
     margin: 5px;
@@ -4875,12 +4873,12 @@ table#timesheet tr td.date {
     padding: 0;
 }
 table#timesheet tr td.date span {
-    background: url("../images/icons/timeItem.png") no-repeat scroll 2px 4px transparent;
+    background: url("../../images/icons/timeItem.png") no-repeat scroll 2px 4px transparent;
     display: block;
     padding: 5px 5px 5px 22px;
 }
 table#timesheet tr td.date.billable span {
-    background-image: url("../images/icons/timeItem_billable.png");
+    background-image: url("../../images/icons/timeItem_billable.png");
 }
 table#timesheet tr td a {
     color: #444455;
@@ -4889,13 +4887,13 @@ table#timesheet tr td a:hover {
     color: #5555FF;
 }
 table#timesheet tr td a.editIcon {
-    background: url("../images/icons/page_white_edit.png") no-repeat scroll 0 1px transparent;
+    background: url("../../images/icons/page_white_edit.png") no-repeat scroll 0 1px transparent;
     display: block;
     float: left;
     padding: 2px 5px 2px 18px;
 }
 table#timesheet tr td a.delIcon {
-    background: url("../images/icons/trash_off.gif") no-repeat scroll 2px 4px transparent;
+    background: url("../../images/icons/trash_off.gif") no-repeat scroll 2px 4px transparent;
     display: block;
     float: left;
     overflow: hidden;
@@ -4903,7 +4901,7 @@ table#timesheet tr td a.delIcon {
     text-indent: -5000px;
 }
 table#timesheet tr td a.delIcon:hover {
-    background-image: url("../images/icons/trash_on.gif");
+    background-image: url("../../images/icons/trash_on.gif");
 }
 div#timeReport {
     overflow: hidden;
@@ -4946,14 +4944,14 @@ div#megaWrap {
     z-index: 9999;
 }
 div#megaContent {
-    background: url("../images/megaMenu/bgMegaMenuLarge.png") no-repeat scroll center top transparent;
+    background: url("../../images/megaMenu/bgMegaMenuLarge.png") no-repeat scroll center top transparent;
     height: 100%;
     overflow: hidden;
     padding: 0 30px 20px;
     width: 440px;
 }
 div#megaSearch {
-    background: url("../images/megaMenu/bgMegaMenuLarge.png") no-repeat scroll center bottom transparent;
+    background: url("../../images/megaMenu/bgMegaMenuLarge.png") no-repeat scroll center bottom transparent;
     height: 46px;
     padding: 9px 30px 0;
     width: 440px;
@@ -4963,13 +4961,13 @@ ul#megaNavList {
     margin: 40px 0 0;
 }
 ul#megaNavList li {
-    background: url("../images/megaMenu/bgMegaNavTabRight.gif") no-repeat scroll right top transparent;
+    background: url("../../images/megaMenu/bgMegaNavTabRight.gif") no-repeat scroll right top transparent;
     float: left;
     margin: 0 8px 0 0;
     padding: 0;
 }
 ul#megaNavList li a:link, ul#megaNavList li a:visited {
-    background: url("../images/megaMenu/bgMegaNavTabLeft.gif") no-repeat scroll left top transparent;
+    background: url("../../images/megaMenu/bgMegaNavTabLeft.gif") no-repeat scroll left top transparent;
     color: #666666;
     float: left;
     font-size: 1.2em;
@@ -4981,11 +4979,11 @@ ul#megaNavList li a:hover, ul#megaNavList li a:active {
     color: #111111;
 }
 div#megaContent ul#megaNavList li.sel a {
-    background: url("../images/megaMenu/bgMegaNavTabLeftSel.gif") no-repeat scroll left top transparent;
+    background: url("../../images/megaMenu/bgMegaNavTabLeftSel.gif") no-repeat scroll left top transparent;
     color: #FFFFFF;
 }
 div#megaContent ul#megaNavList li.sel {
-    background: url("../images/megaMenu/bgMegaNavTabRightSel.gif") no-repeat scroll right top transparent;
+    background: url("../../images/megaMenu/bgMegaNavTabRightSel.gif") no-repeat scroll right top transparent;
 }
 ul.magabig li a:link, ul.magabig li a:visited, ol.magabig li a:link, ol.magabig li a:visited {
     -moz-border-radius: 5px 5px 5px 5px;
@@ -5004,12 +5002,12 @@ ol.magabig li a:link, ol.magabig li a:visited {
     padding: 10px 0 10px 32px;
 }
 ol.magabig li a:link, ol.magabig li a:visited {
-    background-image: url("../images/megaMenu/latestNumbers.png");
+    background-image: url("../../images/megaMenu/latestNumbers.png");
     background-repeat: no-repeat;
 }
 ul.magabig li a:hover, ul.magabig li a:active, ol.magabig li a:hover, ol.magabig li a:active {
     background-color: #F3F3F3;
-    background-image: url("../images/megaMenu/latestNumbersHi.png");
+    background-image: url("../../images/megaMenu/latestNumbersHi.png");
     color: #00AA00;
 }
 ol.magabig li#latest1 a, ol.magabig li#latest1 a {
@@ -5042,31 +5040,31 @@ ul.magabig li a {
     background-repeat: no-repeat;
 }
 ul.magabig li a.user_edit {
-    background-image: url("../images/icons/user_edit.png");
+    background-image: url("../../images/icons/user_edit.png");
 }
 ul.magabig li a.users {
-    background-image: url("../images/icons/users.gif");
+    background-image: url("../../images/icons/users.gif");
 }
 ul.magabig li a.settings {
-    background-image: url("../images/icons/settings.png");
+    background-image: url("../../images/icons/settings.png");
 }
 ul.magabig li a.subscription {
-    background-image: url("../images/icons/visa.png");
+    background-image: url("../../images/icons/visa.png");
 }
 ul.magabig li a.colors {
-    background-image: url("../images/icons/colours.png");
+    background-image: url("../../images/icons/colours.png");
 }
 ul.magabig li a.stats {
-    background-image: url("../images/icons/statistics.png");
+    background-image: url("../../images/icons/statistics.png");
 }
 ul.magabig li a.status {
-    background-image: url("../images/icons/status.png");
+    background-image: url("../../images/icons/status.png");
 }
 ul.magabig li a.myac {
-    background-image: url("../images/icons/vcard_edit.png");
+    background-image: url("../../images/icons/vcard_edit.png");
 }
 ul.magabig li a.logout {
-    background-image: url("../images/icons/logout.png");
+    background-image: url("../../images/icons/logout.png");
 }
 ul.megaList li {
     float: left;
@@ -5075,7 +5073,7 @@ ul.megaList li {
 }
 ul.megaList li a:link, ul.megaList li a:visited {
     -moz-border-radius: 5px 5px 5px 5px;
-    background-image: url("../images/megaMenu/star.gif");
+    background-image: url("../../images/megaMenu/star.gif");
     background-repeat: no-repeat;
     border-bottom: 1px solid #EEEEEE;
     color: #444444;
@@ -5098,7 +5096,7 @@ ul.megaList li.unstarred a {
     background-position: 6px -81px;
 }
 form#megaSearchForm {
-    background: url("../images/megaMenu/bgMegaSearch.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../images/megaMenu/bgMegaSearch.gif") no-repeat scroll 0 0 transparent;
     height: 27px;
     position: relative;
     width: 192px;
@@ -5130,12 +5128,12 @@ div#megaWrap.medium {
     width: 350px;
 }
 div#megaWrap.medium div#megaContent {
-    background: url("../images/megaMenu/bgMegaMenuMedium.png") no-repeat scroll center top transparent;
+    background: url("../../images/megaMenu/bgMegaMenuMedium.png") no-repeat scroll center top transparent;
     padding: 30px 20px 10px;
     width: 305px;
 }
 div#megaWrap.medium div#megaFooter {
-    background: url("../images/megaMenu/bgMegaMenuMedium.png") no-repeat scroll center bottom transparent;
+    background: url("../../images/megaMenu/bgMegaMenuMedium.png") no-repeat scroll center bottom transparent;
     height: 15px;
     padding: 0 20px;
     width: 305px;
@@ -5144,12 +5142,12 @@ div#megaWrap.small {
     width: 240px;
 }
 div#megaWrap.small div#megaContent {
-    background: url("../images/megaMenu/bgMegaMenuSmall.png") no-repeat scroll center top transparent;
+    background: url("../../images/megaMenu/bgMegaMenuSmall.png") no-repeat scroll center top transparent;
     padding: 30px 20px 10px;
     width: 195px;
 }
 div#megaWrap.small div#megaFooter {
-    background: url("../images/megaMenu/bgDropdowns.png") no-repeat scroll center bottom transparent;
+    background: url("../../images/megaMenu/bgDropdowns.png") no-repeat scroll center bottom transparent;
     height: 15px;
     padding: 0 20px;
     width: 195px;
@@ -5212,7 +5210,7 @@ div#megaWrap.small div#megaFooter {
 }
 #megaContent ul.magabig.users li ul li a {
     background-color: transparent;
-    background-image: url("../images/icons/users.gif");
+    background-image: url("../../images/icons/users.gif");
     background-position: 10px 50%;
     border: medium none;
     color: #222222;
@@ -5235,7 +5233,7 @@ div#megaWrap.small div#megaFooter {
 }
 a.inlineButton {
     -moz-border-radius: 3px 3px 3px 3px;
-    background: url("../images/twcalendar/inlineButtonBack.gif") repeat-x scroll 0 50% #E7E3E7;
+    background: url("../../images/twcalendar/inlineButtonBack.gif") repeat-x scroll 0 50% #E7E3E7;
     border-color: #CCCCCC #AAAAAA #AAAAAA #CCCCCC;
     border-style: solid;
     border-width: 1px;
@@ -5259,22 +5257,22 @@ span.inlineButtonContent {
     padding: 0 8px !important;
 }
 span.inlineButtonContent.leftIcon {
-    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-image: url("../../images/twcalendar/calSprite_v1.png");
     background-position: -30px 2px;
     background-repeat: no-repeat;
 }
 span.inlineButtonContent.rightIcon {
-    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-image: url("../../images/twcalendar/calSprite_v1.png");
     background-position: -42px 2px;
     background-repeat: no-repeat;
 }
 span.inlineButtonContent.dropIcon {
-    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-image: url("../../images/twcalendar/calSprite_v1.png");
     background-position: -17px 2px;
     background-repeat: no-repeat;
 }
 span.inlineButtonContent.dropIconRHS {
-    background-image: url("../images/twcalendar/calSprite_v1.png");
+    background-image: url("../../images/twcalendar/calSprite_v1.png");
     background-position: -17px 2px;
     background-repeat: no-repeat;
     padding-left: 0;
@@ -5303,7 +5301,7 @@ a.inlineButton.right {
 }
 a.inlineButton.sel {
     background-color: #E7E7E7;
-    background-image: url("../images/twcalendar/inlineButtonBack-sel.gif");
+    background-image: url("../../images/twcalendar/inlineButtonBack-sel.gif");
     border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA;
     color: #000000;
 }

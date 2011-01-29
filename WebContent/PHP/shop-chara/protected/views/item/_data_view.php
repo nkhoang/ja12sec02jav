@@ -10,7 +10,7 @@
 
         <div class="img_c it_b">
             <!-- may check image existence here -->
-        <?php if (sizeof($data->itemPictures) === 0): ?>
+        <?php if (sizeof($data->itemPictures) === 0 || $data->getThumbnailPicture() !== null): ?>
             <div class="wraptocenter">
                 <img height="60" src="<?php echo Yii::app()->request->baseUrl . '/images/photo_not_available.jpg' ?>"/>
             </div>

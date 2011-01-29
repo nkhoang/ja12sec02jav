@@ -166,6 +166,19 @@ class Item extends CActiveRecord {
         ));
     }
 
+    /**
+     * get thumbnail picture.
+     * @return <type> null or ItemPicture object.
+     */
+    public function getThumbnailPicture() {
+        foreach ($this->itemPictures as $itemPic) {
+            if ($itemPic->is_thumbnail_picture === '1') {
+                return $itemPic;
+            }
+        }
+        return null;
+    }
+
     /*
      * Return the last item of a specific category.
      */

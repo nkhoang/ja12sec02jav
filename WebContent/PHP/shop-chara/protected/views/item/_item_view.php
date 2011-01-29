@@ -56,12 +56,9 @@
 
                                 <a class="item_link" title="Image Gallery"
                                    href="<?php echo CController::createUrl('/item/showGallery', array('item_id' => $data->id)); ?>">
-                                       <?php foreach ($data->itemPictures as $itemPicture): ?>
-                                       <?php if ($itemPicture->is_thumbnail_picture === '1'): ?>
-                                    <img src="<?php echo $itemPicture->link; ?>" alt="<?php echo CHtml::encode($data->description);?>" title="<?php echo CHtml::encode($data->description);?>" class="item"/>
-                                    <?php break; ?>
+                                       <?php if ($data->getThumbnailPicture()  !== null): ?>
+                                    <img src="<?php echo $data->getThumbnailPicture()->link; ?>" alt="<?php echo CHtml::encode($data->description);?>" title="<?php echo CHtml::encode($data->description);?>" class="item"/>
                                     <?php endif; ?>
-                                    <?php endforeach; ?>
                                            </a>
 
                                        </div>
