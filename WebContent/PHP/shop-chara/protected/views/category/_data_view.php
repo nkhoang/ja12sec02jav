@@ -5,7 +5,7 @@
         </a>
         <a href="#" title="Delete <?php echo CHtml::encode($data->title); ?>" onclick="var answer = confirm('Are you sure you want to delete ' + '<?php echo CHtml::encode($data->title);?>');
                 if (answer) {
-                    $.ajax({
+                    $.ajax({ // support delete category.
                         'url': '<?php echo CController::createUrl('/category/deleteCategory', array(
                             'category_id' => $data->id,
                         ));?>',

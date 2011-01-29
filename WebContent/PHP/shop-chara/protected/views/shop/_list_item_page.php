@@ -1,7 +1,7 @@
 <div id="upcomingMilestones">
     <h3 id="projectOverviewUpComingMilestones">
         <?php
-                    $this->breadcrumbs = array(
+            $this->breadcrumbs = array(
             'Category' => array('/shop/index'),
             $category->title,
         );
@@ -13,8 +13,6 @@
     </h3>
 </div>
 <div id="projectActivity">
-
-
     <script type="text/javascript">
         var item_paging_url = '<?php echo CController::createUrl('/shop/renderItemList', array('category_id' => $category->id)); ?>'; // default value.;
         function handleDeleteItems() {
@@ -28,26 +26,30 @@
                     item += input.attr('class');
                 }
             });
-            $.ajax({
-                'url': '<?php echo CController::createUrl('/item/deleteItems');?>',
-                'data': {
-                    'delete_items': item
-                },
-                'type': 'post',
-                'success': function(html) {
-                    alert(html);
-                    if (item_paging_url != null) {
-                        $.ajax({
-                            'url': item_paging_url,
-                            'type': 'post',
-                            'success': function(html) {
-                                $('#items_c').html(html);
-                                item_list_view_callback();
-                            }
-                        });
+            if (item == '') {
+                alert("Please select at least one item.");
+            } else {
+                $.ajax({
+                    'url': '<?php echo CController::createUrl('/item/deleteItems');?>',
+                    'data': {
+                        'delete_items': item
+                    },
+                    'type': 'post',
+                    'success': function(html) {
+                        alert(html);
+                        if (item_paging_url != null) {
+                            $.ajax({
+                                'url': item_paging_url,
+                                'type': 'post',
+                                'success': function(html) {
+                                    $('#items_c').html(html);
+                                    item_list_view_callback();
+                                }
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         $(function() {
             // first time load item list view.
@@ -116,21 +118,18 @@
         }
 
     </script>
-    <div class="content">
-        <div id="item_board">
-
-            <div id="item_controller">
-                <a title="Add Item" class="showItemForm"
-                   href="<?php echo CController::createUrl('/item/ajaxCreateItem', array('category_id' => $category->id)); ?>">
-                    <img src="<?php echo Yii::app()->request->baseUrl . '/images/add.png'; ?>" width="32" height="32"/></a>
-                <a title="Delete Items" href="javascript:handleDeleteItems()"> <img
-                        src="<?php echo Yii::app()->request->baseUrl . '/images/delete.png'; ?>" width="32"
-                        height="32"/></a>
-            </div>
-            <div id="items_c">
-
-            </div>
+    <div id="item_board">
+        <div id="item_controller">
+            <a title="Add Item" class="showItemForm"
+               href="<?php echo CController::createUrl('/item/ajaxCreateItem', array('category_id' => $category->id)); ?>">
+                <img src="<?php echo Yii::app()->request->baseUrl . '/images/add.png'; ?>" width="32" height="32"/></a>
+            <a title="Delete Items" href="javascript:handleDeleteItems()"> <img
+                    src="<?php echo Yii::app()->request->baseUrl . '/images/delete.png'; ?>" width="32"
+                    height="32"/></a>
         </div>
-        <div style="clear:both;"></div>
+        <div id="items_c">
+
+        </div>
     </div>
+    <div style="clear:both;"></div>
 </div>

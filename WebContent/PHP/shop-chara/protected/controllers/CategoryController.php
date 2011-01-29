@@ -1,11 +1,6 @@
 <?php
 
 class CategoryController extends Controller {
-
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
     public $layout = '//layouts/column2';
 
     /**
@@ -35,35 +30,36 @@ class CategoryController extends Controller {
     }
 
     /**
-     * Delete category id.
+     * Delete category id. Using GET parameter.
      * @param <type> $category_id category id.
      */
     public function actionDeleteCategory($category_id = null) {
-        if ($category_id === null) {
-            throw new CHttpException(404, 'The requested page does not exist.');
+        if ($category_id === null) { // must specified the category id by GET parameter.
+            throw new CHttpException(404, 'The requested page does not exist.'); // throws Exception instead.
         }
         $items = Item::model()->findAll('category_id =:categoryID', array(
             ':categoryID' => $category_id,
         ));
-        if (count($items) > 0 ) {
-            foreach($items as $item) {
-                $item->delete();
+        if (!isset($items) || sizeof($items) == 0) { // make sure that returned items are not empty.
+            throw new CHttpException(404, 'Could not find category id. Request rejected.'); // throws Exception instead.
+        } else if (count($items) > 0) {
+            foreach ($items as $item) {
+                $item->delete(); // loop to delete.
             }
         }
         $this->loadModel($category_id)->delete();
-
         echo 'success';
     }
 
     /**
-     * update category id.
+     * update/add new category id.
      * @param <type> $id category_id
      */
     public function actionAjaxUpdateCategory($id = null) {
         if ($id !== null) {
-            $model = $this->loadModel($id);
+            $model = $this->loadModel($id); // in case update.
         } else {
-            $model = new Category;
+            $model = new Category; // in case add new.
         }
 
         // Uncomment the following line if AJAX validation is needed
@@ -78,10 +74,10 @@ class CategoryController extends Controller {
                         $items = Item::model()->findAll('category_id = :categoryID', array( // search items which need to be changed.
                             ':categoryID' => $model->id,
                         ));
-                        foreach ($items as $item) {
+                        foreach ($items as $item) { // actually it is only one, loop to make sure the code logic.
                             $updated_item = Item::changeCategoryCodeFromId($item, $model->category_code);
                             if (isset($updated_item)) {
-                                if ($updated_item->update('item_id')){ // save updated item.
+                                if ($updated_item->update('item_id')) { // save updated item.
                                 }
                             }
                         }
@@ -89,12 +85,12 @@ class CategoryController extends Controller {
                 }
             }
             if ($model->save()) {
-                Yii::app()->user->setFlash('categoryUpdated', 'Category Updated!!!!');
+                Yii::app()->user->setFlash('categoryUpdated', 'Category Updated!!!!'); // update flash.
             }
         }
         $this->renderPartial('/category/_simple_form', array(
             'model' => $model,
-                ), false, true);
+        ), false, true);
     }
 
     /**

@@ -7,11 +7,10 @@
                 });
                 function category_list_view_callback() {
                     $('#category_board .sorter a, #category_board li.page a,#category_board li.next a,#category_board li.previous a').click(function() { // fix: save the state of list view paging.
-                        // update paging information
-                        category_paging_url = $(this).attr('href');
+                        category_paging_url = $(this).attr('href'); // update paging information. Fix bug paging. Keep the paging state / sort state.
                     });
 
-                    $("a.showCategoryCreateForm, a.showCategoryForm").fancybox({
+                    $("a.showCategoryCreateForm, a.showCategoryForm").fancybox({ // show fancybox.
                         'transitionIn'    :    'fade',
                         'transitionOut'    :    'fade',
                         'speedIn'        :    600,
@@ -24,7 +23,7 @@
                         },
                         'onClosed': function() {
                             $.ajax({
-                                'url': category_paging_url,
+                                'url': category_paging_url, // post the cache url.
                                 'type': 'post',
                                 'success': function(html) {
                                     $('#admin_board').html(html);

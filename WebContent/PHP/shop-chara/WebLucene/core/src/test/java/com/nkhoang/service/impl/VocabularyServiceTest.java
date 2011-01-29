@@ -1,5 +1,6 @@
 package com.nkhoang.service.impl;
 
+import com.nkhoang.constant.LuceneSearchField;
 import com.nkhoang.model.Meaning;
 import com.nkhoang.model.Word;
 import com.nkhoang.service.VocabularyService;
@@ -8,7 +9,11 @@ import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.analysis.KeywordAnalyzer;
+import org.apache.lucene.analysis.SimpleAnalyzer;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.util.Version;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -60,10 +65,15 @@ public class VocabularyServiceTest {
     }
 
 
+
+                      @Test
     public void testSearcher() throws Exception {
         Word w = new Word();
         //w.setDescription("fluen");
-        w.setContent("giao cho ");
+        w.setContent("piece of music");
+
+    QueryParser parser = new QueryParser(Version.LUCENE_29, LuceneSearchField.CONTENT, new SimpleAnalyzer());
+    //Query query = parser.parse("+content:giao mùa");
 
         Query query = LuceneUtils.buildQuery(w);
         LOGGER.info("Query: " + query.toString());
@@ -75,8 +85,6 @@ public class VocabularyServiceTest {
 
         }
     }
-
-
     public void testIndexer() throws IOException {
         List<Word> words = vocabularyService.getAll();
         for (Word w : words) {
@@ -84,9 +92,6 @@ public class VocabularyServiceTest {
         }
         LuceneUtils.closeLuceneWriter();
     }
-
-
-                   @Test
     public void testVocabularyService() throws Exception {
         List<String> words = spreadsheetService.getWordList();
 

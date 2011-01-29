@@ -9,9 +9,19 @@
     float: left;
     width: 150px;
     margin: 10px;
+    border: 1px solid #F1F1F1;
 }
 
 #it_c div.form_c {
     float: left;
     width: 630px;
+}
+
+#item_picture_controller {
+    float: right;
+}
+
+#it_c .subTitle {
+    float: left;
+    line-height: 24pt;
 }

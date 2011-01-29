@@ -19,6 +19,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
+import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.text.StyledEditorKit;
@@ -82,9 +83,10 @@ public class LuceneUtils {
         int maxDoc = DEFAULT_MAXIMUM_SEARCH_RESULTS;
         // perform search.
         TopDocs searchResults = searcher.search(query, maxDoc);
+        LOGGER.info("Total hits: " + searchResults.totalHits);
         ScoreDoc[] hits = searchResults.scoreDocs;
 
-        LOGGER.info("Total hits: " + searchResults.totalHits);
+
         // don't need to limit the output because the maximum search result is set.
         for (ScoreDoc hit : hits) {
             Document found = searcher.doc(hit.doc);
@@ -95,9 +97,11 @@ public class LuceneUtils {
     }
 
     public static Query buildQuery(Word w) throws Exception {
+
         BooleanQuery query = new BooleanQuery();
         // buiil query base on 2 main fields.
         if (StringUtils.isNotBlank(w.getDescription())) {
+            QueryParser parser = new QueryParser(Version.LUCENE_29, LuceneSearchField.DESCRIPTION, new StandardAnalyzer(Version.LUCENE_29));
             BooleanQuery descriptionQuery = new BooleanQuery();
             String term = w.getDescription();
             descriptionQuery.add(createFuzzyClause(LuceneSearchField.DESCRIPTION, term, BooleanClause.Occur.SHOULD));
@@ -107,18 +111,24 @@ public class LuceneUtils {
             query.add(descriptionQuery, BooleanClause.Occur.MUST);
         }
         if (StringUtils.isNotBlank(w.getContent())) {
+            QueryParser parser = new QueryParser(Version.LUCENE_29, LuceneSearchField.CONTENT, new StandardAnalyzer(Version.LUCENE_29));
             BooleanQuery contentQuery = new BooleanQuery();
             String term = w.getContent();
 
             contentQuery.add(createFuzzyClause(LuceneSearchField.CONTENT, term, BooleanClause.Occur.SHOULD));
             contentQuery.add(createTermClause(LuceneSearchField.CONTENT, term, BooleanClause.Occur.SHOULD));
             contentQuery.add(createWildcardClause(LuceneSearchField.CONTENT, term, BooleanClause.Occur.SHOULD));
-            query.add(contentQuery, BooleanClause.Occur.MUST);
+            parser.setDefaultOperator(QueryParser.Operator.AND);
+            query.add(parser.parse(contentQuery.toString()), BooleanClause.Occur.MUST);
         }
-        
-        QueryParser parser = new QueryParser(Version.LUCENE_29, LuceneSearchField.DESCRIPTION, new SimpleAnalyzer());
 
-        return parser.parse(query.toString());
+        return query;
+
+
+
+        //QueryParser parser = new QueryParser(Version.LUCENE_CURRENT, LuceneSearchField.CONTENT, new StandardAnalyzer(Version.LUCENE_CURRENT));
+
+        //return parser.parse(query.toString());
     }
 
     private static BooleanClause createTermClause(String field, String term, BooleanClause.Occur occur) {

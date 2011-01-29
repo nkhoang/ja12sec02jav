@@ -15,6 +15,18 @@
         </sourceRoots>
       </configuration>
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset1" name="My Fileset" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-resources.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/applicationContext-validation.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/cxf-servlet.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/security.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -28,7 +40,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/webapp" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.13" level="project" />
     <orderEntry type="module" module-name="core" />
@@ -94,7 +106,7 @@
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.woodstox:stax2-api:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.compass-project:compass:2.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:2.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-annotations:3.4.0.GA" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-commons-annotations:3.1.0.GA" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:3.3.2.GA" level="project" />
