@@ -1,5 +1,5 @@
 <a href="<?php echo CController::createUrl('/shop/viewItemDetails', array('item_id' => $data->id)); ?>">
-    <div class="ic <?php if ($index %2 === 0) echo 'even'; else echo 'odd'?>">
+    <div class="ic <?php if ($index % 2 === 0) echo 'even'; else echo 'odd'?>">
         <div class="it_b">
             <div class="wraptocenter">
                 <label class="label_checkbox">
@@ -35,6 +35,7 @@
         <div class="it_b">
             <div class="it_content"><?php echo CHtml::encode($data->weight); ?></div>
         </div>
+
         <div class="it_b">
             <div class="it_content">
                 <div class="wraptocenter">
@@ -65,6 +66,12 @@
                     ?>"/>
                 </div>
             </div>
+        </div>
+        <div class="it_b">
+            <div class="it_content"><?php echo CHtml::encode($data->size); ?></div>
+        </div>
+        <div class="it_b">
+            <div class="it_content"><?php echo CHtml::encode($data->material); ?></div>
         </div>
         <!--
         <div class="it_b">

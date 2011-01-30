@@ -78,13 +78,13 @@
                                                    <div class="itemMaterial fleft">
                                                        <img src="<?php echo Yii::app()->request->baseUrl . '/images/chara/item_vl.gif' ?>" height="23" width="134">
                                                        <div class="materialDescription fleft">
-                                                           <div class=""><?php echo $data->item_id ?></div>
+                                                           <div class=""><?php echo $data->material ?></div>
                                                        </div>
                                                    </div>
                                                    <div class="itemSize fleft">
                                                        <img src="<?php echo Yii::app()->request->baseUrl . '/images/chara/item_size.gif' ?>" height="23" width="134">
                                                        <div class="sizeDescription fleft">
-                                                           <div class=""><?php echo $data->item_id ?></div>
+                                                           <div class=""><?php echo $data->size ?></div>
                                                        </div>
                                                    </div>
                                                </div>

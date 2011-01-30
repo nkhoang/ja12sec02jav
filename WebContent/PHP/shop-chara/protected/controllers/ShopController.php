@@ -323,8 +323,13 @@ class ShopController extends Controller {
                    ' . CHtml::encode(Item::model()->getAttributeLabel("weight")) . '
                </div><div class="it_h">
                    ' . CHtml::encode(Item::model()->getAttributeLabel("is_hot")) . '
-               </div><div class="it_h">
+                </div><div class="it_h">
                    ' . CHtml::encode(Item::model()->getAttributeLabel("is_discounting")) . '
+                </div><div class="it_h">
+                   ' . CHtml::encode(Item::model()->getAttributeLabel("size")) . '
+                </div><div class="it_h">
+                   ' . CHtml::encode(Item::model()->getAttributeLabel("material")) . '
+
            </div></div>';
 
         // render list view widget for item list view.

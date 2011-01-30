@@ -73,6 +73,17 @@
             </div>
 
             <div class="row">
+                <?php echo $form->labelEx($model, 'size'); ?>
+                <?php echo $form->textField($model, 'size', array('size' => 20)); ?>
+                <?php echo $form->error($model, 'size'); ?>
+            </div>
+                <div class="row">
+                <?php echo $form->labelEx($model, 'material'); ?>
+                <?php echo $form->textField($model, 'material', array('size' => 20)); ?>
+                <?php echo $form->error($model, 'material'); ?>
+            </div>
+
+            <div class="row">
                 <?php echo $form->labelEx($model, 'is_hot'); ?>
                 <?php echo CHtml::activeCheckBox($model, 'is_hot') ?>
             </div>

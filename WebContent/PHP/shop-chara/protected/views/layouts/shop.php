@@ -60,8 +60,7 @@ $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.mousewheel-3.0.4.pack.
                         <div id="titletl"></div>
                         <div id="titletr"></div>
                         <ul class="options">
-                            <li><a class="bfoButton" href="javascript:tw.NewProject()"><span>Add project</span></a>
-                            </li>
+                            
                         </ul>
                         <h2>Admin Board</h2></td>
                 </tr>

@@ -24,34 +24,27 @@ class ItemController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'showGallery'),
+            array('allow',
+                'actions' => array('showGallery'),
                 'users' => array('*'),
             ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'ajaxCreateItem', 'ajaxEditItem', 'ajaxUpdate', 'getAllItems', 'deleteItems'),
+            array('allow',
+                'actions' => array('ajaxCreateItem', 'ajaxEditItem', 'ajaxUpdate', 'getAllItems', 'deleteItems'),
                 'users' => array('@'),
             ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
+            array('allow',
+                'actions' => array('delete'),
+                'users' => array('nkhoang.it'),
             ),
-            array('deny', // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
     }
 
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
+     * May not use right now but it is a sample for JSON return type.
      */
-    public function actionView($id) {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
-    }
-
     public function actionGetAllItems() {
         $categoryID = $_POST['category_id'];
         if (!isset($categoryID)) {
@@ -59,6 +52,11 @@ class ItemController extends Controller {
         }
     }
 
+    /**
+     * Show item edit form.
+     * @param  $item_id item id.
+     * @return void .
+     */
     public function actionAjaxEditItem($item_id = null) {
         $item = Item::model()->with('itemPictures')->findByPk($item_id);
         $item->category_prefix = substr($item->item_id, 0, 2);
@@ -72,22 +70,34 @@ class ItemController extends Controller {
             'categories' => CHtml::listData($categories, 'id', 'title'),
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
-                ), false, true); // see documentation for this. very tricky.[IMPORTANT]
+        ), false, true); // see documentation for this. very tricky.[IMPORTANT]
     }
 
+    /**
+     * Show item picture of an item.
+     * @throws CHttpException may throw if invalid item id inputted.
+     * @param  $item_id item id.
+     * @return void
+     */
     public function actionShowGallery($item_id = null) {
         if ($item_id === null) {
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+            throw new CHttpException(404, 'Invalid request.');
         }
 
-        $itemPictures = Item::model()->findByPk($item_id)->itemPictures;
+        $item = Item::model()->findByPk($item_id);
+        if (!isset($item)) {
+            throw new CHttpException(404, 'Invalid request.');
+        }
+        $itemPictures = $item->itemPictures;
         $this->renderPartial('/item/_gallery_view', array(
             'itemPictures' => $itemPictures,
         ));
     }
 
     /**
-     * Handle ajax request to create item.
+     * create a new category.
+     * @param  $category_id category id.
+     * @return void
      */
     public function actionAjaxCreateItem($category_id = null) {
         $item = new Item;
@@ -119,31 +129,13 @@ class ItemController extends Controller {
             'model' => $item,
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'categories' => CHtml::listData($categories, 'id', 'title')),
-                false, true);
+            false, true);
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Delete item via AJAX.
+     * @return void
      */
-    public function actionCreate() {
-        $model = new Item;
-
-        // Uncomment the following line if AJAX validation is needed
-        $this->performAjaxValidation($model);
-
-
-        if (isset($_POST['Item'])) {
-            $model->attributes = $_POST['Item'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
-    }
-
     public function actionDeleteItems() {
         $items = $_POST['delete_items'];
         if (!isset($items)) {
@@ -151,7 +143,7 @@ class ItemController extends Controller {
         }
         $delete_items = preg_split("/[\s,]+/", $items);
 
-        foreach($delete_items as $item_id) {
+        foreach ($delete_items as $item_id) {
             $this->loadModel($item_id)->delete();
         }
 
@@ -163,7 +155,7 @@ class ItemController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionAjaxUpdate($item_id=null) {
+    public function actionAjaxUpdate($item_id = null) {
         $model = $this->loadModel($item_id);
 
         // set other attributes
@@ -190,29 +182,7 @@ class ItemController extends Controller {
             'categories' => CHtml::listData($categories, 'id', 'title'),
             'prefix' => CHtml::listData($categories, 'category_code', 'category_code'),
             'performAction' => 'ajaxUpdate',
-                ), false, true);
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id) {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Item'])) {
-            $model->attributes = $_POST['Item'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
-        }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
+        ), false, true);
     }
 
     /**
@@ -233,29 +203,6 @@ class ItemController extends Controller {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
-    /**
-     * Lists all models.
-     */
-    public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Item');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin() {
-        $model = new Item('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Item']))
-            $model->attributes = $_GET['Item'];
-
-        $this->render('admin', array(
-            'model' => $model,
-        ));
-    }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.

@@ -54,7 +54,7 @@ class Item extends CActiveRecord {
             array('category_prefix', 'checkCategoryCode'),
             array('number_part', 'checkNextNumber'),
             array('item_id', 'unique'),
-            array('item_id, weight, description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
+            array('size, material, item_id, weight, description, last_update, first_added, is_hot, is_discounting, category_id, category_prefix, number_part', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, item_id, price, quantity, is_hot, is_discounting, last_update, first_added', 'safe', 'on' => 'search'),
@@ -139,6 +139,8 @@ class Item extends CActiveRecord {
             'first_added' => 'First Added',
             'category_id' => 'Category',
             'weight' => 'Weight',
+            'material' => 'Material',
+            'size' => 'Size',
         );
     }
 

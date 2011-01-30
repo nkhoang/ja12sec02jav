@@ -38,10 +38,10 @@
     <span class="pill"><span id="pill_49019">
         <?php
             // load total item pictures
-            $itemPictures = Item::model()->findAll('category_id=:categoryID', array(
-                ':categoryID' => $data->id,
-            ));
-            echo sizeof($itemPictures);
+        $itemPictures = Item::model()->findAll('category_id=:categoryID', array(
+            ':categoryID' => $data->id,
+        ));
+        echo sizeof($itemPictures);
         ?>
     </span></span>
 

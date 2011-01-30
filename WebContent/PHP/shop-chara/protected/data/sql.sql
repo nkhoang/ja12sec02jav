@@ -129,3 +129,5 @@ insert into category (title, description) values ('short', 'Short');
 insert into category (title, description) values ('pains', 'Pains');
 
 ALTER TABLE category ADD COLUMN hide INT(1) DEFAULT 0;
+ALTER TABLE item ADD COLUMN material VARCHAR(4000) DEFAULT NULL;
+ALTER TABLE item ADD COLUMN size VARCHAR(4000) DEFAULT NULL;
