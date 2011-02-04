@@ -105,32 +105,32 @@ div.thumbnail-big {
 }
 
 #itemsContainer .itemContainer .itemCover {
-    width: 138px;
+    width: 150px;
     height: 166px;
     position: relative;
-    left: 10px;
+    left: 5px;
 }
 
 #itemsContainer .itemContainer .itemCover .ict {
     width: 100%;
-    height: 4px;
+    height: 8px;
 }
 
 #itemsContainer .itemContainer .itemCover .ict .icl {
-    width: 4px;
+    width: 10px;
     height: 100%;
-    background: url(http://docs.google.com/File?id=d5brrvd_1046f477q5gf_b) no-repeat 0 0;
+    background: url(../../images/item/item_frame_74.png) no-repeat 0 0;
 }
 
 #itemsContainer .itemContainer .itemCover .ict .icc {
     height: 100%;
-    background: url(http://docs.google.com/File?id=d5brrvd_1041gtxn93ft_b) repeat-x 0 0;
+    background: url(../../images/item/item_frame_75.png) repeat-x 0 0;
     width: 130px;
 }
 
 #itemsContainer .itemContainer .itemCover .ict .icr {
-    background: url(http://docs.google.com/File?id=d5brrvd_1047czw456d4_b) no-repeat 0 0;
-    width: 4px;
+    background: url(../../images/item/item_frame_77.png) no-repeat 0 0;
+    width: 10px;
     height: 100%;
 }
 
@@ -157,43 +157,43 @@ div.thumbnail-big {
 }
 
 #itemsContainer .itemContainer .itemCover .icm .icc {
-    width: 130px;
+    width: 138px;
     height: 158px;
 }
 
 #itemsContainer .itemContainer .itemCover .icm .icl {
-    width: 4px;
+    width: 6px;
     height: 100%;
-    background: url(http://docs.google.com/File?id=d5brrvd_1040dgqp96f4_b) repeat-y 0 0;
+    background: url(../../images/item/item_frame_79.png) repeat-y 0 0;
 }
 
 #itemsContainer .itemContainer .itemCover .icm .icr {
-    width: 4px;
+    width: 6px;
     height: 100%;
-    background: url(http://docs.google.com/File?id=d5brrvd_1042cwfwgwdp_b) repeat-y 0 0;
+    background: url(../../images/item/item_frame_82.png) repeat-y 0 0;
 }
 
 #itemsContainer .itemContainer .itemCover .icb {
-    height: 4px;
+    height: 8px;
     width: 100%;
 }
 
 #itemsContainer .itemContainer .itemCover .icb .icl {
     height: 100%;
-    width: 4px;
-    background: url(http://docs.google.com/File?id=d5brrvd_1049cm46w3fm_b) no-repeat 0 -1px;
+    width: 10px;
+    background: url(../../images/item/item_frame_108.png) no-repeat 0 -1px;
 }
 
 #itemsContainer .itemContainer .itemCover .icb .icc {
     height: 100%;
-    background: url(http://docs.google.com/File?id=d5brrvd_1043f3vp9bxj_b) repeat-x 0 0;
+    background: url(../../images/item/item_frame_109.png) repeat-x 0 0;
     width: 130px;
 }
 
 #itemsContainer .itemContainer .itemCover .icb .icr {
-    background: url(http://docs.google.com/File?id=d5brrvd_1048vbqkkcr8_b) no-repeat 0 0;
+    background: url(../../images/item/item_frame_110.png) no-repeat 0 0;
     height: 100%;
-    width: 4px;
+    width: 10px;
 }
 
 #itemsContainer .itemContainer .itemCode, #itemsContainer .itemContainer .itemMaterial, #itemsContainer .itemContainer .itemSize {

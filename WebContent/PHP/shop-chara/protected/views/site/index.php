@@ -59,11 +59,15 @@
             manager.hideTooltip($this);
         });
         manager.initPager('<?php echo CController::createUrl('/shop/showItems', array('category_id' => 1)); ?>', preloadAllImage);
+
+        Cufon.replace('.paging_indicator', { fontFamily: 'FFF Tusj' }); // Requires a selector engine for IE 6-7, see above
+
     });
 </script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/cufon-yui.js" type="text/javascript"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/League_Gothic_400.font.js" type="text/javascript"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/Boycott_400.font.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/FFF_Tusj_700.font.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     function Slider(slider_id, menu_button_id) {
@@ -109,9 +113,9 @@
             }
 
         });
-        
+
     });
-    
+
 
 </script>
 <div id="body-wrapper">
@@ -239,7 +243,6 @@
                         <div id="current_page_number"></div>
                         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/chara/n_slash.gif"
                              style="vertical-align: middle; margin-top: -7px;"/>
-
                         <div id="total_page_number"></div>
                     </div>
                 </div>
@@ -251,8 +254,13 @@
                     <div class="par fleft">
                         <div class="touchArea"></div>
                         <div class="pagerInput"><input type="text" maxlength="2" size="1"/></div>
-                        <div class="currentPage"><img
-                                src="<?php echo Yii::app()->request->baseUrl; ?>/images/chara/n_2.gif"></div>
+                        <div class="currentPage">
+                            <!--
+                            <img
+                                src="<?php echo Yii::app()->request->baseUrl; ?>/images/chara/n_2.gif">
+                            -->
+
+                        </div>
                     </div>
                 </div>
             </div>
