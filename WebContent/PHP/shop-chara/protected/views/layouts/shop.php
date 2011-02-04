@@ -28,14 +28,13 @@
         }
     </style><![endif]-->
 
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js" type="text/javascript"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js" type="text/javascript"></script>    
 <?php
         $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.autocomplete.js', CClientScript::POS_HEAD);
 ?>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.manager.js" type="text/javascript"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/item/item.scripts.js" type="text/javascript"></script>
-
 <?php
         $cs = Yii::app()->clientScript;
 $cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.fancybox-1.3.4.js', CClientScript::POS_HEAD);

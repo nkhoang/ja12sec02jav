@@ -61,10 +61,15 @@
         manager.initPager('<?php echo CController::createUrl('/shop/showItems', array('category_id' => 1)); ?>', preloadAllImage);
     });
 </script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/cufon-yui.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/League_Gothic_400.font.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/Boycott_400.font.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     function Slider(slider_id, menu_button_id) {
         var menu_buttons_left = getMenuButtonsPos();
+        this.animating = false;
+        var slider = this;
         var menu_item_class = '';
 
         function getMenuButtonsPos() {
@@ -76,6 +81,7 @@
         }
 
         this.moveTo = function(ele) {
+            slider.animating = true;
             var targetPosX = $(ele).position().left
             $(slider_id).animate({
                 'left': menu_buttons_left + targetPosX + 'px'
@@ -88,6 +94,7 @@
                     var classes = $(ele).attr('class').split(' ');
                     $(this).addClass(classes[1]).fadeIn();
                     menu_item_class = classes[1];
+                    slider.animating = false;
                 });
             });
         }
@@ -97,16 +104,27 @@
         var slider = new Slider('#menuIndicator', '#menuButtons');
 
         $('.menuButton').click(function() {
-            slider.moveTo(this);
+            if (!slider.animating) {
+                slider.moveTo(this);
+            }
+
         });
-    })
+        
+    });
+    
 
 </script>
 <div id="body-wrapper">
-    <div id="header"></div>
+    <div id="header">
+        <div class="wraptocenter" style="background-color: black;">
+            <div class="image_c">
+                <img src="<?php echo Yii::app()->request->baseUrl . '/images/logo_01.png' ?>" alt="misschara logo"
+            </div>
+        </div>
+    </div>
     <div id="menuContainer">
         <div id="menuButtons">
-            <div class="menuButton home fleft">>
+            <div class="menuButton home fleft">
             </div>
             <div class="menuSeperator fleft"></div>
             <div class="menuButton about fleft"></div>

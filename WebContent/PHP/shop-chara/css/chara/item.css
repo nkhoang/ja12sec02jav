@@ -1,139 +1,147 @@
 div.thumbnail-big {
-  display: none;
+    display: none;
 }
-
 
 #itemsContainer {
-  padding: 10px;
-  height: 100%;
+    padding: 10px;
+    height: 100%;
 }
 
+.tag {
+    background: url("../../images/chara/scroller-item-tag.png") no-repeat scroll right bottom transparent;
+    color: #EDE7C2;
+    display: block;
+    font-size: 22px;
+    left: -14px;
+    padding-right: 11px;
+    position: absolute;
+    text-shadow: 1px 1px 1px #131212;
+    bottom: 30px;
+}
 
+.tag span{
+    background: url("../../images/chara/scroller-item-tag.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 36px;
+    padding-left: 9px;
+    padding-top: 9px;
+}
 /* 230 + 12 = 242,166 + 15 = 181 */
 /* 230 + 40 = 270,166 + 45 = 211 */
 #itemsContainer .itemContainer {
-  height: 230px;
-  width: 166px;
-  position: relative;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 28px;
+    height: 230px;
+    width: 166px;
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 28px;
 }
 
 #itemsContainer .itemContainer .itt {
-  height: 17px;
-  width: 100%;
+    height: 17px;
+    width: 100%;
 }
 
 #itemsContainer .itemContainer .itt .itl {
-  width: 15px;
-  height: 100%;
-  background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1033dg77c8hb_b) no-repeat -1px 0;
+    width: 15px;
+    height: 100%;
+    background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1033dg77c8hb_b) no-repeat -1px 0;
 }
 
 #itemsContainer .itemContainer .itt .itr {
-  height: 100%;
-  width: 15px;
-  background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1034f9b5zm9k_b) no-repeat 0 0;
+    height: 100%;
+    width: 15px;
+    background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1034f9b5zm9k_b) no-repeat 0 0;
 }
 
 #itemsContainer .itemContainer .itt .itc {
-  height: 100%;
-  width: 136px;
-  background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1035chhj3jc2_b) repeat-x 0 0px;
+    height: 100%;
+    width: 136px;
+    background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1035chhj3jc2_b) repeat-x 0 0px;
 }
 
-
 #itemsContainer .itemContainer .itm {
-  height: 242px;
+    height: 242px;
 }
 
 #itemsContainer .itemContainer .itm .itl {
-  height: 100%;
-  width: 4px;
-  background: url(http://docs.google.com/File?id=d5brrvd_1044cdxjd6hq_b) repeat-y 0 0;
+    height: 100%;
+    width: 4px;
+    background: url(http://docs.google.com/File?id=d5brrvd_1044cdxjd6hq_b) repeat-y 0 0;
 }
 
-
 #itemsContainer .itemContainer .itm .itc {
-  background-color: #e2e0d8;
-  width: 158px;
-  height: 100%;
+    background-color: #e2e0d8;
+    width: 158px;
+    height: 100%;
 }
 
 #itemsContainer .itemContainer .itm .itr {
-  height: 100%;
-  width: 4px;
-  background: url(http://docs.google.com/File?id=d5brrvd_1039c4qg3vdf_b) repeat-y 0 0;
+    height: 100%;
+    width: 4px;
+    background: url(http://docs.google.com/File?id=d5brrvd_1039c4qg3vdf_b) repeat-y 0 0;
 }
-
 
 #itemsContainer .itemContainer .itb {
-  height: 19px;
+    height: 19px;
 }
 
-
 #itemsContainer .itemContainer .itb .itl {
-  height: 100%;
-  width: 15px;
-  background: url(http://docs.google.com/File?id=d5brrvd_10375cr5n3gc_b) no-repeat 0 0;
+    height: 100%;
+    width: 15px;
+    background: url(http://docs.google.com/File?id=d5brrvd_10375cr5n3gc_b) no-repeat 0 0;
 }
 
 #itemsContainer .itemContainer .itb .itr {
-  height: 100%;
-  width: 15px;
-  background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1038d8s9sg4c_b) no-repeat 0 0;
+    height: 100%;
+    width: 15px;
+    background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1038d8s9sg4c_b) no-repeat 0 0;
 }
 
-
 #itemsContainer .itemContainer .itb .itc {
-  height: 100%;
-  width: 136px;
-  background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1036xhz3mccd_b) repeat-x 0 11px;
+    height: 100%;
+    width: 136px;
+    background: #e2e0d8 url(http://docs.google.com/File?id=d5brrvd_1036xhz3mccd_b) repeat-x 0 11px;
 }
 
 #itemsContainer .itemContainer .itemCover {
-  width: 138px;
-  height: 166px;
-  position: relative;
-  left: 10px;
+    width: 138px;
+    height: 166px;
+    position: relative;
+    left: 10px;
 }
-
 
 #itemsContainer .itemContainer .itemCover .ict {
-  width: 100%;
-  height: 4px;
+    width: 100%;
+    height: 4px;
 }
-
 
 #itemsContainer .itemContainer .itemCover .ict .icl {
-  width: 4px;
-  height: 100%;
-  background: url(http://docs.google.com/File?id=d5brrvd_1046f477q5gf_b) no-repeat 0 0;
+    width: 4px;
+    height: 100%;
+    background: url(http://docs.google.com/File?id=d5brrvd_1046f477q5gf_b) no-repeat 0 0;
 }
-
 
 #itemsContainer .itemContainer .itemCover .ict .icc {
-  height: 100%;
-  background: url(http://docs.google.com/File?id=d5brrvd_1041gtxn93ft_b) repeat-x 0 0;
-  width: 130px;
+    height: 100%;
+    background: url(http://docs.google.com/File?id=d5brrvd_1041gtxn93ft_b) repeat-x 0 0;
+    width: 130px;
 }
 
- #itemsContainer .itemContainer .itemCover .ict .icr {
-  background: url(http://docs.google.com/File?id=d5brrvd_1047czw456d4_b) no-repeat 0 0;
-  width: 4px;
-  height: 100%;
+#itemsContainer .itemContainer .itemCover .ict .icr {
+    background: url(http://docs.google.com/File?id=d5brrvd_1047czw456d4_b) no-repeat 0 0;
+    width: 4px;
+    height: 100%;
 }
-
 
 #itemsContainer .itemContainer .itemCover .icm {
-  height: 158px;
+    height: 158px;
 }
 
 #itemsContainer .itemContainer .itemCover .icm .thumbnail {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 #itemsContainer .itemContainer .itemCover .icm .wraptocenter.loading {
@@ -144,103 +152,109 @@ div.thumbnail-big {
     display: none;
 }
 
-
 #itemsContainer .itemContainer .itemCover .icm .thumbnail img {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #itemsContainer .itemContainer .itemCover .icm .icc {
-  width: 130px;
-  height: 158px;
+    width: 130px;
+    height: 158px;
 }
-
 
 #itemsContainer .itemContainer .itemCover .icm .icl {
-  width: 4px;
-  height: 100%;
-  background: url(http://docs.google.com/File?id=d5brrvd_1040dgqp96f4_b) repeat-y 0 0;
+    width: 4px;
+    height: 100%;
+    background: url(http://docs.google.com/File?id=d5brrvd_1040dgqp96f4_b) repeat-y 0 0;
 }
-
 
 #itemsContainer .itemContainer .itemCover .icm .icr {
-  width: 4px;
-  height: 100%;
-  background: url(http://docs.google.com/File?id=d5brrvd_1042cwfwgwdp_b) repeat-y 0 0;
+    width: 4px;
+    height: 100%;
+    background: url(http://docs.google.com/File?id=d5brrvd_1042cwfwgwdp_b) repeat-y 0 0;
 }
 
-
 #itemsContainer .itemContainer .itemCover .icb {
-  height: 4px;
-  width: 100%;
+    height: 4px;
+    width: 100%;
 }
 
 #itemsContainer .itemContainer .itemCover .icb .icl {
-  height: 100%;
-  width: 4px;
-  background: url(http://docs.google.com/File?id=d5brrvd_1049cm46w3fm_b) no-repeat 0 -1px;
+    height: 100%;
+    width: 4px;
+    background: url(http://docs.google.com/File?id=d5brrvd_1049cm46w3fm_b) no-repeat 0 -1px;
 }
 
-
 #itemsContainer .itemContainer .itemCover .icb .icc {
-  height: 100%;
-  background: url(http://docs.google.com/File?id=d5brrvd_1043f3vp9bxj_b) repeat-x 0 0;
-  width: 130px;
+    height: 100%;
+    background: url(http://docs.google.com/File?id=d5brrvd_1043f3vp9bxj_b) repeat-x 0 0;
+    width: 130px;
 }
 
 #itemsContainer .itemContainer .itemCover .icb .icr {
-  background: url(http://docs.google.com/File?id=d5brrvd_1048vbqkkcr8_b) no-repeat 0 0;
-  height: 100%;
-  width: 4px;
+    background: url(http://docs.google.com/File?id=d5brrvd_1048vbqkkcr8_b) no-repeat 0 0;
+    height: 100%;
+    width: 4px;
 }
 
-
-#itemsContainer .itemContainer .itemCode, #itemsContainer .itemContainer .itemMaterial, #itemsContainer .itemContainer .itemSize  {
-  position: relative;
-  width: 166px;
-  top: 16px;
+#itemsContainer .itemContainer .itemCode, #itemsContainer .itemContainer .itemMaterial, #itemsContainer .itemContainer .itemSize {
+    position: relative;
+    width: 166px;
+    top: 16px;
 }
 
-#itemsContainer .itemContainer .itemMaterial .materialDescription
-,#itemsContainer .itemContainer .itemSize .sizeDescription{
+#itemsContainer .itemContainer .itemMaterial .materialDescription, #itemsContainer .itemContainer .itemSize .sizeDescription {
     position: absolute;
-  width: 100%;
-  left: 40px;
-  top: 1px;
+    width: 100%;
+}
+
+#itemsContainer .itemContainer .itemDescription {
+    line-height: 24px;
+    left: 50px;
+    top: -5px;
+    font-family:'OFL Sorts Mill Goudy TT', Georgia, serif;
+    text-shadow:#FFFFFF 1px 1px 0;
+    color:#535353;
+    
 }
 
 #itemsContainer .itemContainer .itemCode .codeDescription {
-  position: absolute;
-  width: 100%;
-  left: 40px;
-  top: -5px;
+    position: absolute;
+    width: 100%;
 }
 
-
 #itemsContainer .itemContainer .itemTag {
-  position: absolute;
-  top: 0px;
-  left: 110px;
-  z-index: 100;
+    position: absolute;
+    left: 110px;
+    z-index: 100;
 }
 
 #itemsContainer .itemContainer .itemTag .itemPrice {
-  position: relative;
-  top: -30px;
-  left: 0;
-  font-size: 17pt;
-  color: #CE7239;
-  font-family: Arial,"Times New Roman",Times,serif;
+    position: relative;
+    top: -30px;
+    left: 0;
+    font-size: 17pt;
+    color: #CE7239;
+    font-family: Arial, "Times New Roman", Times, serif;
 }
-
 
 #itemsContainer .itemContainer .itemTag .itemPrice .price {
-  margin-left: 4px;
-  margin-top: -8px;
+    margin-left: 4px;
+    margin-top: -8px;
 }
 
+#itemsContainer .itemContainer .tapeLeft {
+    position: absolute;
+    top: -12px;
+    left: -15px;
+}
 
-#itemsContainer .itemContainer .sticker {
-  position: absolute;
-  top: -12px;
-  left: -15px;
+#itemsContainer .itemContainer .tapeRight {
+    position: absolute;
+    top: -12px;
+    right: -15px;
+}
+
+div.item_field {
+    color: #683F34;
+    height: 24px;
 }
