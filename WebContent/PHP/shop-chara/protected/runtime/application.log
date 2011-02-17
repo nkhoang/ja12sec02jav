@@ -1,4 +1,0 @@
-2010/12/08 20:46:23 [error] [system.db.CDbCommand] Error in querying SQL: SHOW COLUMNS FROM `item_pircutre`
-in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\gii\generators\model\ModelCode.php (139)
-in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\gii\generators\model\ModelCode.php (115)
-in F:\Softs\Softs\Development\XAMPP\xampp\htdocs\yii\framework\gii\CCodeGenerator.php (155)
