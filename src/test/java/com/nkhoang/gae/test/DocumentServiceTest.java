@@ -65,6 +65,7 @@ public class DocumentServiceTest {
      * Test get revision from google document
      */
 
+    @Test
     public void testRevisions() {
         List<String> revisions = backupService.listBackupRevisions();
         for (String s : revisions) {
@@ -81,7 +82,7 @@ public class DocumentServiceTest {
     }
 
     public void testBackup() {
-        backupService.backup("Nguy?n Khánh Hoàng");
+        backupService.backup("Nguyen Khanh Hoang");
     }
 
 

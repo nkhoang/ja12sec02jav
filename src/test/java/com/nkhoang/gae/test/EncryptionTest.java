@@ -21,6 +21,7 @@ public class EncryptionTest {
     public void testRun() {
     }
 
+    @Test
     public void testPropertyEncryptor() {
 
         FixedStringSaltGenerator saltGenerator = new FixedStringSaltGenerator();
@@ -38,7 +39,7 @@ public class EncryptionTest {
         String algorithmString = "SHA-256";
         String iterationString = "1000";
 
-        //LOGGER.info(encryptor.decrypt("h83va/Y/pD8="));
+        //LOGGER.info(encryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
 
         //LOGGER.info(encryptor.encrypt(iterationString));
         //LOGGER.info(encryptor.encrypt(algorithmString));

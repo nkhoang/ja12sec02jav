@@ -28,6 +28,16 @@
         <property name="defaultDocument" value="${google.defaultDocument}"/>
     </bean>
 
+    <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="prototype">
+        <property name="username" value="${google.username}"/>
+        <property name="password" value="${google.password}"/>
+    </bean>
+
+    <!-- Gold Service -->
+    <bean name="goldService" class="com.nkhoang.gae.manager.GoldManager" scope="prototype">
+        <property name="goldPriceDao" ref="goldPriceDao"/>
+        <property name="currencyDao" ref="currencyDao"/>
+    </bean>
     <!-- Item Service -->
     <bean name="itemService" class="com.nkhoang.gae.manager.ItemManager"
           scope="prototype">

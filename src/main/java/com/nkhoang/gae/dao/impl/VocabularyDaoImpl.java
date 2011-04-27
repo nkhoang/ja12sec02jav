@@ -119,3 +119,4 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
     }
 
 }
+ ve

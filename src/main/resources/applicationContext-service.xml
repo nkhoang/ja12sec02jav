@@ -28,7 +28,9 @@
         <property name="defaultDocument" value="${google.defaultDocument}"/>
     </bean>
 
-    <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="singleton">
+    <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="prototype">
+        <property name="username" value="${google.username}"/>
+        <property name="password" value="${google.password}"/>
     </bean>
 
     <!-- Gold Service -->

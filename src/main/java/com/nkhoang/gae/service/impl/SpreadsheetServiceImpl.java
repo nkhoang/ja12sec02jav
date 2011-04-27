@@ -1,41 +1,87 @@
 package com.nkhoang.gae.service.impl;
 
 import com.google.gdata.client.spreadsheet.SpreadsheetService;
+import com.google.gdata.data.spreadsheet.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by IntelliJ IDEA.
- * User: hoangnk
- * Date: Nov 18, 2010
- * Time: 7:50:19 AM
- * To change this template use File | Settings | File Templates.
- */
-public class SpreadsheetServiceImpl {
+import java.net.URL;
+import java.util.List;
+
+public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.SpreadsheetService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetService.class);
+    private SpreadsheetService _service;
+    private String _username;
+    private String _password;
 
-    private SpreadsheetService service;
-
-    public void initialize() {
-        try {
-            service = new SpreadsheetService("Batch Cell Demo");
-            service.setUserCredentials("nkhoang.it@gmail.com", "me27&ml17");
-            service.setProtocolVersion(SpreadsheetService.Versions.V1);
-        } catch (Exception ex) {
-
-        }
-    }
 
     public void setService(SpreadsheetService service) {
-        this.service = service;
+        _service = service;
     }
 
     public SpreadsheetService getService() {
-        if (service == null) {
-            initialize();
+        try {
+            _service = new SpreadsheetService("Spreadsheet Search");
+            _service.setUserCredentials(_username, _password);
+            _service.setProtocolVersion(SpreadsheetService.Versions.V1);
+        } catch (Exception e) {
+            LOGGER.error("Could not create google spreadsheet service", e);
         }
+        return _service;
+    }
 
-        return service;
+    /**
+     * Find spreadsheet cell url by title.
+     *
+     * @return url or null.
+     */
+    public String findSpreadSheetCellUrlByTitle(String title, String worksheetName) {
+        String cellfeedUrl = null;
+        try {
+            SpreadsheetService _service = getService();
+
+            URL metafeedUrl = new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full");
+            SpreadsheetFeed feed = _service.getFeed(metafeedUrl, SpreadsheetFeed.class);
+            List<SpreadsheetEntry> spreadsheets = feed.getEntries();
+
+            for (int i = 0; i < spreadsheets.size(); i++) {
+                SpreadsheetEntry spreadsheetEntry = spreadsheets.get(i);
+                String spreadsheetTitle = spreadsheetEntry.getTitle().getPlainText();
+                //LOGGER.info("Spreadsheet title : " + spreadsheetTitle);
+                if (spreadsheetTitle.equals(title)) {
+                    //LOGGER.info("\t" + spreadsheetTitle);
+                    List<WorksheetEntry> worksheets = spreadsheetEntry.getWorksheets();
+                    for (int j = 0; j < worksheets.size(); j++) {
+                        WorksheetEntry worksheetEntry = worksheets.get(j);
+
+                        String worksheetTitle = worksheetEntry.getTitle().getPlainText();
+                        if (worksheetTitle.equals(worksheetName)) {
+                            //LOGGER.info(worksheetTitle);
+                            cellfeedUrl = worksheetEntry.getId();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.debug("Could not find the requested worksheet [" + worksheetName + "] or spreadsheet with name [" + title + "].");
+        }
+        return cellfeedUrl;
+    }
+
+    public String getUsername() {
+        return _username;
+    }
+
+    public void setUsername(String username) {
+        _username = username;
+    }
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String password) {
+        _password = password;
     }
 }
