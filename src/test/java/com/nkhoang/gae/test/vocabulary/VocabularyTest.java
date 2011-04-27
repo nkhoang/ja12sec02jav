@@ -30,17 +30,13 @@ public class VocabularyTest {
 
     }
 
+    @Test
     public void testLookupEN() {
         Word w = lookup("take");
         w = lookupENLongman(w, "take");
         //w = lookupENCambridge(w, "take");
-
-
         String test = showWord(w);
-
         LOGGER.info(test);
-
-
     }
 
     public String showWord(Word w) {
