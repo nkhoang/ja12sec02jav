@@ -31,7 +31,7 @@ public class ViewConstant {
     public static final String LOGIN_REQUEST = "login";
     public static final String VOCABULARY_HOME_REQUEST = "home";
     public static final String VOCABULARY_UPDATE_REQUEST = "update";
-
+    public static final String VOCABULARY_LOOKUP_REQUEST = "lookup";
     public static final String VOCABULARY_VIEW_WORD_RANGE_REQUEST = "listWordsInRange";
     public static final String VOCABULARY_VIEW_POPULATE_WORD_REQUEST = "populateWord";
     public static final String VOCABULARY_I_VOCABULARY_REQUEST = "iVocabulary";

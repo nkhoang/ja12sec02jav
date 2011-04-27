@@ -228,8 +228,7 @@ public class VocabularyAction {
             }
 
             currentDate = DateUtils.addDays(currentDate, incrementDay + 1);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.info("Use current date.");
 
         }
@@ -442,6 +441,39 @@ public class VocabularyAction {
         if (StringUtils.isNotEmpty(idStr)) {
             id = Long.parseLong(idStr);
             w = vocabularyService.populateWord(id);
+        }
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+        jsonData.put("word", w);
+
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+
+        List<String> attrs = new ArrayList<String>();
+        attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
+        modelAndView.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
+
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+
+        return modelAndView;
+    }
+
+    /**
+     * Save and lookup word with meanings and examples
+     *
+     * @param wordStr id to be populated.
+     * @return a fully populated Word.
+     */
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_LOOKUP_REQUEST, method = RequestMethod.GET)
+    public ModelAndView lookupWord(@RequestParam("word") String wordStr) {
+        Long id = 0L;
+        Word w = null;
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            if (StringUtils.isNotEmpty(wordStr)) {
+                w = vocabularyService.save(wordStr);
+            }
+        } catch (IOException ex) {
+            LOGGER.error("Cound not process word: " + wordStr, ex);
         }
         Map<String, Object> jsonData = new HashMap<String, Object>();
         jsonData.put("word", w);

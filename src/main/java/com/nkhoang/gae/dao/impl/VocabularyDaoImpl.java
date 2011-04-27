@@ -37,9 +37,9 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         return result;
     }
 
-    public boolean find(String w) {
+    public Word find(String w) {
         LOGGER.info("Finding word : " + w);
-        boolean result = false;
+        Word found = null;
         try {
             Query query = entityManager.createQuery("Select from " + Word.class.getName() + " where description=:wDes");
             query.setParameter("wDes", w);
@@ -47,12 +47,12 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             List<Word> wList = query.getResultList();
 
             if (wList != null && wList.size() > 0) {
-                result = true;
+                found = wList.get(0);
             }
         } catch (Exception e) {
             LOGGER.error("Error", e);
         }
-        return result;
+        return found;
     }
 
     public boolean delete(Long id) {

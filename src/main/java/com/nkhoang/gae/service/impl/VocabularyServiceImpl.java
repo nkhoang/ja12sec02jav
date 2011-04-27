@@ -54,12 +54,11 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-
-
     /**
      * Just get a range of words only. Not populating meanings and examples. It will speed up the process of getting a word list.
+     *
      * @param startingIndex starting index.
-     * @param size size to be retrieved.
+     * @param size          size to be retrieved.
      * @return a list of words.
      */
     public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size) {
@@ -135,50 +134,54 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
-        if (vocabularyDao.find(lookupWord)) {
-            LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
-        }
-        LOGGER.info("Saving word : " + lookupWord);
-        Word word = null;
-        try {
-            word = lookup(lookupWord);
-            lookupENLongman(word, lookupWord);
-            lookupPron(word, lookupWord);
-        } catch (IOException ex) {
-            LOGGER.info("Failed to connect to dictionary to lookup word definition.");
-            throw ex;
-        } catch (IllegalArgumentException iae) {
-            LOGGER.info("Failed to parse URL with wrong arguments.");
-            throw iae;
-        }
-
+        Word word = vocabularyDao.find(lookupWord);
+        // first check the current status
         if (word != null) {
-            // build list of meaning
-            for (int i = 0; i < Word.WORD_KINDS.length; i++) {
-                List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
-                if (meanings != null && meanings.size() > 0) {
-                    //LOGGER.info("found : " + meanings.size() + " meanings for this word");
-                    for (Meaning meaning : meanings) {
-                        // save
-                        try {
-                            Meaning savedMeaning = meaningDao.save(meaning);
-                            word.addMeaningId(savedMeaning.getId());
-                        } catch (Exception e) {
-                            LOGGER.info("Failed to save meaning to DB.");
-                            LOGGER.info(meaning.toString());
-                        }
-                    }
-                } else {
-                    // log.info(word.getMeanings());
-                }
+            LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
+
+        } else {
+            LOGGER.info("Saving word : " + lookupWord);
+            word = null;
+            try {
+                word = lookup(lookupWord);
+                lookupENLongman(word, lookupWord);
+                lookupPron(word, lookupWord);
+            } catch (IOException ex) {
+                LOGGER.info("Failed to connect to dictionary to lookup word definition.");
+                throw ex;
+            } catch (IllegalArgumentException iae) {
+                LOGGER.info("Failed to parse URL with wrong arguments.");
+                throw iae;
             }
 
+            if (word != null) {
+                // build list of meaning
+                for (int i = 0; i < Word.WORD_KINDS.length; i++) {
+                    List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
+                    if (meanings != null && meanings.size() > 0) {
+                        //LOGGER.info("found : " + meanings.size() + " meanings for this word");
+                        for (Meaning meaning : meanings) {
+                            // save
+                            try {
+                                Meaning savedMeaning = meaningDao.save(meaning);
+                                word.addMeaningId(savedMeaning.getId());
+                            } catch (Exception e) {
+                                LOGGER.info("Failed to save meaning to DB.");
+                                LOGGER.info(meaning.toString());
+                            }
+                        }
+                    } else {
+                        // log.info(word.getMeanings());
+                    }
+                }
 
-            try {
-                word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-                vocabularyDao.save(word);
-            } catch (Exception e) {
-                LOGGER.info("Could not save word:" + word.toString());
+
+                try {
+                    word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
+                    vocabularyDao.save(word);
+                } catch (Exception e) {
+                    LOGGER.info("Could not save word:" + word.toString());
+                }
             }
         }
         return word;
