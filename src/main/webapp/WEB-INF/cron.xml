@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
+    <!--
     <cron>
         <url>/service/gold/goldIN.html</url>
         <description>Get the international gold price!</description>
@@ -15,4 +16,5 @@
         <description>Get the exchange rates !</description>
         <schedule>every 10 minutes</schedule>
     </cron>
+    -->
 </cronentries>

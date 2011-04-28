@@ -138,6 +138,8 @@ public class VocabularyServiceImpl implements VocabularyService {
         // first check the current status
         if (word != null) {
             LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
+            // reassign word.
+            word = populateWord(word);
 
         } else {
             LOGGER.info("Saving word : " + lookupWord);
@@ -178,7 +180,12 @@ public class VocabularyServiceImpl implements VocabularyService {
 
                 try {
                     word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-                    vocabularyDao.save(word);
+                    if (word.getMeanings().size() > 0) {
+                        vocabularyDao.save(word);
+                    }                     else {
+
+                    }
+
                 } catch (Exception e) {
                     LOGGER.info("Could not save word:" + word.toString());
                 }

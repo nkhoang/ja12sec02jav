@@ -27,6 +27,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,8 @@ import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 @RequestMapping("/" + ViewConstant.VOCABULARY_NAMESPACE)
 public class VocabularyAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyAction.class);
+    private static final int IVOCABULARY_TOTAL_ITEM = 40;
+    private static final int IVOCABULARY_PAGE_SIZE = 20;
 
     @Autowired
     private SpreadsheetServiceImpl spreadsheetService;
@@ -58,6 +61,11 @@ public class VocabularyAction {
     private VocabularyService vocabularyService;
     @Autowired
     private UserManager userService;
+
+    @Value("${google.username}")
+    private String _username;
+    @Value("${google.username}")
+    private String _password;
 
     private final String APP_NAME = "Chara";
     DocsService docsService = new DocsService(APP_NAME); // Google Document Service.
@@ -75,13 +83,18 @@ public class VocabularyAction {
 
     /**
      * Export vocabulary data from an excel file in google docs to new documents in google docs.
+     * The sample request should look like this: *.appspot.com/vocabulary/iVocabulary2GD.html?index=0
      *
      * @param indexStr word list offset.
      * @param response HttpServletResponse.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST, method = RequestMethod.GET)
-    public void exportGoogleDocs(@RequestParam("index") String indexStr, HttpServletResponse response) {
-        int index = 0;
+    public void exportGoogleDocs(@RequestParam("index") String indexStr,
+                                 @RequestParam("size") String sizeStr,
+                                 @RequestParam("pageSize") String pageSizeStr,
+                                 HttpServletResponse response) {
+        int index = 0, size = 0, pageSize = 0;
+        // check index param.
         if (StringUtils.isEmpty(indexStr)) {
             try {
                 response.getWriter().write("Bad request.");
@@ -89,19 +102,27 @@ public class VocabularyAction {
                 LOGGER.info("Could not render response.");
             }
         }
-
+        // check size param.
+        try {
+            size = StringUtils.isEmpty(sizeStr) ? IVOCABULARY_TOTAL_ITEM : Integer.parseInt(sizeStr);
+        } catch (NumberFormatException nfe) {
+            size = IVOCABULARY_TOTAL_ITEM;
+        }
+        // check pageSize param.
+        try {
+            pageSize = StringUtils.isEmpty(pageSizeStr) ? IVOCABULARY_PAGE_SIZE : Integer.parseInt(pageSizeStr);
+        } catch (NumberFormatException nfe) {
+            size = IVOCABULARY_PAGE_SIZE;
+        }
         index = Integer.parseInt(indexStr);
-
-
-        LOGGER.info("Starting to export iVocabulary to GOOGLE DOCS.");
-
         int numberOfWords = vocabularyService.getWordSize();
-        int nextIndex = index + 40 + 1;
+        LOGGER.info("Starting to export iVocabulary to GOOGLE DOCS.");
+        int nextIndex = index + size + 1;
         if (index + 40 + 1 < numberOfWords) {
-            String xml = constructIVocabularyFile(index, 40, 20);
+            String xml = constructIVocabularyFile(index, size, pageSize);
             try {
                 LOGGER.info("Saving to GOOGLE DOCS.");
-                GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + 40), xml, "charamhkh", "me27&ml17");
+                GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + size), xml, _username, _password);
             } catch (Exception e) {
                 LOGGER.info("Could not save to google docs. Try again.");
                 nextIndex = index;
@@ -127,9 +148,21 @@ public class VocabularyAction {
      * @param response      HttpServletResponse.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
-    public void updateWordsFromSpreadSheet(@RequestParam("index") String startingIndex
-            , @RequestParam("col") String columnIndex
-            , HttpServletResponse response) {
+    public void updateWordsFromSpreadSheet(
+            @RequestParam("index") String startingIndex,
+            @RequestParam("col") String columnIndex,
+            @RequestParam("fileName") String fileName,
+            @RequestParam("sheetName") String sheetName,
+            HttpServletResponse response) {
+        String cellfeedUrlStr = "https://spreadsheets.google.com/feeds/cells/peZDHyA4LqhdRYA8Uv_sufw/od6/private/full";
+        // get the cellfeedURL
+        if (StringUtils.isNotEmpty(fileName) && StringUtils.isNotEmpty(sheetName)) {
+            // make sure that this url is not null.
+            String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName);
+            if (StringUtils.isNotBlank(searchedCellfeedUrl)) {
+                cellfeedUrlStr = searchedCellfeedUrl;
+            }
+        }
         final long start = System.currentTimeMillis();
 
         int index = 0;
@@ -152,7 +185,7 @@ public class VocabularyAction {
         boolean finished = false;
         while (System.currentTimeMillis() - start < 16384 && !finished) {
             try {
-                URL cellfeedURL = new URL("https://spreadsheets.google.com/feeds/cells/peZDHyA4LqhdRYA8Uv_sufw/od6/private/full");
+                URL cellfeedURL = new URL(cellfeedUrlStr);
                 CellQuery query = new CellQuery(cellfeedURL);
                 query.setMinimumCol(col);
                 query.setMaximumCol(col);
@@ -160,9 +193,12 @@ public class VocabularyAction {
 
                 List<CellEntry> cells = cellfeed.getEntries();
 
-                if (index == cells.size()) { // check index if it exceed the maximum row
-                    col += 1; // maximum row reached.
-                    index = 0; // reset index.
+                // check index if it exceed the maximum row
+                if (index == cells.size()) {
+                    // maximum row reached.
+                    col += 1;
+                    // reset index.
+                    index = 0;
                     if (col > cellfeed.getColCount()) { // check column index.
                         LOGGER.info("End of document.");
                         break;
@@ -181,7 +217,7 @@ public class VocabularyAction {
                     index += 1;
 
                 } catch (IOException ex) {
-                    LOGGER.error("Cound not process word: " + cellValue, ex);
+                    LOGGER.error("Could not process word: " + cellValue, ex);
                 } catch (IllegalArgumentException iae) {
                     index += 1;
                 }
@@ -213,6 +249,7 @@ public class VocabularyAction {
      * @param requestSize   number of words will be processed.
      * @return xml string.
      */
+
     private String constructXMLBlockContent(List<Word> allWords, int size, int startingIndex, int requestSize) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
@@ -587,6 +624,22 @@ public class VocabularyAction {
 
     public void setSpreadsheetService(SpreadsheetServiceImpl spreadsheetService) {
         this.spreadsheetService = spreadsheetService;
+    }
+
+    public String getUsername() {
+        return _username;
+    }
+
+    public void setUsername(String username) {
+        _username = username;
+    }
+
+    public String getPassword() {
+        return _password;
+    }
+
+    public void setPassword(String password) {
+        _password = password;
     }
 
 }

@@ -3,8 +3,6 @@ package com.nkhoang.gae.test.spreadsheet;
 import com.google.gdata.client.spreadsheet.CellQuery;
 import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.google.gdata.data.spreadsheet.*;
-import com.nkhoang.gae.service.VocabularyService;
-import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -38,6 +36,8 @@ public class SpreadsheetTest {
         String cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("Vocabulary","General Vocabulary");
         LOGGER.info(cellfeedUrl);
         Assert.assertNotNull(cellfeedUrl);
+        cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("Vocabulary","Vocabulary");
+        Assert.assertNull(cellfeedUrl);
     }
 
     @Ignore
