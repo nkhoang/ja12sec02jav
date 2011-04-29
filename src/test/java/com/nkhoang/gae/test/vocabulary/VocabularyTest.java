@@ -34,7 +34,7 @@ public class VocabularyTest {
     public void testLookupEN() {
         Word w = lookup("take");
         w = lookupENLongman(w, "take");
-        //w = lookupENCambridge(w, "take");
+        w = lookupENCambridge(w, "take");
         String test = showWord(w);
         LOGGER.info(test);
     }
@@ -187,11 +187,11 @@ public class VocabularyTest {
     public Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
-            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "definition-title");
+            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "cdo-section");
             int i = 1;
             if (source == null) {
                 // check it again
-                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "definition-title");
+                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "cdo-section");
             }
             while (source != null) {
                 // process the content
@@ -277,7 +277,7 @@ public class VocabularyTest {
                     }
                 }
 
-                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word + "_" + ++i, "definition-title");
+                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word + "_" + ++i, "cdo-section");
                 // log.info(aWord.getMeanings());
             }
         } catch (Exception e) {

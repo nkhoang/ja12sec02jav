@@ -161,6 +161,7 @@ public class VocabularyAction {
             String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName);
             if (StringUtils.isNotBlank(searchedCellfeedUrl)) {
                 cellfeedUrlStr = searchedCellfeedUrl;
+                LOGGER.debug("Found spreadsheet URL: " + cellfeedUrlStr);
             }
         }
         final long start = System.currentTimeMillis();

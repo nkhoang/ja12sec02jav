@@ -322,11 +322,11 @@ public class VocabularyServiceImpl implements VocabularyService {
     private void lookupPron(Word aWord, String word) throws IOException {
         LOGGER.info("looking up PRON for this word : " + word);
         try {
-            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "definition-title");
+            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "cdo-section");
             int i = 1;
             if (source == null) {
                 // check it again
-                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "definition-title");
+                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "cdo-section");
             }
             while (source != null) {
                 // process the content
@@ -385,11 +385,11 @@ public class VocabularyServiceImpl implements VocabularyService {
     private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
-            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "definition-title");
+            Source source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase(), "cdo-section");
             int i = 1;
             if (source == null) {
                 // check it again
-                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "definition-title");
+                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word.toLowerCase() + "_" + i, "cdo-section");
             }
             while (source != null) {
                 // process the content
@@ -475,7 +475,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     }
                 }
 
-                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word + "_" + ++i, "definition-title");
+                source = checkWordExistence("http://dictionary.cambridge.org/dictionary/british/", word + "_" + ++i, "cdo-section");
                 // log.info(aWord.getMeanings());
             }
         } catch (Exception e) {
