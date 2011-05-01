@@ -64,7 +64,12 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
                         String worksheetTitle = worksheetEntry.getTitle().getPlainText();
                         if (worksheetTitle.equals(worksheetName)) {
                             //LOGGER.info(worksheetTitle);
-                            cellfeedUrl = worksheetEntry.getId();
+                            URL url = worksheetEntry.getCellFeedUrl();
+                            if (url != null) {
+                                {
+                                    cellfeedUrl = url.toString();
+                                }
+                            }
                         }
                     }
                 }

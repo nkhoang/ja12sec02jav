@@ -73,8 +73,6 @@ public class VocabularyAction {
 
     /**
      * Render home page for vocabulary.
-     *
-     * @return view name.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_HOME_REQUEST, method = RequestMethod.GET)
     public String renderVocabularyPage() {
@@ -83,7 +81,7 @@ public class VocabularyAction {
 
     /**
      * Export vocabulary data from an excel file in google docs to new documents in google docs.
-     * The sample request should look like this: *.appspot.com/vocabulary/iVocabulary2GD.html?index=0
+     * The sample request should look like this: *.appspot.com/vocabulary/iVocabulary2GD.html?index=0&size=200&pageSize=20
      *
      * @param indexStr word list offset.
      * @param response HttpServletResponse.
@@ -142,10 +140,6 @@ public class VocabularyAction {
 
     /**
      * Look up data from Google docs excel file and then update to GAE datastore.
-     *
-     * @param startingIndex row number.
-     * @param columnIndex   column number.
-     * @param response      HttpServletResponse.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
     public void updateWordsFromSpreadSheet(
@@ -193,6 +187,7 @@ public class VocabularyAction {
                 CellFeed cellfeed = spreadsheetService.getService().query(query, CellFeed.class);
 
                 List<CellEntry> cells = cellfeed.getEntries();
+                LOGGER.info("TOTAL items found: " + cells.size());
 
                 // check index if it exceed the maximum row
                 if (index == cells.size()) {
@@ -224,7 +219,12 @@ public class VocabularyAction {
                 }
                 //LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
                 LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "] and col [" + col + "]");
-                QueueFactory.getDefaultQueue().add(url("/vocabulary/update.html?index=" + index + "&col=" + col).method(TaskOptions.Method.GET));
+                QueueFactory.getDefaultQueue().add(
+                        url("/vocabulary/update.html?index=" + index
+                                + "&col=" + col
+                                + "&fileName=" + fileName
+                                + "&sheetName=" + sheetName
+                        ).method(TaskOptions.Method.GET));
 
                 finished = true;
             } catch (Exception
