@@ -26,25 +26,14 @@ import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 @ContextConfiguration({"/applicationContext-service.xml"})
 public class SpreadsheetTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetTest.class);
-
-
     @Autowired
     private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
 
-    @Ignore
-    @Test
-    public void run() {
-        Assert.assertNotNull(_spreadsheetService);
-    }
-
-    @Ignore
     @Test
     public void testFindSpreadsheetByTitle() {
-        String cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("Vocabulary", "General Vocabulary");
+        String cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("Vocabulary", "General_Vocabulary");
         LOGGER.info(cellfeedUrl);
         Assert.assertNotNull(cellfeedUrl);
-        cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("Vocabulary", "Vocabulary");
-        Assert.assertNull(cellfeedUrl);
     }
 
     @Ignore

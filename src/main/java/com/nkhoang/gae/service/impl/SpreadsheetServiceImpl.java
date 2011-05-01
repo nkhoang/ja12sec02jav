@@ -9,24 +9,30 @@ import java.net.URL;
 import java.util.List;
 
 public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.SpreadsheetService {
-
+    private static final String SPREADSHEET_SERVICE_NAME = "Spreadsheet Search";
     private static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetService.class);
+
+    // singleton service.
     private SpreadsheetService _service;
+    // username and password are configured in a property file.
     private String _username;
     private String _password;
 
 
-    public void setService(SpreadsheetService service) {
-        _service = service;
-    }
-
+    /**
+     * Singleton Google Spreadsheet service. Username and password must be provided from the property file.
+     */
     public SpreadsheetService getService() {
-        try {
-            _service = new SpreadsheetService("Spreadsheet Search");
-            _service.setUserCredentials(_username, _password);
-            _service.setProtocolVersion(SpreadsheetService.Versions.V1);
-        } catch (Exception e) {
-            LOGGER.error("Could not create google spreadsheet service", e);
+        if (_service == null) {
+            try {
+                _service = new SpreadsheetService(SPREADSHEET_SERVICE_NAME);
+                _service.setUserCredentials(_username, _password);
+                _service.setProtocolVersion(SpreadsheetService.Versions.V1);
+            } catch (Exception e) {
+                // set null to service if we cannot get it from Google.
+                _service = null;
+                LOGGER.error("Could not create google spreadsheet service", e);
+            }
         }
         return _service;
     }
@@ -83,5 +89,12 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 
     public void setPassword(String password) {
         _password = password;
+    }
+
+    /**
+     * Part of getter and setter methods.
+     */
+    public void setService(SpreadsheetService service) {
+        _service = service;
     }
 }
