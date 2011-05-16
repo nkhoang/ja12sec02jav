@@ -68,7 +68,8 @@ public class VocabularyAction {
     private String _password;
 
     private final String APP_NAME = "Chara";
-    DocsService docsService = new DocsService(APP_NAME); // Google Document Service.
+    // Google Document Service.
+    DocsService docsService = new DocsService(APP_NAME);
 
 
     /**
@@ -77,6 +78,22 @@ public class VocabularyAction {
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_HOME_REQUEST, method = RequestMethod.GET)
     public String renderVocabularyPage() {
         return ViewConstant.VOCABULARY_VIEW;
+    }
+
+    /**
+     * Render index page for vocabulary.
+     */
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_INDEX_REQUEST, method = RequestMethod.GET)
+    public ModelAndView renderVocabularyIndexPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName(ViewConstant.VOCABULARY_INDEX_VIEW);
+
+        // get the count
+        int totalCount = vocabularyService.getWordSize();
+
+        mav.addObject("totalCount", totalCount);
+
+        return mav;
     }
 
     /**

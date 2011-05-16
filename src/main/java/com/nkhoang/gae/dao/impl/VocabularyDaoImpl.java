@@ -11,8 +11,6 @@ import java.util.List;
 public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements VocabularyDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
 
-    // @off
-
     /**
      * Look up a word from DB.
      *
@@ -20,7 +18,6 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
      *         or
      *         null.
      */
-    // @on
     public Word lookup(String word) {
         LOGGER.info("Looking up word : " + word);
         Word result = null;
@@ -95,7 +92,7 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             Query query = entityManager.createQuery("Select from " + Word.class.getName() + " order by timeStamp desc");
             query.setFirstResult(offset);
             query.setMaxResults(size);
-            
+
             result = query.getResultList();
             LOGGER.info("Found: " + result.size());
         } catch (Exception ex) {

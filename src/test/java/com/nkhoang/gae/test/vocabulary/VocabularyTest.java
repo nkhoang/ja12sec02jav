@@ -36,7 +36,7 @@ public class VocabularyTest {
     @Test
     public void testLookupEN() throws Exception {
         Word w = new Word();
-        w.setDescription("cot");
+        w.setDescription("eloquent");
         vocabularyService.lookupENLongman(w, w.getDescription());
 
         assertEquals(true, w.getMeanings().size() > 0);
@@ -45,9 +45,10 @@ public class VocabularyTest {
     @Test
     public void testLookupPron() throws Exception {
         Word w = new Word();
-        w.setDescription("cot");
+        w.setDescription("zeal");
 
         vocabularyService.lookupPron(w, w.getDescription());
+        LOGGER.info(w.getPron());
         assertNotNull(w.getPron());
     }
 

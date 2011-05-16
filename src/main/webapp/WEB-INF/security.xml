@@ -20,6 +20,8 @@
         <intercept-url pattern="/chart/view.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Chart data -->
         <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <!-- Vocabulary -->
+        <intercept-url pattern="/vocabulary/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/vocabulary/update.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/vocabulary/updateViaGD.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/vocabulary/lookup.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>

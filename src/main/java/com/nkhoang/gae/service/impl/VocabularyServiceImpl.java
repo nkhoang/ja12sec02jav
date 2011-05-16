@@ -48,9 +48,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     private VocabularyDao vocabularyDao;
     private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
-    /**
-     * Get a range of words from database.
-     */
+    /** Get a range of words from database. */
     public List<Word> getAllWordsInRange(int startingIndex, int size) {
         List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
@@ -67,9 +65,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         return result;
     }
 
-
     /**
-     * Just get a range of words only. Not populating meanings and examples. It will speed up the process of getting a word list.
+     * Just get a range of words only. Not populating meanings and examples.
+     * It will speed up the process of getting a word list.
      */
     public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size) {
         List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
@@ -97,8 +95,6 @@ public class VocabularyServiceImpl implements VocabularyService {
     /**
      * Simply get all words from database without populating it with meanings and examples.
      * Used to list all available words.
-     *
-     * @return all words in DB.
      */
     public List<Word> getAllWords() {
         return vocabularyDao.getAll();
@@ -124,9 +120,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return words;
     }
 
-    /**
-     * Populate word with meanings.
-     */
+    /** Populate word with meanings. */
     private Word populateWord(Word w) {
         // populate word by Meaning
         List<Long> meaningIds = w.getMeaningIds();
@@ -151,7 +145,6 @@ public class VocabularyServiceImpl implements VocabularyService {
             LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
             // reassign word.
             word = populateWord(word);
-
         } else {
             LOGGER.info("Saving word : " + lookupWord);
             word = null;
@@ -187,8 +180,6 @@ public class VocabularyServiceImpl implements VocabularyService {
                         // log.info(word.getMeanings());
                     }
                 }
-
-
                 try {
                     word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
                     if (word.getMeanings().size() > 0) {
@@ -205,9 +196,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return word;
     }
 
-    /**
-     * Look up Longman dictionary for a specific word. Update existing word
-     */
+    /** Look up Longman dictionary for a specific word. Update existing word */
     public void lookupENLongman(Word aWord, String word) throws IOException {
         LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
         Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase(), LONGMAN_DIC_CONTENT_CLASS);
@@ -301,9 +290,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /**
-     * Process Sub example for tag GramExa
-     */
+    /** Process Sub example for tag GramExa */
     private Meaning processSubExampleLongman(Element s, String nametag, Long kindId) {
         Meaning m = new Meaning();
 
@@ -326,9 +313,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
-    /**
-     * Look up Pron for a word.
-     */
+    /** Look up Pron for a word. */
     public void lookupPron(Word aWord, String word) throws IOException {
         LOGGER.info("looking up PRON for this word : " + word);
         try {
@@ -341,48 +326,52 @@ public class VocabularyServiceImpl implements VocabularyService {
             while (source != null) {
                 // process the content
                 List<Element> contentEles = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
-                // should be one
-                Element targetContent = contentEles.get(0);
-                String kind = "";
-                // get kind
-                List<Element> headers = targetContent.getAllElementsByClass(CAMBRIDGE_DICT_KIND_CLASS);
-                if (headers != null && headers.size() > 0) {
-                    Element header = headers.get(0);
+                if (contentEles != null && contentEles.size() > 0) {
+                    // should be one
+                    Element targetContent = contentEles.get(0);
+                    String kind = "";
+                    // get kind
+                    List<Element> headers = targetContent.getAllElementsByClass(CAMBRIDGE_DICT_KIND_CLASS);
+                    if (headers != null && headers.size() > 0) {
+                        Element header = headers.get(0);
 
-                    List<Element> kinds = header.getAllElementsByClass("pos");
-                    if (kinds != null && kinds.size() > 0) {
-                        kind = kinds.get(0).getContent().toString().trim();
-                    }
-                }
-
-                List<Element> additional_headers = targetContent.getAllElementsByClass("additional_header");
-                if (additional_headers != null && additional_headers.size() > 0) {
-                    Element additional_header = additional_headers.get(0);
-                    List<Element> prons = additional_header.getAllElementsByClass("pron");
-                    // get Pron
-                    if (prons != null && prons.size() > 0) {
-                        String pron = prons.get(0).getTextExtractor().toString();
-                        // LOGGER.info("Pron: " + pron);
-                        aWord.setPron(pron);
-
-                    }
-                    // get mp3 file
-                    List<Element> sounds = additional_header.getAllElementsByClass("sound");
-                    // may have 2
-                    if (sounds != null && sounds.size() > 0) {
-                        Element sound = null;
-                        if (sounds.size() == 1) {
-                            sound = sounds.get(0);
-                        } else if (sounds.size() == 2) {
-                            sound = sounds.get(1);
+                        List<Element> kinds = header.getAllElementsByClass("pos");
+                        if (kinds != null && kinds.size() > 0) {
+                            kind = kinds.get(0).getContent().toString().trim();
                         }
-
-                        // process
-                        String soundSource = sound.getAttributeValue("onclick");
-                        String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
-                        // LOGGER.info("Found a sound source: " + soundSrc);
-                        aWord.setSoundSource(soundSrc);
                     }
+
+                    List<Element> additional_headers = targetContent.getAllElementsByClass("additional_header");
+                    if (additional_headers != null && additional_headers.size() > 0) {
+                        Element additional_header = additional_headers.get(0);
+                        List<Element> prons = additional_header.getAllElementsByClass("pron");
+                        // get Pron
+                        if (prons != null && prons.size() > 0) {
+                            String pron = prons.get(0).getTextExtractor().toString();
+                            //LOGGER.info("Pron: " + pron);
+                            aWord.setPron(pron);
+                        }
+                        // get mp3 file
+                        List<Element> sounds = additional_header.getAllElementsByClass("sound");
+                        // may have 2
+                        if (sounds != null && sounds.size() > 0) {
+                            Element sound = null;
+                            if (sounds.size() == 1) {
+                                sound = sounds.get(0);
+                            } else if (sounds.size() == 2) {
+                                sound = sounds.get(1);
+                            }
+
+                            // process
+                            String soundSource = sound.getAttributeValue("onclick");
+                            String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
+                            // LOGGER.info("Found a sound source: " + soundSrc);
+                            aWord.setSoundSource(soundSrc);
+                        }
+                        break;
+                    }
+                } else {
+                    LOGGER.info("Can not find content.");
                     break;
                 }
             }
@@ -392,9 +381,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /**
-     * Temporary unused.
-     */
+    /** Temporary unused. */
     private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
@@ -497,29 +484,32 @@ public class VocabularyServiceImpl implements VocabularyService {
         return aWord;
     }
 
-    /**
-     * Connect to URL to get the Source.
-     */
-    private Source checkWordExistence(String urlLink, String word, String targetContent) throws IOException {
-        URL url = new URL(urlLink + word);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        InputStream is = connection.getInputStream();
-        Source source = new Source(is);
+    /** Connect to URL to get the Source. */
+    private Source checkWordExistence(String urlLink, String word, String targetContent) {
+        try {
+            URL url = new URL(urlLink + word);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            // get inputStream
+            InputStream is = connection.getInputStream();
+            // create source HTML
+            Source source = new Source(is);
 
-        List<Element> contentEles = source.getAllElementsByClass(targetContent);
+            List<Element> contentEles = source.getAllElementsByClass(targetContent);
 
-        if (contentEles == null || contentEles.size() == 0) {
+            if (contentEles == null || contentEles.size() == 0) {
+                return null;
+            } else {
+                return source;
+            }
+        } catch (Exception e) {
+            LOGGER.info("http://dictionary.cambridge.org/dictionary/british/" + word + " not found.");
             return null;
-        } else {
-            return source;
         }
     }
 
 
-    /**
-     * Look up VN definitions.
-     */
+    /** Look up VN definitions. */
     public Word lookupVN(String word) throws IOException, IllegalArgumentException {
         LOGGER.info("Looking up word VN meaning: " + word);
 
