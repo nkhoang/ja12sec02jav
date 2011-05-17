@@ -72,17 +72,13 @@ public class VocabularyAction {
     DocsService docsService = new DocsService(APP_NAME);
 
 
-    /**
-     * Render home page for vocabulary.
-     */
+    /** Render home page for vocabulary. */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_HOME_REQUEST, method = RequestMethod.GET)
     public String renderVocabularyPage() {
         return ViewConstant.VOCABULARY_VIEW;
     }
 
-    /**
-     * Render index page for vocabulary.
-     */
+    /** Render index page for vocabulary. */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_INDEX_REQUEST, method = RequestMethod.GET)
     public ModelAndView renderVocabularyIndexPage() {
         ModelAndView mav = new ModelAndView();
@@ -155,9 +151,7 @@ public class VocabularyAction {
     }
 
 
-    /**
-     * Look up data from Google docs excel file and then update to GAE datastore.
-     */
+    /** Look up data from Google docs excel file and then update to GAE datastore. */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
     public void updateWordsFromSpreadSheet(
             @RequestParam("index") String startingIndex,
@@ -265,6 +259,7 @@ public class VocabularyAction {
      * @param size          number of words contained in a Page.
      * @param startingIndex offset of the list.
      * @param requestSize   number of words will be processed.
+     *
      * @return xml string.
      */
 
@@ -391,6 +386,7 @@ public class VocabularyAction {
      * @param sizeStr          number of words will be processed.
      * @param pageSizeStr      number of words in a Page.
      * @param response         HttpServletResponse.
+     *
      * @return xml view.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_I_VOCABULARY_REQUEST, method = RequestMethod.GET)
@@ -433,6 +429,7 @@ public class VocabularyAction {
      *
      * @param startingIndex word offset.
      * @param size          iVocabulary page size.
+     *
      * @return xml string.
      */
     private String constructIVocabularyFile(int startingIndex, int size, int pageSize) {
@@ -486,6 +483,7 @@ public class VocabularyAction {
      * Populate word with meanings and examples
      *
      * @param idStr id to be populated.
+     *
      * @return a fully populated Word.
      */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_POPULATE_WORD_REQUEST, method = RequestMethod.POST)
@@ -512,12 +510,19 @@ public class VocabularyAction {
         return modelAndView;
     }
 
-    /**
-     * Save and lookup word with meanings and examples
-     *
-     * @param wordStr id to be populated.
-     * @return a fully populated Word.
-     */
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_WORD_KIND_REQUEST, method = RequestMethod.POST)
+    public ModelAndView getWordKind() {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+        jsonData.put("wordKind", Word.WORD_KINDS);
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+
+        return modelAndView;
+    }
+
+    /** Save and lookup word with meanings and examples */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_LOOKUP_REQUEST, method = RequestMethod.GET)
     public ModelAndView lookupWord(@RequestParam("word") String wordStr) {
         Long id = 0L;
@@ -576,12 +581,7 @@ public class VocabularyAction {
 
     }
 
-    /**
-     * Add a new word to the list.
-     *
-     * @param word word to be added.
-     * @return view.
-     */
+    /** Add a new word to the list. */
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_ADD_WORD_REQUEST, method = RequestMethod.POST)
     public ModelAndView submitWord(@RequestParam String word) {
 

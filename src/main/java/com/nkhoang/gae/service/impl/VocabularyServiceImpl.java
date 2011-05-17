@@ -184,10 +184,10 @@ public class VocabularyServiceImpl implements VocabularyService {
                     word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
                     if (word.getMeanings().size() > 0) {
                         vocabularyDao.save(word);
+                        LOGGER.info("word: " + word.getDescription() + " saved!!!!");
                     } else {
-
+                        LOGGER.info("Could not find any word's meanings");
                     }
-
                 } catch (Exception e) {
                     LOGGER.info("Could not save word:" + word.toString());
                 }
