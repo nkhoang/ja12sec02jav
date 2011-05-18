@@ -48,7 +48,9 @@ public class VocabularyServiceImpl implements VocabularyService {
     private VocabularyDao vocabularyDao;
     private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
-    /** Get a range of words from database. */
+    /**
+     * Get a range of words from database.
+     */
     public List<Word> getAllWordsInRange(int startingIndex, int size) {
         List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
@@ -84,7 +86,6 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     }
 
-    @Override
     public Word populateWord(Long id) {
         Word w = vocabularyDao.get(id);
         populateWord(w);
@@ -120,7 +121,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         return words;
     }
 
-    /** Populate word with meanings. */
+    /**
+     * Populate word with meanings.
+     */
     private Word populateWord(Word w) {
         // populate word by Meaning
         List<Long> meaningIds = w.getMeaningIds();
@@ -196,7 +199,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         return word;
     }
 
-    /** Look up Longman dictionary for a specific word. Update existing word */
+    /**
+     * Look up Longman dictionary for a specific word. Update existing word
+     */
     public void lookupENLongman(Word aWord, String word) throws IOException {
         LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
         Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase(), LONGMAN_DIC_CONTENT_CLASS);
@@ -290,7 +295,9 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /** Process Sub example for tag GramExa */
+    /**
+     * Process Sub example for tag GramExa
+     */
     private Meaning processSubExampleLongman(Element s, String nametag, Long kindId) {
         Meaning m = new Meaning();
 
@@ -313,7 +320,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
-    /** Look up Pron for a word. */
+    /**
+     * Look up Pron for a word.
+     */
     public void lookupPron(Word aWord, String word) throws IOException {
         LOGGER.info("looking up PRON for this word : " + word);
         try {
@@ -326,6 +335,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             while (source != null) {
                 // process the content
                 List<Element> contentEles = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
+                LOGGER.info("content size = " + contentEles.size());
                 if (contentEles != null && contentEles.size() > 0) {
                     // should be one
                     Element targetContent = contentEles.get(0);
@@ -348,7 +358,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                         // get Pron
                         if (prons != null && prons.size() > 0) {
                             String pron = prons.get(0).getTextExtractor().toString();
-                            //LOGGER.info("Pron: " + pron);
+                            LOGGER.info("Pron: " + pron);
                             aWord.setPron(pron);
                         }
                         // get mp3 file
@@ -381,7 +391,9 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /** Temporary unused. */
+    /**
+     * Temporary unused.
+     */
     private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
@@ -392,7 +404,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                 source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase() + "_" + i, CAMBRIDGE_DICT_CONTENT_CLASS);
             }
             while (source != null) {
-                // process the content
+                // process the coxntent
                 List<Element> contentEles = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
                 // should be one
                 Element targetContent = contentEles.get(0);
@@ -484,7 +496,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         return aWord;
     }
 
-    /** Connect to URL to get the Source. */
+    /**
+     * Connect to URL to get the Source.
+     */
     private Source checkWordExistence(String urlLink, String word, String targetContent) {
         try {
             URL url = new URL(urlLink + word);
@@ -500,7 +514,16 @@ public class VocabularyServiceImpl implements VocabularyService {
             if (contentEles == null || contentEles.size() == 0) {
                 return null;
             } else {
-                return source;
+                if (StringUtils.equals(CAMBRIDGE_DICT_CONTENT_CLASS, targetContent)) {
+                    // process the coxntent
+                    List<Element> contents = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
+                    if (contents != null && contents.size() > 0) {
+                        return source;
+                    }
+                    return null;
+                } else {
+                    return source;
+                }
             }
         } catch (Exception e) {
             LOGGER.info("http://dictionary.cambridge.org/dictionary/british/" + word + " not found.");
@@ -509,7 +532,9 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /** Look up VN definitions. */
+    /**
+     * Look up VN definitions.
+     */
     public Word lookupVN(String word) throws IOException, IllegalArgumentException {
         LOGGER.info("Looking up word VN meaning: " + word);
 
