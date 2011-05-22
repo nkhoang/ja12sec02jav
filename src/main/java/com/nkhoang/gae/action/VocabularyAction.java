@@ -51,7 +51,7 @@ import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 @Controller
 @RequestMapping("/" + ViewConstant.VOCABULARY_NAMESPACE)
 public class VocabularyAction {
-    private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyAction.class.getCanonicalName());
     private static final int IVOCABULARY_TOTAL_ITEM = 40;
     private static final int IVOCABULARY_PAGE_SIZE = 20;
 

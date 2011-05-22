@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext-service.xml", "/applicationContext-dao.xml"})
 public class VocabularyTest {
-    public static final Logger LOGGER = LoggerFactory.getLogger(VocabularyTest.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(VocabularyTest.class.getCanonicalName());
 
 
     @Autowired
@@ -43,6 +43,7 @@ public class VocabularyTest {
 
     @Test
     public void testLookupEN() throws Exception {
+        LOGGER.info("LOGGER level : " + LOGGER.isDebugEnabled());
         Word w = new Word();
         w.setDescription("eloquent");
         Long start = System.currentTimeMillis();

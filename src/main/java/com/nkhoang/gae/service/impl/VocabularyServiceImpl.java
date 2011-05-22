@@ -22,7 +22,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class VocabularyServiceImpl implements VocabularyService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class.getCanonicalName());
     private static final String HTML_DIV = "div";
     private static final String VN_DICT_CONTENT_CLASS = "result";
     private static final String HTML_ATTR_CLASS = "class";
@@ -200,17 +200,18 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     /**
-     * Look up Longman dictionary for a specific word. Update existing word
+     * Lookup word using Longman online dictionary.
+     * Update to the current word.
      */
     public void lookupENLongman(Word aWord, String word) throws IOException {
-        LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
+        }
         Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase(), LONGMAN_DIC_CONTENT_CLASS);
         // index for the next lookup
         int i = 1;
         // the URL structure of LONGMAN dictionary if a word has more than 2 meanings: .../word_[number].html
         if (source == null) {
-            LOGGER.info("Check URL again with index [" + i + "]");
-            // check it again
             source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase() + "_" + i, LONGMAN_DIC_CONTENT_CLASS);
         }
         while (source != null) {
@@ -219,14 +220,16 @@ public class VocabularyServiceImpl implements VocabularyService {
             List<Element> kinds = source.getAllElementsByClass(LONGMAN_DICT_KIND_CLASS);
             if (kinds != null && kinds.size() > 0) {
                 kind = kinds.get(0).getTextExtractor().toString().trim();
-                LOGGER.info("Kind: " + kind);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Kind: " + kind);
+                }
             }
-
             if (aWord.getKindidmap().get(kind) == null) {
-                LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
+                }
                 return;
             }
-
             // process meaning
             List<Element> meaningList = source.getAllElementsByClass(LONGMAN_DICT_CLASS_MEANING);
             if (meaningList != null) {
@@ -237,7 +240,9 @@ public class VocabularyServiceImpl implements VocabularyService {
                     List<Element> grams = meaning.getAllElementsByClass(LONGMAN_DICT_CLASS_GRAM);
                     if (grams != null && grams.size() > 0) {
                         gramStr = grams.get(0).getTextExtractor().toString();
-                        // LOGGER.info("GRAM: " + gramStr);
+                        if (LOGGER.isDebugEnabled()) {
+                            LOGGER.debug("GRAM: " + gramStr);
+                        }
                     }
                     // process main meaning
                     List<Element> ftdefs = meaning.getAllElements(LONGMAN_DICT_CLASS_MEANING_DEF);
@@ -246,19 +251,24 @@ public class VocabularyServiceImpl implements VocabularyService {
                         ftdef = ftdefs.get(0);
                         // create this meaning
                         mainM = new Meaning(gramStr + " " + ftdef.getTextExtractor().toString(), aWord.getKindidmap().get(kind));
-                        // LOGGER.info("Meaning: " + ftdef.getTextExtractor().toString());
+                        if (LOGGER.isDebugEnabled()) {
+                            LOGGER.debug("Meaning: " + ftdef.getTextExtractor().toString());
+                        }
                     } else {
-                        LOGGER.info("Could not check definition for this word: " + word);
+                        if (LOGGER.isDebugEnabled()) {
+                            LOGGER.debug("Could not check definition for this word: " + word);
+                        }
                     }
                     // process example for this main meaning
                     List<Element> ftexas = meaning.getAllElements(LONGMAN_DICT_CLASS_EXAMPLE);
                     if (ftexas != null) {
                         for (Element ftexa : ftexas) {
                             mainM.addExample(ftexa.getTextExtractor().toString());
-                            // LOGGER.info("Example: " + ftexa.getTextExtractor().toString());
+                            if (LOGGER.isDebugEnabled()) {
+                                LOGGER.debug("Example: " + ftexa.getTextExtractor().toString());
+                            }
                         }
                     }
-
                     // check to make sure content is not blank.
                     if (StringUtils.isNotBlank(mainM.getContent())) {
                         aWord.addMeaning(aWord.getKindidmap().get(kind), mainM);
@@ -291,7 +301,6 @@ public class VocabularyServiceImpl implements VocabularyService {
             }
             source = checkWordExistence(LONGMAN_DICTIONARY_URL, word + "_" + ++i, LONGMAN_DIC_CONTENT_CLASS);
         }
-
     }
 
 
@@ -503,6 +512,9 @@ public class VocabularyServiceImpl implements VocabularyService {
      */
     private Source checkWordExistence(String urlLink, String word, String targetContent) {
         try {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Check word existence: " + urlLink + word);
+            }
             URL url = new URL(urlLink + word);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -528,7 +540,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                 }
             }
         } catch (Exception e) {
-            LOGGER.info(urlLink + word + " not found.");
+            LOGGER.error("Error fetching word using URL: " + urlLink + word);
             return null;
         }
     }
