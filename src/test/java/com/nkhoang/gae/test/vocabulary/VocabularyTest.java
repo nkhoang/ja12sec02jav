@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext-service.xml", "/applicationContext-dao.xml"})
@@ -28,8 +29,15 @@ public class VocabularyTest {
 
     @Test
     public void testLookupVN() throws Exception {
-        Word w = vocabularyService.lookupVN("take");
-        assertNotNull(w);
+        int i = 0;
+        String[] testSample = {"take", "come", "hold"};
+        do {
+            Long start = System.currentTimeMillis();
+            Word w = vocabularyService.lookupVN(testSample[i]);
+            LOGGER.info("lookup took : " + (System.currentTimeMillis() - start) + "ms");
+            i++;
+        } while (i < 3);
+
     }
 
 
@@ -37,7 +45,9 @@ public class VocabularyTest {
     public void testLookupEN() throws Exception {
         Word w = new Word();
         w.setDescription("eloquent");
+        Long start = System.currentTimeMillis();
         vocabularyService.lookupENLongman(w, w.getDescription());
+        LOGGER.info("lookup took : " + (System.currentTimeMillis() - start) + "s");
 
         assertEquals(true, w.getMeanings().size() > 0);
     }

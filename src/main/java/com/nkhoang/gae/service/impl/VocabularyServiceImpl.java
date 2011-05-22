@@ -497,7 +497,9 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     /**
-     * Connect to URL to get the Source.
+     * Check word exsitence.
+     *
+     * @return null or Source object.
      */
     private Source checkWordExistence(String urlLink, String word, String targetContent) {
         try {
@@ -526,7 +528,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                 }
             }
         } catch (Exception e) {
-            LOGGER.info("http://dictionary.cambridge.org/dictionary/british/" + word + " not found.");
+            LOGGER.info(urlLink + word + " not found.");
             return null;
         }
     }
@@ -567,41 +569,52 @@ public class VocabularyServiceImpl implements VocabularyService {
                 kind = "";
             }
             if (ele.getAttributeValue(HTML_ATTR_CLASS) != null && ele.getAttributeValue(HTML_ATTR_CLASS).equals(VN_DICT_CLASS_KIND)) {
-                kind = ele.getTextExtractor().toString().trim(); // use TextExtractor to trim unwanted content.
+                // use TextExtractor to trim unwanted content.
+                kind = ele.getTextExtractor().toString().trim();
                 if (kind != null) {
-                    if (kind.contains(",")) { // may be a compond of something like: danh tu, ngoai dong tu
-                        kind = kind.split(",")[0]; // just get the first one. May be there are some more exceptional cases in the future. 
+                    // may be a compond of something like: danh tu, ngoai dong tu
+                    if (kind.contains(",")) {
+                        // just get the first one. May be there are some more exceptional cases in the future.
+                        kind = kind.split(",")[0];
                     }
                     String[] words = kind.split(" ");
                     kind = "";
-                    int limit = words.length > MAX_NUM_VN_WORD_IN_KIND ? MAX_NUM_VN_WORD_IN_KIND : words.length; // maximum length = " ngoai dong tu ". Composed by 3 word.
+                    // maximum length = " ngoai dong tu ". Composed by 3 word.
+                    int limit = words.length > MAX_NUM_VN_WORD_IN_KIND ? MAX_NUM_VN_WORD_IN_KIND : words.length;
                     for (int i = 0; i < limit; i++) {
                         kind += words[i] + " ";
                     }
                     kind = kind.trim();
-                    LOGGER.info("Kind : " + kind);
-                    LOGGER.info(Arrays.toString(kind.getBytes(ENCODING_UTF_8)));
+
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("Kind : " + kind);
+                        LOGGER.debug(Arrays.toString(kind.getBytes(ENCODING_UTF_8)));
+                    }
                 }
-            }
-            if (ele.getName().equals("ul") && StringUtils.isNotEmpty(kind)) {
+            } else if (StringUtils.equals(ele.getName(), "ul") && StringUtils.isNotEmpty(kind)) {
                 String className = ele.getAttributeValue(HTML_ATTR_CLASS);
-                if (className != null && className.equals("list1")) {
+                if (StringUtils.isNotBlank(className) && StringUtils.equals(className, "list1")) {
                     List<Element> meaningLis = ele.getChildElements();
                     for (Element meaningLi : meaningLis) {
-                        if (meaningLi.getName().equals("li")) {
+                        if (StringUtils.equals(meaningLi.getName(), "li")) {
                             List<Element> liContent = meaningLi.getChildElements();
                             for (Element content : liContent) {
-                                if (content.getName().equals("b")) {
+                                if (StringUtils.equals(content.getName(), "b")) {
                                     String contentRaw = content.getContent().toString();
                                     meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
-                                    // LOGGER.info("content : " + contentRaw);
-                                }
-                                if (content.getName().equals("ul") && StringUtils.isNotEmpty(meaning.getContent())) { // should not store any meanings if content is null or blank.
+                                    if (LOGGER.isDebugEnabled()) {
+                                        LOGGER.debug("content : " + contentRaw);
+                                    }
+                                } else if (StringUtils.equals(content.getName(), "ul") && StringUtils.isNotEmpty(meaning.getContent())) {
+                                    // should not store any meanings if content is null or blank.
                                     String example = content.getChildElements().get(0).getChildElements().get(0)
                                             .getContent().toString();
-                                    meaning.addExample(example);
-
-                                    // LOGGER.info("Example: " + example);
+                                    if (StringUtils.isNotBlank(example)) {
+                                        meaning.addExample(example);
+                                    }
+                                    if (LOGGER.isDebugEnabled()) {
+                                        LOGGER.debug("Example: " + example);
+                                    }
                                 }
                             }
                         }
@@ -609,7 +622,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                         if (kindId == null) {
                             LOGGER.info(">>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>>>>>>>> Null for kind: " + kind);
                         }
-                        if (meaning != null && StringUtils.isNotBlank(meaning.getContent()) && kindId != null) { // just skip this Word.
+                        if (meaning != null && StringUtils.isNotBlank(meaning.getContent()) && kindId != null) {
                             aWord.addMeaning(kindId, meaning);
                         }
                     }
