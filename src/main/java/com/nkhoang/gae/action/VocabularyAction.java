@@ -554,6 +554,27 @@ public class VocabularyAction {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_RECENT_WORD_REQUEST, method = RequestMethod.GET)
+    public ModelAndView listRecentWords(
+            @RequestParam("offset") int offset,
+            @RequestParam("size") int size) {
+        ModelAndView modelAndView = new ModelAndView();
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+        List<Word> words = vocabularyService.getAllWordsInRangeWithoutMeanings(offset, size);
+        jsonData.put("words", words);
+
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+
+        List<String> attrs = new ArrayList<String>();
+        attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
+        modelAndView.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
+
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
+    }
+
+
     @RequestMapping(value = "/" + ViewConstant.VOCABULARY_VIEW_WORD_RANGE_REQUEST, method = RequestMethod.POST)
     public ModelAndView listWordsInRange(@RequestParam("size") String sizeStr) {
         int size = 10;

@@ -5,6 +5,7 @@ import com.nkhoang.gae.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
             query.setParameter("wordDescription", word);
 
             result = (Word) query.getSingleResult();
+        } catch (NoResultException nre) {
+
         } catch (Exception e) {
             LOGGER.info("Failed to lookup word : " + word);
             LOGGER.error("Error", e);
@@ -34,23 +37,6 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         return result;
     }
 
-    public Word find(String w) {
-        LOGGER.info("Finding word : " + w);
-        Word found = null;
-        try {
-            Query query = entityManager.createQuery("Select from " + Word.class.getName() + " where description=:wDes");
-            query.setParameter("wDes", w);
-
-            List<Word> wList = query.getResultList();
-
-            if (wList != null && wList.size() > 0) {
-                found = wList.get(0);
-            }
-        } catch (Exception e) {
-            LOGGER.error("Error", e);
-        }
-        return found;
-    }
 
     public boolean delete(Long id) {
         LOGGER.info("Delete word with ID: " + id);

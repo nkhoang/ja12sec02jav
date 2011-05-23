@@ -37,6 +37,7 @@ public class ViewConstant {
     public static final String VOCABULARY_LOOKUP_REQUEST = "lookup";
     public static final String VOCABULARY_WORD_KIND_REQUEST = "wordKind";
     public static final String VOCABULARY_VIEW_WORD_RANGE_REQUEST = "listWordsInRange";
+    public static final String VOCABULARY_VIEW_RECENT_WORD_REQUEST = "listRecentWords";
     public static final String VOCABULARY_VIEW_POPULATE_WORD_REQUEST = "populateWord";
     public static final String VOCABULARY_I_VOCABULARY_REQUEST = "iVocabulary";
     public static final String VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST = "iVocabulary2GD";

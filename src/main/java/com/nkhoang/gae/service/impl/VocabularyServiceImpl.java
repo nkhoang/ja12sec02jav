@@ -16,10 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class VocabularyServiceImpl implements VocabularyService {
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class.getCanonicalName());
@@ -80,10 +78,17 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
         for (int i = startingIndex; i < lastIndex; i++) {
             Word w = words.get(i);
+            w.setCurrentTime(formatDate(w.getTimeStamp()));
             result.add(w);
         }
         return result;
 
+    }
+
+    private String formatDate(Long timeStamp) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh::mm");
+        String result = formatter.format(new Date(timeStamp));
+        return result;
     }
 
     public Word populateWord(Long id) {
@@ -142,7 +147,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
-        Word word = vocabularyDao.find(lookupWord);
+        Word word = vocabularyDao.lookup(lookupWord);
         // first check the current status
         if (word != null) {
             LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
@@ -205,7 +210,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      */
     public void lookupENLongman(Word aWord, String word) throws IOException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
+            //LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
         }
         Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase(), LONGMAN_DIC_CONTENT_CLASS);
         // index for the next lookup
@@ -221,12 +226,12 @@ public class VocabularyServiceImpl implements VocabularyService {
             if (kinds != null && kinds.size() > 0) {
                 kind = kinds.get(0).getTextExtractor().toString().trim();
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("Kind: " + kind);
+                    //LOGGER.debug("Kind: " + kind);
                 }
             }
             if (aWord.getKindidmap().get(kind) == null) {
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
+                    //LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
                 }
                 return;
             }
@@ -241,7 +246,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     if (grams != null && grams.size() > 0) {
                         gramStr = grams.get(0).getTextExtractor().toString();
                         if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug("GRAM: " + gramStr);
+                            //LOGGER.debug("GRAM: " + gramStr);
                         }
                     }
                     // process main meaning
@@ -252,11 +257,11 @@ public class VocabularyServiceImpl implements VocabularyService {
                         // create this meaning
                         mainM = new Meaning(gramStr + " " + ftdef.getTextExtractor().toString(), aWord.getKindidmap().get(kind));
                         if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug("Meaning: " + ftdef.getTextExtractor().toString());
+                            //LOGGER.debug("Meaning: " + ftdef.getTextExtractor().toString());
                         }
                     } else {
                         if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug("Could not check definition for this word: " + word);
+                            //LOGGER.debug("Could not check definition for this word: " + word);
                         }
                     }
                     // process example for this main meaning
@@ -265,7 +270,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                         for (Element ftexa : ftexas) {
                             mainM.addExample(ftexa.getTextExtractor().toString());
                             if (LOGGER.isDebugEnabled()) {
-                                LOGGER.debug("Example: " + ftexa.getTextExtractor().toString());
+                                //LOGGER.debug("Example: " + ftexa.getTextExtractor().toString());
                             }
                         }
                     }
@@ -333,7 +338,9 @@ public class VocabularyServiceImpl implements VocabularyService {
      * Look up Pron for a word.
      */
     public void lookupPron(Word aWord, String word) throws IOException {
-        LOGGER.info("looking up PRON for this word : " + word);
+        if (LOGGER.isDebugEnabled()){
+            LOGGER.info("looking up PRON for this word : " + word);
+        }
         try {
             Source source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS);
             int i = 1;
@@ -390,7 +397,10 @@ public class VocabularyServiceImpl implements VocabularyService {
                         break;
                     }
                 } else {
-                    LOGGER.info("Can not find content.");
+                    if (LOGGER.isDebugEnabled()) {
+                        //LOGGER.debug("Can not find content.");
+                    }
+
                     break;
                 }
             }
@@ -513,7 +523,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     private Source checkWordExistence(String urlLink, String word, String targetContent) {
         try {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Check word existence: " + urlLink + word);
+                //LOGGER.debug("Check word existence: " + urlLink + word);
             }
             URL url = new URL(urlLink + word);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -599,8 +609,8 @@ public class VocabularyServiceImpl implements VocabularyService {
                     kind = kind.trim();
 
                     if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug("Kind : " + kind);
-                        LOGGER.debug(Arrays.toString(kind.getBytes(ENCODING_UTF_8)));
+                        //LOGGER.debug("Kind : " + kind);
+                        //LOGGER.debug(Arrays.toString(kind.getBytes(ENCODING_UTF_8)));
                     }
                 }
             } else if (StringUtils.equals(ele.getName(), "ul") && StringUtils.isNotEmpty(kind)) {
@@ -615,7 +625,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                                     String contentRaw = content.getContent().toString();
                                     meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
                                     if (LOGGER.isDebugEnabled()) {
-                                        LOGGER.debug("content : " + contentRaw);
+                                        //LOGGER.debug("content : " + contentRaw);
                                     }
                                 } else if (StringUtils.equals(content.getName(), "ul") && StringUtils.isNotEmpty(meaning.getContent())) {
                                     // should not store any meanings if content is null or blank.
@@ -625,7 +635,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                                         meaning.addExample(example);
                                     }
                                     if (LOGGER.isDebugEnabled()) {
-                                        LOGGER.debug("Example: " + example);
+                                        //LOGGER.debug("Example: " + example);
                                     }
                                 }
                             }

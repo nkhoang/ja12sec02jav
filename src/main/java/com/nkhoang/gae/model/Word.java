@@ -1,10 +1,7 @@
 package com.nkhoang.gae.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
@@ -39,6 +36,10 @@ public class Word {
 
     @Basic
     private String description;
+
+
+    @Transient
+    private String currentTime;
     @Transient
     private final Map<Long, List<Meaning>> meanings = new HashMap<Long, List<Meaning>>(0);
     @Transient
@@ -56,7 +57,7 @@ public class Word {
             WORD_KIND_ADJ = new String(VERB_ADJ, "UTF-8");
             WORD_KIND_VERB = new String(VERB_BYTES, "UTF-8");
 
-            WORD_KINDS = new String[] {WORD_KIND_VERB, WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
+            WORD_KINDS = new String[]{WORD_KIND_VERB, WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
                     WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN};
 
         } catch (Exception e) {
@@ -161,5 +162,13 @@ public class Word {
 
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
     }
 }
