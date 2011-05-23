@@ -86,7 +86,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     private String formatDate(Long timeStamp) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh::mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         String result = formatter.format(new Date(timeStamp));
         return result;
     }
