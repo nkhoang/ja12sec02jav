@@ -14,13 +14,11 @@
 	<form id="loginForm" action="" class="niceform">
 		<script type="text/javascript">
 			var urlVal = '<c:url value="/login_check.html" />';
-	
 			$(function(){
 				$('#loginForm').submit(function(){
 					var $form = $(this);
 					if ($form.hasClass('loading')){
 					}else {
-					
 						$(this).ajaxSubmit({
 							url: urlVal,
 							type: 'post',
@@ -32,9 +30,9 @@
 							success: function(responseText, statusText, xhr, $form){
 								$.alerts.updateContent(responseText);
 								//$('#popup_content').html(responseText);
-							
+
 								$.alerts.reposition();
-			 				    	
+
 							   if (isAdmin){
 								   $('a.login').html('<img src="http://docs.google.com/File?id=d5brrvd_1054hbrp6bd5_b" />');
 								   $('#loginPanel').prepend($('<a class="addItem" href="#"><img src="images/simple/image_add.png" /></a>'));
@@ -46,9 +44,9 @@
 								// remove  class when done.
 								$form.removeClass('loading');
 							}
-						});		
+						});
 					}
-					return false;		
+					return false;
 				});
 			});
 		</script>

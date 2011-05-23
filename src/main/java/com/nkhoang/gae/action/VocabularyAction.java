@@ -14,6 +14,7 @@ import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.utils.GoogleDocsUtils;
+import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -90,6 +91,12 @@ public class VocabularyAction {
 
         // get the count
         int totalCount = vocabularyService.getWordSize();
+        User user = WebUtils.getCurrentUser();
+        if (user != null) {
+            mav.addObject("isAdmin", true);
+        } else {
+            mav.addObject("isAdmin", false);
+        }
 
         mav.addObject("totalCount", totalCount);
 

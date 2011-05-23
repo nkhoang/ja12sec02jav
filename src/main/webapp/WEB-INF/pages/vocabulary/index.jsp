@@ -1,9 +1,9 @@
 <%@ include file="/common/taglibs.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title><fmt:message key="webapp.title"/></title>
-<style type="text/css">
+<html >
+<head >
+<title ><fmt:message key="webapp.title" /></title >
+<style type="text/css" >
     .w-k-t {
         font-size: 2em;
         font-weight: bold;
@@ -31,8 +31,12 @@
         float: left;
     }
 
-</style>
-<script type="text/javascript">
+    .w-time {
+        font-size: 9px;
+    }
+
+</style >
+<script type="text/javascript" >
     //playSoundFromFlash('/media/british/us_pron/a/agr/agric/agriculture.mp3', this)
     function playSoundFromFlash(B) {
         var C = "http://dictionary.cambridge.org/dictionary/british/".replace("http://", "");
@@ -81,61 +85,70 @@
         }
         B.firstChild.nodeValue = C;
     }
-</script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-<script type="text/javascript">
+</script >
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script >
+
+<script type="text/javascript" >
     // empty array.
     var wordKind = [];
     $(function() {
         $.ajax({
-                    url: '<c:url value="/vocabulary/wordKind.html" />',
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function(data) {
-                        wordKind = data.wordKind;
-                    },
-                    error: function() {
-                        alert("Failed to retrieve content from server. Cannot display data correctly. Please try again.");
-                    }
-                });
+            url: '<c:url value="/vocabulary/wordKind.html" />',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                wordKind = data.wordKind;
+            },
+            error: function() {
+                alert("Failed to retrieve content from server. Cannot display data correctly. Please try again.");
+            }
+        });
         // prevent the form submitting.
         $('#aw-form').submit(function() {
             $('#aw-b').click();
             return false;
         });
     });
+
+    function lookupWord(word) {
+        $('#w-input').val(word);
+        $('#aw-b').click();
+    }
     // submit new word.
     function submitNewWord() {
         $.ajax({
-                    url: '<c:url value="/vocabulary/lookup.html" />',
-                    type: 'GET',
-                    data: $('#aw-form').serialize(),
-                    dataType: 'json',
-                    beforeSend : function() {
-                        $('#w-input').val($('#w-input').val().trim());
-                        $('#aw-b').prop('disabled', 'disabled');
-                    },
-                    success: function(word) {
-                        processWord(word);
-                        $('#aw-b').removeProp('disabled');
-                    },
-                    error: function() {
-                        alert('Could not lookup requested word. Server error. Please try again later.')
-                        $('#aw-b').removeProp('disabled');
-                    }
-                });
+            url: '<c:url value="/vocabulary/lookup.html" />',
+            type: 'GET',
+            data: $('#aw-form').serialize(),
+            dataType: 'json',
+            beforeSend : function() {
+                $('#w-input').val($('#w-input').val().trim());
+                $('#aw-b').prop('disabled', 'disabled');
+            },
+            success: function(word) {
+                processWord(word);
+                $('#aw-b').removeProp('disabled');
+                refreshRecentWords(0);
+            },
+            error: function() {
+                alert('Could not lookup requested word. Server error. Please try again later.')
+                $('#aw-b').removeProp('disabled');
+            }
+        });
     }
     function processRecentWords(data) {
         var words = data.words;
+        $('.recent-ws').empty();
         for (var i = 0; i < words.length; i++) {
             var word = words[i];
             var $wordDiv = $('<div class="w-recent"></div>');
-            var $wordContent = $('<a href="#" />').html(word.description);
+            var $timeSpan = $('<span class="w-time"></span>').html(' (' + word.currentTime + ')')
+            var $wordContent = $('<a href="#" />').append(word.description);
+            $wordContent.append($timeSpan);
             $wordContent.attr('onclick', 'lookupWord("' + word.description + '"); return false;');
             $wordDiv.append($wordContent);
             $('.recent-ws').append($wordDiv);
         }
-
     }
 
     function processWord(data) {
@@ -193,68 +206,73 @@
 
         $('#w-dis').html($word);
     }
-</script>
-<security:authorize url="/user/admin">
-    <script type="text/javascript">
-        $(function() {
-            $.ajax({
-                        url: '<c:url value="/vocabulary/listRecentWords.html" />',
-                        dataType: 'json',
-                        type: 'GET',
-                        data: {
-                            'offset' : 0,
-                            'size': 10
-                        },
-                        success: function(data) {
-                            processRecentWords(data);
-                        },
-                        error: function(error) {
-                            alert(error);
-                        }
-                    });
+
+    function refreshRecentWords(offset) {
+        $.ajax({
+            url: '<c:url value="/vocabulary/listRecentWords.html" />',
+            dataType: 'json',
+            type: 'GET',
+            data: {
+                'offset' : offset,
+                'size': 10
+            },
+            success: function(data) {
+                processRecentWords(data);
+            },
+            error: function(error) {
+                alert(error);
+            }
         });
-    </script>
-</security:authorize>
-</head>
-<body>
+    }
+</script >
+<security:authorize url="/user/admin" >
+    <script type="text/javascript" >
+        $(function() {
+            refreshRecentWords(0);
+        });
+    </script >
+</security:authorize >
+</head >
+<body >
 Welcome to Vocabulary index page.
 
-<div>
+<div >
     Total word count:
-    <span id="wc-s"><c:out value="${totalCount}"></span>
+    <span id="wc-s" ><c:out value="${totalCount}"></span >
     </c:out>
-</div>
+</div >
 
-<div id="f-wr">
-    <form name="aw-form" action="/" id="aw-form">
-        <div>Add a new word</div>
-        <input name="word" type="input" id="w-input"/>
-        <input id="aw-b" type="button" value="Find" onclick="submitNewWord();"/>
-    </form>
-</div>
+<div id="f-wr" >
+    <form name="aw-form" action="/" id="aw-form" >
+        <div >Add a new word</div >
+        <input name="word" type="input" id="w-input" />
+        <input id="aw-b" type="button" value="Find" onclick="submitNewWord();" />
+    </form >
+</div >
 
-<table>
-    <thead>
-    <th>Definition</th>
-    <th>Navigation</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td id="w-d"></td>
-        <td id="w-nav"></td>
-    </tr>
-    </tbody>
-</table>
-<div id="w-dis">
+<table >
+    <thead >
+    <th >Definition</th >
+    <th >Navigation</th >
+    </thead >
+    <tbody >
+    <tr >
+        <td id="w-d" ></td >
+        <td id="w-nav" ></td >
+    </tr >
+    </tbody >
+</table >
+<div id="w-dis" >
 
-</div>
-<security:authorize url="/user/admin">
-    <div id="recent-w">
-        <div>Recent words:</div>
-        <div class="recent-ws">
+</div >
 
-        </div>
-    </div>
-</security:authorize>
-</body>
-</html>
+<security:authorize url="/user/admin" >
+    <div id="recent-w" >
+        <div >Recent words:</div >
+        <div class="recent-ws" >
+
+        </div >
+    </div >
+</security:authorize >
+</body >
+</html >
