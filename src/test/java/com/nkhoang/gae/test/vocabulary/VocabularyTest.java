@@ -53,9 +53,9 @@ public class VocabularyTest {
     public void testLookupEN() throws Exception {
         LOGGER.info("LOGGER level : " + LOGGER.isDebugEnabled());
         Word w = new Word();
-        w.setDescription("eloquent");
+        w.setDescription("exhaust");
         Long start = System.currentTimeMillis();
-        vocabularyService.lookupENLongman(w, w.getDescription());
+        vocabularyService.lookupENLongman(w);
         LOGGER.info("lookup took : " + (System.currentTimeMillis() - start) + "s");
 
         assertEquals(true, w.getMeanings().size() > 0);
@@ -66,7 +66,7 @@ public class VocabularyTest {
         Word w = new Word();
         w.setDescription("zeal");
 
-        vocabularyService.lookupPron(w, w.getDescription());
+        vocabularyService.lookupPron(w);
         LOGGER.info(w.getPron());
         assertNotNull(w.getPron());
     }

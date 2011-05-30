@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface VocabularyService {
 
-    public void lookupPron(Word aWord, String word) throws IOException;
+    public void lookupPron(Word aWord) throws IOException;
 
-    public void lookupENLongman(Word aWord, String word) throws IOException;
+    public void lookupENLongman(Word aWord) throws IOException;
 
     public Word lookupIdiom(Word aWord) throws IOException;
 

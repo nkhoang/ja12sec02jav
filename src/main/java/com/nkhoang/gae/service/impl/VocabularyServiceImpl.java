@@ -50,9 +50,12 @@ public class VocabularyServiceImpl implements VocabularyService {
     private VocabularyDao vocabularyDao;
     private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
-    /**
-     * Get a range of words from database.
-     */
+    private enum DICTIONARY_TYPE {
+        CLASS,
+        ID
+    }
+
+    /** Get a range of words from database. */
     public List<Word> getAllWordsInRange(int startingIndex, int size) {
         List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
@@ -91,6 +94,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     private String formatDate(Long timeStamp) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        formatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getTimeZone("GMT-8").getID()));
         String result = formatter.format(new Date(timeStamp));
         return result;
     }
@@ -130,9 +134,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return words;
     }
 
-    /**
-     * Populate word with meanings.
-     */
+    /** Populate word with meanings. */
     private Word populateWord(Word w) {
         // populate word by Meaning
         List<Long> meaningIds = w.getMeaningIds();
@@ -151,6 +153,8 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
+        // remove unnescessary chars.
+
         Word word = vocabularyDao.lookup(lookupWord);
         // first check the current status
         if (word != null) {
@@ -162,8 +166,8 @@ public class VocabularyServiceImpl implements VocabularyService {
             word = null;
             try {
                 word = lookupVN(lookupWord);
-                lookupENLongman(word, lookupWord);
-                lookupPron(word, lookupWord);
+                lookupENLongman(word);
+                lookupPron(word);
             } catch (IOException ex) {
                 LOGGER.info("Failed to connect to dictionary to lookup word definition.");
                 throw ex;
@@ -212,16 +216,16 @@ public class VocabularyServiceImpl implements VocabularyService {
      * Lookup word using Longman online dictionary.
      * Update to the current word.
      */
-    public void lookupENLongman(Word aWord, String word) throws IOException {
+    public void lookupENLongman(Word w) throws IOException {
         if (LOGGER.isDebugEnabled()) {
             //LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
         }
-        Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase(), LONGMAN_DIC_CONTENT_CLASS);
+        Source source = checkWordExistence(LONGMAN_DICTIONARY_URL, w.getDescription().toLowerCase(), LONGMAN_DIC_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
         // index for the next lookup
         int i = 1;
         // the URL structure of LONGMAN dictionary if a word has more than 2 meanings: .../word_[number].html
         if (source == null) {
-            source = checkWordExistence(LONGMAN_DICTIONARY_URL, word.toLowerCase() + "_" + i, LONGMAN_DIC_CONTENT_CLASS);
+            source = checkWordExistence(LONGMAN_DICTIONARY_URL, w.getDescription().toLowerCase() + "_" + i, LONGMAN_DIC_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
         }
         while (source != null) {
             // get kind
@@ -233,7 +237,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     //LOGGER.debug("Kind: " + kind);
                 }
             }
-            if (aWord.getKindidmap().get(kind) == null) {
+            if (w.getKindidmap().get(kind) == null) {
                 if (LOGGER.isDebugEnabled()) {
                     //LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
                 }
@@ -259,7 +263,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     if (ftdefs != null && ftdefs.size() > 0) {
                         ftdef = ftdefs.get(0);
                         // create this meaning
-                        mainM = new Meaning(gramStr + " " + ftdef.getTextExtractor().toString(), aWord.getKindidmap().get(kind));
+                        mainM = new Meaning(gramStr + " " + ftdef.getTextExtractor().toString(), w.getKindidmap().get(kind));
                         if (LOGGER.isDebugEnabled()) {
                             //LOGGER.debug("Meaning: " + ftdef.getTextExtractor().toString());
                         }
@@ -280,18 +284,18 @@ public class VocabularyServiceImpl implements VocabularyService {
                     }
                     // check to make sure content is not blank.
                     if (StringUtils.isNotBlank(mainM.getContent())) {
-                        aWord.addMeaning(aWord.getKindidmap().get(kind), mainM);
+                        w.addMeaning(w.getKindidmap().get(kind), mainM);
                     }
 
                     // process gram example. Another type of meaning.
                     List<Element> gramexas = meaning.getAllElementsByClass(LONGMAN_DICT_CLASS_MEANING_EXTRA);
                     if (ftexas != null) {
                         for (Element gramexa : gramexas) {
-                            Meaning mm = processSubExampleLongman(gramexa, "PROPFORM", aWord.getKindidmap().get(kind));
+                            Meaning mm = processSubExampleLongman(gramexa, "PROPFORM", w.getKindidmap().get(kind));
                             mm.setType(GRAM_MEANING_TYPE);
                             // make sure content is not blank.
                             if (StringUtils.isNotEmpty(mm.getContent())) {
-                                aWord.addMeaning(aWord.getKindidmap().get(kind), mm);
+                                w.addMeaning(w.getKindidmap().get(kind), mm);
                             }
                         }
                     }
@@ -299,23 +303,21 @@ public class VocabularyServiceImpl implements VocabularyService {
                     List<Element> colloexas = meaning.getAllElementsByClass("ColloExa"); // process gram example
                     if (ftexas != null) {
                         for (Element colloexa : colloexas) {
-                            Meaning mm = processSubExampleLongman(colloexa, "COLLO", aWord.getKindidmap().get(kind));
+                            Meaning mm = processSubExampleLongman(colloexa, "COLLO", w.getKindidmap().get(kind));
                             mm.setType(COLLO_MEANING_TYPE);
                             if (StringUtils.isNotEmpty(mm.getContent())) { // make sure content is not blank.
-                                aWord.addMeaning(aWord.getKindidmap().get(kind), mm);
+                                w.addMeaning(w.getKindidmap().get(kind), mm);
                             }
                         }
                     }
                 }
             }
-            source = checkWordExistence(LONGMAN_DICTIONARY_URL, word + "_" + ++i, LONGMAN_DIC_CONTENT_CLASS);
+            source = checkWordExistence(LONGMAN_DICTIONARY_URL, w.getDescription() + "_" + ++i, LONGMAN_DIC_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
         }
     }
 
 
-    /**
-     * Process Sub example for tag GramExa
-     */
+    /** Process Sub example for tag GramExa */
     private Meaning processSubExampleLongman(Element s, String nametag, Long kindId) {
         Meaning m = new Meaning();
 
@@ -338,19 +340,17 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
-    /**
-     * Look up Pron for a word.
-     */
-    public void lookupPron(Word aWord, String word) throws IOException {
-        if (LOGGER.isDebugEnabled()){
-            LOGGER.info("looking up PRON for this word : " + word);
+    /** Look up Pron for a word. */
+    public void lookupPron(Word w) throws IOException {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.info("looking up PRON for this word : " + w.getDescription());
         }
         try {
-            Source source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS);
+            Source source = checkWordExistence(CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
             int i = 1;
             if (source == null) {
                 // check it again
-                source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase() + "_" + i, CAMBRIDGE_DICT_CONTENT_CLASS);
+                source = checkWordExistence(CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase() + "_" + i, CAMBRIDGE_DICT_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
             }
             while (source != null) {
                 // process the content
@@ -379,7 +379,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                         if (prons != null && prons.size() > 0) {
                             String pron = prons.get(0).getTextExtractor().toString();
                             LOGGER.info("Pron: " + pron);
-                            aWord.setPron(pron);
+                            w.setPron(pron);
                         }
                         // get mp3 file
                         List<Element> sounds = additional_header.getAllElementsByClass("sound");
@@ -396,7 +396,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                             String soundSource = sound.getAttributeValue("onclick");
                             String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
                             // LOGGER.info("Found a sound source: " + soundSrc);
-                            aWord.setSoundSource(soundSrc);
+                            w.setSoundSource(soundSrc);
                         }
                         break;
                     }
@@ -414,23 +414,28 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    public Word lookupIdiom(Word aWord){
-        Source source = checkWordExistence(CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE + CAMBRIDGE_DICT_TYPE_QUERY, aWord.getDescription(), "cdo-section");
+    public Word lookupIdiom(Word aWord) {
+        Source source = checkWordExistence(CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE + CAMBRIDGE_DICT_TYPE_QUERY,
+                aWord.getDescription(),
+                "search-page-results-container",
+                DICTIONARY_TYPE.ID);
 
+        if (source != null) {
+            LOGGER.info(source.toString());
+            LOGGER.info("OK");
+        }
         return null;
     }
 
-    /**
-     * Temporary unused.
-     */
+    /** Temporary unused. */
     private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
-            Source source = checkWordExistence(CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE, word.toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS);
+            Source source = checkWordExistence(CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE, word.toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
             int i = 1;
             if (source == null) {
                 // check it again
-                source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase() + "_" + i, CAMBRIDGE_DICT_CONTENT_CLASS);
+                source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase() + "_" + i, CAMBRIDGE_DICT_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
             }
             while (source != null) {
                 // process the coxntent
@@ -516,8 +521,8 @@ public class VocabularyServiceImpl implements VocabularyService {
                     }
                 }
 
-                source = checkWordExistence(CAMBRIDGE_DICT_URL, word + "_" + ++i, CAMBRIDGE_DICT_CONTENT_CLASS);
                 // log.info(aWord.getMeanings());
+                source = checkWordExistence(CAMBRIDGE_DICT_URL, word + "_" + ++i, CAMBRIDGE_DICT_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
             }
         } catch (Exception e) {
             LOGGER.error("Exception", e);
@@ -530,7 +535,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      *
      * @return null or Source object.
      */
-    private Source checkWordExistence(String urlLink, String word, String targetContent) {
+    private Source checkWordExistence(String urlLink, String word, String targetIdentifier, DICTIONARY_TYPE targetType) {
         try {
             if (LOGGER.isDebugEnabled()) {
                 //LOGGER.debug("Check word existence: " + urlLink + word);
@@ -543,14 +548,28 @@ public class VocabularyServiceImpl implements VocabularyService {
             // create source HTML
             Source source = new Source(is);
 
-            LOGGER.info(source.toString());
+            boolean wordFound = true;
+            switch (targetType) {
+                case CLASS:
+                    List<Element> contentEles = source.getAllElementsByClass(targetIdentifier);
+                    if (contentEles == null || contentEles.size() == 0) {
+                        wordFound = false;
+                    }
+                    break;
+                case ID:
+                    Element content = source.getElementById(targetIdentifier);
+                    ;
+                    if (content == null) {
+                        wordFound = false;
+                    }
+                    break;
+            }
 
-            List<Element> contentEles = source.getAllElementsByClass(targetContent);
 
-            if (contentEles == null || contentEles.size() == 0) {
+            if (!wordFound) {
                 return null;
             } else {
-                if (StringUtils.equals(CAMBRIDGE_DICT_CONTENT_CLASS, targetContent)) {
+                if (StringUtils.equals(CAMBRIDGE_DICT_CONTENT_CLASS, targetIdentifier)) {
                     // process the coxntent
                     List<Element> contents = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
                     if (contents != null && contents.size() > 0) {
@@ -568,9 +587,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /**
-     * Look up VN definitions.
-     */
+    /** Look up VN definitions. */
     public Word lookupVN(String word) throws IOException, IllegalArgumentException {
         LOGGER.info("Looking up word VN meaning: " + word);
 
