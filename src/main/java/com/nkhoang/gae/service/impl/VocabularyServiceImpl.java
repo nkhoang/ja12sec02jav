@@ -38,6 +38,10 @@ public class VocabularyServiceImpl implements VocabularyService {
     private static final String GRAM_MEANING_TYPE = "gram";
     private static final String COLLO_MEANING_TYPE = "collo";
     private static final String CAMBRIDGE_DICT_CONTENT_CLASS = "cdo-section";
+    private static final String CAMBRIDGE_DICT_URL_TYPE = "http://dictionary.cambridge.org/search/british/";
+    private static final String CAMBRIDGE_DICT_IDIOM_TYPE = "?type=idiom";
+    private static final String CAMBRIDGE_DICT_PHRASAL_VERB_TYPE = "?type=pv&";
+    private static final String CAMBRIDGE_DICT_TYPE_QUERY = "&q=";
     private static final String CAMBRIDGE_DICT_URL = "http://dictionary.cambridge.org/dictionary/british/";
     private static final String CAMBRIDGE_DICT_CONTENT_CLASS_2nd = "gwblock ";
     private static final String CAMBRIDGE_DICT_KIND_CLASS = "header";
@@ -410,13 +414,19 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
+    public Word lookupIdiom(Word aWord){
+        Source source = checkWordExistence(CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE + CAMBRIDGE_DICT_TYPE_QUERY, aWord.getDescription(), "cdo-section");
+
+        return null;
+    }
+
     /**
      * Temporary unused.
      */
     private Word lookupENCambridge(Word aWord, String word) {
         LOGGER.info("looking up word EN : " + word);
         try {
-            Source source = checkWordExistence(CAMBRIDGE_DICT_URL, word.toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS);
+            Source source = checkWordExistence(CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE, word.toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS);
             int i = 1;
             if (source == null) {
                 // check it again
@@ -532,6 +542,8 @@ public class VocabularyServiceImpl implements VocabularyService {
             InputStream is = connection.getInputStream();
             // create source HTML
             Source source = new Source(is);
+
+            LOGGER.info(source.toString());
 
             List<Element> contentEles = source.getAllElementsByClass(targetContent);
 

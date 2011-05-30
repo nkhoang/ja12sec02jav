@@ -11,6 +11,8 @@ public interface VocabularyService {
 
     public void lookupENLongman(Word aWord, String word) throws IOException;
 
+    public Word lookupIdiom(Word aWord) throws IOException;
+
     public Word lookupVN(String word) throws IOException;
 
     public Word save(String lookupWord) throws IOException;

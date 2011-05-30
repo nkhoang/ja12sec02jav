@@ -24,6 +24,14 @@ public class VocabularyTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(VocabularyTest.class.getCanonicalName());
 
 
+    @Test
+    public void testLookupIdiom() throws Exception{
+        Word w = new Word();
+        w.setDescription("piece");
+
+        vocabularyService.lookupIdiom(w);
+    }
+
     @Autowired
     private VocabularyService vocabularyService;
 
