@@ -26,9 +26,10 @@ public class VocabularyServiceImpl implements VocabularyService {
 	private static final String VN_DICT_CONTENT_CLASS = "result";
 	private static final String HTML_ATTR_CLASS       = "class";
 
-	private static final String ENCODING_UTF_8                   = "UTF-8";
-	private static final String VN_DICT_CLASS_KIND               = "phanloai";
-	private static final int    MAX_NUM_VN_WORD_IN_KIND          = 3;
+	private static final String ENCODING_UTF_8          = "UTF-8";
+	private static final String VN_DICT_CLASS_KIND      = "phanloai";
+	private static final int    MAX_NUM_VN_WORD_IN_KIND = 3;
+
 	private static final String LONGMAN_DIC_CONTENT_CLASS        = "Entry";
 	private static final String LONGMAN_DICT_KIND_CLASS          = "wordclassSelected";
 	private static final String LONGMAN_DICT_CLASS_MEANING       = "Sense";
@@ -36,8 +37,10 @@ public class VocabularyServiceImpl implements VocabularyService {
 	private static final String LONGMAN_DICT_CLASS_MEANING_DEF   = "ftdef";
 	private static final String LONGMAN_DICT_CLASS_EXAMPLE       = "ftexa";
 	private static final String LONGMAN_DICT_CLASS_MEANING_EXTRA = "GramExa";
-	private static final String GRAM_MEANING_TYPE                = "gram";
-	private static final String COLLO_MEANING_TYPE               = "collo";
+
+	private static final String GRAM_MEANING_TYPE  = "gram";
+	private static final String COLLO_MEANING_TYPE = "collo";
+
 	private static final String CAMBRIDGE_DICT_CONTENT_CLASS     = "cdo-section";
 	private static final String CAMBRIDGE_DICT_URL_TYPE          = "http://dictionary.cambridge.org/search/british/";
 	private static final String CAMBRIDGE_DICT_IDIOM_TYPE        = "?type=idiom";
@@ -51,6 +54,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 	private VocabularyDao vocabularyDao;
 	private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
+	/** Check word existence may need to use HTML class / id. */
 	private enum DICTIONARY_TYPE {
 		CLASS,
 		ID
@@ -467,7 +471,6 @@ public class VocabularyServiceImpl implements VocabularyService {
 					break;
 				case ID:
 					Element content = source.getElementById(targetIdentifier);
-					;
 					if (content == null) {
 						wordFound = false;
 					}
