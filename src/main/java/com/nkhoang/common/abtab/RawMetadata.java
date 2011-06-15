@@ -8,12 +8,11 @@ import java.sql.Types;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.hmsonline.common.db.SerializableResultSetMetaData;
+import com.nkhoang.common.db.SerializableResultSetMetaData;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Convenience implementation of ResultSetMetaData for RawDataParsers to use.
- * @author Tim McCune
  */
 public class RawMetadata implements SerializableResultSetMetaData
 {
@@ -159,8 +158,18 @@ public class RawMetadata implements SerializableResultSetMetaData
 
     return destMd;
   }
-  
-  private static class DefaultMap<KeyType, ValueType>
+
+	@Override
+	public <T> T unwrap(Class<T> iface) throws SQLException {
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	@Override
+	public boolean isWrapperFor(Class<?> iface) throws SQLException {
+		return false;  //To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	private static class DefaultMap<KeyType, ValueType>
   extends Hashtable<KeyType, ValueType>
   {
     private static final long serialVersionUID = 7762920027327445697L;

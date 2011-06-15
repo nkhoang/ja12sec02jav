@@ -10,7 +10,7 @@
     }
 
     .w-k-t {
-        font-size: 220%;
+        font-size: 180%;
         font-weight: bold;
         color: #000080;
     }
@@ -165,14 +165,17 @@
     function processWord(data) {
         var word = data.word;
         var $word = $('<div class="w"></div>');
+        $('#w-dis').html($word);
         // append title.
         var $title = $('<div class="w-t"></div>').html(word.description);
         var wordDescription = word.description;
-        if (word.pron != 'undefined' || word.pron != null) {
+        if (word.pron != undefined) {
             wordDescription = wordDescription + ' (' + word.pron + ')';
         }
         $('#w-d').html(wordDescription);
-        $('#w-d').append($('<img onclick="' + word.soundSource + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">'));
+        if (word.soundSource != undefined)
+        $('#w-d').append($('<img onclick="' + word.soundSource
+               + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">'));
         // clear all old data.
         $('#w-nav').empty();
         var $wordKinds = $('<div class="w-ks"></div>');
@@ -214,8 +217,6 @@
         }
 
         $word.append($wordKinds);
-
-        $('#w-dis').html($word);
     }
 
     function refreshRecentWords(offset) {

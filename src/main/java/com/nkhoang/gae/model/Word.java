@@ -1,6 +1,7 @@
 package com.nkhoang.gae.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.*;
 
 @SuppressWarnings({"JpaAttributeTypeInspection"})
@@ -39,10 +40,13 @@ public class Word {
 
 
     @Transient
+    @XmlTransient
     private String currentTime;
-    @Transient
+	@Transient
+	@XmlTransient
     private final Map<Long, List<Meaning>> meanings = new HashMap<Long, List<Meaning>>(0);
     @Transient
+    @XmlTransient
     private List<Long> kindIdList = new ArrayList();
     public static final String SKIP_FIELDS[] = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp"};
     @Basic
@@ -127,6 +131,10 @@ public class Word {
     public Map<Long, List<Meaning>> getMeanings() {
         return this.meanings;
     }
+
+	public void setMeanings(){
+
+	}
 
     public void setKindIdList(List<Long> kindIdList) {
         this.kindIdList = kindIdList;

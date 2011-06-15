@@ -6,9 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
@@ -26,6 +28,18 @@ public class User implements Serializable, UserDetails {
 	private String password;
 	@Basic
 	private List<String> roleNames;
+
+	public Map<String, String> getAbc() {
+		return abc;
+	}
+
+	public void setAbc(Map<String, String> abc) {
+		this.abc = abc;
+	}
+
+	private Map<String, String> abc;
+
+
 	// Spring required properties
 	@Basic
 	private boolean enabled;

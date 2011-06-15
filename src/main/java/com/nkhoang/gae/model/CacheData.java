@@ -1,11 +1,9 @@
 package com.nkhoang.gae.model;
 
-/**
- * 
- * @author hnguyen93
- * 
- */
 public class CacheData {
+	public CacheData() {
+	}
+
     public CacheData(Object data) {
         this.data = data;
     }

@@ -13,6 +13,7 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
+            <!--
             <plugin>
                 <groupId>com.sun.tools.xjc.maven2</groupId>
                 <artifactId>maven-jaxb-plugin</artifactId>
@@ -26,7 +27,6 @@
                             <generatePackage>com.nkhoang.xml.auto</generatePackage>
                             <includeSchemas>
                                 <includeSchema>**/word.xsd</includeSchema>
-                                <!-- <includeSchema>**/wpm_wrapper.xsd</includeSchema> -->
                             </includeSchemas>
                             <extension>true</extension>
                             <strict>false</strict>
@@ -72,6 +72,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
@@ -736,6 +737,28 @@
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
             <version>1.0.b2</version>
+        </dependency>
+        <!-- Lucene -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-wordnet</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <!-- abtab -->
+        <dependency>
+            <groupId>commons-compress</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>20050911</version>
         </dependency>
     </dependencies>
 

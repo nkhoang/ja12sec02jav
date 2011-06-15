@@ -86,28 +86,6 @@ public class StartupListener implements ServletContextListener {
             if (admin.getId() != null) {
                 LOGGER.debug("Saving default users [ok]");
             }
-            /*
-             * ItemPicture ip = new ItemPicture();
-             * ip.setUrl("http://docs.google.com/File?id=d5brrvd_1064htxmhbdd_b"
-             * ); ip = itemService.save(ip); //
-             * item.getPictureIds().add(ip.getId()); ip = new ItemPicture();
-             * ip.setUrl
-             * ("http://docs.google.com/File?id=d5brrvd_1064htxmhbdd_b"); ip =
-             * itemService.save(ip); itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             * itemService.save(createItem(ip.getId()));
-             */
         }
     }
 

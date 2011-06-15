@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.nkhoang.common.abtab.RawDataParseException;
 import com.nkhoang.common.abtab.RawDataParser;
+import com.nkhoang.common.abtab.RawMetadata;
 import com.nkhoang.common.abtab.handler.RawDataHandler;
 import com.nkhoang.common.util.parser.DelimitedLineParser;
 import com.nkhoang.common.util.parser.LineParseException;
@@ -261,6 +262,16 @@ public class DelimitedDataParser extends LineParser implements RawDataParser {
       _needStartTable = false;
       return rtn;
     }
+
+	  @Override
+	  public boolean endLine(int lineNumber) throws LineParseException {
+		  return false;  //To change body of implemented methods use File | Settings | File Templates.
+	  }
+
+	  @Override
+	  public void addErrorLine(int lineNumber) {
+		  //To change body of implemented methods use File | Settings | File Templates.
+	  }
   }
   
 }
