@@ -15,39 +15,35 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration({"/applicationContext-service.xml"})
 
 public class EncryptionTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionTest.class);
 
-    @Test
-    public void testRun() {
-    }
+	@Test
+	public void testRun() {
+	}
 
-    @Test
-    public void testPropertyEncryptor() {
+	@Test
+	public void testPropertyEncryptor() {
 
-        FixedStringSaltGenerator saltGenerator = new FixedStringSaltGenerator();
-        saltGenerator.setSalt("property salt...");
+		FixedStringSaltGenerator saltGenerator = new FixedStringSaltGenerator();
+		saltGenerator.setSalt("property salt...");
 
-        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-        //encryptor.setAlgorithm("PBEWithMD5AndDES");
-        encryptor.setAlgorithm("PBEWithSHA1AndRC2_40");
-        encryptor.setKeyObtentionIterations(1000);
-        encryptor.setSaltGenerator(saltGenerator);
-        encryptor.setPassword("property password");
+		StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+		//encryptor.setAlgorithm("PBEWithMD5AndDES");
+		encryptor.setAlgorithm("PBEWithSHA1AndRC2_40");
+		encryptor.setKeyObtentionIterations(1000);
+		encryptor.setSaltGenerator(saltGenerator);
+		encryptor.setPassword("property password");
 
-        String saltString = "digest password";
-        //String algorithmString = "MD5";
-        String algorithmString = "SHA-256";
-        String iterationString = "1000";
+		String saltString = "digest password";
+		//String algorithmString = "MD5";
+		String algorithmString = "SHA-256";
+		String iterationString = "1000";
 
-        LOGGER.info(encryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
-        LOGGER.info(encryptor.encrypt(iterationString));
-        LOGGER.info(encryptor.encrypt(algorithmString));
-        LOGGER.info(encryptor.encrypt(saltString));
-
-	    if (LOGGER.isDebugEnabled()) {
-		    LOGGER.debug("Debugging");
-	    }
+		// LOGGER.info(encryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
+		// LOGGER.info(encryptor.encrypt(iterationString));
+		// LOGGER.info(encryptor.encrypt(algorithmString));
+		// LOGGER.info(encryptor.encrypt(saltString));
 
 
-    }
+	}
 }
