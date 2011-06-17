@@ -174,7 +174,7 @@ public class VocabularyAction {
 		// get the cellfeedURL
 		if (StringUtils.isNotEmpty(fileName) && StringUtils.isNotEmpty(sheetName)) {
 			// make sure that this url is not null.
-			String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName);
+			String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName).toString();
 			if (StringUtils.isNotBlank(searchedCellfeedUrl)) {
 				cellfeedUrlStr = searchedCellfeedUrl;
 				LOGGER.debug("Found spreadsheet URL: " + cellfeedUrlStr);

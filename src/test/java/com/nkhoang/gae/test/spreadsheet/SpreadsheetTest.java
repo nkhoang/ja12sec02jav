@@ -5,6 +5,7 @@ import com.google.appengine.api.labs.taskqueue.TaskOptions;
 import com.google.gdata.client.spreadsheet.CellQuery;
 import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.google.gdata.data.spreadsheet.*;
+import com.nkhoang.gae.utils.FileUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,12 +30,19 @@ public class SpreadsheetTest {
     @Autowired
     private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
 
+	@Ignore
     @Test
     public void testFindSpreadsheetByTitle() {
-        String cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("Vocabulary", "General_Vocabulary");
+        String cellfeedUrl = _spreadsheetService.findSpreadSheetCellUrlByTitle("wordlist", "wordlist").toString();
         LOGGER.info(cellfeedUrl);
         Assert.assertNotNull(cellfeedUrl);
     }
+
+	@Test
+	public void testUpdateSpreadsheet() throws Exception{
+		List<String> wordList = FileUtils.readWordsFromFile("src/test/resources/word-list.txt");
+		_spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 2000);
+	}
 
     @Ignore
     @Test

@@ -39,11 +39,14 @@ public class EncryptionTest {
         String algorithmString = "SHA-256";
         String iterationString = "1000";
 
-        //LOGGER.info(encryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
+        LOGGER.info(encryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
+        LOGGER.info(encryptor.encrypt(iterationString));
+        LOGGER.info(encryptor.encrypt(algorithmString));
+        LOGGER.info(encryptor.encrypt(saltString));
 
-        //LOGGER.info(encryptor.encrypt(iterationString));
-        //LOGGER.info(encryptor.encrypt(algorithmString));
-        //LOGGER.info(encryptor.encrypt(saltString));
+	    if (LOGGER.isDebugEnabled()) {
+		    LOGGER.debug("Debugging");
+	    }
 
 
     }
