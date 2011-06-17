@@ -41,43 +41,16 @@ public class SpreadsheetTest {
 	@Test
 	public void testUpdateSpreadsheet() throws Exception{
 		List<String> wordList = FileUtils.readWordsFromFile("src/test/resources/word-list.txt");
-		_spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 2000);
+		_spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 6000);
 	}
 
-    @Ignore
-    @Test
-    public void testGetWorksheet() throws Exception {
-        SpreadsheetService service = new SpreadsheetService("Batch Cell Demo");
-        service.setUserCredentials("", "");
-        service.setProtocolVersion(SpreadsheetService.Versions.V1);
-
-        URL cellfeedURL = new URL("https://spreadsheets.google.com/feeds/cells/peZDHyA4LqhdRYA8Uv_sufw/od6/private/full");
-        // CellFeed cellfeed = service.getFeed(worksheetURL, CellFeed.class);
-        CellQuery query = new CellQuery(cellfeedURL);
-        query.setMinimumCol(2);
-        query.setMaximumCol(2);
+	@Test
+	public void testQuerySpreadsheet() throws Exception {
+		List<String> data = _spreadsheetService.querySpreadsheet("abc", "abc", 1, 1, 20);
+		Assert.assertTrue(data.size() > 0);
+	}
 
 
-        CellFeed cellfeed = service.query(query, CellFeed.class);
-
-        LOGGER.info("Size = " + cellfeed.getEntries().size());
-        LOGGER.info("Maximum COl = " + cellfeed.getColCount());
-
-        List<CellEntry> cells = cellfeed.getEntries();
-        for (CellEntry cell : cells) {
-            String shortId = cell.getId().substring(cell.getId().lastIndexOf('/') + 1);
-            LOGGER.info(shortId);
-            // LOGGER.info("Cell " + shortId + ": " + cell.getCell().getValue());
-            //System.out.println(" -- Cell(" + shortId + "/" + cell.getTitle().getPlainText()
-            //        + ") formula(" + cell.getCell().getInputValue() + ") numeric("
-            //       + cell.getCell().getNumericValue() + ") value("
-            //        + cell.getCell().getValue() + ")");
-
-
-        }
-
-
-    }
 
     @Test
     public void testLoopData() {

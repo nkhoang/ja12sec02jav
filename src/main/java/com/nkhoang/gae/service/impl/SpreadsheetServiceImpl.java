@@ -1,5 +1,6 @@
 package com.nkhoang.gae.service.impl;
 
+import com.google.gdata.client.spreadsheet.CellQuery;
 import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.google.gdata.data.Link;
 import com.google.gdata.data.batch.BatchOperationType;
@@ -21,7 +22,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 	private static final String SPREADSHEET_SERVICE_NAME    = "Spreadsheet Search";
 	private static final Logger LOGGER                      = LoggerFactory.getLogger(SpreadsheetService.class);
 	private static final int    MAXIMUM_CELL_UPDATE_AT_TIME = 20;
-	private static final int    MAXIMUM_ROW_IN_A_COL        = 5000;
+	private static final int    MAXIMUM_ROW_IN_A_COL        = 15000;
 
 	// singleton service.
 	private SpreadsheetService _service;
@@ -45,6 +46,31 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 			}
 		}
 		return _service;
+	}
+
+	public List<String> querySpreadsheet(
+		String spreadSheetName, String worksheetName, int row, int col, int size) throws IOException, ServiceException {
+		List<String> result = null;
+
+		URL cellFeedUrl = findSpreadSheetCellUrlByTitle(spreadSheetName, worksheetName);
+		CellQuery query = new CellQuery(cellFeedUrl);
+		query.setMinimumRow(row);
+		query.setMaximumRow(row + size);
+		query.setMinimumCol(col);
+		query.setMaximumCol(col);
+		CellFeed feed = getService().query(query, CellFeed.class);
+
+		if (feed.getRowCount() > 0) {
+			LOGGER.info(String.format("Total found: %s", feed.getEntries().size()));
+			result = new ArrayList<String>();
+
+			for (CellEntry entry : feed.getEntries()) {
+				String cellData = entry.getCell().getValue();
+				result.add(cellData);
+			}
+		}
+
+		return result;
 	}
 
 	/**
@@ -140,10 +166,10 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 		for (CellEntry entry : queryBatchResponse.getEntries()) {
 			cellEntryMap.put(BatchUtils.getBatchId(entry), entry);
 			if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug(
-				String.format(
-					"batch %s {CellEntry: id=%s editLink=%s inputValue=%s\n", BatchUtils.getBatchId(entry),
-					entry.getId(), entry.getEditLink().getHref(), entry.getCell().getInputValue()));
+				LOGGER.debug(
+					String.format(
+						"batch %s {CellEntry: id=%s editLink=%s inputValue=%s\n", BatchUtils.getBatchId(entry),
+						entry.getId(), entry.getEditLink().getHref(), entry.getCell().getInputValue()));
 			}
 		}
 		return cellEntryMap;

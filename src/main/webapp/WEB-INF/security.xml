@@ -41,6 +41,7 @@
         <!-- Exchange rate -->
         <intercept-url pattern="/service/gold/exchangeRate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/remote_api*/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/_ah/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/_ah*/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
 

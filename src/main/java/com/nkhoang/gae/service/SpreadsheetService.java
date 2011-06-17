@@ -14,4 +14,7 @@ public interface SpreadsheetService {
 	public void updateWordListToSpreadsheet(List<String> wordList, String spreadSheetName,
 	                                        String worksheetName, int offset) throws IOException, ServiceException;
 
+	public List<String> querySpreadsheet(
+		String spreadSheetName, String worksheetName, int row, int col, int size) throws IOException, ServiceException;
+
 }
