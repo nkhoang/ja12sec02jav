@@ -94,53 +94,6 @@ public class SpreadsheetTest {
 
     }
 
-    @Ignore
-    @Test
-    public void testGetData() throws Exception {
-        SpreadsheetService service = new SpreadsheetService("Batch Cell Demo");
-        service.setUserCredentials("nkhoang.it@gmail.com", "me27&ml17");
-        service.setProtocolVersion(SpreadsheetService.Versions.V1);
-
-        URL metafeedUrl = new URL("https://spreadsheets.google.com/feeds/spreadsheets/private/full");
-        SpreadsheetFeed feed = service.getFeed(metafeedUrl, SpreadsheetFeed.class);
-        List<SpreadsheetEntry> spreadsheets = feed.getEntries();
-
-        for (int i = 0; i < spreadsheets.size(); i++) {
-            SpreadsheetEntry spreadsheetEntry = spreadsheets.get(i);
-            String spreadsheetTitle = spreadsheetEntry.getTitle().getPlainText();
-            LOGGER.info("Spreadsheet title : " + spreadsheetTitle);
-            if (spreadsheetTitle.equals("Vocabulary")) {
-                LOGGER.info("\t" + spreadsheetTitle);
-
-                List<WorksheetEntry> worksheets = spreadsheetEntry.getWorksheets();
-                for (int j = 0; j < worksheets.size(); j++) {
-                    WorksheetEntry worksheetEntry = worksheets.get(j);
-
-                    String worksheetTitle = worksheetEntry.getTitle().getPlainText();
-                    if (worksheetTitle.equals("General Vocabulary")) {
-                        LOGGER.info(worksheetTitle);
-                        LOGGER.info(worksheetEntry.getId());
-
-                        URL cellFeedUrl = worksheetEntry.getCellFeedUrl();
-                        CellFeed cellFeed = service.getFeed(cellFeedUrl, CellFeed.class);
-                        for (CellEntry cell : cellFeed.getEntries()) {
-                            String shortId = cell.getId().substring(cell.getId().lastIndexOf('/') + 1);
-                            // LOGGER.info("Cell " + shortId + ": " + cell.getCell().getValue());
-                            // System.out.println(" -- Cell(" + shortId + "/" + cell.getTitle().getPlainText()
-                            //        + ") formula(" + cell.getCell().getInputValue() + ") numeric("
-                            //       + cell.getCell().getNumericValue() + ") value("
-                            //        + cell.getCell().getValue() + ")");
-
-                        }
-
-                    }
-                }
-            }
-        }
-
-    }
-
-
     public com.nkhoang.gae.service.SpreadsheetService getSpreadsheetService() {
         return _spreadsheetService;
     }
