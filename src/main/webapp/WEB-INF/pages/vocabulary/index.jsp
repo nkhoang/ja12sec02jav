@@ -130,7 +130,9 @@
         $.ajax({
             url: '<c:url value="/vocabulary/lookup.html" />',
             type: 'GET',
-            data: $('#aw-form').serialize(),
+            data: {
+                'word': $('#w-input').val().trim()
+            },
             dataType: 'json',
             beforeSend : function() {
                 $('#w-input').val($('#w-input').val().trim());
@@ -139,7 +141,6 @@
             success: function(word) {
                 processWord(word);
                 $('#aw-b').removeProp('disabled');
-                refreshRecentWords(0);
             },
             error: function() {
                 alert('Could not lookup requested word. Server error. Please try again later.')
@@ -219,14 +220,17 @@
         $word.append($wordKinds);
     }
 
-    function refreshRecentWords(offset) {
+    function refreshRecentWords(offset, size) {
+        if (offset == undefined || offset == null) {
+            offset = 0;
+        }
         $.ajax({
             url: '<c:url value="/vocabulary/listRecentWords.html" />',
             dataType: 'json',
             type: 'GET',
             data: {
                 'offset' : offset,
-                'size': 10
+                'size': size
             },
             success: function(data) {
                 processRecentWords(data);
@@ -240,7 +244,7 @@
 <security:authorize url="/user/admin" >
     <script type="text/javascript" >
         $(function() {
-            refreshRecentWords(0);
+            refreshRecentWords(0, 10);
         });
     </script >
 </security:authorize >
@@ -280,7 +284,11 @@ Welcome to Vocabulary index page.
 
 <security:authorize url="/user/admin" >
     <div id="recent-w" >
-        <div >Recent words:</div >
+        <div >Recent words: from <input type="input" size="2" value="0" id="w-offset"> size <select id="w-size" onchange="refreshRecentWords($('#w-offset').val(), this.options[this.selectedIndex].value);">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+        </select></div >
         <div class="recent-ws" >
 
         </div >

@@ -12,7 +12,7 @@ public interface SpreadsheetService {
 	public com.google.gdata.client.spreadsheet.SpreadsheetService getService();
 
 	public void updateWordListToSpreadsheet(List<String> wordList, String spreadSheetName,
-	                                        String worksheetName, int offset) throws IOException, ServiceException;
+	                                        String worksheetName, int offset, int target) throws IOException, ServiceException;
 
 	public List<String> querySpreadsheet(
 		String spreadSheetName, String worksheetName, int row, int col, int size) throws IOException, ServiceException;

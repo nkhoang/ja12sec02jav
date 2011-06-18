@@ -159,7 +159,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 	public Word save(String lookupWord) throws IOException, IllegalArgumentException {
 		// remove unnescessary chars.
-
+        lookupWord = lookupWord.trim().toLowerCase();
 		Word word = vocabularyDao.lookup(lookupWord);
 		// first check the current status
 		if (word != null) {
