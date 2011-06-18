@@ -11,6 +11,7 @@
     <bean id="vocabularyService" class="com.nkhoang.gae.service.impl.VocabularyServiceImpl" scope="prototype">
         <property name="meaningDao" ref="meaningDao"></property>
         <property name="vocabularyDao" ref="vocabularyDao"></property>
+        <property name="spreadsheetService" ref="spreadsheetService"></property>
 
     </bean>
     <!-- Facebook service -->

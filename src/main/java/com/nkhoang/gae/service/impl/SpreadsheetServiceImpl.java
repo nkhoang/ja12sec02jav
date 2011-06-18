@@ -8,15 +8,16 @@ import com.google.gdata.data.batch.BatchStatus;
 import com.google.gdata.data.batch.BatchUtils;
 import com.google.gdata.data.spreadsheet.*;
 import com.google.gdata.util.ServiceException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.nkhoang.gae.gson.strategy.GSONStrategy;
+import com.nkhoang.gae.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +30,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
   public static final int CORE_POOL_SIZE = 10;
   public static final int MAXIMUM_POOL_SIZE = 10;
   public static final int KEEP_ALIVE_TIME = 10;
-  public static final int BATCH_REQUEST_SIZE = 5000;
+  public static final int BATCH_REQUEST_SIZE = 2000;
 
   // singleton service.
   private SpreadsheetService _service;
@@ -80,6 +81,62 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 
     return result;
   }
+
+  public void updateWordMeaningToSpreadsheet(
+      List<Word> wordList, String spreadSheetName, String worksheetName,
+      int offset, int target) throws IOException, ServiceException {
+    List<CellAddress> cellAddrs = new ArrayList<CellAddress>();
+
+    Gson gson = null;
+    List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);
+    if (excludeAttrs != null && excludeAttrs.size() > 0) {
+      gson = new GsonBuilder().setExclusionStrategies(
+          new GSONStrategy(excludeAttrs)).create();
+    } else {
+      gson = new Gson();
+    }
+
+    int rowIndex = 1;
+    for (Word w : wordList) {
+      cellAddrs.add(new CellAddress(rowIndex, 1, w.getDescription()));
+      cellAddrs.add(new CellAddress(rowIndex, 2, gson.toJson(w)));
+      rowIndex++;
+    }
+
+    // create ThreadPoolExecutor
+    ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(MAXIMUM_POOL_SIZE);
+
+    ThreadPoolExecutor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.SECONDS, queue, new ThreadPoolExecutor.CallerRunsPolicy());
+
+    URL cellFeedUrl = findSpreadSheetCellUrlByTitle(spreadSheetName, worksheetName);
+    CellFeed cellFeed = getService().getFeed(cellFeedUrl, CellFeed.class);
+    List<String> failedTask = new ArrayList<String>();
+    do {
+      LOGGER.info(String.format("Batch from offset [%s] starting...", offset));
+      // minimize the request to google service.
+      Map<String, CellEntry> cellEntries = getCellEntryMap(
+          getService(), cellFeedUrl, cellAddrs, offset, wordList.size() * 2);
+      int batchTarget = offset + wordList.size() * 2;
+      do {
+        executor.execute(new UpdateDataTask(cellFeed, cellAddrs, offset, cellFeedUrl, cellEntries, failedTask));
+        LOGGER.info(String.format("Updating ... offset [ %s ]", offset));
+        offset += MAXIMUM_CELL_UPDATE_AT_TIME;
+      } while (offset < batchTarget);
+      // keep this until the batch finish then process to the next batch.
+      do {
+      } while (executor.getTaskCount() != executor.getCompletedTaskCount());
+      if (failedTask.size() > 0) {
+        for (String taskId : failedTask) {
+          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, Integer.parseInt(taskId), cellFeedUrl, cellEntries, failedTask));
+        }
+      }
+    } while (offset < target);
+    do {
+      // LOGGER.info(String.format("Status: %s/%s", executor.getCompletedTaskCount(), executor.getTaskCount()));
+    } while (executor.getTaskCount() != executor.getCompletedTaskCount());
+
+  }
+
 
   /**
    * Update word list stored in a list to Google spreadsheet document to be used later.
@@ -166,7 +223,11 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       int offset, int size) throws IOException, ServiceException {
     // build batch request.
     CellFeed batchRequest = new CellFeed();
-    for (int i = offset; i < offset + size; i++) {
+    int offsetTarget = offset + size;
+    if (offsetTarget > cellAddrs.size()) {
+      offsetTarget = cellAddrs.size();
+    }
+    for (int i = offset; i < offsetTarget; i++) {
       // cell id.
       CellAddress cellId = cellAddrs.get(i);
       // create batch entry.
@@ -311,7 +372,11 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
     public void run() {
       try {
         CellFeed batchRequest = new CellFeed();
-        for (int i = offset; i < offset + MAXIMUM_CELL_UPDATE_AT_TIME; i++) {
+        int offsetTarget = offset + MAXIMUM_CELL_UPDATE_AT_TIME;
+        if (offsetTarget > cellAddrs.size()) {
+          offsetTarget = cellAddrs.size();
+        }
+        for (int i = offset; i < offsetTarget; i++) {
           CellAddress cellAddr = cellAddrs.get(i);
           URL entryUrl = new URL(cellFeedUrl.toString() + "/" + cellAddr.idString);
           CellEntry batchEntry = new CellEntry(cellEntries.get(cellAddr.idString));
@@ -338,7 +403,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
           }
         }
       } catch (Exception e) {
-        LOGGER.error(String.format("Updating failed at offset [%s] because %s", offset, e));
+        LOGGER.error(String.format("Updating failed at offset [%s] because %s", offset, e), e);
         LOGGER.info("Add this offset to failed task to process later.");
         failedTask.add(String.format("%s", offset));
       }

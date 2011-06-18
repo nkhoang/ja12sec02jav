@@ -1,5 +1,8 @@
 package com.nkhoang.gae.test.spreadsheet;
 
+import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.service.SpreadsheetService;
+import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.utils.FileUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -15,11 +18,16 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // specifies the Spring configuration to load for this test fixture
-@ContextConfiguration({"/applicationContext-service.xml"})
+@ContextConfiguration({"/applicationContext-service.xml", "/applicationContext-dao.xml"})
 public class SpreadsheetTest {
   public static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetTest.class);
   @Autowired
   private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
+
+
+
+  @Autowired
+  private VocabularyService _vocabularyService;
 
   @Ignore
   @Test
@@ -32,8 +40,15 @@ public class SpreadsheetTest {
   @Test
   public void testUpdateSpreadsheet() throws Exception {
     List<String> wordList = FileUtils.readWordsFromFile("src/test/resources/word-list.txt");
-    _spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 80000, 150000);
+    _spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 80000, 82000);
     // _spreadsheetService.updateWordListToSpreadsheet(wordList, "bcd", "bcd", 0, 1000);
+  }
+
+  @Test
+  public void testUpdateWordSpreadsheet() throws Exception {
+    List<Word> words = _vocabularyService.lookupWords("abc", "abc", 1, 1, 1000);
+    LOGGER.info(String.format("Total word size : %s", words.size()));
+   _spreadsheetService.updateWordMeaningToSpreadsheet(words, "bcd", "bcd", 1, words.size());
   }
 
   @Test
@@ -60,6 +75,14 @@ public class SpreadsheetTest {
 
   public void setSpreadsheetService(com.nkhoang.gae.service.SpreadsheetService spreadsheetService) {
     _spreadsheetService = spreadsheetService;
+  }
+
+  public VocabularyService getVocabularyService() {
+    return _vocabularyService;
+  }
+
+  public void setVocabularyService(VocabularyService _vocabularyService) {
+    this._vocabularyService = _vocabularyService;
   }
 
 }
