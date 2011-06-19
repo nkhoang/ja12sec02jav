@@ -145,6 +145,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
    * @param spreadSheetName google spreadsheet file name.
    * @param worksheetName   google worksheet name.
    * @param offset          offset in case of the last update is failed and the next update will start from the offset.
+   * @param target          offset target which need to be reached.
    * @throws Exception
    */
   public void updateWordListToSpreadsheet(
