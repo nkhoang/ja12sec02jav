@@ -26,11 +26,11 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
   private static final String SPREADSHEET_SERVICE_NAME = "Spreadsheet Search";
   private static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetService.class);
   private static final int MAXIMUM_CELL_UPDATE_AT_TIME = 20;
-  private static final int MAXIMUM_ROW_IN_A_COL = 15000;
-  public static final int CORE_POOL_SIZE = 10;
-  public static final int MAXIMUM_POOL_SIZE = 10;
+  private static final int MAXIMUM_ROW_IN_A_COL = 10000;
+  public static final int CORE_POOL_SIZE = 20;
+  public static final int MAXIMUM_POOL_SIZE = 20;
   public static final int KEEP_ALIVE_TIME = 10;
-  public static final int BATCH_REQUEST_SIZE = 2000;
+  public static final int BATCH_REQUEST_SIZE = 1000;
 
   // singleton service.
   private SpreadsheetService _service;
@@ -110,7 +110,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 
     URL cellFeedUrl = findSpreadSheetCellUrlByTitle(spreadSheetName, worksheetName);
     CellFeed cellFeed = getService().getFeed(cellFeedUrl, CellFeed.class);
-    List<String> failedTask = new ArrayList<String>();
+    List<Integer> failedTask = new ArrayList<Integer>();
     do {
       LOGGER.info(String.format("Batch from offset [%s] starting...", offset));
       // minimize the request to google service.
@@ -126,8 +126,8 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       do {
       } while (executor.getTaskCount() != executor.getCompletedTaskCount());
       if (failedTask.size() > 0) {
-        for (String taskId : failedTask) {
-          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, Integer.parseInt(taskId), cellFeedUrl, cellEntries, failedTask));
+        for (Integer taskId : failedTask) {
+          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, taskId, cellFeedUrl, cellEntries, failedTask));
         }
       }
     } while (offset < target);
@@ -179,7 +179,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 
     URL cellFeedUrl = findSpreadSheetCellUrlByTitle(spreadSheetName, worksheetName);
     CellFeed cellFeed = getService().getFeed(cellFeedUrl, CellFeed.class);
-    List<String> failedTask = new ArrayList<String>();
+    List<Integer> failedTask = new ArrayList<Integer>();
     do {
       LOGGER.info(String.format("Batch from offset [%s] starting...", offset));
       // minimize the request to google service.
@@ -195,8 +195,8 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       do {
       } while (executor.getTaskCount() != executor.getCompletedTaskCount());
       if (failedTask.size() > 0) {
-        for (String taskId : failedTask) {
-          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, Integer.parseInt(taskId), cellFeedUrl, cellEntries, failedTask));
+        for (Integer taskId : failedTask) {
+          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, taskId, cellFeedUrl, cellEntries, failedTask));
         }
       }
     } while (offset < target);
@@ -358,9 +358,9 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
     private URL cellFeedUrl;
     private int target;
     private Map<String, CellEntry> cellEntries;
-    private List<String> failedTask;
+    private List<Integer> failedTask;
 
-    public UpdateDataTask(CellFeed cellFeed, List<CellAddress> cellAddrs, int offset, URL cellFeedUrl, Map<String, CellEntry> cellEntries, List<String> failedTask) {
+    public UpdateDataTask(CellFeed cellFeed, List<CellAddress> cellAddrs, int offset, URL cellFeedUrl, Map<String, CellEntry> cellEntries, List<Integer> failedTask) {
       this.cellAddrs = cellAddrs;
       this.cellFeed = cellFeed;
       this.offset = offset;
@@ -406,7 +406,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       } catch (Exception e) {
         LOGGER.error(String.format("Updating failed at offset [%s] because %s", offset, e), e);
         LOGGER.info("Add this offset to failed task to process later.");
-        failedTask.add(String.format("%s", offset));
+        failedTask.add(offset);
       }
     }
   }

@@ -40,20 +40,22 @@ public class SpreadsheetTest {
   @Test
   public void testUpdateSpreadsheet() throws Exception {
     List<String> wordList = FileUtils.readWordsFromFile("src/test/resources/word-list.txt");
-    _spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 80000, 82000);
-    // _spreadsheetService.updateWordListToSpreadsheet(wordList, "bcd", "bcd", 0, 1000);
+    // _spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 80000, 82000);
+    _spreadsheetService.updateWordListToSpreadsheet(wordList, "bcd", "bcd", 10000, 20000);
   }
 
   @Test
   public void testUpdateWordSpreadsheet() throws Exception {
-    List<Word> words = _vocabularyService.lookupWords("abc", "abc", 1, 1, 1000);
-    LOGGER.info(String.format("Total word size : %s", words.size()));
-   _spreadsheetService.updateWordMeaningToSpreadsheet(words, "bcd", "bcd", 1, words.size());
+	  List<Word> words = _vocabularyService.lookupWords("bcd", "bcd", 200, 1, 300);
+	  LOGGER.info(String.format("Total word size : %s", words.size()));
+	  List<String> data = _spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 10000);
+	  int offset = data.size();
+	  _spreadsheetService.updateWordMeaningToSpreadsheet(words, "wordlist", "wordlist", offset + 1, words.size());
   }
 
   @Test
   public void testQuerySpreadsheet() throws Exception {
-    List<String> data = _spreadsheetService.querySpreadsheet("abc", "abc", 1, 2, 16000);
+    List<String> data = _spreadsheetService.querySpreadsheet("abc", "abc", 1, 1, 10000);
     Assert.assertTrue(data.size() > 0);
   }
 
