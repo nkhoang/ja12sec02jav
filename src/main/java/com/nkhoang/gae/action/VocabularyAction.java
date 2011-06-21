@@ -207,6 +207,7 @@ public class VocabularyAction {
 		messageDao.save(new Message(Message.VOCABULARY_CATEGORY, s));
 	}
 
+	//http://localhost:7070/vocabulary/updateViaGD.html?spreadsheetName=wordlist&worksheetName=wordlist&row=1&col=2&size=10
 	/** Look up data from Google docs excel file and then update to GAE datastore. */
 	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
 	public void updateWordsFromSpreadSheet(
