@@ -7,26 +7,33 @@ import java.util.List;
 
 public interface VocabularyService {
 
-  public void lookupPron(Word aWord) throws IOException;
+	public void lookupPron(Word aWord) throws IOException;
 
-  public void lookupENLongman(Word aWord) throws IOException;
+	public void lookupENLongman(Word aWord) throws IOException;
 
-  public Word lookupIdiom(Word aWord) throws IOException;
+	public Word lookupIdiom(Word aWord) throws IOException;
 
-  public Word lookupVN(String word) throws IOException;
+	public Word lookupVN(String word) throws IOException;
 
-  public Word save(String lookupWord) throws IOException;
+	/**
+	 * Save a word to datastore.
+	 *
+	 * @param word word to be saved.
+	 */
+	public void save(Word word);
 
-  public List<Word> getAllWordsInRange(int startingIndex, int size);
+	public Word save(String lookupWord) throws IOException;
 
-  public List<Word> getAllWordsFromUser(List<Long> wordIds);
+	public List<Word> getAllWordsInRange(int startingIndex, int size);
 
-  public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size);
+	public List<Word> getAllWordsFromUser(List<Long> wordIds);
 
-  public List<Word> lookupWords(String spreadsheetName, String worksheetName, int row, int col, int size);
+	public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size);
 
-  public Word populateWord(Long id);
+	public List<Word> lookupWords(String spreadsheetName, String worksheetName, int row, int col, int size);
 
-  public int getWordSize();
+	public Word populateWord(Long id);
+
+	public int getWordSize();
 
 }

@@ -12,7 +12,7 @@
         <property name="meaningDao" ref="meaningDao"></property>
         <property name="vocabularyDao" ref="vocabularyDao"></property>
         <property name="spreadsheetService" ref="spreadsheetService"></property>
-
+        <property name="messageDao" ref="messageDao"></property>
     </bean>
     <!-- Facebook service -->
     <bean id="facebookService" class="com.nkhoang.gae.service.impl.FacebookServiceImpl" scope="prototype">

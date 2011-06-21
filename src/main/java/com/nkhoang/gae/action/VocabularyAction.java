@@ -164,6 +164,19 @@ public class VocabularyAction {
 	}
 
 
+	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_VIA_GD_REQUEST, method = RequestMethod.GET)
+	public void saveWordsFromSpreadsheet(
+		@RequestParam("spreadsheetName") String fileName, @RequestParam("worksheetName") String worksheetName,
+		@RequestParam("row") String rowIndex, @RequestParam("col") String columnIndex,
+		@RequestParam("sizes") String size) {
+		try {
+			List<String> data = spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 10000);
+		}
+		catch (Exception e) {
+
+		}
+	}
+
 	/** Look up data from Google docs excel file and then update to GAE datastore. */
 	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
 	public void updateWordsFromSpreadSheet(
@@ -174,7 +187,8 @@ public class VocabularyAction {
 		// get the cellfeedURL
 		if (StringUtils.isNotEmpty(fileName) && StringUtils.isNotEmpty(sheetName)) {
 			// make sure that this url is not null.
-			String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName).toString();
+			String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName)
+			                                               .toString();
 			if (StringUtils.isNotBlank(searchedCellfeedUrl)) {
 				cellfeedUrlStr = searchedCellfeedUrl;
 				LOGGER.debug("Found spreadsheet URL: " + cellfeedUrlStr);
