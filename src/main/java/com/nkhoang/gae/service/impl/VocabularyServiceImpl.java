@@ -292,15 +292,15 @@ public class VocabularyServiceImpl implements VocabularyService {
 	public void save(Word word) {
 		Word savedWord = vocabularyDao.lookup(word.getDescription());
 		if (savedWord != null) {
-			messageDao.save(new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] found in DB.")));
+			messageDao.save(new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] found in DB.", word.getDescription())));
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug(String.format("[%s] found in DB."));
+				LOGGER.debug(String.format("[%s] found in DB.", word.getDescription().toUpperCase()));
 			}
 		} else {
 			word.setTimeStamp(System.currentTimeMillis());
 			vocabularyDao.save(word);
 			messageDao.save(
-				new Message(Message.VOCABULARY_CATEGORY, String.format("Word [%s] saved.", word.getDescription())));
+				new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] saved.", word.getDescription().toUpperCase())));
 		}
 	}
 

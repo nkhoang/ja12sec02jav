@@ -22,7 +22,9 @@ import java.util.List;
  */
 @Transactional
 public class MessageDaoImpl extends GeneralDaoImpl<Message, Long> implements MessageDao {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MessageDaoImpl.class);
+	private static final Logger LOGGER                          = LoggerFactory.getLogger(MessageDaoImpl.class);
+	private static final int    MAXIMUM_MESSAGE_IN_QUEUE        = 300;
+	private static final int    MAXIMUM_MESSAGE_RETAIN_IN_QUEUE = 100;
 
 	@Override
 	public Message save(Message e) {
@@ -145,6 +147,19 @@ public class MessageDaoImpl extends GeneralDaoImpl<Message, Long> implements Mes
 
 	@Override
 	public void cleanupMessageQueue() {
+		List<Message> messages = new ArrayList<Message>();
+		Query query = entityManager.createQuery(
+			String.format(
+				"Select from %s", Message.class.getName()));
 
+		messages = (List<Message>) query.getResultList();
+		if (messages.size() > MAXIMUM_MESSAGE_IN_QUEUE) {
+			// perform delete.
+			messages = messages.subList(MAXIMUM_MESSAGE_RETAIN_IN_QUEUE, messages.size());
+			LOGGER.info(String.format("Numbers of message to be deleted: %s", messages.size()));
+			for (Message message : messages) {
+				delete(message.getId());
+			}
+		}
 	}
 }
