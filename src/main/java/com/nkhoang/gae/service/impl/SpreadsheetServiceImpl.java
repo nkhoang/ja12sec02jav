@@ -86,6 +86,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       List<Word> wordList, String spreadSheetName, String worksheetName,
       int offset, int target) throws IOException, ServiceException {
     List<CellAddress> cellAddrs = new ArrayList<CellAddress>();
+    List<CellAddress> cellMeaningAddrs = new ArrayList<CellAddress>();
 
     Gson gson = null;
     List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);
@@ -96,10 +97,10 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       gson = new Gson();
     }
 
-    int rowIndex = 1;
+    int rowIndex = offset;
     for (Word w : wordList) {
       cellAddrs.add(new CellAddress(rowIndex, 1, w.getDescription()));
-      cellAddrs.add(new CellAddress(rowIndex, 2, gson.toJson(w)));
+      cellMeaningAddrs.add(new CellAddress(rowIndex, 2, gson.toJson(w)));
       rowIndex++;
     }
 
@@ -111,25 +112,25 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
     URL cellFeedUrl = findSpreadSheetCellUrlByTitle(spreadSheetName, worksheetName);
     CellFeed cellFeed = getService().getFeed(cellFeedUrl, CellFeed.class);
     List<Integer> failedTask = new ArrayList<Integer>();
+    int listOffset = 0;
     do {
-      LOGGER.info(String.format("Batch from offset [%s] starting...", offset));
+      LOGGER.info(String.format("Batch from offset [%s-%s] starting...", offset, offset + wordList.size()));
       // minimize the request to google service.
       Map<String, CellEntry> cellEntries = getCellEntryMap(
-          getService(), cellFeedUrl, cellAddrs, offset, wordList.size() * 2);
-      int batchTarget = offset + wordList.size() * 2;
+          getService(), cellFeedUrl, cellAddrs, listOffset, offset, wordList.size());
+      Map<String, CellEntry> cellMeaningEntries = getCellEntryMap(
+          getService(), cellFeedUrl, cellMeaningAddrs, listOffset, offset, wordList.size());
+      int batchTarget = offset + wordList.size();
       do {
-        executor.execute(new UpdateDataTask(cellFeed, cellAddrs, offset, cellFeedUrl, cellEntries, failedTask));
         LOGGER.info(String.format("Updating ... offset [ %s ]", offset));
+        executor.execute(new UpdateDataTask(cellFeed, cellAddrs, listOffset, offset, cellFeedUrl, cellEntries, batchTarget));
+        executor.execute(new UpdateDataTask(cellFeed, cellMeaningAddrs, listOffset, offset, cellFeedUrl, cellMeaningEntries, batchTarget));
         offset += MAXIMUM_CELL_UPDATE_AT_TIME;
+        listOffset += MAXIMUM_CELL_UPDATE_AT_TIME;
       } while (offset < batchTarget);
       // keep this until the batch finish then process to the next batch.
       do {
       } while (executor.getTaskCount() != executor.getCompletedTaskCount());
-      if (failedTask.size() > 0) {
-        for (Integer taskId : failedTask) {
-          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, taskId, cellFeedUrl, cellEntries, failedTask));
-        }
-      }
     } while (offset < target);
     do {
       // LOGGER.info(String.format("Status: %s/%s", executor.getCompletedTaskCount(), executor.getTaskCount()));
@@ -181,24 +182,19 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
     CellFeed cellFeed = getService().getFeed(cellFeedUrl, CellFeed.class);
     List<Integer> failedTask = new ArrayList<Integer>();
     do {
-      LOGGER.info(String.format("Batch from offset [%s] starting...", offset));
+      LOGGER.info(String.format("Batch from offset [%s] starting...", offset / 2));
       // minimize the request to google service.
       Map<String, CellEntry> cellEntries = getCellEntryMap(
-          getService(), cellFeedUrl, cellAddrs, offset, BATCH_REQUEST_SIZE);
+          getService(), cellFeedUrl, cellAddrs, offset, offset, BATCH_REQUEST_SIZE);
       int batchTarget = offset + BATCH_REQUEST_SIZE;
       do {
-        executor.execute(new UpdateDataTask(cellFeed, cellAddrs, offset, cellFeedUrl, cellEntries, failedTask));
+        executor.execute(new UpdateDataTask(cellFeed, cellAddrs, offset, offset, cellFeedUrl, cellEntries, batchTarget));
         LOGGER.info(String.format("Updating ... offset [ %s ]", offset));
         offset += MAXIMUM_CELL_UPDATE_AT_TIME;
       } while (offset < batchTarget);
       // keep this until the batch finish then process to the next batch.
       do {
       } while (executor.getTaskCount() != executor.getCompletedTaskCount());
-      if (failedTask.size() > 0) {
-        for (Integer taskId : failedTask) {
-          executor.execute(new UpdateDataTask(cellFeed, cellAddrs, taskId, cellFeedUrl, cellEntries, failedTask));
-        }
-      }
     } while (offset < target);
     do {
       // LOGGER.info(String.format("Status: %s/%s", executor.getCompletedTaskCount(), executor.getTaskCount()));
@@ -221,16 +217,14 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
    */
   public static Map<String, CellEntry> getCellEntryMap(
       SpreadsheetService ssSvc, URL cellFeedUrl, List<CellAddress> cellAddrs,
-      int offset, int size) throws IOException, ServiceException {
+      int listOffset, int offset, int size) throws IOException, ServiceException {
     // build batch request.
     CellFeed batchRequest = new CellFeed();
     int offsetTarget = offset + size;
-    if (offsetTarget > cellAddrs.size()) {
-      offsetTarget = cellAddrs.size();
-    }
     for (int i = offset; i < offsetTarget; i++) {
       // cell id.
-      CellAddress cellId = cellAddrs.get(i);
+      CellAddress cellId = cellAddrs.get(listOffset);
+      listOffset++;
       // create batch entry.
       CellEntry batchEntry = new CellEntry(cellId.row, cellId.col, cellId.idString);
       // set cell id.
@@ -355,18 +349,20 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
     private CellFeed cellFeed;
     private List<CellAddress> cellAddrs;
     private int offset;
+    private int limitOffset;
+    private int maxOffset;
     private URL cellFeedUrl;
     private int target;
     private Map<String, CellEntry> cellEntries;
-    private List<Integer> failedTask;
 
-    public UpdateDataTask(CellFeed cellFeed, List<CellAddress> cellAddrs, int offset, URL cellFeedUrl, Map<String, CellEntry> cellEntries, List<Integer> failedTask) {
+    public UpdateDataTask(CellFeed cellFeed, List<CellAddress> cellAddrs, int limitOffset, int offset, URL cellFeedUrl, Map<String, CellEntry> cellEntries, int maxOffset) {
       this.cellAddrs = cellAddrs;
       this.cellFeed = cellFeed;
       this.offset = offset;
       this.cellFeedUrl = cellFeedUrl;
       this.cellEntries = cellEntries;
-      this.failedTask = failedTask;
+      this.limitOffset = limitOffset;
+      this.maxOffset = maxOffset;
     }
 
     @Override
@@ -374,11 +370,12 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       try {
         CellFeed batchRequest = new CellFeed();
         int offsetTarget = offset + MAXIMUM_CELL_UPDATE_AT_TIME;
-        if (offsetTarget > cellAddrs.size()) {
-          offsetTarget = cellAddrs.size();
+        if (offsetTarget > maxOffset) {
+          offsetTarget = maxOffset;
         }
         for (int i = offset; i < offsetTarget; i++) {
-          CellAddress cellAddr = cellAddrs.get(i);
+          CellAddress cellAddr = cellAddrs.get(limitOffset);
+          limitOffset++;
           URL entryUrl = new URL(cellFeedUrl.toString() + "/" + cellAddr.idString);
           CellEntry batchEntry = new CellEntry(cellEntries.get(cellAddr.idString));
           batchEntry.changeInputValueLocal(cellAddr.value);
@@ -406,7 +403,6 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       } catch (Exception e) {
         LOGGER.error(String.format("Updating failed at offset [%s] because %s", offset, e), e);
         LOGGER.info("Add this offset to failed task to process later.");
-        failedTask.add(offset);
       }
     }
   }

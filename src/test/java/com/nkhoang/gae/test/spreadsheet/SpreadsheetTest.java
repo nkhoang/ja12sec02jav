@@ -1,7 +1,6 @@
 package com.nkhoang.gae.test.spreadsheet;
 
 import com.nkhoang.gae.model.Word;
-import com.nkhoang.gae.service.SpreadsheetService;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.utils.FileUtils;
 import org.junit.Assert;
@@ -25,7 +24,6 @@ public class SpreadsheetTest {
   private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
 
 
-
   @Autowired
   private VocabularyService _vocabularyService;
 
@@ -46,16 +44,22 @@ public class SpreadsheetTest {
 
   @Test
   public void testUpdateWordSpreadsheet() throws Exception {
-	  List<Word> words = _vocabularyService.lookupWords("bcd", "bcd", 200, 1, 300);
-	  LOGGER.info(String.format("Total word size : %s", words.size()));
-	  List<String> data = _spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 10000);
-	  int offset = data.size();
-	  _spreadsheetService.updateWordMeaningToSpreadsheet(words, "wordlist", "wordlist", offset + 1, words.size());
+    List<Word> words = _vocabularyService.lookupWords("bcd", "bcd", 1651, 1, 2049);
+    LOGGER.info(String.format("Total word size : %s", words.size()));
+    List<String> data = _spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 10000);
+    String s = "";
+    for (Word w : words) {
+      s += w.getDescription();
+      s += ",";
+    }
+    LOGGER.info(String.format("Word list : %s", s));
+    int offset = data.size();
+    _spreadsheetService.updateWordMeaningToSpreadsheet(words, "wordlist", "wordlist", offset + 1, offset + 1 + words.size());
   }
 
   @Test
   public void testQuerySpreadsheet() throws Exception {
-    List<String> data = _spreadsheetService.querySpreadsheet("abc", "abc", 1, 1, 10000);
+    List<String> data = _spreadsheetService.querySpreadsheet("bcd", "bcd", 1, 1, 49);
     Assert.assertTrue(data.size() > 0);
   }
 
@@ -64,7 +68,7 @@ public class SpreadsheetTest {
     int rowTarget = 4;
     int total = 0;
     for (int i = 1; i <= rowTarget; i++) {
-      List<String> data = _spreadsheetService.querySpreadsheet("abc", "abc", 1, i, 16000);
+      List<String> data = _spreadsheetService.querySpreadsheet("bcd", "bcd", 1, i, 11000);
       total += data.size();
       LOGGER.info(String.format("Total at col [%s]: %s", i, total));
     }
