@@ -298,7 +298,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 			}
 		} else {
 			word.setTimeStamp(System.currentTimeMillis());
-			vocabularyDao.save(word);
+			saveWordToDatastore(word);
 			messageDao.save(
 				new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] saved.", word.getDescription().toUpperCase())));
 		}
@@ -331,45 +331,49 @@ public class VocabularyServiceImpl implements VocabularyService {
 				throw iae;
 			}
 
-			if (word != null) {
-				// build list of meaning
-				for (int i = 0; i < Word.WORD_KINDS.length; i++) {
-					List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
-					if (meanings != null && meanings.size() > 0) {
-						//LOGGER.info("found : " + meanings.size() + " meanings for this word");
-						for (Meaning meaning : meanings) {
-							// save
-							try {
-								Meaning savedMeaning = meaningDao.save(meaning);
-								word.addMeaningId(savedMeaning.getId());
-							}
-							catch (Exception e) {
-								LOGGER.info("Failed to save meaning to DB.");
-								LOGGER.info(meaning.toString());
-							}
-						}
-					} else {
-						// log.info(word.getMeanings());
-					}
-				}
-				try {
-					word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-					if (word.getMeanings().size() > 0) {
-						vocabularyDao.save(word);
-						LOGGER.info("word: " + word.getDescription() + " saved!!!!");
-					} else {
-						LOGGER.info("Could not find any word's meanings");
-					}
-				}
-				catch (Exception e) {
-					LOGGER.info("Could not save word:" + word.toString());
-				}
-			}
-		}
+      saveWordToDatastore(word);
+    }
 		return word;
 	}
 
-	/**
+  private void saveWordToDatastore(Word word) {
+    if (word != null) {
+      // build list of meaning
+      for (int i = 0; i < Word.WORD_KINDS.length; i++) {
+        List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
+        if (meanings != null && meanings.size() > 0) {
+          //LOGGER.info("found : " + meanings.size() + " meanings for this word");
+          for (Meaning meaning : meanings) {
+            // save
+            try {
+              Meaning savedMeaning = meaningDao.save(meaning);
+              word.addMeaningId(savedMeaning.getId());
+            }
+            catch (Exception e) {
+              LOGGER.info("Failed to save meaning to DB.");
+              LOGGER.info(meaning.toString());
+            }
+          }
+        } else {
+          // log.info(word.getMeanings());
+        }
+      }
+      try {
+        word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
+        if (word.getMeanings().size() > 0) {
+          vocabularyDao.save(word);
+          LOGGER.info("word: " + word.getDescription() + " saved!!!!");
+        } else {
+          LOGGER.info("Could not find any word's meanings");
+        }
+      }
+      catch (Exception e) {
+        LOGGER.info("Could not save word:" + word.toString());
+      }
+    }
+  }
+
+  /**
 	 * Lookup word using Longman online dictionary.
 	 * Update to the current word.
 	 */
@@ -646,7 +650,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 			}
 		}
 		catch (Exception e) {
-			LOGGER.error("Error fetching word using URL: " + urlLink + word);
+			// LOGGER.error("Error fetching word using URL: " + urlLink + word);
 			return null;
 		}
 	}

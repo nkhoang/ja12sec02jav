@@ -131,13 +131,13 @@ public class MessageDaoImpl extends GeneralDaoImpl<Message, Long> implements Mes
 		try {
 			Query query = entityManager.createQuery(
 				String.format(
-					"Select from %s t where t.categoryId=:category and t.time > :fromTime and t.time <= :toTime order by t.time DESC",
+					"Select from %s t where t.categoryId=:category and t.time >= :fromTime and t.time <= :toTime order by t.time DESC",
 					Message.class.getName()));
 			query.setParameter("category", categoryId);
 			query.setParameter("fromTime", System.currentTimeMillis() - (interval * 1000));
 			query.setParameter("toTime", System.currentTimeMillis());
 
-			List<Message> m = (List<Message>) query.getResultList();
+			messages = (List<Message>) query.getResultList();
 		}
 		catch (Exception e) {
 			LOGGER.error("Failed to get the latest messasges", e);

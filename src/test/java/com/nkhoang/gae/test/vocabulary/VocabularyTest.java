@@ -31,17 +31,12 @@ public class VocabularyTest {
   @Test
   public void testFromGson() {
     Gson gson = null;
-    List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);
-    if (excludeAttrs != null && excludeAttrs.size() > 0) {
-      gson = new GsonBuilder().setExclusionStrategies(
-          new GSONStrategy(excludeAttrs)).create();
-    } else {
-      gson = new Gson();
-    }
+    gson = new Gson();
 
-    String s = "{\"description\":\"abandoned\",\"meanings\":{\"1\":[{\"content\":\"bị bỏ rơi, bị ruồng bỏ\",\"kindId\":1,\"examples\":[]},{\"content\":\"phóng đãng, truỵ lạc\",\"kindId\":1,\"examples\":[]}],\"7\":[{\"content\":\" an abandoned building, car, boat etc has been left by the people who owned or used it\",\"kindId\":7,\"examples\":[\"The car was found abandoned in Bristol.\",\"the demolition of abandoned buildings\"]},{\"content\":\"[only before noun] an abandoned person or animal has been left completely alone by the person that was looking after them\",\"kindId\":7,\"examples\":[]},{\"content\":\" behaving in a wild and uncontrolled way\",\"kindId\":7,\"examples\":[]}]},\"kindIdList\":[1,7]}";
+    String s = "{\"pron\":\"/eɪtʃ/\",\"soundSource\":\"playsoundfromflash(\\u0027http://dictionary.cambridge.org/media/british/us_pron/h/h__/h____/h.mp3\\u0027, this)\",\"description\":\"aitch\",\"meanings\":{\"8\":[{\"content\":\" the letter h when written as a word not a letter\",\"kindid\":8,\"examples\":[\"people with cockney accents tend to drop their aitches.\"]},{\"content\":\"drop your aitches\",\"kindid\":8,\"examples\":[\"people with cockney accents tend to drop their aitches.\"],\"type\":\"collo\"}]},\"kindidlist\":[8]}";
 
     Word w = gson.fromJson(s, Word.class);
+    LOGGER.info(w.getSoundSource());
 
     LOGGER.info(String.format("Word meaning size = %s", w.getMeanings().size()));
 
@@ -49,7 +44,7 @@ public class VocabularyTest {
 
   @Test
   public void testSearchWordUsingSpreadsheet() {
-    List<Word> words = vocabularyService.lookupWords("abc", "abc", 1, 1, 50);
+    List<Word> words = vocabularyService.lookupWords("abc", "abc", 1, 1, 2);
     LOGGER.info(String.format("Total size received: %s", words.size()));
     Gson gson = null;
     List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);

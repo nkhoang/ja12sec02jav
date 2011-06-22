@@ -340,7 +340,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
       this.row = row;
       this.col = col;
       this.idString = String.format("R%sC%s", row, col);
-      this.value = value.toLowerCase();
+      this.value = value;
     }
   }
 
