@@ -44,7 +44,7 @@ public class SpreadsheetTest {
 
   @Test
   public void testUpdateWordSpreadsheet() throws Exception {
-    List<Word> words = _vocabularyService.lookupWords("bcd", "bcd", 6001, 1, 999);
+    List<Word> words = _vocabularyService.lookupWords("bcd", "bcd", 801, 1, 199);
     LOGGER.info(String.format("Total word size : %s", words.size()));
     List<String> data = _spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 10000);
     String s = "";
@@ -59,7 +59,7 @@ public class SpreadsheetTest {
 
   @Test
   public void testQuerySpreadsheet() throws Exception {
-    List<String> data = _spreadsheetService.querySpreadsheet("bcd", "bcd", 1, 1, 49);
+    List<String> data = _spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 49);
     Assert.assertTrue(data.size() > 0);
   }
 

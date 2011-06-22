@@ -367,6 +367,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 
     @Override
     public void run() {
+		LOGGER.info("---------------------------------------------------------");
       try {
         CellFeed batchRequest = new CellFeed();
         int offsetTarget = offset + MAXIMUM_CELL_UPDATE_AT_TIME;
@@ -392,12 +393,17 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
         boolean isSuccess = true;
         for (CellEntry entry : batchResponse.getEntries()) {
           String batchId = BatchUtils.getBatchId(entry);
+	        BatchStatus status = BatchUtils.getBatchStatus(entry);
+
           if (!BatchUtils.isSuccess(entry)) {
             isSuccess = false;
-            BatchStatus status = BatchUtils.getBatchStatus(entry);
             LOGGER.info(
                 String.format(
                     "%s failed (%s) %s", batchId, status.getReason(), status.getContent()));
+          } else {
+	          /*LOGGER.info(
+                String.format(
+                    "Batch status: %s success (%s) %s", batchId, status.getReason(), status.getContent()));*/
           }
         }
       } catch (Exception e) {

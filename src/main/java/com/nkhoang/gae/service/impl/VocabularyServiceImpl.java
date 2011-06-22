@@ -244,7 +244,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 					if (word.getMeanings().size() > 0) {
 						result.setWord(word);
 					} else {
-						result.setMesssage(String.format("No meaning found for.", _word));
+						result.setMesssage(String.format("No meaning found for %s.", _word));
 					}
 				}
 				catch (Exception e) {

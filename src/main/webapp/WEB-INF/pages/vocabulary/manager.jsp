@@ -5,14 +5,13 @@
     <title><fmt:message key="webapp.title"/></title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script>
-        $(function() {
-            setTimeout("getVocabularyMessages()", 2000);
-        });
+        var timer;
+        var stop_timer = true;
         function getVocabularyMessages() {
             $.ajax({
                         url: '<c:url value="/vocabulary/getMessage.html" />',
                         data: {
-                            'interval': 2
+                            'interval': 1
                         },
                         type: 'GET',
                         dataType: 'json',
@@ -27,17 +26,19 @@
                         error: function() {
                         }
                     });
-            setTimeout("getVocabularyMessages()", 2000);
+            if (!stop_timer)
+                timer = setTimeout("getVocabularyMessages()", 1000);
         }
         function requestUpdateWords() {
+            stop_timer = false;
+            timer = setTimeout("getVocabularyMessages()", 1000);
             $.ajax({
                         url: '<c:url value="/vocabulary/updateViaGD.html" />',
                         data: $('#requestForm').serialize(),
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {
-                            if (data);
-
+                            stop_timer = true;
                         },
                         error: function() {
                         }
@@ -75,7 +76,7 @@
     </form>
 
     <input id="aw-b" type="button" value="Post" onclick="requestUpdateWords();"/>
-    <textarea rows="30" cols="200" id="notification">
+    <textarea rows="30" cols="200" id="notification" style="font-size: 8pt;">
 
     </textarea>
 </div>
