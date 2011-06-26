@@ -30,7 +30,7 @@ public interface VocabularyService {
 
 	public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size);
 
-	public List<Word> lookupWords(String spreadsheetName, String worksheetName, int row, int col, int size);
+	public List<Word> lookupWords(List<String> words, String spreadsheetName, String worksheetName, int row, int col, int size);
 
 	public Word populateWord(Long id);
 

@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -44,7 +41,8 @@ public class VocabularyTest {
 
   @Test
   public void testSearchWordUsingSpreadsheet() {
-    List<Word> words = vocabularyService.lookupWords("abc", "abc", 1, 1, 2);
+    List<String> wordList = new ArrayList<String>();
+    List<Word> words = vocabularyService.lookupWords(wordList, "abc", "abc", 1, 1, 2);
     LOGGER.info(String.format("Total size received: %s", words.size()));
     Gson gson = null;
     List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);

@@ -169,15 +169,19 @@ public class VocabularyServiceImpl implements VocabularyService {
 		return populateWord(word);
 	}
 
-	public List<Word> lookupWords(String spreadsheetName, String worksheetName, int row, int col, int size) {
+	public List<Word> lookupWords(List<String> words, String spreadsheetName, String worksheetName, int row, int col, int size) {
 		List<Word> lookupedWord = new ArrayList<Word>();
+
 		List<String> wordList = new ArrayList<String>();
-		try {
-			wordList = _spreadsheetService.querySpreadsheet(spreadsheetName, worksheetName, row, col, size);
-		}
-		catch (Exception sre) {
-			LOGGER.error(String.format("Could not query Google Spreadsheet because : %s", sre), sre);
-		}
+    if (words.size() > 0) {
+         wordList = words;
+    } else {
+      try {
+        wordList = _spreadsheetService.querySpreadsheet(spreadsheetName, worksheetName, row, col, size);
+      } catch (Exception sre) {
+        LOGGER.error(String.format("Could not query Google Spreadsheet because : %s", sre), sre);
+      }
+    }
 		// create ThreadPoolExecutor
 		ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(MAXIMUM_POOL_SIZE);
 

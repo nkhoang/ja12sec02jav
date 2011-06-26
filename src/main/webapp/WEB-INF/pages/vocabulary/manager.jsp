@@ -29,7 +29,13 @@
             if (!stop_timer)
                 timer = setTimeout("getVocabularyMessages()", 1000);
         }
-        function requestUpdateWords() {
+        function requestUpdateWords(index, target) {
+            if (index >= target) {
+                stop_timer = true;
+                return;
+            }
+            // set row
+            $('#row').val(index);
             stop_timer = false;
             timer = setTimeout("getVocabularyMessages()", 1000);
             $.ajax({
@@ -38,7 +44,7 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {
-                            stop_timer = true;
+                            requestUpdateWords(parseInt(index) + 100, target);
                         },
                         error: function() {
                         }
@@ -62,7 +68,7 @@
             </tr>
             <tr>
                 <td>Row Index:</td>
-                <td><input type="input" name="row"/></td>
+                <td><input id="row" type="input" name="row"/></td>
             </tr>
             <tr>
                 <td>Column Index:</td>
@@ -74,8 +80,10 @@
             </tr>
         </table>
     </form>
+    Target Index
+    <input id="target" name="target"/>
 
-    <input id="aw-b" type="button" value="Post" onclick="requestUpdateWords();"/>
+    <input id="aw-b" type="button" value="Post" onclick="requestUpdateWords($('#row').val(), $('#target').val());"/>
     <textarea rows="30" cols="200" id="notification" style="font-size: 8pt;">
 
     </textarea>
