@@ -39,12 +39,14 @@ public class SpreadsheetTest {
   public void testUpdateSpreadsheet() throws Exception {
     List<String> wordList = FileUtils.readWordsFromFile("src/test/resources/word-list.txt");
     // _spreadsheetService.updateWordListToSpreadsheet(wordList, "abc", "abc", 80000, 82000);
-    _spreadsheetService.updateWordListToSpreadsheet(wordList, "bcd", "bcd", 10000, 20000);
+    _spreadsheetService.updateWordListToSpreadsheet(wordList, "bcd", "bcd", 31000, 32000);
   }
 
   @Test
   public void testUpdateWordSpreadsheet() throws Exception {
-    List<Word> words = _vocabularyService.lookupWords("bcd", "bcd", 801, 1, 199);
+	  List<String> wordList = FileUtils.readWordsFromFile("src/test/resources/word-list.txt");
+	wordList = wordList.subList(30000,31000);
+    List<Word> words = _vocabularyService.lookupWords(wordList, "bcd", "bcd", 801, 1, 199);
     LOGGER.info(String.format("Total word size : %s", words.size()));
     List<String> data = _spreadsheetService.querySpreadsheet("wordlist", "wordlist", 1, 1, 10000);
     String s = "";
