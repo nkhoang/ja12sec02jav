@@ -9,6 +9,49 @@
         .table-lookup-status {
             border: 1px solid black;
         }
+
+        .w-k {
+            border-bottom: 1px solid #C0C0C0;
+            margin-bottom: 15px;
+        }
+
+        .w-k-t {
+            font-size: 180%;
+            font-weight: bold;
+            color: #000080;
+        }
+
+        .w-k-m {
+        }
+
+        .w-k-m-c {
+            font-weight: bold;
+            color: #A8397A;
+            font-size: 90%;
+        }
+
+        .w-k-m-ex {
+            padding-left: 15px;
+            font-style: italic;
+            color: #808080;
+            font-size: 90%;
+        }
+
+        #w-dis {
+            width: 600px;
+            float: left;
+            margin-left: 40px;
+        }
+
+        #recent-w {
+            width: 300px;
+            float: left;
+        }
+
+        .w-time {
+            font-size: 9px;
+        }
+
     </style >
 
     <script type="text/javascript" >
