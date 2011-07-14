@@ -71,17 +71,13 @@
         }
 
         function submitForm() {
-            console.debug($('#submit-form').serialize());
-
              $.ajax(
                     {
                         url: "<c:url value='/vocabulary/constructIVocabulary.html?' />" + $('#submit-form').serialize(),
                         dataType: "xml",
                         type: "GET",
                         data: {
-                            'dateTime' : 'word',
-                            'ids': tracker.getWordIds().join(','),
-                            'chapterTitle': 'Chapter title'
+                           'ids': tracker.getWordIds().join(',')
                         },
                         success: function(data) {
                         }
@@ -173,16 +169,24 @@
             this.reportDone = reportDone;
             this.registerId = registerId;
             this.getWordIds = getWordIds;
+            this.disableWord = disableWord;
             this.reportStatus = reportStatus;
 
             function registerId(word, id) {
                 wordList[word].id = id;
+                wordList[word].disable = false;
+            }
+
+            function disableWord(word) {
+                wordList[word].disable = true;
             }
 
             function getWordIds() {
                 var ids = new Array();
                 for (var w in wordList) {
-                    ids.push(wordList[w].id);
+                    if (!wordList[w].disable) {
+                        ids.push(wordList[w].id);
+                    }
                 }
                 return ids;
             }
@@ -253,14 +257,14 @@
                             var $container = $('<div class="word-container"><h3></h3></div>');
                             $container.find('h3').html(word);
                             var wordHtml = processWord(data);
+                            tracker.registerId(word, data.word.id);
                             if (wordHtml != null) {
                                 $container.append(wordHtml);
+                                $('.word-select').append($container);
                             } else {
                                 tracker.reportStatus(word, "NO MEANING");
+                                tracker.disableWord(word);
                             }
-                            tracker.registerId(word, data.word.id);
-
-                            $('.word-select').append($container);
                         }
                     });
         }
@@ -292,6 +296,16 @@
         </table >
     </div >
     <form id="submit-form">
+        <table >
+        <tr >
+            <td >Date Time:</td >
+            <td ><input type="input" name="dateTime"  /></td >
+        </tr >
+        <tr >
+            <td >Chapter Title:</td >
+            <td ><input type="input" name="chapterTitle" /></td >
+        </tr >
+    </table >
         <div class="word-select"></div>
         <input type="button" value="Submit" onclick="submitForm()" />
     </form>

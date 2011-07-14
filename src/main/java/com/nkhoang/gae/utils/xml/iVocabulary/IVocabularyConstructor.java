@@ -32,9 +32,11 @@ public class IVocabularyConstructor {
 	 *
 	 * @return xml string.
 	 */
-	private String constructIVocabularyFile(
-		List<Word> allWords, int startingIndex, int size, int pageSize, String dateTime, String chapterTitle) {
-		String xml = constructXMLBlockContent(allWords, pageSize, startingIndex, size, dateTime, chapterTitle);
+	public  String constructIVocabularyFile(
+		List<Word> allWords, int startingIndex, int size, int pageSize, String dateTime, String chapterTitle,
+		List<Long> meaningIds, Map<String, List<Integer>> exampleIds) {
+		String xml = constructXMLBlockContent(
+			allWords, pageSize, startingIndex, size, dateTime, chapterTitle, meaningIds, exampleIds);
 
 		String xmlStr = "";
 		try {
@@ -93,8 +95,9 @@ public class IVocabularyConstructor {
 	 * @return xml string.
 	 */
 
-	private String constructXMLBlockContent(
-		List<Word> allWords, int size, int startingIndex, int requestSize, String dateTime, String chapterTitle) {
+	private static String constructXMLBlockContent(
+		List<Word> allWords, int size, int startingIndex, int requestSize, String dateTime, String chapterTitle,
+		List<Long> meaningIds, Map<String, List<Integer>> exampleIds) {
 		SimpleDateFormat formatter = new SimpleDateFormat(IVOCABULARY_DATE_TIME_FORMAT, Locale.US);
 		formatter.setTimeZone(TimeZone.getTimeZone(IVOCABULARY_TIMEZONE));
 
@@ -115,8 +118,6 @@ public class IVocabularyConstructor {
 			LOGGER.info("Exception occured when calculating datetime => Use current date.");
 
 		}
-		formatter = new SimpleDateFormat(IVOCABULARY_DATE_TIME_FORMAT, Locale.US);
-		formatter.setTimeZone(TimeZone.getTimeZone(IVOCABULARY_TIMEZONE));
 
 		StringBuilder xmlBuilder = new StringBuilder();
 
@@ -140,51 +141,58 @@ public class IVocabularyConstructor {
 
 			List<Meaning> lmn = w.getMeaning(w.getKindidmap().get("noun")); // meaning for noun.
 			if (lmn != null && lmn.size() > 0) {
-				Meaning m = lmn.get(0);
+				for (Meaning m : lmn) {
+					if (meaningIds.contains(m.getId())) {
+						String content = m.getContent();
 
-				String content = m.getContent();
-
-				targetWords.append("(n) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (n) " + m.getExamples().get(0));
+						targetWords.append("(n) " + content + "\n");
+						if (m.getExamples() != null && m.getExamples().size() > 0) {
+							comment.append(" (n) " + m.getExamples().get(0));
+						}
+					}
 				}
 			}
-
 			List<Meaning> lmv = w.getMeaning(w.getKindidmap().get("verb")); // meaning for verb.
 			if (lmv != null && lmv.size() > 0) {
-				Meaning m = lmv.get(0);
+				for (Meaning m : lmv) {
+					if (meaningIds.contains(m.getId())) {
+						String content = m.getContent();
 
-				String content = m.getContent();
-
-				targetWords.append("(v) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (v) " + m.getExamples().get(0));
+						targetWords.append("(v) " + content + "\n");
+						if (m.getExamples() != null && m.getExamples().size() > 0) {
+							comment.append(" (v) " + m.getExamples().get(0));
+						}
+					}
 				}
-
 			}
 
 			List<Meaning> lmadj = w.getMeaning(w.getKindidmap().get("adjective")); // meaning for adjective
 			if (lmadj != null && lmadj.size() > 0) {
-				Meaning m = lmadj.get(0);
+				for (Meaning m : lmadj) {
+					if (meaningIds.contains(m.getId())) {
 
-				String content = m.getContent();
+						String content = m.getContent();
 
-				targetWords.append("(adj) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (adj) " + m.getExamples().get(0));
+						targetWords.append("(adj) " + content + "\n");
+						if (m.getExamples() != null && m.getExamples().size() > 0) {
+							comment.append(" (adj) " + m.getExamples().get(0));
+						}
+					}
 				}
-
 			}
 
 			List<Meaning> lmadv = w.getMeaning(w.getKindidmap().get("adverb")); // meaning for adv.
 			if (lmadv != null && lmadv.size() > 0) {
-				Meaning m = lmadv.get(0);
+				for (Meaning m : lmadj) {
+					if (meaningIds.contains(m.getId())) {
 
-				String content = m.getContent();
+						String content = m.getContent();
 
-				targetWords.append("(adv) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (adv) " + m.getExamples().get(0));
+						targetWords.append("(adv) " + content + "\n");
+						if (m.getExamples() != null && m.getExamples().size() > 0) {
+							comment.append(" (adv) " + m.getExamples().get(0));
+						}
+					}
 				}
 			}
 
