@@ -55,8 +55,20 @@
     </style >
 
     <script type="text/javascript" >
+        // word kind list get from the server.
         var wordKind = [];
+        // english word kind ids.
         var EN_ids = [6,7,8,9];
+
+        // check if a the word kind id is in allowance list.
+        function checkENWordKind(number, array) {
+            for (i = 0; i < array.length; i++) {
+                if (array[i] == number) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         function submitForm() {
             console.debug($('#submit-form').serialize());
@@ -92,58 +104,63 @@
             // clear all old data.
             $('#w-nav').empty();
             var $wordKinds = $('<div class="w-ks"></div>');
+            // flag to detect if a word have any required meanings
+            var haveMeaning = false;
             // append meaning
             for (var i in word.meanings) {
-                console.debug(i);
-                if (wordKind[i] != undefined) {
-                // append kind.
-                var $kind = $('<div class="w-k"></div>');
-                // append anchor
-                var $anchor = $('<a name="' + wordKind[i] + '" />');
-                // append kind title.
-                var $kindTitle = $('<div class="w-k-t"></div>').html(wordKind[i]);
-                $kind.append($anchor);
-                $kind.append($kindTitle);
-                // append to navigation table.
-                var kindAnchorId = '#' + wordKind[i];
-                var $kindAnchor = $('<div><a href="' + kindAnchorId + '" /></div>');
-                $kindAnchor.find('a').html(wordKind[i]);
-                $('#w-nav').append($kindAnchor);
-                // loop through content.
-                var meanings = word.meanings[i];
-                if (meanings.length > 0) {
-                    var $meaningWrapper = $('<ul></ul>');
-                    for (var j in meanings) {
-                        var $meaning = $('<li class="w-k-m"></li>');
-                        var $content = $('<div class="w-k-m-c"></div>');
-                        // append check box to know which meaning need to be included.
-                        $content.append($('<input type="checkbox" name="meaningIds" />').prop('value', meanings[j].id));
-                        $content.append($('<span></span>').html(meanings[j].content));
+                if (checkENWordKind(i, EN_ids)) {
+                    haveMeaning = true;
+                    // append kind.
+                    var $kind = $('<div class="w-k"></div>');
+                    // append anchor
+                    var $anchor = $('<a name="' + wordKind[i] + '" />');
+                    // append kind title.
+                    var $kindTitle = $('<div class="w-k-t"></div>').html(wordKind[i]);
+                    $kind.append($anchor);
+                    $kind.append($kindTitle);
+                    // append to navigation table.
+                    var kindAnchorId = '#' + wordKind[i];
+                    var $kindAnchor = $('<div><a href="' + kindAnchorId + '" /></div>');
+                    $kindAnchor.find('a').html(wordKind[i]);
+                    $('#w-nav').append($kindAnchor);
+                    // loop through content.
+                    var meanings = word.meanings[i];
+                    if (meanings.length > 0) {
+                        var $meaningWrapper = $('<ul></ul>');
+                        for (var j in meanings) {
+                            var $meaning = $('<li class="w-k-m"></li>');
+                            var $content = $('<div class="w-k-m-c"></div>');
+                            // append check box to know which meaning need to be included.
+                            $content.append($('<input type="checkbox" name="meaningIds" />').prop('value', meanings[j].id));
+                            $content.append($('<span></span>').html(meanings[j].content));
 
-                        $meaning.append($content);
-                        var examples = meanings[j].examples;
-                        if (examples.length > 0) {
-                            exampleIndex = 0;
-                            for (var z in examples) {
-                                var $example = $('<div class="w-k-m-ex"></div>');
-                                // append check box to know which meaning to be included.
-                                $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex));
-                                $example.append($('<span></span>').html(examples[z]));
-                                $meaning.append($example);
-                                exampleIndex++;
+                            $meaning.append($content);
+                            var examples = meanings[j].examples;
+                            if (examples.length > 0) {
+                                exampleIndex = 0;
+                                for (var z in examples) {
+                                    var $example = $('<div class="w-k-m-ex"></div>');
+                                    // append check box to know which meaning to be included.
+                                    $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex));
+                                    $example.append($('<span></span>').html(examples[z]));
+                                    $meaning.append($example);
+                                    exampleIndex++;
+                                }
                             }
+                            $meaningWrapper.append($meaning);
                         }
-                        $meaningWrapper.append($meaning);
+                        $kind.append($meaningWrapper);
                     }
-                    $kind.append($meaningWrapper);
+                    $wordKinds.append($kind);
                 }
-                $wordKinds.append($kind);
-            }
             }
 
             $word.append($wordKinds);
+            if (haveMeaning) {
+                return $word;
+            }
+            return null;
 
-            return $word;
         }
 
 
@@ -156,6 +173,7 @@
             this.reportDone = reportDone;
             this.registerId = registerId;
             this.getWordIds = getWordIds;
+            this.reportStatus = reportStatus;
 
             function registerId(word, id) {
                 wordList[word].id = id;
@@ -180,6 +198,11 @@
             function reportDone(word) {
                 wordList[word].find('td.word-status').html("DONE");
             }
+
+            function reportStatus(word, status) {
+                wordList[word].find('td.word-status').html(status);
+            }
+
 
             function addWordStatus(word){
                 var line = $('<tr><td class="word-description"></td><td class="word-status"></td></tr>');
@@ -229,7 +252,12 @@
 
                             var $container = $('<div class="word-container"><h3></h3></div>');
                             $container.find('h3').html(word);
-                            $container.append(processWord(data));
+                            var wordHtml = processWord(data);
+                            if (wordHtml != null) {
+                                $container.append(wordHtml);
+                            } else {
+                                tracker.reportStatus(word, "NO MEANING");
+                            }
                             tracker.registerId(word, data.word.id);
 
                             $('.word-select').append($container);
