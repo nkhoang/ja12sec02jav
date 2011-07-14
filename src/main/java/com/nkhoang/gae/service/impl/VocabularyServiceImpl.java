@@ -27,7 +27,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 	private static final Logger LOGGER                = LoggerFactory
 		.getLogger(VocabularyDaoImpl.class.getCanonicalName());
 	private static final String HTML_DIV              = "div";
-	private static final String VN_DICT_CONTENT_CLASS = "result";
+	private static final String VN_DICT_CONTENT_CLASS = "container";
 	private static final String HTML_ATTR_CLASS       = "class";
 
 	private static final String ENCODING_UTF_8          = "UTF-8";
@@ -610,9 +610,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 	private Source checkWordExistence(
 		String urlLink, String word, String targetIdentifier, DICTIONARY_TYPE targetType) {
 		try {
-			if (LOGGER.isDebugEnabled()) {
-				//LOGGER.debug("Check word existence: " + urlLink + word);
-			}
+      LOGGER.debug("Check word existence: " + urlLink + word);
 			URL url = new URL(urlLink + word);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");

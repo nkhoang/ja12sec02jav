@@ -123,16 +123,42 @@ public class VocabularyAction {
 
     ModelAndView mav = new ModelAndView();
     mav.setView(new JSONView());
+
+    List<String> attrs = new ArrayList<String>();
+    attrs.addAll(Arrays.asList(Message.SKIP_FIELDS));
+    mav.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
+
     mav.addObject("data", messages);
 
     return mav;
   }
 
 
-	@RequestMapping(value = "/" + "vocabularyBuilder", method = RequestMethod.GET)
-	public String renderIVocabularyBuilder() {
-		return "vocabulary/vocabularyBuilder";
-	}
+  @RequestMapping(value = "/" + "vocabularyBuilder", method = RequestMethod.GET)
+  public String renderIVocabularyBuilder() {
+    return "vocabulary/vocabularyBuilder";
+  }
+
+  @RequestMapping(value = "/" + "constructIVocabulary", method = RequestMethod.GET)
+  public String renderIVocabulary(
+      @RequestParam("dateTime") String dateTime,
+      @RequestParam("chapterTitle") String chapterTitle,
+      @RequestParam("ids") String ids,
+      @RequestParam("exampleIds") String[] exampleIds,
+      @RequestParam("meaningIds") String[] meaningIds) {
+
+    List<Long> idsList = new ArrayList<Long>();
+    String[] idStrs = ids.split(",");
+    for (String id : idStrs) {
+      idsList.add(Long.parseLong(id.trim()));
+    }
+
+    List<Word> wordList = vocabularyService.getAllWordsFromUser(idsList);
+    LOGGER.info(wordList.size() + "");
+
+    return "vocabulary/vocabularyBuilder";
+  }
+
   /**
    * Export vocabulary data from an excel file in google docs to new documents in google docs.
    * The sample request should look like this: *.appspot.com/vocabulary/iVocabulary2GD.html?index=0&size=200&pageSize=20
@@ -332,133 +358,134 @@ public class VocabularyAction {
 
   }
 
-	/**
-	 * Contruct XML complied with iVocabulary XVOC format.
-	 *
-	 * @param allWords      list of words.
-	 * @param size          number of words contained in a Page.
-	 * @param startingIndex offset of the list.
-	 * @param requestSize   number of words will be processed.
-	 * @return xml string.
-	 */
+  /**
+   * Contruct XML complied with iVocabulary XVOC format.
+   *
+   * @param allWords      list of words.
+   * @param size          number of words contained in a Page.
+   * @param startingIndex offset of the list.
+   * @param requestSize   number of words will be processed.
+   * @return xml string.
+   */
 
-	private String constructXMLBlockContent(List<Word> allWords, int size, int startingIndex, int requestSize) {
-	  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-	  formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+  private String constructXMLBlockContent(List<Word> allWords, int size, int startingIndex, int requestSize) {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+    formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
 
-	  Date currentDate = GregorianCalendar.getInstance().getTime();
-	  try {
-	    currentDate = formatter.parse("20/11/2010");
-	    int incrementDay = 0;
-	    if (startingIndex != 0) {
-	      incrementDay = (startingIndex + requestSize) / size;
-	    } else if (startingIndex == 0) {
-	      incrementDay = requestSize / size;
-	    }
+    Date currentDate = GregorianCalendar.getInstance().getTime();
+    try {
+      currentDate = formatter.parse("20/11/2010");
+      int incrementDay = 0;
+      if (startingIndex != 0) {
+        incrementDay = (startingIndex + requestSize) / size;
+      } else if (startingIndex == 0) {
+        incrementDay = requestSize / size;
+      }
 
-	    currentDate = DateUtils.addDays(currentDate, incrementDay + 1);
-	  } catch (Exception e) {
-	    LOGGER.info("Use current date.");
+      currentDate = DateUtils.addDays(currentDate, incrementDay + 1);
+    } catch (Exception e) {
+      LOGGER.info("Use current date.");
 
-	  }
+    }
 
-	  formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-	  formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+    formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+    formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
 
 
-	  StringBuilder xmlBuilder = new StringBuilder();
+    StringBuilder xmlBuilder = new StringBuilder();
 
-	  xmlBuilder.append("<Chapter title='" + startingIndex + " - " + (requestSize + startingIndex) + "' >");
-	  int counter = 1;
-	  int dayCounter = -1;
-	  for (Word w : allWords) {
-	    if (counter == 1 || counter > size) {
-	      counter = 1; // reset counter.
-	      String dateStr = formatter.format(DateUtils.addDays(currentDate, dayCounter - 1));
-	      dayCounter++;
+    xmlBuilder.append("<Chapter title='" + startingIndex + " - " + (requestSize + startingIndex) + "' >");
+    int counter = 1;
+    int dayCounter = -1;
+    for (Word w : allWords) {
+      if (counter == 1 || counter > size) {
+        counter = 1; // reset counter.
+        String dateStr = formatter.format(DateUtils.addDays(currentDate, dayCounter - 1));
+        dayCounter++;
 
-	      xmlBuilder.append("<Page title='" + dateStr + "' >");
-	    }
+        xmlBuilder.append("<Page title='" + dateStr + "' >");
+      }
 
-	    StringBuilder comment = new StringBuilder();
-	    StringBuilder targetWords = new StringBuilder();
+      StringBuilder comment = new StringBuilder();
+      StringBuilder targetWords = new StringBuilder();
 
-	    String pron = w.getPron() == null ? "" : w.getPron(); // append to comment. remove null
+      String pron = w.getPron() == null ? "" : w.getPron(); // append to comment. remove null
 
-	    List<Meaning> lmn = w.getMeaning(w.getKindidmap().get("noun")); // meaning for noun.
-	    if (lmn != null && lmn.size() > 0) {
-	      Meaning m = lmn.get(0);
+      List<Meaning> lmn = w.getMeaning(w.getKindidmap().get("noun")); // meaning for noun.
+      if (lmn != null && lmn.size() > 0) {
+        Meaning m = lmn.get(0);
 
-	      String content = m.getContent();
+        String content = m.getContent();
 
-	      targetWords.append("(n) " + content + "\n");
-	      if (m.getExamples() != null && m.getExamples().size() > 0) {
-	        comment.append(" (n) " + m.getExamples().get(0));
-	      }
-	    }
+        targetWords.append("(n) " + content + "\n");
+        if (m.getExamples() != null && m.getExamples().size() > 0) {
+          comment.append(" (n) " + m.getExamples().get(0));
+        }
+      }
 
-	    List<Meaning> lmv = w.getMeaning(w.getKindidmap().get("verb")); // meaning for verb.
-	    if (lmv != null && lmv.size() > 0) {
-	      Meaning m = lmv.get(0);
+      List<Meaning> lmv = w.getMeaning(w.getKindidmap().get("verb")); // meaning for verb.
+      if (lmv != null && lmv.size() > 0) {
+        Meaning m = lmv.get(0);
 
-	      String content = m.getContent();
+        String content = m.getContent();
 
-	      targetWords.append("(v) " + content + "\n");
-	      if (m.getExamples() != null && m.getExamples().size() > 0) {
-	        comment.append(" (v) " + m.getExamples().get(0));
-	      }
+        targetWords.append("(v) " + content + "\n");
+        if (m.getExamples() != null && m.getExamples().size() > 0) {
+          comment.append(" (v) " + m.getExamples().get(0));
+        }
 
-	    }
+      }
 
-	    List<Meaning> lmadj = w.getMeaning(w.getKindidmap().get("adjective")); // meaning for adjective
-	    if (lmadj != null && lmadj.size() > 0) {
-	      Meaning m = lmadj.get(0);
+      List<Meaning> lmadj = w.getMeaning(w.getKindidmap().get("adjective")); // meaning for adjective
+      if (lmadj != null && lmadj.size() > 0) {
+        Meaning m = lmadj.get(0);
 
-	      String content = m.getContent();
+        String content = m.getContent();
 
-	      targetWords.append("(adj) " + content + "\n");
-	      if (m.getExamples() != null && m.getExamples().size() > 0) {
-	        comment.append(" (adj) " + m.getExamples().get(0));
-	      }
+        targetWords.append("(adj) " + content + "\n");
+        if (m.getExamples() != null && m.getExamples().size() > 0) {
+          comment.append(" (adj) " + m.getExamples().get(0));
+        }
 
-	    }
+      }
 
-	    List<Meaning> lmadv = w.getMeaning(w.getKindidmap().get("adverb")); // meaning for adv.
-	    if (lmadv != null && lmadv.size() > 0) {
-	      Meaning m = lmadv.get(0);
+      List<Meaning> lmadv = w.getMeaning(w.getKindidmap().get("adverb")); // meaning for adv.
+      if (lmadv != null && lmadv.size() > 0) {
+        Meaning m = lmadv.get(0);
 
-	      String content = m.getContent();
+        String content = m.getContent();
 
-	      targetWords.append("(adv) " + content + "\n");
-	      if (m.getExamples() != null && m.getExamples().size() > 0) {
-	        comment.append(" (adv) " + m.getExamples().get(0));
-	      }
-	    }
+        targetWords.append("(adv) " + content + "\n");
+        if (m.getExamples() != null && m.getExamples().size() > 0) {
+          comment.append(" (adv) " + m.getExamples().get(0));
+        }
+      }
 
-	    if (StringUtils.isNotEmpty(comment.toString())) {
-	      xmlBuilder.append(
-	          "<Word sourceWord=\"" + w.getDescription() + " " + pron + "\" targetWord=\"" +
-	              targetWords.toString() + "\">");
-	      xmlBuilder.append("<Comment>" + comment.toString() + "</Comment>");
-	      xmlBuilder.append("</Word>");
-	    }
+      if (StringUtils.isNotEmpty(comment.toString())) {
+        xmlBuilder.append(
+            "<Word sourceWord=\"" + w.getDescription() + " " + pron + "\" targetWord=\"" +
+                targetWords.toString() + "\">");
+        xmlBuilder.append("<Comment>" + comment.toString() + "</Comment>");
+        xmlBuilder.append("</Word>");
+      }
 
-	    if (counter + (size * dayCounter) == allWords.size()) {
-	      xmlBuilder.append("</Page>"); // append ending tag.
-	    } else {
+      if (counter + (size * dayCounter) == allWords.size()) {
+        xmlBuilder.append("</Page>"); // append ending tag.
+      } else {
 
-	      counter++;
-	      if (counter > size) {
-	        xmlBuilder.append("</Page>"); // append ending tag.
-	      }
-	    }
+        counter++;
+        if (counter > size) {
+          xmlBuilder.append("</Page>"); // append ending tag.
+        }
+      }
 
-	  }
+    }
 
-	  xmlBuilder.append("</Chapter>");
+    xmlBuilder.append("</Chapter>");
 
-	  return xmlBuilder.toString();
-	}
+    return xmlBuilder.toString();
+  }
+
 
   /**
    * Build iVocabulary file right from an URL.
@@ -600,6 +627,7 @@ public class VocabularyAction {
 
     return modelAndView;
   }
+
 
   /**
    * Save and lookup word with meanings and examples

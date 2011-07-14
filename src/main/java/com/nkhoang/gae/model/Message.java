@@ -16,6 +16,9 @@ public class Message {
 	@Basic
 	private int    categoryId;
 
+  public static final String SKIP_FIELDS[] = {"jdoDetachedState"};
+
+
 	public Message(int categoryId, String message) {
 		this.message = message;
 		this.categoryId = categoryId;

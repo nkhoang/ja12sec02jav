@@ -26,6 +26,8 @@
         <intercept-url pattern="/vocabulary/updateViaGD.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/vocabulary/lookup.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/vocabulary/iVocabulary.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/vocabulary/constructIVocabulary.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+
         <intercept-url pattern="/vocabulary/iVocabulary2GD.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
         <!-- Serve VN Gold price -->

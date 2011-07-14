@@ -56,6 +56,26 @@
 
     <script type="text/javascript" >
         var wordKind = [];
+        var EN_ids = [6,7,8,9];
+
+        function submitForm() {
+            console.debug($('#submit-form').serialize());
+
+             $.ajax(
+                    {
+                        url: "<c:url value='/vocabulary/constructIVocabulary.html?' />" + $('#submit-form').serialize(),
+                        dataType: "xml",
+                        type: "GET",
+                        data: {
+                            'dateTime' : 'word',
+                            'ids': tracker.getWordIds().join(','),
+                            'chapterTitle': 'Chapter title'
+                        },
+                        success: function(data) {
+                        }
+                    });
+        }
+
         function processWord(data) {
             var word = data.word;
             var $word = $('<div class="w"></div>');
@@ -74,6 +94,8 @@
             var $wordKinds = $('<div class="w-ks"></div>');
             // append meaning
             for (var i in word.meanings) {
+                console.debug(i);
+                if (wordKind[i] != undefined) {
                 // append kind.
                 var $kind = $('<div class="w-k"></div>');
                 // append anchor
@@ -94,15 +116,21 @@
                     for (var j in meanings) {
                         var $meaning = $('<li class="w-k-m"></li>');
                         var $content = $('<div class="w-k-m-c"></div>');
-                        $content.append($('<input type="checkbox" name="meaning" />').prop('value', meanings[j].id));
-                        $content.append(meanings[j].content);
+                        // append check box to know which meaning need to be included.
+                        $content.append($('<input type="checkbox" name="meaningIds" />').prop('value', meanings[j].id));
+                        $content.append($('<span></span>').html(meanings[j].content));
 
                         $meaning.append($content);
                         var examples = meanings[j].examples;
                         if (examples.length > 0) {
+                            exampleIndex = 0;
                             for (var z in examples) {
-                                var $example = $('<div class="w-k-m-ex"></div>').html(examples[z]);
+                                var $example = $('<div class="w-k-m-ex"></div>');
+                                // append check box to know which meaning to be included.
+                                $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex));
+                                $example.append($('<span></span>').html(examples[z]));
                                 $meaning.append($example);
+                                exampleIndex++;
                             }
                         }
                         $meaningWrapper.append($meaning);
@@ -110,6 +138,7 @@
                     $kind.append($meaningWrapper);
                 }
                 $wordKinds.append($kind);
+            }
             }
 
             $word.append($wordKinds);
@@ -125,38 +154,68 @@
             this.registerWord = registerWord;
             this.addWordStatus = addWordStatus;
             this.reportDone = reportDone;
+            this.registerId = registerId;
+            this.getWordIds = getWordIds;
+
+            function registerId(word, id) {
+                wordList[word].id = id;
+            }
+
+            function getWordIds() {
+                var ids = new Array();
+                for (var w in wordList) {
+                    ids.push(wordList[w].id);
+                }
+                return ids;
+            }
 
             function registerWord(word) {
-                var index = wordList.length;
-                addWordStatus(word, index)
-                lookupWord(word, index);
+                if (wordList[word] == undefined) {
+                    var index = wordList.length;
+                    addWordStatus(word)
+                    lookupWord(word);
+                }
             }
 
-            function reportDone(index) {
-                wordList[index].find('td.word-status').html("DONE");
+            function reportDone(word) {
+                wordList[word].find('td.word-status').html("DONE");
             }
 
-            function addWordStatus(word, index){
+            function addWordStatus(word){
                 var line = $('<tr><td class="word-description"></td><td class="word-status"></td></tr>');
                 line.find('td.word-description').html(word);
                 line.find('td.word-status').html("LOADING");
 
                 table.append(line);
                 // keep track of the line so we can update the status later.
-                wordList[index] = line;
+                wordList[word] = line;
             }
         }
 
         $(function(){
+            $.ajax({
+                url: '<c:url value="/vocabulary/wordKind.html" />',
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+                    wordKind = data.wordKind;
+                },
+                error: function() {
+                    alert("Failed to retrieve content from server. Cannot display data correctly. Please try again.");
+                }
+            });
+
+
             tracker = new WordTracker();
 
             $('#input-lookup').keypress(function(e){
                 if(e.which == 13){
                     tracker.registerWord($(this).val());
+                    $(this).val('');
                 }
             });
         });
-        function lookupWord(word, index) {
+        function lookupWord(word) {
             $.ajax(
                     {
                         url: "<c:url value='/vocabulary/lookup.html' />",
@@ -166,8 +225,14 @@
                             'word' : word
                         },
                         success: function(data) {
-                            tracker.reportDone(index);
-                            $('.word-select').append(processWord(data));
+                            tracker.reportDone(word);
+
+                            var $container = $('<div class="word-container"><h3></h3></div>');
+                            $container.find('h3').html(word);
+                            $container.append(processWord(data));
+                            tracker.registerId(word, data.word.id);
+
+                            $('.word-select').append($container);
                         }
                     });
         }
@@ -198,8 +263,10 @@
             </tbody >
         </table >
     </div >
-
-    <div class="word-select"></div>
+    <form id="submit-form">
+        <div class="word-select"></div>
+        <input type="button" value="Submit" onclick="submitForm()" />
+    </form>
 </div >
 </body >
 </html >
