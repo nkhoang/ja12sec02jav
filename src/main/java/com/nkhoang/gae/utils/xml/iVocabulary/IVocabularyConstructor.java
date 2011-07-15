@@ -146,8 +146,10 @@ public class IVocabularyConstructor {
 						String content = m.getContent();
 
 						targetWords.append("(n) " + content + "\n");
-						if (m.getExamples() != null && m.getExamples().size() > 0) {
-							comment.append(" (n) " + m.getExamples().get(0));
+						if (m.getExamples() != null && m.getExamples().size() > 0 && exampleIds.get(m.getId() + "") != null) {
+              for (Integer i : exampleIds.get(m.getId() + "")) {
+							  comment.append(" (n) " + m.getExamples().get(i) + "\n");
+              }
 						}
 					}
 				}
@@ -159,8 +161,10 @@ public class IVocabularyConstructor {
 						String content = m.getContent();
 
 						targetWords.append("(v) " + content + "\n");
-						if (m.getExamples() != null && m.getExamples().size() > 0) {
-							comment.append(" (v) " + m.getExamples().get(0));
+						if (m.getExamples() != null && m.getExamples().size() > 0 && exampleIds.get(m.getId() + "") != null) {
+              for (Integer i : exampleIds.get(m.getId() + "")) {
+							  comment.append(" (v) " + m.getExamples().get(i) + "\n");
+              }
 						}
 					}
 				}
@@ -174,8 +178,10 @@ public class IVocabularyConstructor {
 						String content = m.getContent();
 
 						targetWords.append("(adj) " + content + "\n");
-						if (m.getExamples() != null && m.getExamples().size() > 0) {
-							comment.append(" (adj) " + m.getExamples().get(0));
+						if (m.getExamples() != null && m.getExamples().size() > 0 && exampleIds.get(m.getId() + "") != null) {
+              for (Integer i : exampleIds.get(m.getId() + "")) {
+							  comment.append(" (adj) " + m.getExamples().get(i) + "\n");
+              }
 						}
 					}
 				}
@@ -189,8 +195,10 @@ public class IVocabularyConstructor {
 						String content = m.getContent();
 
 						targetWords.append("(adv) " + content + "\n");
-						if (m.getExamples() != null && m.getExamples().size() > 0) {
-							comment.append(" (adv) " + m.getExamples().get(0));
+						if (m.getExamples() != null && m.getExamples().size() > 0 && exampleIds.get(m.getId() + "") != null) {
+              for (Integer i : exampleIds.get(m.getId() + "")) {
+							  comment.append(" (adv) " + m.getExamples().get(i) + "\n");
+              }
 						}
 					}
 				}

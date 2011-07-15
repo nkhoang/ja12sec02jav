@@ -74,12 +74,14 @@
              $.ajax(
                     {
                         url: "<c:url value='/vocabulary/constructIVocabulary.html?' />" + $('#submit-form').serialize(),
-                        dataType: "xml",
+                        dataType: "html",
                         type: "GET",
                         data: {
                            'ids': tracker.getWordIds().join(',')
                         },
                         success: function(data) {
+                            console.debug(data);
+                            $('#output').val('').val(data);
                         }
                     });
         }
@@ -309,6 +311,10 @@
         <div class="word-select"></div>
         <input type="button" value="Submit" onclick="submitForm()" />
     </form>
+
+    <textarea rows="100" cols="200" id="output">
+
+    </textarea>
 </div >
 </body >
 </html >

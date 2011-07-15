@@ -136,10 +136,10 @@ public class VocabularyAction {
 	}
 
 	@RequestMapping(value = "/" + "constructIVocabulary", method = RequestMethod.GET)
-	public ModelAndView renderIVocabulary(
+	public void renderIVocabulary(
 		@RequestParam("dateTime") String dateTime, @RequestParam("chapterTitle") String chapterTitle,
 		@RequestParam("ids") String ids, @RequestParam("exampleIds") String[] exampleIds,
-		@RequestParam("meaningIds") String[] meaningIds) {
+		@RequestParam("meaningIds") String[] meaningIds, HttpServletResponse response) {
 
 		List<Long> idsList = new ArrayList<Long>();
 		String[] idStrs = ids.split(",");
@@ -168,13 +168,11 @@ public class VocabularyAction {
 
 		IVocabularyConstructor constructor = new IVocabularyConstructor();
 		String xml = constructor.constructIVocabularyFile(wordList, 0, wordList.size(), wordList.size(), dateTime, chapterTitle, meaningList, exampleMap);
+    try {
+      response.getWriter().write(xml);
+    } catch (Exception ex) {
 
-		ModelAndView mav = new ModelAndView();
-		mav.setView(new XMLView());
-		mav.addObject("data", xml);
-
-		return mav;
-
+    }
 	}
 
 	/**

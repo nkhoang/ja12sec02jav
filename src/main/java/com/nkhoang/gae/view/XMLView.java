@@ -24,6 +24,7 @@ public class XMLView implements View {
 
         Writer out = response.getWriter();
         out.write(xmlString);
+        System.out.println(xmlString);
         out.close();
     }
 
