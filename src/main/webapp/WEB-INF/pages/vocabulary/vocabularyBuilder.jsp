@@ -276,15 +276,6 @@
 <h1 >Welcome to iVocabulary builder.</h1 >
 
 <div class="form-container" >
-    <table >
-        <tr >
-            <td >Lookup:</td >
-            <td ><input type="input" name="col" id="input-lookup" /></td >
-        </tr >
-        <tr >
-            <td ><input type="button" value="Add" id="submit-word" onclick="" /></td >
-        </tr >
-    </table >
 
     <div class="lookup-list" >
         <table class="table-lookup-status" >
@@ -311,6 +302,15 @@
         <div class="word-select"></div>
         <input type="button" value="Submit" onclick="submitForm()" />
     </form>
+    <table >
+        <tr >
+            <td >Lookup:</td >
+            <td ><input type="input" name="col" id="input-lookup" /></td >
+        </tr >
+        <tr >
+            <td ><input type="button" value="Add" id="submit-word" onclick="" /></td >
+        </tr >
+    </table >
 
     <textarea rows="100" cols="200" id="output">
 

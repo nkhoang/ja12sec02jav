@@ -204,13 +204,14 @@ public class IVocabularyConstructor {
 				}
 			}
 
-			if (StringUtils.isNotEmpty(comment.toString())) {
 				xmlBuilder.append(
-					"<Word sourceWord=\"" + w.getDescription() + " " + pron + "\" targetWord=\"" +
+					"<Word sourceWord=\"" + w.getDescription() + "\" targetWord=\"" +
 					targetWords.toString() + "\">");
-				xmlBuilder.append("<Comment>" + comment.toString() + "</Comment>");
+      if (StringUtils.isNotEmpty(comment.toString())) {
+				xmlBuilder.append("<Comment>" + pron + "\n" + comment.toString() + "</Comment>");
+      }
 				xmlBuilder.append("</Word>");
-			}
+
 
 			if (counter + (size * dayCounter) == allWords.size()) {
 				xmlBuilder.append("</Page>"); // append ending tag.
