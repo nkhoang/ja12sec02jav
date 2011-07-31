@@ -92,6 +92,13 @@
             </plugin>
 
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+
+
+            <plugin>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>maven-datanucleus-plugin</artifactId>
                 <version>1.1.4</version>
@@ -120,7 +127,6 @@
                 </dependencies>
             </plugin>
             <!-- Copy dependencies -->
-            <!-- Don't use
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -134,10 +140,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                    <outputDirectory>cobertura/lib/dependencies</outputDirectory>
                 </configuration>
             </plugin>
-            -->
+
             <!-- Generate Eclipse project files -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
