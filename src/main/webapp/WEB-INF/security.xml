@@ -14,6 +14,7 @@
         <intercept-url pattern="/user/login.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Just a reference for access role reference -->
         <intercept-url pattern="/user/admin" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/currency/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Item can be listed by any one -->
         <intercept-url pattern="/item/viewAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
