@@ -12,14 +12,29 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" ></script >
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js" ></script >
     <script type="text/javascript" src="<c:url value='/js/chart/FusionCharts-3.2.1.js'/>" ></script >
+    <link media="all" rel="stylesheet" href="<c:url value='/styles/jquery-ui.css' />" />
     <script type="text/javascript" >
         $(function() {
-            $( "vcb-startDate" ).datepicker({ dateFormat: 'dd/mm/yy' });
-            $( "vcb-endDate" ).datepicker({ dateFormat: 'dd//mm/yy' });
-                    renderChart(
-                            '2010-11-08 01:01', '2010-11-08 23:01');
-                });
+            $("#vcb-startDate").datepicker({ dateFormat: 'dd/mm/yy' });
+            $("#vcb-endDate").datepicker({ dateFormat: 'dd/mm/yy' });
+        });
 
+
+        function updateExchangeRate() {
+            $.ajax({
+                url: '<c:url value="/currency/updateExchangeRate.html" />',
+                data: {
+                    startDate : $('#vcb-startDate').val(),
+                    endDate : $('#vcb-endDate').val(),
+                    viewState : $("#vcb-viewState").val()
+                },
+                dataType : 'json',
+                type: 'POST',
+                success: function(data) {
+                    console.debug(data);
+                }
+            });
+        }
 
         function renderChart(
                 fromDateStr, toDateStr) {
@@ -68,11 +83,15 @@
 
 <label >Pick the start date</label >
 <input id="vcb-startDate" />
+<br>
 <label >Pick the end date</label >
 <input id="vcb-endDate" />
-
+<br>
+<label>View State</label>
+<input id="vcb-viewState" />
+<br>
 <div id="chartdiv" ></div >
-
+<button name="update-submit" onclick="updateExchangeRate();">Update</button>
 <div >
     From <input id="fromDateInput" size="20" /> to <input id="toDateInput" size="20" />
     <button id="submitBtn" onclick="renderChartFromForm()" value="Update" name="updateBtn" title="Update" >Update

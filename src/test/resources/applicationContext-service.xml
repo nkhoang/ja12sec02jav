@@ -14,6 +14,9 @@
         <property name="spreadsheetService" ref="spreadsheetService"></property>
         <property name="messageDao" ref="messageDao"></property>
     </bean>
+    <!-- Currency service -->
+    <bean id="currencyService" class="com.nkhoang.gae.service.impl.CurrencyServiceImpl" scope="prototype">
+    </bean>
     <!-- Facebook service -->
     <bean id="facebookService" class="com.nkhoang.gae.service.impl.FacebookServiceImpl" scope="prototype">
         <property name="apiKey" value="${facebook.api.key}"/>

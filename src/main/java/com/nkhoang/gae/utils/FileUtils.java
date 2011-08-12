@@ -8,13 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: hoangknguyen
- * Date: 6/17/11
- * Time: 10:56 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class FileUtils {
 	private static final Logger LOG = LoggerFactory.getLogger(FileUtils.class);
 
@@ -34,5 +28,15 @@ public class FileUtils {
 		}
 
 		return wordList;
+	}
+
+	public static void writeToCSV(List<String> data, String filePath) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
+
+		for (String row : data) {
+			writer.write(row);
+			writer.write("\n");
+		}
+		writer.close();
 	}
 }
