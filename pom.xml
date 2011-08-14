@@ -785,6 +785,14 @@
             <artifactId>commons-compress</artifactId>
             <version>20050911</version>
         </dependency>
+        <!--
+            JMockit
+        -->
+        <dependency>
+            <groupId>com.googlecode.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>0.999.8</version>
+        </dependency>
     </dependencies>
 
     <profiles>
