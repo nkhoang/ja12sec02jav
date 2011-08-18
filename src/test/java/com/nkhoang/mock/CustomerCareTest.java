@@ -1,6 +1,5 @@
 package com.nkhoang.mock;
 
-import com.nkhoang.model.Address;
 import mockit.Expectations;
 import mockit.NonStrict;
 import mockit.internal.expectations.Expectation;
