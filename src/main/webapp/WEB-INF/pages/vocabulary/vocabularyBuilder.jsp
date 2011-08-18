@@ -273,6 +273,45 @@
     </script >
 </head >
 <body >
+
+<c:set var="set3">
+    <s:proper
+</c:set>
+
+<c:out value="${set}" />
+<br>
+<c:out value="${set2}" />
+<br>
+<c:out value="${display:getSizeSet(set2)}" />||<c:out value="${fn:length(set2)}" />
+<br>
+<c:out value="${display:getSizeSet(set)}" />||<c:out value="${fn:length(set)}" />
+    <br>
+
+<select size="1">
+    <c:forEach var="listItem" items="${set}" varStatus="listStatus">
+        <c:if test="${fn:length(set2) gt 0}" >
+        <c:forEach var="listItem2" items="${set2}" varStatus="listStatus2">
+            <c:if test="${listItem eq listItem2}" >
+                <option value="${listItem}" selected="selected">
+                    ${listItem}
+                </option>
+            </c:if>
+            <c:if test="${listStatus2.last and listItem ne listItem2}">
+                <option value="${listItem}">
+                    ${listItem}
+                </option>
+            </c:if>
+        </c:forEach>
+    </c:if>
+        <c:if test="${fn:length(set2) eq 0}">
+            <option value="${listItem}">
+                    ${listItem}
+                </option>
+        </c:if>
+
+    </c:forEach>
+</select>
+
 <h1 >Welcome to iVocabulary builder.</h1 >
 
 <div class="form-container" >
@@ -315,6 +354,7 @@
     <textarea rows="100" cols="200" id="output">
 
     </textarea>
+
 </div >
 </body >
 </html >

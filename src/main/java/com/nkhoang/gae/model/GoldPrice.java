@@ -54,7 +54,7 @@ public class GoldPrice {
         GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Asia/Bangkok"));
         calendar.setTimeInMillis(time);
 
-        return "Gold ==> Time: " + DateConverter.parseDate(calendar.getTime(), DateConverter.defaultGoldDateFormat) + " buy: " + priceBuy + " sell: " + priceSell;
+        return "Gold ==> Time: " + DateConverter.parseDate(calendar.getTime(), DateConverter.DEFAULT_GOLD_DATE_FORMAT) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public void setPriceBuy(Float priceBuy) {

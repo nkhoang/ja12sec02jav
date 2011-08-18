@@ -46,8 +46,8 @@ public class GoldDataRetrieverTest {
         String fromDateString = "2010-11-06 01:00";
         String toDateString = "2010-11-06 23:00";
 
-        Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.defaultGoldDateFormat);
-        Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.defaultGoldDateFormat);
+        Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.DEFAULT_GOLD_DATE_FORMAT);
+        Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.DEFAULT_GOLD_DATE_FORMAT);
 
         LOGGER.info(fromDate.getTime() + "");
         LOGGER.info(toDate.getTime() + "");
@@ -58,8 +58,8 @@ public class GoldDataRetrieverTest {
 
         fromDate.setTime(fromDateL);
         toDate.setTime(toDateL);
-        LOGGER.info(DateConverter.parseDate(fromDate, DateConverter.defaultGoldDateFormat));
-        LOGGER.info(DateConverter.parseDate(toDate, DateConverter.defaultGoldDateFormat));
+        LOGGER.info(DateConverter.parseDate(fromDate, DateConverter.DEFAULT_GOLD_DATE_FORMAT));
+        LOGGER.info(DateConverter.parseDate(toDate, DateConverter.DEFAULT_GOLD_DATE_FORMAT));
     }
 
     public void testGetInternationalGoldPrice() {
@@ -122,7 +122,7 @@ public class GoldDataRetrieverTest {
 
         // set to currency
         try {
-            currencyDate = DateConverter.convertFromStringToken(currencyTime, DateConverter.defaultCurrencyDateFormat);
+            currencyDate = DateConverter.convertFromStringToken(currencyTime, DateConverter.DEFAULT_CURRENCY_DATE_FORMAT);
         } catch (ParseException parseEx) {
             LOGGER.error("Could not parse time for Currency.", parseEx);
             currency = null;
@@ -197,7 +197,7 @@ public class GoldDataRetrieverTest {
             price = new GoldPrice();
             Date priceDate = null;
             try {
-                priceDate = DateConverter.convertFromStringToken(info[0], DateConverter.defaultGoldDateFormat);
+                priceDate = DateConverter.convertFromStringToken(info[0], DateConverter.DEFAULT_GOLD_DATE_FORMAT);
             } catch (ParseException parseEx) {
                 LOGGER.error("Could not parse date.", parseEx);
                 price = null;
@@ -264,7 +264,7 @@ public class GoldDataRetrieverTest {
         LOGGER.info("Default timezone" + ": " + calendar.getTimeZone().getDisplayName());
         Long time = calendar.getTimeInMillis();
         LOGGER.info("time: " + time);
-        LOGGER.info(DateConverter.parseDate(calendar.getTime(), DateConverter.defaultCurrencyDateFormat));
+        LOGGER.info(DateConverter.parseDate(calendar.getTime(), DateConverter.DEFAULT_CURRENCY_DATE_FORMAT));
 
 
     }

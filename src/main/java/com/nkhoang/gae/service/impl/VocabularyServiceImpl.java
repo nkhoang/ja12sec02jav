@@ -9,8 +9,11 @@ import com.nkhoang.gae.model.Message;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.SpreadsheetService;
 import com.nkhoang.gae.service.VocabularyService;
+import com.nkhoang.gae.utils.DateConverter;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +22,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
 
 public class VocabularyServiceImpl implements VocabularyService {
-	private static final Logger LOGGER                = LoggerFactory
+	private static final Logger LOG                   = LoggerFactory
 		.getLogger(VocabularyDaoImpl.class.getCanonicalName());
 	private static final String HTML_DIV              = "div";
 	private static final String VN_DICT_CONTENT_CLASS = "container";
@@ -58,130 +60,136 @@ public class VocabularyServiceImpl implements VocabularyService {
 	public static final int MAXIMUM_POOL_SIZE = 100;
 	public static final int KEEP_ALIVE_TIME   = 10;
 
-	private MeaningDao    meaningDao;
-	private VocabularyDao vocabularyDao;
-	private MessageDao    messageDao;
-
+	private MeaningDao    _meaningDao;
+	private VocabularyDao _vocabularyDao;
+	private MessageDao    _messageDao;
 
 	private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
 
 	private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
-	/** Check word existence may need to use HTML class / id. */
 	private enum DICTIONARY_TYPE {
 		CLASS,
 		ID
 	}
 
-	/** Get a range of words from database. */
-	public List<Word> getAllWordsInRange(int startingIndex, int size) {
-		List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
+	public List<Word> getAllWordsByRange(int startingIndex, int size) {
+		List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size);
 		List<Word> result = new ArrayList<Word>();
-		int lastIndex = startingIndex + size;
-		if (lastIndex > words.size()) {
-			lastIndex = words.size() - 1;
-		}
-		for (int i = startingIndex; i < lastIndex; i++) {
-			Word w = words.get(i);
-			populateWord(w);
+		if (CollectionUtils.isNotEmpty(words)) {
+			int lastIndex = startingIndex + size;
+			if (lastIndex > words.size()) {
+				lastIndex = words.size() - 1;
+			}
+			for (int i = startingIndex; i < lastIndex; i++) {
+				Word w = words.get(i);
+				populateWord(w);
 
-			result.add(w);
+				result.add(w);
+			}
+		} else {
+			LOG.debug(
+				String.format("There is no word in range specified [%d]-[%d]", startingIndex, startingIndex + size));
 		}
 		return result;
 	}
 
-	/**
-	 * Just get a range of words only. Not populating meanings and examples.
-	 * It will speed up the process of getting a word list.
-	 */
-	public List<Word> getAllWordsInRangeWithoutMeanings(int startingIndex, int size) {
-		List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
+	public List<Word> getAllWordsByRangeWithoutMeanings(int startingIndex, int size) {
+		List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size);
 		List<Word> result = new ArrayList<Word>();
-		int lastIndex = startingIndex + size;
-		if (lastIndex > words.size()) {
-			lastIndex = words.size() - 1;
-		}
-		for (int i = startingIndex; i < lastIndex; i++) {
-			Word w = words.get(i);
-			w.setCurrentTime(formatDate(w.getTimeStamp()));
-			result.add(w);
+		if (CollectionUtils.isNotEmpty(words)) {
+			int lastIndex = startingIndex + size;
+			if (lastIndex > words.size()) {
+				lastIndex = words.size() - 1;
+			}
+			for (int i = startingIndex; i < lastIndex; i++) {
+				Word w = words.get(i);
+				w.setCurrentTime(DateConverter.formatDefaultDisplayDate(w.getTimeStamp()));
+				result.add(w);
+			}
+		} else {
+			LOG.debug(
+				String.format("There is no word in range specified [%d]-[%d]", startingIndex, startingIndex + size));
 		}
 		return result;
-
 	}
 
-	private String formatDate(Long timeStamp) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		formatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getTimeZone("GMT-8").getID()));
-		String result = formatter.format(new Date(timeStamp));
-		return result;
-	}
 
 	public Word populateWord(Long id) {
-		Word w = vocabularyDao.get(id);
+		Word w = _vocabularyDao.get(id);
 		populateWord(w);
 		return w;
 	}
 
 
-	/**
-	 * Simply get all words from database without populating it with meanings and examples.
-	 * Used to list all available words.
-	 */
-	public List<Word> getAllWords() {
-		return vocabularyDao.getAll();
-	}
-
-
 	public int getWordSize() {
-		List<Word> words = vocabularyDao.getAll();
+		List<Word> words = _vocabularyDao.getAll();
 		if (words == null) {
 			return 0;
 		}
 		return words.size();
 	}
 
-	public List<Word> getAllWordsFromUser(List<Long> wordIds) {
+	public List<Word> getAllWordsById(List<Long> wordIds) {
 		List<Word> words = new ArrayList<Word>();
-		for (Long id : wordIds) {
-			Word word = get(id);
-			if (word != null) {
-				words.add(word);
+		if (CollectionUtils.isNotEmpty(wordIds)) {
+			for (Long id : wordIds) {
+				Word word = findWordById(id);
+				if (word != null) {
+					words.add(word);
+				}
 			}
 		}
 		return words;
 	}
 
-	/** Populate word with meanings. */
+	/**
+	 * Populate word <code>w</code> with saved meanings (if any).
+	 *
+	 * @param w word to be populated with meanings.
+	 *
+	 * @return populated word.
+	 */
 	private Word populateWord(Word w) {
-		// populate word by Meaning
-		List<Long> meaningIds = w.getMeaningIds();
-		for (Long meaningId : meaningIds) {
-			Meaning meaning = meaningDao.get(meaningId);
-			w.addMeaning(meaning.getKindId(), meaning);
+		if (w != null) {
+			List<Long> meaningIds = w.getMeaningIds();
+			for (Long meaningId : meaningIds) {
+				Meaning meaning = _meaningDao.get(meaningId);
+				w.addMeaning(meaning.getKindId(), meaning);
+			}
 		}
 		return w;
 	}
 
-	private Word get(Long id) {
-		Word word = vocabularyDao.get(id);
+	/**
+	 * Use {@link VocabularyDao} to find word by <code>id</code>.
+	 *
+	 * @param id the word id.
+	 *
+	 * @return found word.
+	 */
+	private Word findWordById(Long id) {
+		Word word = _vocabularyDao.get(id);
 
 		return populateWord(word);
 	}
 
-	public List<Word> lookupWords(List<String> words, String spreadsheetName, String worksheetName, int row, int col, int size) {
+
+	public List<Word> lookupWords(
+		List<String> words, String spreadsheetName, String worksheetName, int row, int col, int size) {
 		List<Word> lookupedWord = new ArrayList<Word>();
 
 		List<String> wordList = new ArrayList<String>();
-    if (words.size() > 0) {
-         wordList = words;
-    } else {
-      try {
-        wordList = _spreadsheetService.querySpreadsheet(spreadsheetName, worksheetName, row, col, size);
-      } catch (Exception sre) {
-        LOGGER.error(String.format("Could not query Google Spreadsheet because : %s", sre), sre);
-      }
-    }
+		if (CollectionUtils.isNotEmpty(words)) {
+			wordList = words;
+		} else {
+			try {
+				wordList = _spreadsheetService.querySpreadsheet(spreadsheetName, worksheetName, row, col, size);
+			}
+			catch (Exception sre) {
+				LOG.error(String.format("Could not query Google Spreadsheet because : %s", sre), sre);
+			}
+		}
 		// create ThreadPoolExecutor
 		ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(MAXIMUM_POOL_SIZE);
 
@@ -197,7 +205,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 					new VocabularyTaskCallable(wordList.get(index)));
 				// add task to queue
 				taskList.add(task);
-				LOGGER.info(String.format("Looking up word: %s", wordList.get(index)));
+				LOG.info(String.format("Looking up word: %s", wordList.get(index)));
 				executor.execute(task);
 				index++;
 
@@ -212,13 +220,13 @@ public class VocabularyServiceImpl implements VocabularyService {
 					} while (!t.isDone());
 					VocabularyTaskResult result = t.get();
 					if (result.getWord() == null) {
-						LOGGER.info(result.getMesssage());
+						LOG.info(result.getMesssage());
 					} else {
 						lookupedWord.add(result.getWord());
 					}
 				}
 				catch (Exception e) {
-					LOGGER.info(String.format("Thread encountered problem : %s", e));
+					LOG.info(String.format("Thread encountered problem : %s", e));
 				}
 			}
 		}
@@ -227,14 +235,12 @@ public class VocabularyServiceImpl implements VocabularyService {
 	}
 
 	private class VocabularyTaskCallable implements Callable<VocabularyTaskResult> {
-
 		private String _word;
 
 		public VocabularyTaskCallable(String s) {
 			_word = s;
 		}
 
-		@Override
 		public VocabularyTaskResult call() throws Exception {
 			VocabularyTaskResult result = new VocabularyTaskResult();
 
@@ -262,7 +268,6 @@ public class VocabularyServiceImpl implements VocabularyService {
 		}
 	}
 
-	/** Result object represent the data return by vocabulary thread process. */
 	private class VocabularyTaskResult {
 		private Word   _word;
 		private String messsage;
@@ -273,7 +278,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 		public VocabularyTaskResult(Word w, String message) {
 			_word = w;
-			this.messsage = message;
+			messsage = message;
 		}
 
 		public Word getWord() {
@@ -289,102 +294,103 @@ public class VocabularyServiceImpl implements VocabularyService {
 		}
 
 		public void setMesssage(String messsage) {
-			this.messsage = messsage;
+			messsage = messsage;
 		}
 	}
 
 	public void save(Word word) {
-		Word savedWord = vocabularyDao.lookup(word.getDescription());
+		Word savedWord = _vocabularyDao.lookup(word.getDescription());
 		if (savedWord != null) {
-			messageDao.save(new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] found in DB.", word.getDescription())));
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug(String.format("[%s] found in DB.", word.getDescription().toUpperCase()));
-			}
+			/*_messageDao.save(
+				new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] found in DB.", word.getDescription())));*/
+			// LOG.debug(String.format("[%s] found in DB.", word.getDescription().toUpperCase()));
 		} else {
 			word.setTimeStamp(System.currentTimeMillis());
 			saveWordToDatastore(word);
-			messageDao.save(
-				new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] saved.", word.getDescription().toUpperCase())));
+			/*_messageDao.save(
+				new Message(
+					Message.VOCABULARY_CATEGORY, String.format("[%s] saved.", word.getDescription().toUpperCase())));*/
 		}
 	}
 
 
 	public Word save(String lookupWord) throws IOException, IllegalArgumentException {
-		// remove unnescessary chars.
 		lookupWord = lookupWord.trim().toLowerCase();
-		Word word = vocabularyDao.lookup(lookupWord);
+		Word word = _vocabularyDao.lookup(lookupWord);
 		// first check the current status
 		if (word != null) {
-			LOGGER.info(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
-			// reassign word.
+			LOG.debug(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
 			word = populateWord(word);
 		} else {
-			LOGGER.info("Saving word : " + lookupWord);
+			LOG.debug("Saving word : " + lookupWord);
 			word = null;
 			try {
+				long start = System.currentTimeMillis();
 				word = lookupVN(lookupWord);
 				lookupENLongman(word);
 				lookupPron(word);
+				LOG.debug("===== PROFILING ======");
+				LOG.debug(
+					"= Lookup word " + lookupWord + " took: " + (System.currentTimeMillis() - start) + " ms.");
+				LOG.debug("======================");
 			}
 			catch (IOException ex) {
-				LOGGER.info("Failed to connect to dictionary to lookup word definition.");
+				LOG.debug("Failed to connect to dictionary to lookup word definition.", ex);
 				throw ex;
 			}
 			catch (IllegalArgumentException iae) {
-				LOGGER.info("Failed to parse URL with wrong arguments.");
+				LOG.debug("Failed to parse URL with wrong arguments.", iae);
 				throw iae;
 			}
-
-      saveWordToDatastore(word);
-    }
+			saveWordToDatastore(word);
+		}
 		return word;
 	}
 
-  private void saveWordToDatastore(Word word) {
-    if (word != null) {
-      // build list of meaning
-      for (int i = 0; i < Word.WORD_KINDS.length; i++) {
-        List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
-        if (meanings != null && meanings.size() > 0) {
-          //LOGGER.info("found : " + meanings.size() + " meanings for this word");
-          for (Meaning meaning : meanings) {
-            // save
-            try {
-              Meaning savedMeaning = meaningDao.save(meaning);
-              word.addMeaningId(savedMeaning.getId());
-            }
-            catch (Exception e) {
-              LOGGER.info("Failed to save meaning to DB.");
-              LOGGER.info(meaning.toString());
-            }
-          }
-        } else {
-          // log.info(word.getMeanings());
-        }
-      }
-      try {
-        word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-        if (word.getMeanings().size() > 0) {
-          vocabularyDao.save(word);
-          LOGGER.info("word: " + word.getDescription() + " saved!!!!");
-        } else {
-          LOGGER.info("Could not find any word's meanings");
-        }
-      }
-      catch (Exception e) {
-        LOGGER.info("Could not save word:" + word.toString());
-      }
-    }
-  }
+	/**
+	 * Not only save word to DS. Word's meanings are also get saved.
+	 *
+	 * @param word word to be saved.
+	 */
+	private void saveWordToDatastore(Word word) {
+		if (word != null) {
+			// build list of meaning
+			for (int i = 0; i < Word.WORD_KINDS.length; i++) {
+				List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
+				if (CollectionUtils.isNotEmpty(meanings)) {
+					//LOG.info("found : " + meanings.size() + " meanings for this word");
+					for (Meaning meaning : meanings) {
+						// save
+						try {
+							Meaning savedMeaning = _meaningDao.save(meaning);
+							word.addMeaningId(savedMeaning.getId());
+						}
+						catch (Exception e) {
+							LOG.debug(String.format("Failed to save meaning [%d] to DB.", meaning.toString()), e);
+						}
+					}
+				}
+			}
+			try {
+				word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
+				if (MapUtils.isNotEmpty(word.getMeanings())) {
+					_vocabularyDao.save(word);
+					LOG.debug("word: " + word.getDescription() + " saved!!!!");
+				} else {
+					LOG.debug("Could not find any word's meanings");
+				}
+			}
+			catch (Exception e) {
+				LOG.debug("Could not save word:" + word.toString(), e);
+			}
+		}
+	}
 
-  /**
+	/**
 	 * Lookup word using Longman online dictionary.
 	 * Update to the current word.
 	 */
 	public void lookupENLongman(Word w) throws IOException {
-		if (LOGGER.isDebugEnabled()) {
-			//LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> looking up word EN from Longman dictionary: " + word);
-		}
 		Source source = checkWordExistence(
 			LONGMAN_DICTIONARY_URL, w.getDescription().toLowerCase(), LONGMAN_DIC_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
 		// index for the next lookup
@@ -399,56 +405,44 @@ public class VocabularyServiceImpl implements VocabularyService {
 			// get kind
 			String kind = "";
 			List<Element> kinds = source.getAllElementsByClass(LONGMAN_DICT_KIND_CLASS);
-			if (kinds != null && kinds.size() > 0) {
+			if (CollectionUtils.isNotEmpty(kinds)) {
 				kind = kinds.get(0).getTextExtractor().toString().trim();
-				if (LOGGER.isDebugEnabled()) {
-					//LOGGER.debug("Kind: " + kind);
-				}
+				//LOG.debug("Kind: " + kind);
 			}
 			if (w.getKindidmap().get(kind) == null) {
-				if (LOGGER.isDebugEnabled()) {
-					//LOGGER.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
-				}
+				//LOG.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
 				return;
 			}
 			// process meaning
 			List<Element> meaningList = source.getAllElementsByClass(LONGMAN_DICT_CLASS_MEANING);
-			if (meaningList != null) {
+			if (CollectionUtils.isNotEmpty(meaningList)) {
 				for (Element meaning : meaningList) {
 					Meaning mainM = new Meaning();
 					String gramStr = "";
 					// process GRAM: [intransitive, transitive]...
 					List<Element> grams = meaning.getAllElementsByClass(LONGMAN_DICT_CLASS_GRAM);
-					if (grams != null && grams.size() > 0) {
+					if (CollectionUtils.isNotEmpty(grams)) {
 						gramStr = grams.get(0).getTextExtractor().toString();
-						if (LOGGER.isDebugEnabled()) {
-							//LOGGER.debug("GRAM: " + gramStr);
-						}
+						//LOG.debug("GRAM: " + gramStr);
 					}
 					// process main meaning
 					List<Element> ftdefs = meaning.getAllElements(LONGMAN_DICT_CLASS_MEANING_DEF);
 					Element ftdef = null;
-					if (ftdefs != null && ftdefs.size() > 0) {
+					if (CollectionUtils.isNotEmpty(ftdefs)) {
 						ftdef = ftdefs.get(0);
 						// create this meaning
 						mainM = new Meaning(
 							gramStr + " " + ftdef.getTextExtractor().toString(), w.getKindidmap().get(kind));
-						if (LOGGER.isDebugEnabled()) {
-							//LOGGER.debug("Meaning: " + ftdef.getTextExtractor().toString());
-						}
+						//LOG.debug("Meaning: " + ftdef.getTextExtractor().toString());
 					} else {
-						if (LOGGER.isDebugEnabled()) {
-							//LOGGER.debug("Could not check definition for this word: " + word);
-						}
+						//LOG.debug("Could not check definition for this word: " + word);
 					}
 					// process example for this main meaning
 					List<Element> ftexas = meaning.getAllElements(LONGMAN_DICT_CLASS_EXAMPLE);
-					if (ftexas != null) {
+					if (CollectionUtils.isNotEmpty(ftexas)) {
 						for (Element ftexa : ftexas) {
 							mainM.addExample(ftexa.getTextExtractor().toString());
-							if (LOGGER.isDebugEnabled()) {
-								//LOGGER.debug("Example: " + ftexa.getTextExtractor().toString());
-							}
+							//LOG.debug("Example: " + ftexa.getTextExtractor().toString());
 						}
 					}
 					// check to make sure content is not blank.
@@ -458,7 +452,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 					// process gram example. Another type of meaning.
 					List<Element> gramexas = meaning.getAllElementsByClass(LONGMAN_DICT_CLASS_MEANING_EXTRA);
-					if (ftexas != null) {
+					if (CollectionUtils.isNotEmpty(gramexas)) {
 						for (Element gramexa : gramexas) {
 							Meaning mm = processSubExampleLongman(gramexa, "PROPFORM", w.getKindidmap().get(kind));
 							mm.setType(GRAM_MEANING_TYPE);
@@ -470,7 +464,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 					}
 
 					List<Element> colloexas = meaning.getAllElementsByClass("ColloExa"); // process gram example
-					if (ftexas != null) {
+					if (CollectionUtils.isNotEmpty(colloexas)) {
 						for (Element colloexa : colloexas) {
 							Meaning mm = processSubExampleLongman(colloexa, "COLLO", w.getKindidmap().get(kind));
 							mm.setType(COLLO_MEANING_TYPE);
@@ -488,34 +482,44 @@ public class VocabularyServiceImpl implements VocabularyService {
 	}
 
 
-	/** Process Sub example for tag GramExa */
+	/**
+	 * Process Sub example for tag GramExa
+	 *
+	 * @param s       element s.
+	 * @param nametag the tag name.
+	 * @param kindId  the kind id.
+	 *
+	 * @return Meaning object.
+	 */
 	private Meaning processSubExampleLongman(Element s, String nametag, Long kindId) {
 		Meaning m = new Meaning();
 
 		List<Element> grams = s.getAllElementsByClass(nametag);
-		if (grams != null && grams.size() > 0) {
+		if (CollectionUtils.isNotEmpty(grams)) {
 			String str = grams.get(0).getTextExtractor().toString();
 			m = new Meaning(str, kindId);
-			LOGGER.info(nametag + ": " + str);
+			LOG.debug(nametag + ": " + str);
 		}
 
 		// process example for this main meaning
 		List<Element> ftexas = s.getAllElements(LONGMAN_DICT_CLASS_EXAMPLE);
-		if (ftexas != null) {
+		if (CollectionUtils.isNotEmpty(ftexas)) {
 			for (Element ftexa : ftexas) {
 				m.addExample(ftexa.getTextExtractor().toString());
-				LOGGER.info("Example: " + ftexa.getTextExtractor().toString());
+				LOG.info("Example: " + ftexa.getTextExtractor().toString());
 			}
 		}
 
 		return m;
 	}
 
-	/** Look up Pron for a word. */
-	public void lookupPron(Word w) throws IOException {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.info("looking up PRON for this word : " + w.getDescription());
-		}
+	/**
+	 * Look up Pron for a word.
+	 *
+	 * @param w word to get word description.
+	 */
+	public void lookupPron(Word w) {
+		// LOG.debug("looking up PRON for this word : " + w.getDescription());
 		try {
 			Source source = checkWordExistence(
 				CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS,
@@ -530,36 +534,36 @@ public class VocabularyServiceImpl implements VocabularyService {
 			while (source != null) {
 				// process the content
 				List<Element> contentEles = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
-				// LOGGER.info("content size = " + contentEles.size());
-				if (contentEles != null && contentEles.size() > 0) {
+				// LOG.info("content size = " + contentEles.size());
+				if (CollectionUtils.isNotEmpty(contentEles)) {
 					// should be one
 					Element targetContent = contentEles.get(0);
 					String kind = "";
 					// get kind
 					List<Element> headers = targetContent.getAllElementsByClass(CAMBRIDGE_DICT_KIND_CLASS);
-					if (headers != null && headers.size() > 0) {
+					if (CollectionUtils.isNotEmpty(headers)) {
 						Element header = headers.get(0);
 
 						List<Element> kinds = header.getAllElementsByClass("pos");
-						if (kinds != null && kinds.size() > 0) {
+						if (CollectionUtils.isNotEmpty(kinds)) {
 							kind = kinds.get(0).getContent().toString().trim();
 						}
 					}
 
 					List<Element> additional_headers = targetContent.getAllElementsByClass("additional_header");
-					if (additional_headers != null && additional_headers.size() > 0) {
+					if (CollectionUtils.isNotEmpty(additional_headers)) {
 						Element additional_header = additional_headers.get(0);
 						List<Element> prons = additional_header.getAllElementsByClass("pron");
 						// get Pron
-						if (prons != null && prons.size() > 0) {
+						if (CollectionUtils.isNotEmpty(prons)) {
 							String pron = prons.get(0).getTextExtractor().toString();
-							LOGGER.info("Pron: " + pron);
+							LOG.debug("Pron: " + pron);
 							w.setPron(pron);
 						}
 						// get mp3 file
 						List<Element> sounds = additional_header.getAllElementsByClass("sound");
 						// may have 2
-						if (sounds != null && sounds.size() > 0) {
+						if (CollectionUtils.isNotEmpty(sounds)) {
 							Element sound = null;
 							if (sounds.size() == 1) {
 								sound = sounds.get(0);
@@ -570,34 +574,38 @@ public class VocabularyServiceImpl implements VocabularyService {
 							// process
 							String soundSource = sound.getAttributeValue("onclick");
 							String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
-							// LOGGER.info("Found a sound source: " + soundSrc);
+							// LOG.info("Found a sound source: " + soundSrc);
 							w.setSoundSource(soundSrc);
 						}
 						break;
 					}
 				} else {
-					if (LOGGER.isDebugEnabled()) {
-						//LOGGER.debug("Can not find content.");
-					}
-
+					//LOG.debug("Can not find content.");
 					break;
 				}
 			}
 		}
 		catch (Exception e) {
-			LOGGER.error("Exception", e);
+			LOG.error("Exception", e);
 		}
 	}
 
 
+	/**
+	 * Lookup word idiom.
+	 *
+	 * @param aWord word to get description.
+	 *
+	 * @return word updated with idiom.
+	 */
 	public Word lookupIdiom(Word aWord) {
 		Source source = checkWordExistence(
 			CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE + CAMBRIDGE_DICT_TYPE_QUERY, aWord.getDescription(),
 			"search-page-results-container", DICTIONARY_TYPE.ID);
 
 		if (source != null) {
-			LOGGER.info(source.toString());
-			LOGGER.info("OK");
+			LOG.info(source.toString());
+			LOG.info("OK");
 		}
 		return null;
 	}
@@ -609,145 +617,140 @@ public class VocabularyServiceImpl implements VocabularyService {
 	 */
 	private Source checkWordExistence(
 		String urlLink, String word, String targetIdentifier, DICTIONARY_TYPE targetType) {
+		Source source = null;
 		try {
-      LOGGER.debug("Check word existence: " + urlLink + word);
+			LOG.debug("Check word existence: " + urlLink + word);
 			URL url = new URL(urlLink + word);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			// get inputStream
 			InputStream is = connection.getInputStream();
 			// create source HTML
-			Source source = new Source(is);
-
-			boolean wordFound = true;
-			switch (targetType) {
-				case CLASS:
-					List<Element> contentEles = source.getAllElementsByClass(targetIdentifier);
-					if (contentEles == null || contentEles.size() == 0) {
-						wordFound = false;
+			source = new Source(is);
+			if (source != null) {
+				boolean wordFound = true;
+				switch (targetType) {
+					case CLASS:
+						List<Element> contentEles = source.getAllElementsByClass(targetIdentifier);
+						if (CollectionUtils.isEmpty(contentEles)) {
+							wordFound = false;
+							source = null;
+						}
+						break;
+					case ID:
+						Element content = source.getElementById(targetIdentifier);
+						if (content == null) {
+							wordFound = false;
+							source = null;
+						}
+						break;
+				}
+				if (wordFound) {
+					if (StringUtils.equals(CAMBRIDGE_DICT_CONTENT_CLASS, targetIdentifier)) {
+						// process the coxntent
+						List<Element> contents = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
+						if (CollectionUtils.isEmpty(contents)) {
+							source = null;
+						}
 					}
-					break;
-				case ID:
-					Element content = source.getElementById(targetIdentifier);
-					if (content == null) {
-						wordFound = false;
-					}
-					break;
-			}
-
-
-			if (!wordFound) {
-				return null;
-			} else {
-				if (StringUtils.equals(CAMBRIDGE_DICT_CONTENT_CLASS, targetIdentifier)) {
-					// process the coxntent
-					List<Element> contents = source.getAllElementsByClass(CAMBRIDGE_DICT_CONTENT_CLASS_2nd);
-					if (contents != null && contents.size() > 0) {
-						return source;
-					}
-					return null;
-				} else {
-					return source;
 				}
 			}
 		}
 		catch (Exception e) {
-			// LOGGER.error("Error fetching word using URL: " + urlLink + word);
-			return null;
+			LOG.error("Error fetching word using URL: " + urlLink + word, e);
 		}
+		return source;
 	}
 
 
-	/** Look up VN definitions. */
+	/**
+	 * Lookup word using VN dictionary.
+	 *
+	 * @param word word to lookup.
+	 *
+	 * @return updated word.
+	 *
+	 * @throws IOException
+	 * @throws IllegalArgumentException
+	 */
 	public Word lookupVN(String word) throws IOException, IllegalArgumentException {
-		// LOGGER.info("Looking up word VN meaning: " + word);
-
 		Word aWord = null;
-		// lookup using simple layout: layout for mobile.
 		URL url = new URL("http://m.vdict.com/?word=" + word + "&dict=1&searchaction=Lookup");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
 		InputStream is = connection.getInputStream();
 
 		Source source = new Source(is);
-		List<Element> contentEles = source.getAllElementsByClass(VN_DICT_CONTENT_CLASS);
-		if (contentEles == null || contentEles.size() == 0) {
-			// Source ok but no content found => word may not exists.
-			return null;
-		}
-
-		Element targetContent = contentEles.get(0);
-		// construct word obj.
-		aWord = new Word();
-		// set description.
-		aWord.setDescription(word);
-		// starting to update Meanings.
-		Meaning meaning = new Meaning();
-		// starting with " kind "
-		String kind = "";
-		List<Element> eles = targetContent.getChildElements();
-		for (Element ele : eles) {
-			if (ele.getName().equals(HTML_DIV)) {
-				kind = "";
+		if (source != null) {
+			List<Element> contentEles = source.getAllElementsByClass(VN_DICT_CONTENT_CLASS);
+			if (CollectionUtils.isEmpty(contentEles)) {
+				return null;
 			}
-			if (ele.getAttributeValue(HTML_ATTR_CLASS) != null &&
-			    ele.getAttributeValue(HTML_ATTR_CLASS).equals(VN_DICT_CLASS_KIND)) {
-				// use TextExtractor to trim unwanted content.
-				kind = ele.getTextExtractor().toString().trim();
-				if (kind != null) {
-					// may be a compond of something like: danh tu, ngoai dong tu
-					if (kind.contains(",")) {
-						// just get the first one. May be there are some more exceptional cases in the future.
-						kind = kind.split(",")[0];
-					}
-					String[] words = kind.split(" ");
-					kind = "";
-					// maximum length = " ngoai dong tu ". Composed by 3 word.
-					int limit = words.length > MAX_NUM_VN_WORD_IN_KIND ? MAX_NUM_VN_WORD_IN_KIND : words.length;
-					for (int i = 0; i < limit; i++) {
-						kind += words[i] + " ";
-					}
-					kind = kind.trim();
 
-					if (LOGGER.isDebugEnabled()) {
-						//LOGGER.debug("Kind : " + kind);
-						//LOGGER.debug(Arrays.toString(kind.getBytes(ENCODING_UTF_8)));
-					}
+			Element targetContent = contentEles.get(0);
+			// construct word obj.
+			aWord = new Word();
+			// set description.
+			aWord.setDescription(word);
+			// starting to update Meanings.
+			Meaning meaning = new Meaning();
+			// starting with " kind "
+			String kind = "";
+			List<Element> eles = targetContent.getChildElements();
+			for (Element ele : eles) {
+				if (ele.getName().equals(HTML_DIV)) {
+					kind = "";
 				}
-			} else if (StringUtils.equals(ele.getName(), "ul") && StringUtils.isNotEmpty(kind)) {
-				String className = ele.getAttributeValue(HTML_ATTR_CLASS);
-				if (StringUtils.isNotBlank(className) && StringUtils.equals(className, "list1")) {
-					List<Element> meaningLis = ele.getChildElements();
-					for (Element meaningLi : meaningLis) {
-						if (StringUtils.equals(meaningLi.getName(), "li")) {
-							List<Element> liContent = meaningLi.getChildElements();
-							for (Element content : liContent) {
-								if (StringUtils.equals(content.getName(), "b")) {
-									String contentRaw = content.getContent().toString();
-									meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
-									if (LOGGER.isDebugEnabled()) {
-										//LOGGER.debug("content : " + contentRaw);
-									}
-								} else if (StringUtils.equals(content.getName(), "ul") &&
-								           StringUtils.isNotEmpty(meaning.getContent())) {
-									// should not store any meanings if content is null or blank.
-									String example = content.getChildElements().get(0).getChildElements().get(0)
-									                        .getContent().toString();
-									if (StringUtils.isNotBlank(example)) {
-										meaning.addExample(example);
-									}
-									if (LOGGER.isDebugEnabled()) {
-										//LOGGER.debug("Example: " + example);
+				if (ele.getAttributeValue(HTML_ATTR_CLASS) != null &&
+				    ele.getAttributeValue(HTML_ATTR_CLASS).equals(VN_DICT_CLASS_KIND)) {
+					// use TextExtractor to trim unwanted content.
+					kind = ele.getTextExtractor().toString().trim();
+					if (kind != null) {
+						// may be a compond of something like: danh tu, ngoai dong tu
+						if (kind.contains(",")) {
+							// just get the first one. May be there are some more exceptional cases in the future.
+							kind = kind.split(",")[0];
+						}
+						String[] words = kind.split(" ");
+						kind = "";
+						// maximum length = " ngoai dong tu ". Composed by 3 word.
+						int limit = words.length > MAX_NUM_VN_WORD_IN_KIND ? MAX_NUM_VN_WORD_IN_KIND : words.length;
+						for (int i = 0; i < limit; i++) {
+							kind += words[i] + " ";
+						}
+						kind = kind.trim();
+					}
+				} else if (StringUtils.equals(ele.getName(), "ul") && StringUtils.isNotEmpty(kind)) {
+					String className = ele.getAttributeValue(HTML_ATTR_CLASS);
+					if (StringUtils.isNotBlank(className) && StringUtils.equals(className, "list1")) {
+						List<Element> meaningLis = ele.getChildElements();
+						for (Element meaningLi : meaningLis) {
+							if (StringUtils.equals(meaningLi.getName(), "li")) {
+								List<Element> liContent = meaningLi.getChildElements();
+								for (Element content : liContent) {
+									if (StringUtils.equals(content.getName(), "b")) {
+										String contentRaw = content.getContent().toString();
+										meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
+										//LOG.debug("content : " + contentRaw);
+									} else if (StringUtils.equals(content.getName(), "ul") &&
+									           StringUtils.isNotEmpty(meaning.getContent())) {
+										// should not store any meanings if content is null or blank.
+										String example = content.getChildElements().get(0).getChildElements().get(0)
+										                        .getContent().toString();
+										if (StringUtils.isNotBlank(example)) {
+											meaning.addExample(example);
+										}
+										//LOG.debug("Example: " + example);
 									}
 								}
 							}
-						}
-						Long kindId = aWord.getKindidmap().get(kind);
-						if (kindId == null) {
-							LOGGER.info(">>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>>>>>>>> Null for kind: " + kind);
-						}
-						if (meaning != null && StringUtils.isNotBlank(meaning.getContent()) && kindId != null) {
-							aWord.addMeaning(kindId, meaning);
+							Long kindId = aWord.getKindidmap().get(kind);
+							if (kindId == null) {
+								LOG.info(">>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>>>>>>>> Null for kind: " + kind);
+							}
+							if (meaning != null && StringUtils.isNotBlank(meaning.getContent()) && kindId != null) {
+								aWord.addMeaning(kindId, meaning);
+							}
 						}
 					}
 				}
@@ -757,19 +760,19 @@ public class VocabularyServiceImpl implements VocabularyService {
 	}
 
 	public MeaningDao getMeaningDao() {
-		return meaningDao;
+		return _meaningDao;
 	}
 
 	public void setMeaningDao(MeaningDao meaningDao) {
-		this.meaningDao = meaningDao;
+		_meaningDao = meaningDao;
 	}
 
 	public VocabularyDao getVocabularyDao() {
-		return vocabularyDao;
+		return _vocabularyDao;
 	}
 
 	public void setVocabularyDao(VocabularyDao vocabularyDao) {
-		this.vocabularyDao = vocabularyDao;
+		_vocabularyDao = vocabularyDao;
 	}
 
 	public SpreadsheetService getSpreadsheetService() {
@@ -781,7 +784,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 	}
 
 	public void setMessageDao(MessageDao messageDao) {
-		this.messageDao = messageDao;
+		_messageDao = messageDao;
 	}
 }
 

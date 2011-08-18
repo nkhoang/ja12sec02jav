@@ -8,7 +8,6 @@ import com.nkhoang.gae.model.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-import sun.misc.resources.Messages_es;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

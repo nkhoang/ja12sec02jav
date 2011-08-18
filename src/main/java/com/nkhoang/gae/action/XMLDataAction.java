@@ -167,8 +167,8 @@ public class XMLDataAction {
         ModelAndView mav = new ModelAndView();
         try {
             if (StringUtils.isNotEmpty(fromDateString) && StringUtils.isNotEmpty(toDateString)) {
-                Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.defaultGoldDateFormat);
-                Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.defaultGoldDateFormat);
+                Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.DEFAULT_GOLD_DATE_FORMAT);
+                Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.DEFAULT_GOLD_DATE_FORMAT);
 
                 Map<String, List<GoldPrice>> goldMap = buildGoldPrice4Chart(fromDate, toDate);
 

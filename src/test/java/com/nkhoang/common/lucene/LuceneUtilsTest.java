@@ -3,9 +3,17 @@ package com.nkhoang.common.lucene;
 import static org.junit.Assert.assertEquals;
 
 import com.nkhoang.common.lucene.LuceneUtils;
+import com.nkhoang.lucene.LuceneSearchUtil;
+import org.apache.poi.util.SystemOutLogger;
 import org.junit.Test;
 
 public class LuceneUtilsTest {
+
+  @Test
+  public void testEscape() {
+	  System.out.println(LuceneSearchUtil.escapeSpecialChar("( +state~~city~~addr1:wy~~cheyenne~~1950 bluegrass cir )"));
+	  System.out.println(LuceneUtils.escapeSearchText("( +state~~city~~addr1:wy~~cheyenne~~1950 bluegrass cir )"));
+  }
 
   @Test
   public void whitespace() {

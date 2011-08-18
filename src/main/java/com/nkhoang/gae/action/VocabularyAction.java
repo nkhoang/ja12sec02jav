@@ -131,8 +131,25 @@ public class VocabularyAction {
 
 
 	@RequestMapping(value = "/" + "vocabularyBuilder", method = RequestMethod.GET)
-	public String renderIVocabularyBuilder() {
-		return "vocabulary/vocabularyBuilder";
+	public ModelAndView renderIVocabularyBuilder() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("vocabulary/vocabularyBuilder");
+
+		List<Integer> list  = Arrays.asList(1,2,3,4);
+		List<Integer> list2 = Arrays.asList(4);
+
+		Set<Integer> set = new HashSet<Integer>();
+		Set<Integer> set2 = new HashSet<Integer>();
+		set.addAll(list);
+		set2.addAll(list2);
+
+
+
+		mav.addObject("list", list);
+		mav.addObject("list2", list2);
+		mav.addObject("set", set);
+		mav.addObject("set2", set2);
+		return mav;
 	}
 
 	@RequestMapping(value = "/" + "constructIVocabulary", method = RequestMethod.GET)
@@ -147,7 +164,7 @@ public class VocabularyAction {
 			idsList.add(Long.parseLong(id.trim()));
 		}
 
-		List<Word> wordList = vocabularyService.getAllWordsFromUser(idsList);
+		List<Word> wordList = vocabularyService.getAllWordsById(idsList);
 
 		Map<String, List<Integer>> exampleMap = new HashMap<String, List<Integer>>();
 		// build meaning - example map.
@@ -571,7 +588,7 @@ public class VocabularyAction {
 	 * @return xml string.
 	 */
 	private String constructIVocabularyFile(int startingIndex, int size, int pageSize) {
-		List<Word> allWords = vocabularyService.getAllWordsInRange(startingIndex, size);
+		List<Word> allWords = vocabularyService.getAllWordsByRange(startingIndex, size);
 		String xml = constructXMLBlockContent(allWords, pageSize, startingIndex, size);
 
 		String xmlStr = "";
@@ -696,7 +713,7 @@ public class VocabularyAction {
 		@RequestParam("offset") int offset, @RequestParam("size") int size) {
 		ModelAndView modelAndView = new ModelAndView();
 		Map<String, Object> jsonData = new HashMap<String, Object>();
-		List<Word> words = vocabularyService.getAllWordsInRangeWithoutMeanings(offset, size);
+		List<Word> words = vocabularyService.getAllWordsByRangeWithoutMeanings(offset, size);
 		jsonData.put("words", words);
 
 		View jsonView = new JSONView();
@@ -723,8 +740,8 @@ public class VocabularyAction {
 		ModelAndView modelAndView = new ModelAndView();
 		if (user != null) {
 			Map<String, Object> jsonData = new HashMap<String, Object>();
-			List<Word> words = vocabularyService.getAllWordsFromUser(user.getWordList());
-			words.addAll(vocabularyService.getAllWordsInRangeWithoutMeanings(0, size)); // get all DB words.
+			List<Word> words = vocabularyService.getAllWordsById(user.getWordList());
+			words.addAll(vocabularyService.getAllWordsByRangeWithoutMeanings(0, size)); // get all DB words.
 			jsonData.put("words", words);
 
 			View jsonView = new JSONView();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-	<application>dictionary-misschara</application>
-	<version>1</version>
+	<application>vocabulary-chara</application>
+	<version>4</version>
 	<sessions-enabled>true</sessions-enabled>
 	<!-- Configure java.util.logging -->
 	<system-properties>

@@ -209,7 +209,7 @@ public class GoldVNAction {
             price = new GoldPrice();
             Date priceDate = null;
             try {
-                priceDate = DateConverter.convertFromStringToken(info[0], DateConverter.defaultGoldDateFormat);
+                priceDate = DateConverter.convertFromStringToken(info[0], DateConverter.DEFAULT_GOLD_DATE_FORMAT);
             } catch (ParseException parseEx) {
                 LOGGER.error("Could not parse date.", parseEx);
                 price = null;

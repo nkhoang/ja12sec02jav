@@ -8,7 +8,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryParser.core.parser.EscapeQuerySyntax;
+import org.apache.lucene.queryParser.standard.parser.EscapeQuerySyntaxImpl;
 import org.apache.lucene.search.*;
+import org.apache.lucene.search.function.FieldScoreQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 
@@ -16,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by IntelliJ IDEA.
@@ -97,6 +102,11 @@ public class LuceneSearchUtil {
 		}
 
 		return docs;
+	}
+
+	public static String escapeSpecialChar(String s) {
+		EscapeQuerySyntax escaper = new EscapeQuerySyntaxImpl();
+		return escaper.escape(s, Locale.getDefault(), null).toString();
 	}
 
 	public static Query buildQuery(String keyword) {
