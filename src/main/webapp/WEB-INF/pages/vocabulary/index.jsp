@@ -1,9 +1,16 @@
 <%@ include file="/common/taglibs.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html >
 <head >
 <title ><fmt:message key="webapp.title" /></title >
+<script type="text/javascript" src="<c:url value='/js/ext-all.js'/>"></script>
+<link href="<c:url value='/styles/simple/ext-all.css'/>" rel="stylesheet" media="all"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script >
+
 <style type="text/css" >
+    body {
+        font: 13px/1.231 "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+    }
     .w-k {
         border-bottom: 1px solid #C0C0C0;
         margin-bottom: 15px;
@@ -45,7 +52,6 @@
     .w-time {
         font-size: 9px;
     }
-
 </style >
 <script type="text/javascript" >
     //playSoundFromFlash('/media/british/us_pron/a/agr/agric/agriculture.mp3', this)
@@ -97,7 +103,6 @@
         B.firstChild.nodeValue = C;
     }
 </script >
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script >
 
 <script type="text/javascript" >
     // empty array.
@@ -241,6 +246,33 @@
         });
     }
 </script >
+
+<script type="text/javascript">
+    Ext.onReady(function(){
+        Ext.namespace("Vocabulary");
+
+        Ext.define('Vocabulary.Search',{
+           extend: 'Ext.form.field.Base',
+            inputType: 'text',
+            initComponent: function() {
+                this.callParent();
+                this.on('specialkey')
+            }
+        });
+
+        Ext.create('Ext.panel.Panel',{
+            title:"Lookup your new word",
+            items: {
+                xtype: '',
+                fieldLabel: 'Word'
+            },
+            bodyPadding: 5,
+            width: 320,
+            renderTo: Ext.get('lookup-w-c')
+        });
+    });
+</script>
+
 <security:authorize url="/user/admin" >
     <script type="text/javascript" >
         $(function() {
@@ -259,6 +291,9 @@ Welcome to Vocabulary index page.
 </div >
 
 <div id="f-wr" >
+
+    <div id="lookup-w-c"></div>
+
     <form name="aw-form" action="/" id="aw-form" >
         <div >Add a new word</div >
         <input name="word" type="input" id="w-input" />

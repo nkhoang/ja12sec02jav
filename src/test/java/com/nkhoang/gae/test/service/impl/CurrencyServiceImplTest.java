@@ -46,7 +46,7 @@ public class CurrencyServiceImplTest {
 			date = dateFormat.parse("09/08/2010");
 		}
 		catch (ParseException pex) {
-			// do nothing.
+			// do nothing.     e
 		}
 
 		System.out.println(date.toString());
@@ -64,8 +64,8 @@ public class CurrencyServiceImplTest {
 		try {
 			long dayDiff = 0;
 
-			String startDate = "01/01/2011";
-			String endDate = "01/02/2011";
+			String startDate = "01/07/2011";
+			String endDate = "01/08/2011";
 
 			Date startDateObj = DateUtils.parseDate(startDate, new String[]{"dd/MM/yyyy"});
 			Date endDateObj = DateUtils.parseDate(endDate, new String[]{"dd/MM/yyyy"});
