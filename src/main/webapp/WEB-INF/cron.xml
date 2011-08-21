@@ -17,4 +17,9 @@
         <schedule>every 10 minutes</schedule>
     </cron>
     -->
+    	<cron>
+		<url>/cron/hothandler</url>
+		<description>Keep up the site!</description>
+		<schedule>every 1 minutes</schedule>
+	</cron>
 </cronentries>

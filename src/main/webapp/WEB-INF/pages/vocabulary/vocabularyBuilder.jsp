@@ -274,19 +274,6 @@
 </head >
 <body >
 
-<c:set var="set3">
-    <s:proper
-</c:set>
-
-<c:out value="${set}" />
-<br>
-<c:out value="${set2}" />
-<br>
-<c:out value="${display:getSizeSet(set2)}" />||<c:out value="${fn:length(set2)}" />
-<br>
-<c:out value="${display:getSizeSet(set)}" />||<c:out value="${fn:length(set)}" />
-    <br>
-
 <select size="1">
     <c:forEach var="listItem" items="${set}" varStatus="listStatus">
         <c:if test="${fn:length(set2) gt 0}" >

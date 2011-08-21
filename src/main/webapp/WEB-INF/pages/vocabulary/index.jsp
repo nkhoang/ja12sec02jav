@@ -3,10 +3,7 @@
 <html >
 <head >
 <title ><fmt:message key="webapp.title" /></title >
-<script type="text/javascript" src="<c:url value='/js/ext-all.js'/>"></script>
 <link href="<c:url value='/styles/simple/ext-all.css'/>" rel="stylesheet" media="all"/>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script >
-
 <style type="text/css" >
     body {
         font: 13px/1.231 "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
@@ -53,6 +50,11 @@
         font-size: 9px;
     }
 </style >
+<script type="text/javascript" src="<c:url value='/js/ext.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/ext-all.js'/>"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script >
+
+
 <script type="text/javascript" >
     //playSoundFromFlash('/media/british/us_pron/a/agr/agric/agriculture.mp3', this)
     function playSoundFromFlash(B) {
@@ -256,18 +258,27 @@
             inputType: 'text',
             initComponent: function() {
                 this.callParent();
-                this.on('specialkey')
-            }
+                this.on('specialkey', this.checkEnterKey, this);
+            },
+            checkEnterKey: function(field, e) {
+                var value = this.getValue();
+                if (e.getKey() === e.ENTER && !Ext.isEmpty(value)) {
+                    Ext.MessageBox.alert("Key Entered", value);
+                }
+            },
+            alias: 'widget.searchfield'
         });
 
-        Ext.create('Ext.panel.Panel',{
+        Ext.create('Ext.form.Panel',{
             title:"Lookup your new word",
-            items: {
-                xtype: '',
-                fieldLabel: 'Word'
-            },
+            layout: 'anchor',
             bodyPadding: 5,
             width: 320,
+            items: {
+                xtype: 'searchfield',
+                fieldLabel: 'Word',
+                name: 'query'
+            },
             renderTo: Ext.get('lookup-w-c')
         });
     });
@@ -283,12 +294,6 @@
 </head >
 <body >
 Welcome to Vocabulary index page.
-
-<div >
-    Total word count:
-    <span id="wc-s" ><c:out value="${totalCount}"></span >
-    </c:out>
-</div >
 
 <div id="f-wr" >
 

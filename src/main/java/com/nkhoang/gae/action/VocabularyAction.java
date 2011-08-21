@@ -94,15 +94,12 @@ public class VocabularyAction {
 		mav.setViewName(ViewConstant.VOCABULARY_INDEX_VIEW);
 
 		// get the count
-		int totalCount = vocabularyService.getWordSize();
 		User user = WebUtils.getCurrentUser();
 		if (user != null) {
 			mav.addObject("isAdmin", true);
 		} else {
 			mav.addObject("isAdmin", false);
 		}
-
-		mav.addObject("totalCount", totalCount);
 
 		return mav;
 	}
