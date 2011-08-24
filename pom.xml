@@ -269,6 +269,13 @@
             <id>mvnrepository</id>
             <url>http://mvnrepository.com/artifact/</url>
         </repository>
+        <repository>
+            <id>jmockit-svn</id>
+            <url>http://jmockit.googlecode.com/svn/maven-repo</url>
+            <releases>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -979,9 +986,9 @@
             JMockit
         -->
         <dependency>
-            <groupId>com.googlecode.jmockit</groupId>
+            <groupId>mockit</groupId>
             <artifactId>jmockit</artifactId>
-            <version>0.999.8</version>
+            <version>0.999.10</version>
         </dependency>
     </dependencies>
 

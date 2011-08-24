@@ -2,9 +2,9 @@ package com.nkhoang.mock;
 
 import mockit.Expectations;
 import mockit.NonStrict;
-import mockit.internal.expectations.Expectation;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 public class CustomerCareTest {
     @Test
