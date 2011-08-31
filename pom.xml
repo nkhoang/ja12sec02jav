@@ -39,7 +39,6 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
-                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -88,6 +87,12 @@
                 </exclusions>
             </dependency>
 
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons.collections.version}</version>
+            </dependency>
+
             <!-- Testing -->
             <dependency>
                 <groupId>junit</groupId>
@@ -95,14 +100,24 @@
                 <version>${junit.version}</version>
             </dependency>
 
-                    <!--
-            JMockit
-        -->
-        <dependency>
-            <groupId>mockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>${jmockit.version}</version>
-        </dependency>
+            <!-- JMockit -->
+            <dependency>
+                <groupId>mockit</groupId>
+                <artifactId>jmockit</artifactId>
+                <version>${jmockit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-configuration</groupId>
+                <artifactId>commons-configuration</artifactId>
+                <version>${commons.configuration.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>${commons-httpclient.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -116,11 +131,14 @@
         <commons.lang.version>2.6</commons.lang.version>
         <commons.codec.version>1.5</commons.codec.version>
         <commons.validator.version>1.3.1</commons.validator.version>
+        <commons-httpclient.version>3.1</commons-httpclient.version>
 
         <!-- Testing -->
         <junit.version>4.8.1</junit.version>
 
         <jmockit.version>0.999.10</jmockit.version>
+        <commons.collections.version>3.2.1</commons.collections.version>
+        <commons.configuration.version>1.6</commons.configuration.version>
     </properties>
     <repositories>
         <!-- for google document vnList API -->
