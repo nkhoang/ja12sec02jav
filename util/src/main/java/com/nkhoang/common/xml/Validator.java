@@ -1,4 +1,3 @@
-
 package com.nkhoang.common.xml;
 
 import java.io.File;

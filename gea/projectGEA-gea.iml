@@ -19,7 +19,7 @@
           </files-to-enhance>
           <persistence-api>JPA</persistence-api>
           <run-enhancer-on-make>true</run-enhancer-on-make>
-          <sdk-home-path>D:/Runtime/appengine-java-sdk-1.5.3/appengine-java-sdk-1.5.3</sdk-home-path>
+          <sdk-home-path>E:/Softs/Softs/Development/Java/Runtime/appengine-java-sdk-1.5.0.1</sdk-home-path>
           <email>nkhoang.it@gmail.com</email>
         </configuration>
       </facet>
@@ -32,17 +32,7 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="fileset1" name="projectGEA-gea" removed="false">
-          <file>file://$MODULE_DIR$/src/test/resources/applicationContext-dao.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-dao.xml</file>
-          <file>file://$MODULE_DIR$/src/test/resources/applicationContext-resources.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-resources.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/applicationContext-service.xml</file>
-          <file>file://$MODULE_DIR$/src/test/resources/applicationContext-service.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
-        </fileset>
-      </configuration>
+      <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
@@ -57,6 +47,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="Maven: com.google.collections:google-collections:1.0-rc5" level="project" />
     <orderEntry type="library" name="Maven: com.google.gdata:jsr305:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.gdata:gdata-docs-3.0:1.41.5" level="project" />
@@ -90,7 +81,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.appengine:appengine-api-stubs:1.5.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.appengine:appengine-api-labs:1.5.0.1" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.1" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.6.1" level="project" />

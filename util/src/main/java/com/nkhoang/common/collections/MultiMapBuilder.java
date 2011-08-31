@@ -1,7 +1,6 @@
 package com.nkhoang.common.collections;
 
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Adaptation of {@link MapBuilder} for {@link MultiMap}s (since they are

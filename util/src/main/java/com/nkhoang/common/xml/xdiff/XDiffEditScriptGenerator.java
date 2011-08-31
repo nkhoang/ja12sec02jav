@@ -3,10 +3,9 @@ package com.nkhoang.common.xml.xdiff;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import static com.nkhoang.common.xml.xdiff.XDiffOperation.*;
 
 import org.w3c.dom.Node;
-
-import static com.nkhoang.common.xml.xdiff.XDiffOperation.*;
 
 /**
  * This is an implementation of the edit script generation section of the X-Diff

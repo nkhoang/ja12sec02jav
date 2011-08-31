@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.nkhoang.common.xml.DOMUtil;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.hmsonline.common.xml.DOMUtil;
 
 class HintHandler {
   //pattern for 'starts with *, then anything'
@@ -98,8 +98,8 @@ class HintHandler {
       else if(child1 == null || child2 == null){
         distance++;
       }
-      else if(!StringUtils.equals(child1.getTextContent(), 
-                              child2.getTextContent())){
+      else if(!StringUtils.equals(child1.getTextContent(),
+              child2.getTextContent())){
         //it's an identifier, so it HAS TO match
         if(isID){
           distanceMap.put(XDiffUtil.computeMatchKey(node1, node2), hint.length);
