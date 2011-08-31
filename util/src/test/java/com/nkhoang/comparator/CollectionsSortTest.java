@@ -11,8 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class ComparatorTest {
-	private static final Logger LOG = LoggerFactory.getLogger(ComparatorTest.class.getCanonicalName());
+public class CollectionsSortTest {
+	private static final Logger LOG = LoggerFactory.getLogger(CollectionsSortTest.class.getCanonicalName());
 
 	@Test
 	public void testComparator() {
