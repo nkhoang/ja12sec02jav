@@ -1,10 +1,9 @@
-package com.nkhoang.mock;
+package com.nkhoang.gea.mock;
 
 import mockit.Expectations;
 import mockit.NonStrict;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 public class CustomerCareTest {
     @Test

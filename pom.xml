@@ -3,258 +3,125 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.nkhoang.gae</groupId>
-    <artifactId>ShopNow</artifactId>
-    <packaging>war</packaging>
+    <artifactId>projectGEA</artifactId>
+    <groupId>com.nkhoang</groupId>
     <version>1.0</version>
-    <name>ShopNow</name>
-    <url>http://goshopnow.appengine.com</url>
+    <packaging>pom</packaging>
+    <name>Project GEA</name>
+    <inceptionYear>2010</inceptionYear>
+    <url></url>
+    <modules>
+        <module>gea</module>
+        <module>util</module>
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
 
-    <build>
-        <defaultGoal>install</defaultGoal>
-        <plugins>
-            <!--
-            <plugin>
-                <groupId>com.sun.tools.xjc.maven2</groupId>
-                <artifactId>maven-jaxb-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <generatePackage>com.nkhoang.xml.auto</generatePackage>
-                            <includeSchemas>
-                                <includeSchema>**/word.xsd</includeSchema>
-                            </includeSchemas>
-                            <extension>true</extension>
-                            <strict>false</strict>
-                            <verbose>true</verbose>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.sun.tools.jxc.maven2</groupId>
-                <artifactId>maven-jaxb-schemagen-plugin</artifactId>
-                <version>1.2</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
 
-                <configuration>
-                    <project>${project}</project>
-                    <destdir>${project.build.directory}/schemas</destdir>
-                    <srcdir>${project.build.sourceDirectory}/com/nkhoang/gae/model/</srcdir>
-                    <verbose>true</verbose>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>2.2.2</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.xml.bind</groupId>
-                        <artifactId>jaxb-xjc</artifactId>
-                        <version>2.2.2</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.sun.xml.bind</groupId>
-                        <artifactId>jaxb-impl</artifactId>
-                        <version>2.2.2</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
+            <!-- Common lib -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons.lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec.version}</version>
+            </dependency>
 
-            <!-- JDK6 Compiler  -->
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons.beanutils.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons.validator.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-collections</artifactId>
+                        <groupId>commons-collections</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-beanutils</artifactId>
+                        <groupId>commons-beanutils</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                </executions>
-            </plugin>
+            <!-- Testing -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
 
+                    <!--
+            JMockit
+        -->
+        <dependency>
+            <groupId>mockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>${jmockit.version}</version>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-            <plugin>
-                <groupId>org.datanucleus</groupId>
-                <artifactId>maven-datanucleus-plugin</artifactId>
-                <version>1.1.4</version>
-                <configuration>
-                    <verbose>true</verbose>
-                    <api>JPA</api>
-                    <mappingIncludes>**/*.jdo, **/model/**.class</mappingIncludes>
-                    <enhancerName>ASM</enhancerName>
-                    <!-- do not set this to true - fixed the error in windows -->
-                    <fork>false</fork>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.datanucleus</groupId>
-                        <artifactId>datanucleus-jpa</artifactId>
-                        <version>1.1.5</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <!-- Copy dependencies -->
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <outputDirectory>cobertura/lib/dependencies</outputDirectory>
-                </configuration>
-            </plugin>
-            -->
-            <!-- Generate Eclipse project files -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <wtpversion>1.5</wtpversion>
-                    <wtpapplicationxml>true</wtpapplicationxml>
-                    <additionalProjectnatures>
-                        <projectnature>
-                            org.springframework.ide.eclipse.core.springnature
-                        </projectnature>
-                    </additionalProjectnatures>
-                    <additionalBuildcommands>
-                        <buildcommand>
-                            org.springframework.ide.eclipse.core.springbuilder
-                        </buildcommand>
-                    </additionalBuildcommands>
-                    <additionalProjectFacets>
-                        <jpt.jpa>1.0</jpt.jpa>
-                    </additionalProjectFacets>
-                    <classpathContainers>
-                        <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-                    </classpathContainers>
-                </configuration>
-            </plugin>
-            <!-- Working with ant - Process CSS and JS files.
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.3</version>
-				<executions>					
-					<execution>
-						<id>package</id>
-						<phase>package</phase>
-						<configuration>
-							<tasks>
-								<property name="jsTargetPath" location="${basedir}/target/${project.artifactId}-${project.version}/" />
-								<property name="yuiPath" location="${basedir}/Documents/Backup/lib/yuicompressor-2.4.2.jar" />
-								<echo message="Optimizing and Minifying CSS/JS" />
-								<apply executable="java" parallel="false" dest="${jsTargetPath}">
-									<fileset dir="${jsTargetPath}" includes="**/*.js" />
-									<arg line="-jar"/>
-									<arg path="${yuiPath}" />																	
-									<arg line="-v "/>
-									<srcfile/>
-									<arg line="-o"/>		 	
-									<mapper type="glob" from="*.js" to="*-min.js"/>
-									<targetfile/>
-								</apply>
-							
-								<delete includeemptydirs="true">
-									<fileset dir="${jsTargetPath}" includes="**/*.js" excludes="**/*-min.js" />
-								</delete>
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>					
-					<execution>
-						<id>install</id>
-						<phase>install</phase>
-						<configuration>
-							<tasks>
-								<echo
-									message="Will download Google App Engine for Java and run appcfg tool to upload the application." />								
-								<java fork="true" classname="com.google.appengine.tools.admin.AppCfg">
-									<sysproperty key="appengine.sdk.root"
-										value="${gae.ouput}/gaej1.3.2/appengine-java-sdk-1.3.2" />									
-									<classpath>
-										<fileset dir="${gae.ouput}/gaej1.3.2">
-											<include name="**/*.jar" />
-										</fileset>
-									</classpath>									
-									<arg value="update" />
-									<arg
-										value="${basedir}/target/${project.artifactId}-${project.version}" />
-								</java>
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-            -->
-        </plugins>
-    </build>
+    <properties>
+        <!-- Logging -->
+        <org.slf4j.version>1.6.1</org.slf4j.version>
 
+        <!-- Common lib -->
+        <commons.beanutils.version>1.8.3</commons.beanutils.version>
+        <commons.io.version>2.0.1</commons.io.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <commons.codec.version>1.5</commons.codec.version>
+        <commons.validator.version>1.3.1</commons.validator.version>
+
+        <!-- Testing -->
+        <junit.version>4.8.1</junit.version>
+
+        <jmockit.version>0.999.10</jmockit.version>
+    </properties>
     <repositories>
         <!-- for google document vnList API -->
         <repository>
@@ -272,11 +139,9 @@
         <repository>
             <id>jmockit-svn</id>
             <url>http://jmockit.googlecode.com/svn/maven-repo</url>
-            <releases>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
         </repository>
     </repositories>
+
 
     <pluginRepositories>
         <pluginRepository>
@@ -286,806 +151,5 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <dependencies>
-        <!-- Google -->
-        <dependency>
-            <groupId>com.google.collections</groupId>
-            <artifactId>google-collections</artifactId>
-            <version>${google-collections.version}</version>
-        </dependency>
-        <!-- Gooogle Document List API -->
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${google.gdata.jsr305.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-docs-3.0</artifactId>
-            <version>${gdata-docs-3.0.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-docs-meta-3.0</artifactId>
-            <version>${gdata-docs-meta-3.0.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-media-1.0</artifactId>
-            <version>${gdata-media-1.0.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-client-1.0</artifactId>
-            <version>${gdata-client-1.0.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-client-meta-1.0</artifactId>
-            <version>${gdata-client-meta-1.0.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-core-1.0</artifactId>
-            <version>${gdata-core-1.0.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>google-collections</artifactId>
-                    <groupId>com.google.collections</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-base-1.0</artifactId>
-            <version>${gdata-base-1.0.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>google-collections</artifactId>
-                    <groupId>com.google.collections</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Spreadsheet API -->
-        <dependency>
-            <groupId>com.google.gdata</groupId>
-            <artifactId>gdata-spreadsheet-3.0</artifactId>
-            <version>${gdata-spreadsheet-3.0.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.surefire</groupId>
-            <artifactId>surefire-junit4</artifactId>
-            <version>${surefire-junit4.version}</version>
-        </dependency>
-        <!-- remember to use the customized version -->
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>${xstream.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xpp3_min</artifactId>
-                    <groupId>xpp3</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Remember to copy over the fixed version -->
-        <dependency>
-            <groupId>xpp3</groupId>
-            <artifactId>xpp3_min</artifactId>
-            <version>${xpp3_min.version}</version>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <!--
-            <scope>test</scope>
-            -->
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <version>${appengine-SDK.version}</version>
-            <artifactId>appengine-testing</artifactId>
-            <!--
-            <scope>test</scope>
-            -->
-        </dependency>
-        <!-- Web server -->
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_2.5_spec</artifactId>
-            <version>${geronimo-servlet_2.5_spec.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jsp_2.1_spec</artifactId>
-            <version>${geronimo.specs.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-el_1.0_spec</artifactId>
-            <version>${geronimo.specs.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- JSTL -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
-        <!-- Template Engine -->
-        <dependency>
-            <groupId>opensymphony</groupId>
-            <artifactId>sitemesh</artifactId>
-            <version>${sitemesh.version}</version>
-        </dependency>
-        <!-- persistence -->
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_3.0_spec</artifactId>
-            <version>${geronimo-jpa_3.0_spec.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.jdo</groupId>
-            <artifactId>jdo2-api</artifactId>
-            <version>2.3-eb</version>
-            <scope>runtime</scope>
-            <exclusions>
-                <exclusion><!-- Use geronimo-jta_1.1_spec instead -->
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>transaction-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
-            <version>${geronimo-jta_1.1_spec.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>1.1.5</version>
-            <scope>runtime</scope>
-            <exclusions>
-                <exclusion><!-- Use geronimo-jta_1.1_spec instead -->
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>transaction-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-jpa</artifactId>
-            <version>${datanucleus-jpa.version}</version>
-            <scope>runtime</scope>
-            <exclusions>
-                <exclusion><!-- Use geronimo-jpa_3.0_spec instead -->
-                    <groupId>javax.persistence</groupId>
-                    <artifactId>persistence-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Google App Engine persistence runtime -->
-        <dependency>
-            <groupId>com.google.appengine.orm</groupId>
-            <artifactId>datanucleus-appengine</artifactId>
-            <version>${datanucleus-appengine.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Google App Engine API -->
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>${appengine-SDK.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-stubs</artifactId>
-            <version>${appengine-SDK.version}</version>
-            <scope>${appengine-api-stubs.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-labs</artifactId>
-            <version>${appengine-SDK.version}</version>
-        </dependency>
-        <!-- for google mail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>${mail.version}</version>
-        </dependency>
-        <!-- Logging -->
-        <!--
-        <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>${org.slf4j.version}</version>
-		</dependency>
-		-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
-        <!--
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${org.slf4j.version}</version>
-		</dependency>
-		-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
-
-        <!--
-              Spring framework, remove all commons-logging b/c we have
-              jcl-over-slf4j
-          -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>${spring-aspects.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-aop</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-expression</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context-support</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-test</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring-core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring-context-support.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring-test.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-asm</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-asm</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--  Spring Security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-expression</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-tx</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-aop</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-web</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-jdbc</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context-support</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- 3.1.0.CI-SNAPSHOT -->
-        <!-- Commons -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons.lang.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>${commons.codec.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons.beanutils.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-            <version>${commons.validator.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-collections</artifactId>
-                    <groupId>commons-collections</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-beanutils</artifactId>
-                    <groupId>commons-beanutils</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Jasypt -->
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-            <version>${jasypt.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang</artifactId>
-                    <groupId>commons-lang</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-codec</artifactId>
-                    <groupId>commons-codec</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- GSON -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- Facebook lib -->
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>activation</artifactId>
-            <version>${activation.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>${commons-logging.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>facebook-java-api</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>facebook-java-api-annotation-processor</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>facebook-java-api-schema</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.2.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>activation</artifactId>
-                    <groupId>javax.activation</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-xjc</artifactId>
-            <version>2.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>json</artifactId>
-            <version>20080701</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>runtime</artifactId>
-            <version>0.4.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>stax-api</artifactId>
-            <version>${stax-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>${commons-httpclient.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-codec</artifactId>
-                    <groupId>commons-codec</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>net.htmlparser.jericho</groupId>
-            <artifactId>jericho-html</artifactId>
-            <version>${jericho-html.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>code.ximpleware</groupId>
-            <artifactId>vtd-xml</artifactId>
-            <version>${vtd-xml.version}</version>
-        </dependency>
-        <!-- jaxb and xml -->
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.9.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xml-apis</artifactId>
-                    <groupId>xml-apis</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.6</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang</artifactId>
-                    <groupId>commons-lang</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-digester</artifactId>
-                    <groupId>commons-digester</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.1</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xml-apis</artifactId>
-                    <groupId>xml-apis</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.0.b2</version>
-        </dependency>
-        <!-- Lucene -->
-
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-wordnet</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <!-- abtab -->
-        <dependency>
-            <groupId>commons-compress</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>20050911</version>
-        </dependency>
-        <!--
-            JMockit
-        -->
-        <dependency>
-            <groupId>mockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>0.999.10</version>
-        </dependency>
-    </dependencies>
-
-    <profiles>
-        <!-- ================= Production Settings Profile ================= -->
-        <!-- Use "-P prod" when you want to use the settings in this profile -->
-        <!-- =============================================================== -->
-        <profile>
-            <id>prod</id>
-            <build>
-                <plugins>
-                    <!-- ================= Production Settings Profile ================= -->
-                    <!-- Override location of data file for DbUnit to load (doesn't have -->
-                    <!-- negative keys                                                   -->
-                    <!-- =============================================================== -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dbunit-maven-plugin</artifactId>
-                        <configuration>
-                            <src>src/main/resources/default-data.xml</src>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-    </profiles>
-
-    <properties>
-        <!-- Application settings -->
-        <copyright.year>2011</copyright.year>
-        <gae.ouput>/Personal/Working/Development/Runtime</gae.ouput>
-
-        <!-- Google settings -->
-        <appengine-local-runtime.scope>provided</appengine-local-runtime.scope>
-        <appengine-api-stubs.scope>provided</appengine-api-stubs.scope>
-        <appengine-SDK.version>1.5.0.1</appengine-SDK.version>
-        <geronimo.specs.version>1.0.1</geronimo.specs.version>
-        <geronimo-jpa_3.0_spec.version>1.1.1</geronimo-jpa_3.0_spec.version>
-        <geronimo-jta_1.1_spec.version>1.1.1</geronimo-jta_1.1_spec.version>
-        <geronimo-servlet_2.5_spec.version>1.2</geronimo-servlet_2.5_spec.version>
-        <datanucleus-appengine.version>1.0.7</datanucleus-appengine.version>
-        <datanucleus-jpa.version>1.1.5</datanucleus-jpa.version>
-        <google.gdata.jsr305.version>1.0</google.gdata.jsr305.version>
-        <google-collections.version>1.0-rc5</google-collections.version>
-        <gdata-docs-3.0.version>1.41.5</gdata-docs-3.0.version>
-        <gdata-docs-meta-3.0.version>1.41.1</gdata-docs-meta-3.0.version>
-        <gdata-media-1.0.version>1.41.5</gdata-media-1.0.version>
-        <gdata-client-1.0.version>1.41.5</gdata-client-1.0.version>
-        <gdata-core-1.0.version>1.41.5</gdata-core-1.0.version>
-        <gdata-client-meta-1.0.version>1.41.1</gdata-client-meta-1.0.version>
-        <gdata-base-1.0.version>1.41.5</gdata-base-1.0.version>
-        <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
-
-        <!-- Framework dependency versions -->
-        <spring.version>3.0.1.RELEASE</spring.version>
-        <jsp.version>2.0</jsp.version>
-        <junit.version>4.8.1</junit.version>
-        <servlet.version>2.5</servlet.version>
-        <spring-aspects.version>3.0.2.RELEASE</spring-aspects.version>
-        <spring-core.version>3.0.2.RELEASE</spring-core.version>
-        <spring-context-support.version>3.0.1.RELEASE</spring-context-support.version>
-        <spring.security.version>3.0.1.RELEASE</spring.security.version>
-
-        <!-- Logging -->
-        <org.slf4j.version>1.6.1</org.slf4j.version>
-        <log4j.version>1.2.13</log4j.version>
-
-        <!-- Common -->
-        <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <commons.io.version>2.0.1</commons.io.version>
-        <commons.lang.version>2.6</commons.lang.version>
-        <commons.codec.version>1.5</commons.codec.version>
-        <commons.validator.version>1.3.1</commons.validator.version>
-        <commons-logging.version>1.1.1</commons-logging.version>
-        <commons-httpclient.version>3.1</commons-httpclient.version>
-
-        <!-- JSTL -->
-        <jstl.version>1.1.2</jstl.version>
-
-        <!-- Template Engine -->
-        <sitemesh.version>2.4.2</sitemesh.version>
-
-        <!-- Testing -->
-        <surefire-junit4.version>2.9</surefire-junit4.version>
-        <spring-test.version>3.0.1.RELEASE</spring-test.version>
-
-        <!-- Other -->
-        <jasypt.version>1.8</jasypt.version>
-        <xpp3_min.version>1.1.3.4.O</xpp3_min.version>
-        <gson.version>1.7.1</gson.version>
-        <xstream.version>1.3.1</xstream.version>
-        <stax-api.version>1.0-2</stax-api.version>
-        <vtd-xml.version>2.9</vtd-xml.version>
-        <jericho-html.version>3.1</jericho-html.version>
-        <activation.version>1.1</activation.version>
-        <mail.version>1.4.1</mail.version>
-    </properties>
 </project>
 

@@ -1,4 +1,4 @@
-package com.nkhoang.mock;
+package com.nkhoang.gea.mock;
 
 public class CustomerCare {
     public boolean processCustomerOrder(Customer c) {

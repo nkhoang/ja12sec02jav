@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <artifactId>projectGEA</artifactId>
-        <groupId>com.nkhoang.gea</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>com.nkhoang</groupId>
+        <version>1.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -327,11 +327,7 @@
             <artifactId>gdata-spreadsheet-3.0</artifactId>
             <version>${gdata-spreadsheet-3.0.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.maven.surefire</groupId>
-            <artifactId>surefire-junit4</artifactId>
-            <version>${surefire-junit4.version}</version>
-        </dependency>
+
         <!-- remember to use the customized version -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
@@ -355,11 +351,8 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <!--
-            <scope>test</scope>
-            -->
         </dependency>
+
         <dependency>
             <groupId>com.google.appengine</groupId>
             <version>${appengine-SDK.version}</version>
@@ -721,22 +714,18 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>${commons.lang.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${commons.codec.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>${commons.beanutils.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -747,7 +736,6 @@
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>${commons.validator.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -953,13 +941,10 @@
             <artifactId>commons-compress</artifactId>
             <version>20050911</version>
         </dependency>
-        <!--
-            JMockit
-        -->
+
         <dependency>
             <groupId>mockit</groupId>
             <artifactId>jmockit</artifactId>
-            <version>0.999.10</version>
         </dependency>
 
 
@@ -1017,7 +1002,6 @@
         <!-- Framework dependency versions -->
         <spring.version>3.0.1.RELEASE</spring.version>
         <jsp.version>2.0</jsp.version>
-        <junit.version>4.8.1</junit.version>
         <servlet.version>2.5</servlet.version>
         <spring-aspects.version>3.0.2.RELEASE</spring-aspects.version>
         <spring-core.version>3.0.2.RELEASE</spring-core.version>
@@ -1025,11 +1009,6 @@
         <spring.security.version>3.0.1.RELEASE</spring.security.version>
 
         <!-- Common -->
-        <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <commons.io.version>2.0.1</commons.io.version>
-        <commons.lang.version>2.6</commons.lang.version>
-        <commons.codec.version>1.5</commons.codec.version>
-        <commons.validator.version>1.3.1</commons.validator.version>
         <commons-logging.version>1.1.1</commons-logging.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
 

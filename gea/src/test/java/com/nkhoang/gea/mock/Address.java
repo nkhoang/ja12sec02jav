@@ -1,4 +1,4 @@
-package com.nkhoang.mock;
+package com.nkhoang.gea.mock;
 
 /**
  * Created by IntelliJ IDEA.
