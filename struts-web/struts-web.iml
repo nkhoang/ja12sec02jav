@@ -24,6 +24,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/webapp" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/target/site" />
       <excludeFolder url="file://$MODULE_DIR$/target/struts-web-1.0" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>

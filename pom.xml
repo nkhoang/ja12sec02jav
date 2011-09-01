@@ -28,8 +28,7 @@
                     <genericCore>${amp.genericCore}</genericCore>
                     <fullSource>${amp.fullSource}</fullSource>
                 </configuration>
-                <!-- Dependency needed by appfuse:gen-model to connect to database. -->
-                <!-- See http://issues.appfuse.org/browse/APF-868 to learn more.    -->
+
                 <dependencies>
                     <dependency>
                         <groupId>${jdbc.groupId}</groupId>
@@ -55,6 +54,18 @@
             <!-- ########################################################### -->
             <!--                      COMMON LIBRARY                         -->
             <!-- ########################################################### -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons.fileupload.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>${commons.dbcp.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -232,7 +243,6 @@
                 <version>${aspectj.version}</version>
             </dependency>
 
-
             <!-- ########################################################### -->
             <!--                      SPRING LIBRARY                         -->
             <!-- ########################################################### -->
@@ -281,6 +291,12 @@
                 <version>${jaxb.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>sitemesh</artifactId>
+                <version>${sitemesh.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -314,11 +330,11 @@
         <jsp.version>2.1</jsp.version>
         <servlet.version>2.5</servlet.version>
         <jstl.version>1.1.2</jstl.version>
-        <urlrewrite.version>3.1.0</urlrewrite.version>
-        <displaytag.version>1.2</displaytag.version>
+
+
         <velocity.version>1.4</velocity.version>
         <sitemesh.version>2.4.2</sitemesh.version>
-        <ehcache.web.version>2.0.3</ehcache.web.version>
+
         <dwr.version>2.0.3</dwr.version>
         <javamail.version>1.4.1</javamail.version>
         <aspectj.version>1.6.10</aspectj.version>
@@ -335,9 +351,6 @@
         <spring.version>3.0.5.RELEASE</spring.version>
         <spring.security.version>3.0.5.RELEASE</spring.security.version>
 
-        <!-- Struts -->
-        <struts.version>2.1.8</struts.version>
-        <struts.menu.version>2.4.3</struts.menu.version>
 
         <!-- Lucene -->
         <compass.version>2.2.0</compass.version>
@@ -460,6 +473,7 @@
                 <jdbc.username>sa</jdbc.username>
             </properties>
         </profile>
+
         <profile>
             <id>oracle</id>
             <properties>
@@ -476,6 +490,7 @@
                 <jdbc.password>system</jdbc.password>
             </properties>
         </profile>
+
         <profile>
             <id>postgresql</id>
             <properties>
@@ -489,6 +504,7 @@
                 <jdbc.password>postgres</jdbc.password>
             </properties>
         </profile>
+
         <profile>
             <!-- You need to enable TCP/IP Connections for SQL Server 2005 after installing. -->
             <!-- http://www.mattwoodward.com/blog/index.cfm?commentID=211 -->
@@ -545,7 +561,6 @@
     </pluginRepositories>
 
     <repositories>
-        <!-- for google document vnList API -->
         <repository>
             <id>google docs</id>
             <url>http://mandubian-mvn.googlecode.com/svn/trunk/mandubian-mvn/repository</url>
