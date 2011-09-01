@@ -16,20 +16,57 @@
         <module>struts-core</module>
         <module>struts-web</module>
     </modules>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.appfuse.plugins</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <version>${appfuse.version}</version>
+                <configuration>
+                    <genericCore>${amp.genericCore}</genericCore>
+                    <fullSource>${amp.fullSource}</fullSource>
+                </configuration>
+                <!-- Dependency needed by appfuse:gen-model to connect to database. -->
+                <!-- See http://issues.appfuse.org/browse/APF-868 to learn more.    -->
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbc.groupId}</groupId>
+                        <artifactId>${jdbc.artifactId}</artifactId>
+                        <version>${jdbc.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencyManagement>
         <dependencies>
 
-            <!-- Common lib -->
+            <!-- ########################################################### -->
+            <!--                      COMMON LIBRARY                         -->
+            <!-- ########################################################### -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons.lang.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -78,20 +115,6 @@
                 <version>${commons.collections.version}</version>
             </dependency>
 
-            <!-- Testing -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-
-            <!-- JMockit -->
-            <dependency>
-                <groupId>mockit</groupId>
-                <artifactId>jmockit</artifactId>
-                <version>${jmockit.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>commons-configuration</groupId>
                 <artifactId>commons-configuration</artifactId>
@@ -104,19 +127,33 @@
                 <version>${commons-httpclient.version}</version>
             </dependency>
 
-            <!-- Struts -->
-
+            <!-- ########################################################### -->
+            <!--                      TESTING LIBRARY                        -->
+            <!-- ########################################################### -->
             <dependency>
-                <groupId>${jdbc.groupId}</groupId>
-                <artifactId>${jdbc.artifactId}</artifactId>
-                <version>${jdbc.version}</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit-dep</artifactId>
                 <version>4.5</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- JMockit -->
+            <dependency>
+                <groupId>mockit</groupId>
+                <artifactId>jmockit</artifactId>
+                <version>${jmockit.version}</version>
+            </dependency>
+
+            <!-- ########################################################### -->
+            <!--                      LOGGING LIBRARY                        -->
+            <!-- ########################################################### -->
+
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
@@ -140,33 +177,24 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
 
-            <!-- Logging -->
+            <!-- for common logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
-                <version>${org.slf4j.version}</version>
+                <version>${slf4j.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jul-to-slf4j</artifactId>
-                <version>${org.slf4j.version}</version>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-jdk14</artifactId>
-                <version>${org.slf4j.version}</version>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <dependency>
@@ -174,13 +202,40 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
 
-            <!-- spring framework -->
+            <!-- ########################################################### -->
+            <!--                      STRUTS LIBRARY                         -->
+            <!-- ########################################################### -->
+
+            <dependency>
+                <groupId>${jdbc.groupId}</groupId>
+                <artifactId>${jdbc.artifactId}</artifactId>
+                <version>${jdbc.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+
+            <!-- ########################################################### -->
+            <!--                      SPRING LIBRARY                         -->
+            <!-- ########################################################### -->
 
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -188,32 +243,63 @@
                 <version>${spring.version}</version>
                 <optional>true</optional>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>
                 <version>${spring.security.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-config</artifactId>
                 <version>${spring.security.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.subethamail</groupId>
                 <artifactId>subethasmtp-wiser</artifactId>
                 <version>${wiser.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${javamail.version}</version>
+            </dependency>
+
+            <!-- Lucene -->
+            <dependency>
+                <groupId>org.compass-project</groupId>
+                <artifactId>compass</artifactId>
+                <version>${compass.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <properties>
+        <amp.genericCore>true</amp.genericCore>
+        <amp.fullSource>true</amp.fullSource>
+        <appfuse.version>2.1.0</appfuse.version>
+
         <!-- Logging -->
-        <org.slf4j.version>1.6.1</org.slf4j.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <log4j.version>1.2.16</log4j.version>
+
+        <!-- Testing -->
+        <jmockit.version>0.999.10</jmockit.version>
+        <junit.version>4.8.2</junit.version>
+        <cargo.version>1.0.6</cargo.version>
 
         <!-- Common lib -->
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <commons.io.version>2.0.1</commons.io.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.codec.version>1.5</commons.codec.version>
         <commons.validator.version>1.3.1</commons.validator.version>
@@ -224,39 +310,38 @@
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>2.0.1</commons.io.version>
 
-
-        <jmockit.version>0.999.10</jmockit.version>
-
-        <!-- Properties calculated by AppFuse when running full-source plugin -->
-        <aspectj.version>1.6.10</aspectj.version>
-        <compass.version>2.2.0</compass.version>
-        <cxf.version>2.3.3</cxf.version>
-        <dwr.version>2.0.3</dwr.version>
-        <ehcache.version>2.3.1</ehcache.version>
-        <ehcache.web.version>2.0.3</ehcache.web.version>
-        <hibernate.version>3.6.1.Final</hibernate.version>
-        <javamail.version>1.4.1</javamail.version>
-        <jpa.version>2.0-cr-1</jpa.version>
-        <jstl.version>1.1.2</jstl.version>
-        <log4j.version>1.2.16</log4j.version>
-        <sitemesh.version>2.4.2</sitemesh.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <spring.security.version>3.0.5.RELEASE</spring.security.version>
-        <struts.menu.version>2.4.3</struts.menu.version>
-        <urlrewrite.version>3.1.0</urlrewrite.version>
-        <velocity.version>1.4</velocity.version>
-
-        <!-- Framework dependency versions -->
-        <appfuse.version>2.1.0</appfuse.version>
-        <displaytag.version>1.2</displaytag.version>
-        <spring.version>3.0.5.RELEASE</spring.version>
-        <struts.version>2.1.8</struts.version>
-
-        <!-- Testing dependency versions -->
-        <cargo.version>1.0.6</cargo.version>
+        <!-- Web -->
         <jsp.version>2.1</jsp.version>
-        <junit.version>4.8.2</junit.version>
         <servlet.version>2.5</servlet.version>
+        <jstl.version>1.1.2</jstl.version>
+        <urlrewrite.version>3.1.0</urlrewrite.version>
+        <displaytag.version>1.2</displaytag.version>
+        <velocity.version>1.4</velocity.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
+        <ehcache.web.version>2.0.3</ehcache.web.version>
+        <dwr.version>2.0.3</dwr.version>
+        <javamail.version>1.4.1</javamail.version>
+        <aspectj.version>1.6.10</aspectj.version>
+
+        <!-- WS -->
+
+        <!-- XML -->
+        <jaxb.version>2.2</jaxb.version>
+
+        <!-- Database -->
+        <hibernate.version>3.6.1.Final</hibernate.version>
+
+        <!-- Spring -->
+        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.security.version>3.0.5.RELEASE</spring.security.version>
+
+        <!-- Struts -->
+        <struts.version>2.1.8</struts.version>
+        <struts.menu.version>2.4.3</struts.menu.version>
+
+        <!-- Lucene -->
+        <compass.version>2.2.0</compass.version>
+
         <wiser.version>1.2</wiser.version>
 
         <!-- Database name -->
@@ -264,31 +349,57 @@
         <dbunit.schema></dbunit.schema>
     </properties>
 
-    <repositories>
-        <!-- for google document vnList API -->
-        <repository>
-            <id>google docs</id>
-            <url>http://mandubian-mvn.googlecode.com/svn/trunk/mandubian-mvn/repository</url>
-        </repository>
-        <repository>
-            <id>jBoss</id>
-            <url>http://repository.jboss.org/maven2</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <url>http://mvnrepository.com/artifact/</url>
-        </repository>
-        <repository>
-            <id>jmockit-svn</id>
-            <url>http://jmockit.googlecode.com/svn/maven-repo</url>
-        </repository>
-        <repository>
-            <id>webtest_dependencies_snapshot</id>
-            <name>WebTest dependencies</name>
-            <url>http://webtest.canoo.com/webtest/m2-repo-snapshots</url>
-        </repository>
-    </repositories>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-changes-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <consoleOutput>true</consoleOutput>
+                    <configLocation>https://svn.java.net/svn/appfuse~svn/trunk/www/checkstyle.xml</configLocation>
+                    <failsOnError>false</failsOnError>
+                    <maxAllowedViolations>3</maxAllowedViolations>
+                </configuration>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>**/model/*.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.7.1</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <profiles>
         <!-- ================= Database Profiles ================= -->
@@ -408,60 +519,8 @@
         </profile>
     </profiles>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>2.3</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <consoleOutput>true</consoleOutput>
-                    <configLocation>https://svn.java.net/svn/appfuse~svn/trunk/www/checkstyle.xml</configLocation>
-                    <failsOnError>false</failsOnError>
-                    <maxAllowedViolations>3</maxAllowedViolations>
-                </configuration>
-                <version>2.7</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <excludes>
-                            <exclude>**/model/*.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                </configuration>
-                <version>2.4</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <linkXRef>true</linkXRef>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-                <version>2.5</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.7.1</version>
-            </plugin>
-        </plugins>
-    </reporting>
-
     <pluginRepositories>
+        <!--
         <pluginRepository>
             <id>maven-repository.dev.java.net</id>
             <name>Java.net Maven 2 Repository</name>
@@ -482,6 +541,33 @@
             <name>repo1-maven</name>
             <url>http://repo1.maven.org/maven2</url>
         </pluginRepository>
+        -->
     </pluginRepositories>
+
+    <repositories>
+        <!-- for google document vnList API -->
+        <repository>
+            <id>google docs</id>
+            <url>http://mandubian-mvn.googlecode.com/svn/trunk/mandubian-mvn/repository</url>
+        </repository>
+        <repository>
+            <id>jBoss</id>
+            <url>http://repository.jboss.org/maven2</url>
+        </repository>
+        <repository>
+            <id>mvnrepository</id>
+            <url>http://mvnrepository.com/artifact/</url>
+        </repository>
+        <repository>
+            <id>jmockit-svn</id>
+            <url>http://jmockit.googlecode.com/svn/maven-repo</url>
+        </repository>
+        <repository>
+            <id>webtest_dependencies_snapshot</id>
+            <name>WebTest dependencies</name>
+            <url>http://webtest.canoo.com/webtest/m2-repo-snapshots</url>
+        </repository>
+    </repositories>
+
 </project>
 
