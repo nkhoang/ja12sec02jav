@@ -28,6 +28,9 @@ import com.ximpleware.AutoPilot;
 import com.ximpleware.VTDGen;
 import com.ximpleware.VTDNav;
 import com.ximpleware.XMLModifier;
+import freemarker.template.TemplateException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -51,6 +54,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -106,7 +110,7 @@ public class VocaAction {
      * @return
      */
     @RequestMapping(value = "/" + "vocabularyBuilder", method = RequestMethod.GET)
-    public ModelAndView renderIVocabularyBuilder() {
+    public ModelAndView renderIVocabularyBuilder(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("vocabulary/vocabularyBuilder");
 
@@ -130,49 +134,72 @@ public class VocaAction {
             @RequestParam("ids") String ids,
             @RequestParam("exampleIds") String[] exampleIds,
             @RequestParam("meaningIds") String[] meaningIds,
-            HttpServletResponse response) {
+            HttpServletResponse response,
+            HttpServletRequest request
+    ) {
 
         // I don't know why we don't use array or list here.
         // TODO: check the ids if we can change it to an array.
-        List<Long> idsList = new ArrayList<Long>();
+        List<Long> filteredIds = new ArrayList<Long>();
         String[] idStrs = ids.split(",");
         for (String id : idStrs) {
-            idsList.add(Long.parseLong(id.trim()));
+            filteredIds.add(Long.parseLong(id.trim()));
         }
 
         // get word list based on what selected.
-        List<Word> wordList = vocabularyService.getAllWordsById(idsList);
+        List<Word> wordList = vocabularyService.getAllWordsById(filteredIds);
 
-        Map<String, List<Integer>> exampleMap = new HashMap<String, List<Integer>>();
+        Map<String, List<Integer>> filteredMeaningExampleIdMap = new HashMap<String, List<Integer>>();
         // build meaning - example map.
         for (String example : exampleIds) {
             // split to get meaning and example index.
             String[] data = example.split("-");
-            if (exampleMap.get(data[0]) == null) {
-                exampleMap.put(data[0], new ArrayList<Integer>());
+            if (filteredMeaningExampleIdMap.get(data[0]) == null) {
+                filteredMeaningExampleIdMap.put(data[0], new ArrayList<Integer>());
             }
-            exampleMap.get(data[0]).add(Integer.parseInt(data[1]));
+            filteredMeaningExampleIdMap.get(data[0]).add(Integer.parseInt(data[1]));
         }
 
-        List<Long> meaningList = new ArrayList<Long>();
-        // build meaning id list
+        List<Long> filteredMeaningIds = new ArrayList<Long>();
+        // build filtered meaning ids.
         for (String s : meaningIds) {
-            meaningList.add(Long.parseLong(s));
+            filteredMeaningIds.add(Long.parseLong(s));
         }
 
         // filter meanings base on id.
         for (Word w : wordList) {
-            w.get
+            w.optimizeStructure(filteredMeaningIds, filteredMeaningExampleIdMap);
+        }
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.S");
+            String currentDate = dateFormatter.format(Calendar.getInstance().getTime());
+            dateFormatter = new SimpleDateFormat("dd/MM/yy");
+            String simpleCurrentDate = dateFormatter.format(Calendar.getInstance().getTime());
+            IVocabularyUtil.buildIVocabulary("English",
+                    "English",
+                    "Hoang Nguyen Khanh",
+                    "Created by http://mini-vocabulary.appspot.com/vocabulary/vocabularyBuilder.html",
+                    currentDate,
+                    "Vocabulary List - " + simpleCurrentDate,
+                    wordList.size() + "",
+                    request.getSession().getServletContext(), wordList, response.getWriter());
+        } catch (IOException ioe) {
+            LOG.error("The template file may not find in the target folder. Please check the error message for more details.", ioe);
+        } catch (TemplateException tple) {
+            LOG.error("There are errors while templating. Please check the error message for more details.", tple);
         }
 
+/*
         IVocabularyConstructor constructor = new IVocabularyConstructor();
-        String xml = constructor.constructIVocabularyFile(wordList, 0, wordList.size(), wordList.size(), dateTime, chapterTitle, meaningList, exampleMap);
+        String xml = constructor.constructIVocabularyFile(wordList, 0, wordList.size(), wordList.size(), dateTime, chapterTitle, filteredMeaningIds, filteredMeaningExampleIdMap);
         try {
             response.getWriter().write(xml);
         } catch (Exception ex) {
 
         }
+*/
     }
+
 
     /**
      * Export vocabulary data from an excel file in google docs to new documents in google docs.
@@ -814,3 +841,5 @@ public class VocaAction {
         this.messageDao = messageDao;
     }
 }
+
+

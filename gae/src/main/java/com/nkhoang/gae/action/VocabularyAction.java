@@ -102,13 +102,6 @@ public class VocabularyAction {
 		} else {
 			mav.addObject("isAdmin", false);
 		}
-
-        try {
-            IVocabularyUtil.buildIVocabulary(request.getSession().getServletContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 		return mav;
 	}
 
