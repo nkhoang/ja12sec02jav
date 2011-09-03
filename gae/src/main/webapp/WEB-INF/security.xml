@@ -30,7 +30,6 @@
         <intercept-url pattern="/vocabulary/constructIVocabulary.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
         <intercept-url pattern="/vocabulary/iVocabulary2GD.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-
         <!-- Serve VN Gold price -->
 
         <intercept-url pattern="/data/clearAllVNGoldPrice.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>

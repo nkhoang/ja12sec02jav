@@ -87,6 +87,7 @@
         }
 
         function processWord(data) {
+            console.debug(data);
             var word = data.word;
             var $word = $('<div class="w"></div>');
             // append title.
@@ -139,7 +140,7 @@
                                 for (var z in examples) {
                                     var $example = $('<div class="w-k-m-ex"></div>');
                                     // append check box to know which meaning to be included.
-                                    $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex));
+                                    $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex + '-'));
                                     $example.append($('<span></span>').html(examples[z]));
                                     $meaning.append($example);
                                     exampleIndex++;
@@ -273,32 +274,6 @@
     </script >
 </head >
 <body >
-
-<select size="1">
-    <c:forEach var="listItem" items="${set}" varStatus="listStatus">
-        <c:if test="${fn:length(set2) gt 0}" >
-        <c:forEach var="listItem2" items="${set2}" varStatus="listStatus2">
-            <c:if test="${listItem eq listItem2}" >
-                <option value="${listItem}" selected="selected">
-                    ${listItem}
-                </option>
-            </c:if>
-            <c:if test="${listStatus2.last and listItem ne listItem2}">
-                <option value="${listItem}">
-                    ${listItem}
-                </option>
-            </c:if>
-        </c:forEach>
-    </c:if>
-        <c:if test="${fn:length(set2) eq 0}">
-            <option value="${listItem}">
-                    ${listItem}
-                </option>
-        </c:if>
-
-    </c:forEach>
-</select>
-
 <h1 >Welcome to iVocabulary builder.</h1 >
 
 <div class="form-container" >

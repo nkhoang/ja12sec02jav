@@ -1,13 +1,14 @@
 <%@ include file="/common/taglibs.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html >
-<head >
-<title ><fmt:message key="webapp.title" /></title >
+<html>
+<head>
+<title><fmt:message key="webapp.title"/></title>
 <link href="<c:url value='/styles/simple/ext-all.css'/>" rel="stylesheet" media="all"/>
-<style type="text/css" >
+<style type="text/css">
     body {
-        font: 13px/1.231 "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+        font: 13px/1.231 "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     }
+
     .w-k {
         border-bottom: 1px solid #C0C0C0;
         margin-bottom: 15px;
@@ -49,13 +50,13 @@
     .w-time {
         font-size: 9px;
     }
-</style >
+</style>
 <script type="text/javascript" src="<c:url value='/js/ext.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/ext-all.js'/>"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" ></script >
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 
 
-<script type="text/javascript" >
+<script type="text/javascript">
     //playSoundFromFlash('/media/british/us_pron/a/agr/agric/agriculture.mp3', this)
     function playSoundFromFlash(B) {
         var C = "http://dictionary.cambridge.org/dictionary/british/".replace("http://", "");
@@ -104,9 +105,9 @@
         }
         B.firstChild.nodeValue = C;
     }
-</script >
+</script>
 
-<script type="text/javascript" >
+<script type="text/javascript">
     // empty array.
     var wordKind = [];
     $(function() {
@@ -182,8 +183,8 @@
         }
         $('#w-d').html(wordDescription);
         if (word.soundSource != undefined)
-        $('#w-d').append($('<img onclick="' + word.soundSource
-               + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">'));
+            $('#w-d').append($('<img onclick="' + word.soundSource
+                    + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">'));
         // clear all old data.
         $('#w-nav').empty();
         var $wordKinds = $('<div class="w-ks"></div>');
@@ -247,14 +248,14 @@
             }
         });
     }
-</script >
+</script>
 
 <script type="text/javascript">
-    Ext.onReady(function(){
+    Ext.onReady(function() {
         Ext.namespace("Vocabulary");
 
-        Ext.define('Vocabulary.Search',{
-           extend: 'Ext.form.field.Base',
+        Ext.define('Vocabulary.Search', {
+            extend: 'Ext.form.field.Base',
             inputType: 'text',
             initComponent: function() {
                 this.callParent();
@@ -269,7 +270,7 @@
             alias: 'widget.searchfield'
         });
 
-        Ext.create('Ext.form.Panel',{
+        Ext.create('Ext.form.Panel', {
             title:"Lookup your new word",
             layout: 'anchor',
             bodyPadding: 5,
@@ -284,55 +285,56 @@
     });
 </script>
 
-<security:authorize url="/user/admin" >
-    <script type="text/javascript" >
+<security:authorize url="/user/admin">
+    <script type="text/javascript">
         $(function() {
             refreshRecentWords(0, 10);
         });
-    </script >
-</security:authorize >
-</head >
-<body >
+    </script>
+</security:authorize>
+</head>
+<body>
 Welcome to Vocabulary index page.
 
-<div id="f-wr" >
+<div id="f-wr">
 
     <div id="lookup-w-c"></div>
 
-    <form name="aw-form" action="/" id="aw-form" >
-        <div >Add a new word</div >
-        <input name="word" type="input" id="w-input" />
-        <input id="aw-b" type="button" value="Find" onclick="submitNewWord();" />
-    </form >
-</div >
+    <form name="aw-form" action="/" id="aw-form">
+        <div>Add a new word</div>
+        <input name="word" type="input" id="w-input"/>
+        <input id="aw-b" type="button" value="Find" onclick="submitNewWord();"/>
+    </form>
+</div>
 
-<table >
-    <thead >
-    <th >Definition</th >
-    <th >Navigation</th >
-    </thead >
-    <tbody >
-    <tr >
-        <td id="w-d" ></td >
-        <td id="w-nav" ></td >
-    </tr >
-    </tbody >
-</table >
-<div id="w-dis" >
+<table>
+    <thead>
+    <th>Definition</th>
+    <th>Navigation</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td id="w-d"></td>
+        <td id="w-nav"></td>
+    </tr>
+    </tbody>
+</table>
+<div id="w-dis">
 
-</div >
+</div>
 
-<security:authorize url="/user/admin" >
-    <div id="recent-w" >
-        <div >Recent words: from <input type="input" size="2" value="0" id="w-offset"> size <select id="w-size" onchange="refreshRecentWords($('#w-offset').val(), this.options[this.selectedIndex].value);">
+<security:authorize url="/user/admin">
+    <div id="recent-w">
+        <div>Recent words: from <input type="input" size="2" value="0" id="w-offset"> size <select id="w-size"
+                                                                                                   onchange="refreshRecentWords($('#w-offset').val(), this.options[this.selectedIndex].value);">
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="25">25</option>
-        </select></div >
-        <div class="recent-ws" >
+        </select></div>
+        <div class="recent-ws">
 
-        </div >
-    </div >
-</security:authorize >
-</body >
-</html >
+        </div>
+    </div>
+</security:authorize>
+</body>
+</html>

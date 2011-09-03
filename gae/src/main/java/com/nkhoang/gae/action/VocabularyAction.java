@@ -23,6 +23,7 @@ import com.nkhoang.gae.utils.xml.iVocabulary.IVocabularyConstructor;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
+import com.nkhoang.gae.vocabulary.IVocabularyUtil;
 import com.ximpleware.AutoPilot;
 import com.ximpleware.VTDGen;
 import com.ximpleware.VTDNav;
@@ -43,6 +44,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -54,10 +57,9 @@ import java.util.*;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
 
-@Controller
-@RequestMapping("/" + ViewConstant.VOCABULARY_NAMESPACE)
+@Deprecated
 public class VocabularyAction {
-	private static final Logger LOGGER                 = LoggerFactory
+	private static final Logger LOG = LoggerFactory
 		.getLogger(VocabularyAction.class.getCanonicalName());
 	private static final int    IVOCABULARY_TOTAL_ITEM = 40;
 	private static final int    IVOCABULARY_PAGE_SIZE  = 20;
@@ -89,7 +91,7 @@ public class VocabularyAction {
 
 	/** Render index page for vocabulary. */
 	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_INDEX_REQUEST, method = RequestMethod.GET)
-	public ModelAndView renderVocabularyIndexPage() {
+	public ModelAndView renderVocabularyIndexPage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(ViewConstant.VOCABULARY_INDEX_VIEW);
 
@@ -100,6 +102,12 @@ public class VocabularyAction {
 		} else {
 			mav.addObject("isAdmin", false);
 		}
+
+        try {
+            IVocabularyUtil.buildIVocabulary(request.getSession().getServletContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 		return mav;
 	}
@@ -207,7 +215,7 @@ public class VocabularyAction {
 				response.getWriter().write("Bad request.");
 			}
 			catch (Exception e) {
-				LOGGER.info("Could not render response.");
+				LOG.info("Could not render response.");
 			}
 		}
 		// check size param.
@@ -226,19 +234,19 @@ public class VocabularyAction {
 		}
 		index = Integer.parseInt(indexStr);
 		int numberOfWords = vocabularyService.getWordSize();
-		LOGGER.info("Starting to export iVocabulary to GOOGLE DOCS.");
+		LOG.info("Starting to export iVocabulary to GOOGLE DOCS.");
 		int nextIndex = index + size + 1;
 		if (index + 40 + 1 < numberOfWords) {
 			String xml = constructIVocabularyFile(index, size, pageSize);
 			try {
-				LOGGER.info("Saving to GOOGLE DOCS.");
+				LOG.info("Saving to GOOGLE DOCS.");
 				GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + size), xml, _username, _password);
 			}
 			catch (Exception e) {
-				LOGGER.info("Could not save to google docs. Try again.");
+				LOG.info("Could not save to google docs. Try again.");
 				nextIndex = index;
 			}
-			LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "]");
+			LOG.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "]");
 			QueueFactory.getDefaultQueue()
 			            .add(url("/vocabulary/iVocabulary2GD.html?index=" + nextIndex).method(TaskOptions.Method.GET));
 		}
@@ -278,7 +286,7 @@ public class VocabularyAction {
 		}
 		catch (Exception e) {
 			message = "An error occurred when trying to connect to Google Spreadsheet. Parameters invalid!!";
-			LOGGER.error(message, e);
+			LOG.error(message, e);
 		}
 
 		ModelAndView mav = new ModelAndView();
@@ -307,7 +315,7 @@ public class VocabularyAction {
 			                                               .toString();
 			if (StringUtils.isNotBlank(searchedCellfeedUrl)) {
 				cellfeedUrlStr = searchedCellfeedUrl;
-				LOGGER.debug("Found spreadsheet URL: " + cellfeedUrlStr);
+				LOG.debug("Found spreadsheet URL: " + cellfeedUrlStr);
 			}
 		}
 		final long start = System.currentTimeMillis();
@@ -319,7 +327,7 @@ public class VocabularyAction {
 				index = Integer.parseInt(startingIndex);
 			}
 			catch (Exception e) {
-				LOGGER
+				LOG
 					.debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
 			}
 		}
@@ -329,7 +337,7 @@ public class VocabularyAction {
 				col = Integer.parseInt(columnIndex);
 			}
 			catch (Exception e) {
-				LOGGER
+				LOG
 					.debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
 			}
 		}
@@ -343,7 +351,7 @@ public class VocabularyAction {
 				CellFeed cellfeed = spreadsheetService.getService().query(query, CellFeed.class);
 
 				List<CellEntry> cells = cellfeed.getEntries();
-				LOGGER.info("TOTAL items found: " + cells.size());
+				LOG.info("TOTAL items found: " + cells.size());
 
 				// check index if it exceed the maximum row
 				if (index == cells.size()) {
@@ -352,7 +360,7 @@ public class VocabularyAction {
 					// reset index.
 					index = 0;
 					if (col > cellfeed.getColCount()) { // check column index.
-						LOGGER.info("End of document.");
+						LOG.info("End of document.");
 						break;
 					}
 				}
@@ -370,13 +378,13 @@ public class VocabularyAction {
 
 				}
 				catch (IOException ex) {
-					LOGGER.error("Could not process word: " + cellValue, ex);
+					LOG.error("Could not process word: " + cellValue, ex);
 				}
 				catch (IllegalArgumentException iae) {
 					index += 1;
 				}
-				//LOGGER.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
-				LOGGER.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "] and col [" + col + "]");
+				//LOG.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
+				LOG.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "] and col [" + col + "]");
 				QueueFactory.getDefaultQueue().add(
 					url(
 						"/vocabulary/update.html?index=" + index + "&col=" + col + "&fileName=" + fileName +
@@ -385,7 +393,7 @@ public class VocabularyAction {
 				finished = true;
 			}
 			catch (Exception authex) {
-				LOGGER.error("Could not communicate with Google Spreadsheet.", authex);
+				LOG.error("Could not communicate with Google Spreadsheet.", authex);
 			}
 		}
 		response.setContentType("text/html");
@@ -393,7 +401,7 @@ public class VocabularyAction {
 			response.getWriter().write("Being updated. Stay tuned!");
 		}
 		catch (IOException ioe) {
-			LOGGER.error("Could not write to response.", ioe);
+			LOG.error("Could not write to response.", ioe);
 		}
 
 	}
@@ -426,7 +434,7 @@ public class VocabularyAction {
 			currentDate = DateUtils.addDays(currentDate, incrementDay + 1);
 		}
 		catch (Exception e) {
-			LOGGER.info("Use current date.");
+			LOG.info("Use current date.");
 
 		}
 
@@ -552,7 +560,7 @@ public class VocabularyAction {
 				response.getWriter().write("Check your param. startingIndex must not be ommitted.");
 			}
 			catch (Exception e) {
-				LOGGER.error("Could not print output.");
+				LOG.error("Could not print output.");
 			}
 			return null;
 		} else {
@@ -593,7 +601,7 @@ public class VocabularyAction {
 			InputStream is = this.getClass().getResourceAsStream("/vocabulary.xml");
 
 			if (is == null) {
-				LOGGER.info("Could not load resources.");
+				LOG.info("Could not load resources.");
 			}
 
 			VTDGen vg = new VTDGen(); // Instantiate VTDGen
@@ -605,7 +613,7 @@ public class VocabularyAction {
 			vg.parse(true);
 
 			XMLModifier xm = new XMLModifier(); //Instantiate XMLModifier
-			LOGGER.info("Starting to parse XML");
+			LOG.info("Starting to parse XML");
 			VTDNav vn = vg.getNav();
 
 			xm.bind(vn);
@@ -627,7 +635,7 @@ public class VocabularyAction {
 
 		}
 		catch (Exception e) {
-			LOGGER.info("Could not parse or update vocabulary.xml file.");
+			LOG.info("Could not parse or update vocabulary.xml file.");
 		}
 		return xmlStr;
 	}
@@ -688,7 +696,7 @@ public class VocabularyAction {
 			}
 		}
 		catch (IOException ex) {
-			LOGGER.error("Cound not process word: " + wordStr, ex);
+			LOG.error("Cound not process word: " + wordStr, ex);
 		}
 		Map<String, Object> jsonData = new HashMap<String, Object>();
 		jsonData.put("word", w);
