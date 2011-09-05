@@ -248,9 +248,8 @@ public class XSLTUtil {
 	/**
 	 * Transforms an xml document via a xslt transform.
 	 *
-	 * @param dom    the dom
+	 * @param xml    the dom
 	 * @param xsl    the xslt
-	 * @param params the parameters
 	 *
 	 * @return an string of the resulting xml
 	 */
@@ -280,9 +279,8 @@ public class XSLTUtil {
 	/**
 	 * Transforms an xml document via a xslt transform.
 	 *
-	 * @param dom    the dom
+	 * @param xml    the dom
 	 * @param xsl    the xslt
-	 * @param params the parameters
 	 *
 	 * @return an input stream of the resulting xml
 	 */
@@ -293,7 +291,6 @@ public class XSLTUtil {
 	/**
 	 * Transforms an xml document via a xslt transform.
 	 *
-	 * @param dom    the dom
 	 * @param xsl    the xslt
 	 * @param params the parameters
 	 *
@@ -339,7 +336,7 @@ public class XSLTUtil {
 	/**
 	 * Gets a Source object backed by the input Document
 	 *
-	 * @param xslt
+	 * @param doc
 	 *
 	 * @return
 	 */

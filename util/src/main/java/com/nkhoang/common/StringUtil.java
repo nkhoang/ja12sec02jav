@@ -2,6 +2,32 @@ package com.nkhoang.common;
 
 public class StringUtil {
 	/**
+	 * Performs multiple <code>String.indexOf()</code> calls, one per search
+	 * string, where each call uses the index returned by the previous call.
+	 * Returns -1 if unable to find any of the desired strings.
+	 * <p/>
+	 * This method is null-safe: it returns -1 if any of the passed strings
+	 * are <code>null</code>.
+	 */
+	public static int linkedIndexOf(String src, String... searchFor) {
+		if (src == null) {
+			return -1;
+		}
+
+		int index = 0;
+		for (String search : searchFor) {
+			if (search == null) {
+				return -1;
+			}
+			index = src.indexOf(search, index);
+			if (index < 0) {
+				return -1;
+			}
+		}
+		return index;
+	}
+
+	/**
 	 * Strips occurances of multiply occurring whitespace down to a
 	 * single character, that is the same as the first whitespace character
 	 * encoutered.

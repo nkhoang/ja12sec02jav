@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Vocabulary sourceLanguage="English" targetLanguage="English">
+    <Info>
+        <Author>Hoang Nguyen Khanh</Author>
+        <Comment>Created by http://mini-vocabulary.appspot.com/vocabulary/vocabularyBuilder.html</Comment>
+        <Date>05/09/2011 04:02:12.674</Date>
+        <Title>Vocabulary List - 05/09/11</Title>
+        <WordCount>1</WordCount>
+    </Info>
+    <Root>
+        <Chapter title="">
+            <Page title="">
+                <Word>home</Word>
+                <Word>live</Word>
+            </Page>
+        </Chapter>
+    </Root>
+</Vocabulary>
