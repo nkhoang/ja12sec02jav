@@ -1,7 +1,8 @@
 package com.nkhoang.gae.action;
 
-import com.google.appengine.api.labs.taskqueue.QueueFactory;
-import com.google.appengine.api.labs.taskqueue.TaskOptions;
+import com.google.appengine.api.taskqueue.*;
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
 import com.google.gdata.client.docs.DocsService;
 import com.google.gdata.client.spreadsheet.CellQuery;
 import com.google.gdata.data.spreadsheet.CellEntry;
@@ -9,14 +10,13 @@ import com.google.gdata.data.spreadsheet.CellFeed;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nkhoang.gae.dao.MessageDao;
+import com.nkhoang.gae.dao.WordItemDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
-import com.nkhoang.gae.model.Meaning;
-import com.nkhoang.gae.model.Message;
-import com.nkhoang.gae.model.User;
-import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
+import com.nkhoang.gae.utils.FileUtils;
 import com.nkhoang.gae.utils.GoogleDocsUtils;
 import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.utils.xml.iVocabulary.IVocabularyConstructor;
@@ -34,6 +34,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.hsqldb.lib.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
-
 /**
  * VocaAction will replace the old {@link VocabularyAction} to handle vocabulary request.
  */
@@ -77,6 +76,9 @@ public class VocaAction {
     private VocabularyService vocabularyService;
     @Autowired
     private MessageDao messageDao;
+    @Autowired
+    private WordItemDao wordItemDao;
+
     @Autowired
     private UserManager userService;
 
@@ -122,6 +124,7 @@ public class VocaAction {
      *
      * @param dateTime     the date time that will be displayed in the XML output.
      * @param chapterTitle the chapter title.
+     * @param pageTitle    the page title.
      * @param ids          user selected word ids.
      * @param exampleIds   user selected examples.
      * @param meaningIds   user selected meanings.
@@ -131,6 +134,7 @@ public class VocaAction {
     public void renderIVocabulary(
             @RequestParam("dateTime") String dateTime,
             @RequestParam("chapterTitle") String chapterTitle,
+            @RequestParam("pageTitle") String pageTitle,
             @RequestParam("ids") String ids,
             @RequestParam("exampleIds") String[] exampleIds,
             @RequestParam("meaningIds") String[] meaningIds,
@@ -182,80 +186,82 @@ public class VocaAction {
                     currentDate,
                     "Vocabulary List - " + simpleCurrentDate,
                     wordList.size() + "",
-                    request.getSession().getServletContext(), wordList, response.getWriter());
+                    pageTitle,
+                    chapterTitle,
+                    request.getSession().getServletContext(),
+                    wordList,
+                    response.getWriter());
         } catch (IOException ioe) {
             LOG.error("The template file may not find in the target folder. Please check the error message for more details.", ioe);
         } catch (TemplateException tple) {
             LOG.error("There are errors while templating. Please check the error message for more details.", tple);
         }
-
-/*
-        IVocabularyConstructor constructor = new IVocabularyConstructor();
-        String xml = constructor.constructIVocabularyFile(wordList, 0, wordList.size(), wordList.size(), dateTime, chapterTitle, filteredMeaningIds, filteredMeaningExampleIdMap);
-        try {
-            response.getWriter().write(xml);
-        } catch (Exception ex) {
-
-        }
-*/
     }
 
-
     /**
-     * Export vocabulary data from an excel file in google docs to new documents in google docs.
-     * The sample request should look like this: *.appspot.com/vocabulary/iVocabulary2GD.html?index=0&size=200&pageSize=20
+     * Load word items from file located in WEB-INF/vocabulary folder.
      *
-     * @param indexStr word list offset.
-     * @param response HttpServletResponse.
+     * @param response      the {@link HttpServletResponse} object passed in by Spring.
+     * @param request       the {@link HttpServletRequest} object passed in by Spring.
+     * @param startingIndex the starting index in the file, it can be considered as the row number to start processing with.
+     * @param size          specify how many word items will be processed.
      */
-    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST, method = RequestMethod.GET)
-    public void exportGoogleDocs(
-            @RequestParam("index") String indexStr, @RequestParam("size") String sizeStr,
-            @RequestParam("pageSize") String pageSizeStr, HttpServletResponse response) {
-        int index = 0, size = 0, pageSize = 0;
-        // check index param.
-        if (StringUtils.isEmpty(indexStr)) {
-            try {
-                response.getWriter().write("Bad request.");
-            } catch (Exception e) {
-                LOG.info("Could not render response.");
-            }
-        }
-        // check size param.
-        try {
-            size = StringUtils.isEmpty(sizeStr) ? IVOCABULARY_TOTAL_ITEM : Integer.parseInt(sizeStr);
-        } catch (NumberFormatException nfe) {
-            size = IVOCABULARY_TOTAL_ITEM;
-        }
-        // check pageSize param.
-        try {
-            pageSize = StringUtils.isEmpty(pageSizeStr) ? IVOCABULARY_PAGE_SIZE : Integer.parseInt(pageSizeStr);
-        } catch (NumberFormatException nfe) {
-            size = IVOCABULARY_PAGE_SIZE;
-        }
-        index = Integer.parseInt(indexStr);
-        int numberOfWords = vocabularyService.getWordSize();
-        LOG.info("Starting to export iVocabulary to GOOGLE DOCS.");
-        int nextIndex = index + size + 1;
-        if (index + 40 + 1 < numberOfWords) {
-            String xml = constructIVocabularyFile(index, size, pageSize);
-            try {
-                LOG.info("Saving to GOOGLE DOCS.");
-                GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + size), xml, _username, _password);
-            } catch (Exception e) {
-                LOG.info("Could not save to google docs. Try again.");
-                nextIndex = index;
-            }
-            LOG.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "]");
-            QueueFactory.getDefaultQueue()
-                    .add(url("/vocabulary/iVocabulary2GD.html?index=" + nextIndex).method(TaskOptions.Method.GET));
-        }
+    @RequestMapping(value = "/loadWordItemsFromFile", method = RequestMethod.GET)
+    public void loadWordItemsFromFile(
+            HttpServletResponse response,
+            HttpServletRequest request,
+            @RequestParam int startingIndex,
+            @RequestParam int size) {
+        LOG.info(String.format("Load word items from file with starting index [%d] - [%d]", startingIndex, startingIndex + size));
+        // waste the resource because we're going to use this function only one.
+        List<String> wordList = FileUtils.readWordsFromFile(request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/word-list.txt"));
+        if (CollectionUtils.isNotEmpty(wordList)) {
+            // this flag is used to detec whether we need to rollback everything from this "task" before retrying it.
+            boolean shouldRollback = false;
+            List<Long> savedIds = new ArrayList<Long>();
+            for (int index = startingIndex; index < (startingIndex + size); index++) {
 
+                WordItem wi = new WordItem();
+                wi.setWord(wordList.get(index));
+
+                try {
+                    WordItem savedWord = wordItemDao.save(wi);
+                    savedIds.add(savedWord.getId());
+                } catch (Exception e) {
+                    shouldRollback = true;
+                    LOG.error("Could not save word item :" + wordList.get(index), e);
+                }
+            }
+            if (shouldRollback && CollectionUtils.isNotEmpty(savedIds)) {
+                LOG.info(String.format("Rolling back from task. Removing word time with id from [%d] to [%d]...", startingIndex, startingIndex + size));
+                List<Long> failedIds = new ArrayList<Long>();
+                for (Long id : savedIds) {
+                    boolean result = wordItemDao.delete(id);
+                    if (!result) {
+                        failedIds.add(id);
+                    }
+                }
+                if (CollectionUtils.isNotEmpty(failedIds)) {
+                    LOG.info("These following word item ids were failed to delete: " + failedIds.toArray().toString());
+                }
+            }
+        }
         try {
-            response.setContentType("text/html");
-            response.getWriter().write("Be patient!!!");
+            response.getWriter().write("Success");
         } catch (Exception e) {
+            LOG.error("Error occurred.", e);
+        }
+    }
 
+    @RequestMapping(value = "/triggerLoadWordItemsFromFile", method = RequestMethod.GET)
+    public void triggerLoadWordItemsFromFile(HttpServletResponse response) {
+        Queue queue = QueueFactory.getDefaultQueue();
+        LOG.info("Starting load word items from file queue...");
+        queue.add(TaskOptions.Builder.withUrl("/vocabulary/loadWordItemsFromFile.html").param("startingIndex", "0").param("size", "100").method(TaskOptions.Method.GET));
+        try {
+            response.getWriter().write("Your request is served. Please wait....");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -295,109 +301,6 @@ public class VocaAction {
 
     private void postMessage(String s) {
         messageDao.save(new Message(Message.VOCABULARY_CATEGORY, s));
-    }
-
-    //http://localhost:7070/vocabulary/updateViaGD.html?spreadsheetName=wordlist&worksheetName=wordlist&row=1&col=2&size=10
-
-    /**
-     * Look up data from Google docs excel file and then update to GAE datastore.
-     */
-    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_REQUEST, method = RequestMethod.GET)
-    public void updateWordsFromSpreadSheet(
-            @RequestParam("index") String startingIndex, @RequestParam("col") String columnIndex,
-            @RequestParam("fileName") String fileName, @RequestParam("sheetName") String sheetName,
-            HttpServletResponse response) {
-        String cellfeedUrlStr = "https://spreadsheets.google.com/feeds/cells/peZDHyA4LqhdRYA8Uv_sufw/od6/private/full";
-        // get the cellfeedURL
-        if (StringUtils.isNotEmpty(fileName) && StringUtils.isNotEmpty(sheetName)) {
-            // make sure that this url is not null.
-            String searchedCellfeedUrl = spreadsheetService.findSpreadSheetCellUrlByTitle(fileName, sheetName)
-                    .toString();
-            if (StringUtils.isNotBlank(searchedCellfeedUrl)) {
-                cellfeedUrlStr = searchedCellfeedUrl;
-                LOG.debug("Found spreadsheet URL: " + cellfeedUrlStr);
-            }
-        }
-        final long start = System.currentTimeMillis();
-
-        int index = 0;
-        int col = 1; // column index starting from 1 not 0.
-        if (StringUtils.isNotEmpty(startingIndex)) { // parse starting index.
-            try {
-                index = Integer.parseInt(startingIndex);
-            } catch (Exception e) {
-                LOG
-                        .debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
-            }
-        }
-        // parse column index.
-        if (StringUtils.isNotEmpty(columnIndex)) {
-            try {
-                col = Integer.parseInt(columnIndex);
-            } catch (Exception e) {
-                LOG
-                        .debug("Could not parse request param for update from spreadsheet. Continue with index = " + index);
-            }
-        }
-        boolean finished = false;
-        while (System.currentTimeMillis() - start < 16384 && !finished) {
-            try {
-                URL cellfeedURL = new URL(cellfeedUrlStr);
-                CellQuery query = new CellQuery(cellfeedURL);
-                query.setMinimumCol(col);
-                query.setMaximumCol(col);
-                CellFeed cellfeed = spreadsheetService.getService().query(query, CellFeed.class);
-
-                List<CellEntry> cells = cellfeed.getEntries();
-                LOG.info("TOTAL items found: " + cells.size());
-
-                // check index if it exceed the maximum row
-                if (index == cells.size()) {
-                    // maximum row reached.
-                    col += 1;
-                    // reset index.
-                    index = 0;
-                    if (col > cellfeed.getColCount()) { // check column index.
-                        LOG.info("End of document.");
-                        break;
-                    }
-                }
-
-                CellEntry cell = cells.get(index);
-
-                // String shortId = cell.getId().substring(cell.getId().lastIndexOf('/') + 1);
-                String cellValue = cell.getCell().getValue();
-                try {
-                    if (cellValue.trim().contains(" ")) {
-                        throw new IllegalArgumentException("Illegal param for a URL");
-                    }
-                    vocabularyService.save(cellValue.trim().toLowerCase());
-                    index += 1;
-
-                } catch (IOException ex) {
-                    LOG.error("Could not process word: " + cellValue, ex);
-                } catch (IllegalArgumentException iae) {
-                    index += 1;
-                }
-                //LOG.info("Index: " + index + " Cell " + shortId + ": " + cell.getCell().getValue());
-                LOG.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "] and col [" + col + "]");
-                QueueFactory.getDefaultQueue().add(
-                        url(
-                                "/vocabulary/update.html?index=" + index + "&col=" + col + "&fileName=" + fileName +
-                                        "&sheetName=" + sheetName).method(TaskOptions.Method.GET));
-
-                finished = true;
-            } catch (Exception authex) {
-                LOG.error("Could not communicate with Google Spreadsheet.", authex);
-            }
-        }
-        response.setContentType("text/html");
-        try {
-            response.getWriter().write("Being updated. Stay tuned!");
-        } catch (IOException ioe) {
-            LOG.error("Could not write to response.", ioe);
-        }
-
     }
 
     /**
@@ -839,6 +742,14 @@ public class VocaAction {
 
     public void setMessageDao(MessageDao messageDao) {
         this.messageDao = messageDao;
+    }
+
+    public WordItemDao getWordItemDao() {
+        return wordItemDao;
+    }
+
+    public void setWordItemDao(WordItemDao wordItemDao) {
+        this.wordItemDao = wordItemDao;
     }
 }
 

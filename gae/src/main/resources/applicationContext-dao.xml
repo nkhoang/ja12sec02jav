@@ -23,6 +23,9 @@
 	<bean id="vocabularyDao" class="com.nkhoang.gae.dao.impl.VocabularyDaoImpl"
 		scope="prototype">
     </bean>
+    <bean id="wordItemDao" class="com.nkhoang.gae.dao.impl.WordItemDaoImpl"
+		scope="prototype">
+    </bean>
     <bean id="messageDao" class="com.nkhoang.gae.dao.impl.MessageDaoImpl"
 		scope="prototype">
     </bean>

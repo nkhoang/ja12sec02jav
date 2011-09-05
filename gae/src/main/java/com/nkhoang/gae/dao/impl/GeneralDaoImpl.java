@@ -23,8 +23,6 @@ public abstract class GeneralDaoImpl<T, PK extends Serializable> implements Base
     @PersistenceContext
     protected EntityManager entityManager;
 
-    // @off
-
     /**
      * Save an object to DB.
      *
@@ -32,7 +30,6 @@ public abstract class GeneralDaoImpl<T, PK extends Serializable> implements Base
      *         else
      *         null value.
      */
-    // @on
     public T save(T e) {
         T result = null;
         entityManager.persist(e);
@@ -41,8 +38,6 @@ public abstract class GeneralDaoImpl<T, PK extends Serializable> implements Base
         return result;
     }
 
-    // @off
-
     /**
      * Update an object to DB.
      *
@@ -50,7 +45,6 @@ public abstract class GeneralDaoImpl<T, PK extends Serializable> implements Base
      *         else
      *         null value.
      */
-    // @on
     public T update(T e) {
         T result = null;
         try {

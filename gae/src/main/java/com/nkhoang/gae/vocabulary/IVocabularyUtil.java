@@ -71,6 +71,8 @@ public class IVocabularyUtil {
             String date,
             String title,
             String totalWordCount,
+            String pageTitle,
+            String chapterTitle,
             ServletContext context,
             List<Word> wordlist,
             Writer writer) throws IOException, TemplateException {
@@ -86,6 +88,8 @@ public class IVocabularyUtil {
         root.put("date", date);
         root.put("documentTitle", title);
         root.put("totalWordCount", totalWordCount);
+        root.put("chapterTitle", chapterTitle);
+        root.put("pageTitle", pageTitle);
 
         Template template = getConfiguration(context).getTemplate("ivocabulary.ftl");
         template.process(root, writer);

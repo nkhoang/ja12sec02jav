@@ -13,14 +13,13 @@ import org.slf4j.Logger;
 public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements MeaningDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(MeaningDaoImpl.class);
 
-    // @off
     /**
      * Delete Meaning with id.
+     *
      * @return true
      *         or
      *         false.
      */
-    // @on
     public boolean delete(Long id) {
         LOGGER.info("Delete meaning with [id:" + id + "].");
         boolean result = false;
@@ -36,14 +35,13 @@ public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements Mea
         return result;
     }
 
-    // @off
     /**
      * Get meaing with id.
+     *
      * @return an obj
      *         or
      *         null.
      */
-    // @on
     public Meaning get(Long id) {
         // LOGGER.info("Get meaing [id: " + id + "].");
         try {
@@ -63,8 +61,10 @@ public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements Mea
     }
 
     // @off
+
     /**
      * Get all meanings.
+     *
      * @return a list
      *         or
      *         null.

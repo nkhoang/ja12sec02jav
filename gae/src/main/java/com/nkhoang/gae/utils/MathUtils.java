@@ -12,13 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: hoangknguyen
- * Date: 6/10/11
- * Time: 11:15 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public final class MathUtils {
 	/**
 	 * Calculate the log (base 2) of a specified long. This can be

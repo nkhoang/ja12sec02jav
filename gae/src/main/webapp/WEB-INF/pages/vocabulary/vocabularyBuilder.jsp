@@ -298,6 +298,10 @@
             <td >Chapter Title:</td >
             <td ><input type="input" name="chapterTitle" /></td >
         </tr >
+            <tr >
+            <td >Page Title:</td >
+            <td ><input type="input" name="pageTitle" /></td >
+        </tr >
     </table >
         <div class="word-select"></div>
         <input type="button" value="Submit" onclick="submitForm()" />
