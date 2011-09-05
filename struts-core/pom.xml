@@ -123,6 +123,19 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+                <groupId>org.jmock</groupId>
+                <artifactId>jmock</artifactId>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jmock</groupId>
+                <artifactId>jmock-junit4</artifactId>
+                <optional>true</optional>
+            </dependency>
+
+
         <!-- ########################################################### -->
         <!--                         OTHER                               -->
         <!-- ########################################################### -->

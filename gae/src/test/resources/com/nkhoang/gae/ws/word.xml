@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<word>
+    <description>help</description>
+    <meanings>
+        <content>sự giúp đỡ, sự cứu giúp, sự giúp ích</content>
+        <examples>to need someone's help</examples>
+        <examples>to give help to someone</examples>
+        <examples>to cry (call) for help</examples>
+        <examples>help! help!</examples>
+        <examples>by help of</examples>
+        <examples>it is a great help</examples>
+        <kindId>2</kindId>
+    </meanings>
+    <meanings>
+        <content>phương cứu chữa, lối thoát</content>
+        <examples>there is no help for it</examples>
+        <kindId>2</kindId>
+    </meanings>
+    <meanings>
+        <content>phần đưa mời (đồ ăn, đồ uống)</content>
+        <kindId>2</kindId>
+    </meanings>
+    <meanings>
+        <content>(từ Mỹ,nghĩa Mỹ) người làm, người giúp việc trong nhà</content>
+        <examples>lady help</examples>
+        <examples>mother's help</examples>
+        <kindId>2</kindId>
+    </meanings>
+    <meanings>
+        <content>giúp đỡ, cứu giúp</content>
+        <examples>to someone out of a difficulty</examples>
+        <examples>to help someone across a stream</examples>
+        <kindId>4</kindId>
+    </meanings>
+    <meanings>
+        <content>đưa mời (đồ ăn, thức uống)</content>
+        <examples>let me help you to some more wine</examples>
+        <examples>help yourself</examples>
+        <kindId>4</kindId>
+    </meanings>
+    <meanings>
+        <content>nhịn được, ngăn được, chịu được, đừng được; tránh được, cứu chữa</content>
+        <examples>I could not help laughing</examples>
+        <examples>I could not help it</examples>
+        <examples>it can't be helped</examples>
+        <examples>don't be longer more than you can help</examples>
+        <kindId>4</kindId>
+    </meanings>
+</word>

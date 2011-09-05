@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <artifactId>projectGEA</artifactId>
+        <artifactId>projectJAVA</artifactId>
         <groupId>com.nkhoang</groupId>
         <version>1.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.nkhoang.gae</groupId>
-    <artifactId>projectGEA-gea</artifactId>
+    <artifactId>projectJAVA-gae</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>Project GEA GEA Web</name>
+    <name>Project JAVA GAE Web</name>
     <url></url>
 
     <build>
@@ -262,6 +262,11 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.nkhoang.util</groupId>
+            <artifactId>projectJAVA-util</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- Google -->
         <dependency>
             <groupId>com.google.collections</groupId>
@@ -942,6 +947,32 @@
             <version>2.3.18</version>
         </dependency>
 
+        <!--
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet</artifactId>
+            <version>${org.restlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.ext.servlet</artifactId>
+            <version>${org.restlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.ext.jaxb</artifactId>
+            <version>${org.restlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.restlet.gae</groupId>
+            <artifactId>org.restlet.ext.json</artifactId>
+            <version>${org.restlet.version}</version>
+        </dependency>
+        -->
+
     </dependencies>
 
     <profiles>
@@ -1024,6 +1055,7 @@
         <jericho-html.version>3.1</jericho-html.version>
         <activation.version>1.1</activation.version>
         <mail.version>1.4.1</mail.version>
+        <org.restlet.version>2.1-SNAPSHOT</org.restlet.version>
     </properties>
 </project>
 

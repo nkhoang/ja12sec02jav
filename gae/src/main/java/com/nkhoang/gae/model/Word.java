@@ -1,10 +1,7 @@
 package com.nkhoang.gae.model;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
 import java.util.*;
 
 /**
@@ -12,61 +9,38 @@ import java.util.*;
  */
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "word", propOrder = {
+        "id",
+        "description",
+        "meanings",
+        "pron",
+        "soundSource",
+        "timeStamp",
+        "jdoDetachedState"
+})
+@XmlRootElement
 public class Word {
-    // is used for detecting vietnamese kind of word.
+
+    // is used for detecting vietnamese kind of 
     public static final byte[] NOUN_BYTES = {100, 97, 110, 104, 32, 116, -31, -69, -85};
-    private static final byte[] VERB_IN = {110, -31, -69, -103, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
-    private static final byte[] VERB_TR = {110, 103, 111, -31, -70, -95, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
-    private static final byte[] VERB_BYTES = {-60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
-    private static final byte[] VERB_ADJ = {116, -61, -83, 110, 104, 32, 116, -31, -69, -85};
-    private static final byte[] VERB_ADV = {112, 104, -61, -77, 32, 116, -31, -69, -85};
-
-    public static final String SKIP_FIELDS[] = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp", "meanings"};
-
+    public static final byte[] VERB_IN = {110, -31, -69, -103, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
+    public static final byte[] VERB_TR = {110, 103, 111, -31, -70, -95, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
+    public static final byte[] VERB_BYTES = {-60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
+    public static final byte[] VERB_ADJ = {116, -61, -83, 110, 104, 32, 116, -31, -69, -85};
+    public static final byte[] VERB_ADV = {112, 104, -61, -77, 32, 116, -31, -69, -85};
+    public static final String[] SKIP_FIELDS = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp", "meanings"};
     public static String WORD_KIND_NOUN = "";
     public static String WORD_KIND_VERB_IN = "";
     public static String WORD_KIND_VERB_TR = "";
-    public static String WORD_KIND_ADV = "";
     public static String WORD_KIND_ADJ = "";
     public static String WORD_KIND_VERB = "";
-
     public static final String WORD_KIND_NOUN_EN = "noun";
     public static final String WORD_KIND_VERB_EN = "verb";
     public static final String WORD_KIND_ADJ_EN = "adjective";
     public static final String WORD_KIND_ADV_EN = "adverb";
-
     public static String[] WORD_KINDS = {};
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @Basic
-    private String pron;
-    @Basic
-    private String soundSource;
-    @Basic
-    private List<Long> meaningIds = new ArrayList<Long>(0);
-    @Basic
-    private String description;
-
-
-    @Transient
-    @XmlTransient
-    private String currentTime;
-    @Transient
-    @XmlTransient
-    private Map<Long, List<Meaning>> meaningMap = new HashMap<Long, List<Meaning>>(0);
-    @Transient
-    @XmlTransient
-    private List<Meaning> meanings = new ArrayList<Meaning>();
-    @Transient
-    @XmlTransient
-    private List<Long> kindIdList = new ArrayList();
-    @Transient
-    @XmlTransient
-    private Map<String, Long> kindIdMap = new HashMap<String, Long>();
-
-    @Basic
-    private Long timeStamp;
+    public static String WORD_KIND_ADV = "";
 
     // initialize block.
     {
@@ -87,6 +61,39 @@ public class Word {
         }
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    @Basic
+    private String pron;
+    @Basic
+    private String soundSource;
+    @Basic
+    @XmlTransient
+    private List<Long> meaningIds = new ArrayList<Long>(0);
+    @Basic
+    private String description;
+
+
+    @Transient
+    @XmlTransient
+    private String currentTime;
+    @Transient
+    @XmlTransient
+    private Map<Long, List<Meaning>> meaningMap = new HashMap<Long, List<Meaning>>(0);
+    @Transient
+    private List<Meaning> meanings = new ArrayList<Meaning>();
+    @Transient
+    @XmlTransient
+    private List<Long> kindIdList = new ArrayList();
+    @Transient
+    @XmlTransient
+    private Map<String, Long> kindIdMap = new HashMap<String, Long>();
+
+    @Basic
+    private Long timeStamp;
+
+
     public Word() {
         // init
         int i = 0;
@@ -97,7 +104,7 @@ public class Word {
     }
 
     /**
-     * Add a new meaning identified by the meaning kind to the current word.
+     * Add a new meaning identified by the meaning kind to the current 
      *
      * @param kind    the meaning kind.
      * @param meaning the new meaning.
@@ -114,31 +121,6 @@ public class Word {
         meaningMap.get(kind).add(meaning);
     }
 
-    /**
-     * Optimize word structure by removing meanings and examples which
-     * are not selected in the {@code filteredMeaningIds} and the {@code filteredExampledIds}
-     *
-     * @param filteredMeaningIds        filtered meaning ids.
-     * @param filteredMeaningExampleIds filtered example ids by meaning id.
-     */
-    public void optimizeStructure(List<Long> filteredMeaningIds, Map<String, List<Integer>> filteredMeaningExampleIds) {
-        // filter the meaning by the meaning id.
-        CollectionUtils.filter(getMeanings(), new MeaningPredicate(filteredMeaningIds));
-        // filter the example by the example index.
-        if (CollectionUtils.isNotEmpty(getMeanings())) {
-            for (Meaning m : getMeanings()) {
-                List<String> examples = m.getExamples();
-                List<String> filteredExamples = new ArrayList<String>();
-                if (CollectionUtils.isNotEmpty(filteredMeaningExampleIds.get(m.getId().toString()))) {
-                    for (Integer i : filteredMeaningExampleIds.get(m.getId().toString())) {
-                        filteredExamples.add(examples.get(i));
-                    }
-                }
-                // now we can retain the needed one.
-                examples.retainAll(filteredExamples);
-            }
-        }
-    }
 
     /**
      * Add a new meaning id.
@@ -150,7 +132,7 @@ public class Word {
     }
 
     /**
-     * Add a new kind to the current word.
+     * Add a new kind to the current 
      *
      * @param kind the new word kind.
      */
@@ -248,16 +230,3 @@ public class Word {
     }
 }
 
-class MeaningPredicate implements Predicate {
-    private List<Long> _filteredList = new ArrayList<Long>();
-
-    public MeaningPredicate(List<Long> filteredList) {
-        _filteredList = filteredList;
-    }
-
-    public boolean evaluate(Object o) {
-        Meaning m = (Meaning) o;
-
-        return _filteredList.contains(m.getId());
-    }
-}

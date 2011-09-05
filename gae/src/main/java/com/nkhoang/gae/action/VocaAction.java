@@ -2,11 +2,7 @@ package com.nkhoang.gae.action;
 
 import com.google.appengine.api.taskqueue.*;
 import com.google.appengine.api.taskqueue.Queue;
-import com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
 import com.google.gdata.client.docs.DocsService;
-import com.google.gdata.client.spreadsheet.CellQuery;
-import com.google.gdata.data.spreadsheet.CellEntry;
-import com.google.gdata.data.spreadsheet.CellFeed;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nkhoang.gae.dao.MessageDao;
@@ -17,9 +13,6 @@ import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.utils.FileUtils;
-import com.nkhoang.gae.utils.GoogleDocsUtils;
-import com.nkhoang.gae.utils.WebUtils;
-import com.nkhoang.gae.utils.xml.iVocabulary.IVocabularyConstructor;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -34,7 +27,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.hsqldb.lib.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +46,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -172,7 +163,7 @@ public class VocaAction {
 
         // filter meanings base on id.
         for (Word w : wordList) {
-            w.optimizeStructure(filteredMeaningIds, filteredMeaningExampleIdMap);
+            optimizeStructure(w, filteredMeaningIds, filteredMeaningExampleIdMap);
         }
         try {
             DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.S");
@@ -195,6 +186,32 @@ public class VocaAction {
             LOG.error("The template file may not find in the target folder. Please check the error message for more details.", ioe);
         } catch (TemplateException tple) {
             LOG.error("There are errors while templating. Please check the error message for more details.", tple);
+        }
+    }
+
+    /**
+     * Optimize word structure by removing meanings and examples which
+     * are not selected in the {@code filteredMeaningIds} and the {@code filteredExampledIds}
+     *
+     * @param filteredMeaningIds        filtered meaning ids.
+     * @param filteredMeaningExampleIds filtered example ids by meaning id.
+     */
+    public void optimizeStructure(Word w, List<Long> filteredMeaningIds, Map<String, List<Integer>> filteredMeaningExampleIds) {
+        // filter the meaning by the meaning id.
+        CollectionUtils.filter(w.getMeanings(), new MeaningPredicate(filteredMeaningIds));
+        // filter the example by the example index.
+        if (CollectionUtils.isNotEmpty(w.getMeanings())) {
+            for (Meaning m : w.getMeanings()) {
+                List<String> examples = m.getExamples();
+                List<String> filteredExamples = new ArrayList<String>();
+                if (CollectionUtils.isNotEmpty(filteredMeaningExampleIds.get(m.getId().toString()))) {
+                    for (Integer i : filteredMeaningExampleIds.get(m.getId().toString())) {
+                        filteredExamples.add(examples.get(i));
+                    }
+                }
+                // now we can retain the needed one.
+                examples.retainAll(filteredExamples);
+            }
         }
     }
 
@@ -772,3 +789,16 @@ public class VocaAction {
 }
 
 
+class MeaningPredicate implements Predicate {
+    private List<Long> _filteredList = new ArrayList<Long>();
+
+    public MeaningPredicate(List<Long> filteredList) {
+        _filteredList = filteredList;
+    }
+
+    public boolean evaluate(Object o) {
+        Meaning m = (Meaning) o;
+
+        return _filteredList.contains(m.getId());
+    }
+}
