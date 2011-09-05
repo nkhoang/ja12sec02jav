@@ -216,6 +216,9 @@ public class VocaAction {
         // waste the resource because we're going to use this function only one.
         List<String> wordList = FileUtils.readWordsFromFile(request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/word-list.txt"));
         boolean shouldNotContinue = false;
+        if (size == 0) {
+            shouldNotContinue = true;
+        }
         if (CollectionUtils.isNotEmpty(wordList)) {
             // this flag is used to detec whether we need to rollback everything from this "task" before retrying it.
             boolean shouldRollback = false;
