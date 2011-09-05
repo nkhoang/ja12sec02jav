@@ -215,11 +215,17 @@ public class VocaAction {
         LOG.info(String.format("Load word items from file with starting index [%d] - [%d]", startingIndex, startingIndex + size));
         // waste the resource because we're going to use this function only one.
         List<String> wordList = FileUtils.readWordsFromFile(request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/word-list.txt"));
+        boolean shouldNotContinue = false;
         if (CollectionUtils.isNotEmpty(wordList)) {
             // this flag is used to detec whether we need to rollback everything from this "task" before retrying it.
             boolean shouldRollback = false;
             List<Long> savedIds = new ArrayList<Long>();
-            for (int index = startingIndex; index < (startingIndex + size); index++) {
+            int endingIndex = startingIndex + size;
+            if (endingIndex > wordList.size()) {
+                endingIndex = wordList.size();
+                shouldNotContinue = true;
+            }
+            for (int index = startingIndex; index < (endingIndex); index++) {
 
                 WordItem wi = new WordItem();
                 wi.setWord(wordList.get(index));
@@ -242,8 +248,14 @@ public class VocaAction {
                     }
                 }
                 if (CollectionUtils.isNotEmpty(failedIds)) {
+                    shouldNotContinue = true;
                     LOG.info("These following word item ids were failed to delete: " + failedIds.toArray().toString());
                 }
+            }
+
+            if (!shouldNotContinue) {
+                Queue queue = QueueFactory.getDefaultQueue();
+                queue.add(TaskOptions.Builder.withUrl("/vocabulary/loadWordItemsFromFile.html").param("startingIndex", (startingIndex + size) + "").param("size", size + "").method(TaskOptions.Method.GET));
             }
         }
         try {
@@ -254,10 +266,13 @@ public class VocaAction {
     }
 
     @RequestMapping(value = "/triggerLoadWordItemsFromFile", method = RequestMethod.GET)
-    public void triggerLoadWordItemsFromFile(HttpServletResponse response) {
+    public void triggerLoadWordItemsFromFile(
+            HttpServletResponse response,
+            @RequestParam int startingIndex,
+            @RequestParam int size) {
         Queue queue = QueueFactory.getDefaultQueue();
         LOG.info("Starting load word items from file queue...");
-        queue.add(TaskOptions.Builder.withUrl("/vocabulary/loadWordItemsFromFile.html").param("startingIndex", "0").param("size", "100").method(TaskOptions.Method.GET));
+        queue.add(TaskOptions.Builder.withUrl("/vocabulary/loadWordItemsFromFile.html").param("startingIndex", startingIndex + "").param("size", size + "").method(TaskOptions.Method.GET));
         try {
             response.getWriter().write("Your request is served. Please wait....");
         } catch (Exception e) {
