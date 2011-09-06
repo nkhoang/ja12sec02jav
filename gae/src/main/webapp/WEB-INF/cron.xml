@@ -16,6 +16,11 @@
         <description>Get the exchange rates !</description>
         <schedule>every 10 minutes</schedule>
     </cron>
+    <cron>
+        <url>/vocabulary/lookupSchedule.html</url>
+        <description>Schedule lookup word item in WordItem table</description>
+        <schedule>every 11 hours</schedule>
+    </cron>
     -->
     	<cron>
 		<url>/cron/hothandler</url>

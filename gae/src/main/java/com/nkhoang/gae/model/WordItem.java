@@ -2,19 +2,11 @@ package com.nkhoang.gae.model;
 
 import javax.persistence.*;
 
-/**
- * Created by IntelliJ IDEA.
- * User: hoangnk
- * Date: 9/3/11
- * Time: 9:44 PM
- * To change this template use File | Settings | File Templates.
- */
 @Entity
 public class WordItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
     @Basic
     private String word;
     @Basic
