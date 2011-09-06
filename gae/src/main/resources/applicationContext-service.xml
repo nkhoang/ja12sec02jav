@@ -89,6 +89,7 @@
             <list>
                 <value>classpath:encryption.properties</value>
                 <value>classpath:web-services.properties</value>
+                <value>classpath:mail.properties</value>
             </list>
         </property>
         <property name="nullValue" value="null"/>

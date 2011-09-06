@@ -1,48 +1,26 @@
 package com.nkhoang.gae.vocabulary;
 
+import com.nkhoang.gae.utils.TemplateUtils;
 import com.nkhoang.gae.model.Word;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
  * Utility class for building, constructing iVocabulary file.
  */
-public class IVocabularyUtil {
+public class IVocabularyUtils {
     private static final Logger LOG = LoggerFactory
-            .getLogger(IVocabularyUtil.class.getCanonicalName());
+            .getLogger(IVocabularyUtils.class.getCanonicalName());
 
-    private static Configuration _cfg = null;
-
-    /**
-     * Get the FreeMarker configuration.
-     *
-     * @param context the servlet context passed in in order to get the resource path (WEB-INF folder).
-     * @return the successfully created {@link Configuration} object.
-     */
-    private static Configuration getConfiguration(ServletContext context) {
-        if (_cfg == null) {
-            _cfg = new Configuration();
-            _cfg.setServletContextForTemplateLoading(context, "WEB-INF/templates");
-            _cfg.setEncoding(Locale.US, "UTF-8");
-            _cfg.setObjectWrapper(new DefaultObjectWrapper());
-        }
-
-        return _cfg;
-    }
-
-    /**
+	/**
      * Build iVocabulary using Freemarker. {@code ivocabulary.ftl} is used as an template then data will be filled into
      * the template to generate the iVocabulary XML output.
      * <p/>
@@ -91,7 +69,7 @@ public class IVocabularyUtil {
         root.put("chapterTitle", chapterTitle);
         root.put("pageTitle", pageTitle);
 
-        Template template = getConfiguration(context).getTemplate("ivocabulary.ftl");
+        Template template = TemplateUtils.getConfiguration(context).getTemplate("ivocabulary.ftl");
         template.process(root, writer);
     }
 }
