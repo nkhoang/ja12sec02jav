@@ -25,8 +25,9 @@ import java.util.Properties;
 public class MailUtils {
 	private static final Logger LOG = LoggerFactory.getLogger(MailUtils.class.getCanonicalName());
 
-	public static void sendMail(
+	public static String sendMail(
 		String msgBody, String senderEmail, String subject, String recipEmail) {
+		String message = "";
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 		try {
@@ -39,8 +40,10 @@ public class MailUtils {
 			Transport.send(msg);
 		}
 		catch (MessagingException mse) {
+			message = mse.getMessage();
 			LOG.error(String.format("Could not send email to [%s].", recipEmail), mse);
 		}
+		return message;
 	}
 
 	/**

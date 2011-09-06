@@ -86,4 +86,29 @@ public class WordItemStatDaoImpl extends GeneralDaoImpl<WordItemStat, Long> impl
 		}
 		return result;
 	}
+
+	/**
+	 * Get word state entities in range.
+	 *
+	 * @param offset the starting offset.
+	 * @param size   is the number of entities to be returned.
+	 * @return a list of found word stat entities.
+	 */
+	public List<WordItemStat> getAllInRange(int offset, int size) {
+	    LOG.info("Get all word stat entities starting from " + offset + " with size=[" + size + "]...");
+	    List<WordItemStat> result = null;
+	    try {
+	        Query query = entityManager.createQuery("Select from " + WordItemStat.class.getName());
+	        query.setFirstResult(offset);
+	        query.setMaxResults(size);
+
+	        result = query.getResultList();
+	        LOG.info("Found: " + result.size());
+	    } catch (Exception ex) {
+	        LOG.info("Failed to get all word items...");
+	        LOG.error("Error", ex);
+	    }
+	    return result;
+	}
+
 }

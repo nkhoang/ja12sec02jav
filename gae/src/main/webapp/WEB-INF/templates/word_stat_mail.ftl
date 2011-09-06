@@ -1,33 +1,33 @@
 <html >
 <head ></head >
 <body >
-Hi boss,
-
+Hi <b>boss</b>,
+<br />
 I would like to report the status from the last run:
 <ul >
-    <li >Total number of failures      : <b >${wordStat.failedCount}</b ></li >
-    <li >Total number of found words   : <b >${wordStat.successCount}</b ></li >
-    <li >Starting index                : <b >${wordStat.index}</b ></li >
-    <li >Process time                  : <b >${wordStat.processTime} seconds</b ></li >
+    <li ><pre>Total number of failures      : </pre><b >${wordStat.failedCount}</b ></li >
+    <li ><pre>Total number of found words   : </pre><b >${wordStat.successCount}</b ></li >
+    <li ><pre>Starting index                : </pre><b >${wordStat.index}</b ></li >
+    <li ><pre>Process time                  : </pre><b >${wordStat.processTime} seconds</b ></li >
 </ul >
 
 <h3 >Word statistics:</h3 >
 
-<table >
+<#if wordList??>
+<table cellpadding="1" style="border:  1px solid black;">
     <thead >
     <th >Word</th >
     <th >English</th >
     <th >Vietnamese</th >
     </thead >
     <tbody >
-    <#if wordList??>
         <#list wordList as word>
         <tr >${word.word}</tr >
         <tr >${word.haveEnglish}</tr >
         <tr >${word.haveVietnamese}</tr >
         </#list>
-    </#if>
     </tbody >
+</#if>
 </table >
 
 <#if error?? >

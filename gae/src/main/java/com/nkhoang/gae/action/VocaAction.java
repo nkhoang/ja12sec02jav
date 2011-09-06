@@ -7,13 +7,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nkhoang.gae.dao.MessageDao;
 import com.nkhoang.gae.dao.WordItemDao;
+import com.nkhoang.gae.dao.WordItemStatDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.utils.FileUtils;
-import com.nkhoang.gae.utils.MailUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -55,9 +55,9 @@ import java.util.*;
 @Controller
 @RequestMapping("/" + ViewConstant.VOCABULARY_NAMESPACE)
 public class VocaAction {
-	private static final Logger LOG                    = LoggerFactory.getLogger(VocaAction.class.getCanonicalName());
-	private static final int    IVOCABULARY_TOTAL_ITEM = 40;
-	private static final int    IVOCABULARY_PAGE_SIZE  = 20;
+	private static final Logger LOG                      = LoggerFactory.getLogger(VocaAction.class.getCanonicalName());
+	private static final int    TOTAL_AMOUNT_LOOKUP_WORD = 100;
+	private static final String WORD_ITEM_STATUS_FAILED  = "F";
 
 	@Autowired
 	private SpreadsheetServiceImpl spreadsheetService;
@@ -67,6 +67,8 @@ public class VocaAction {
 	private MessageDao             messageDao;
 	@Autowired
 	private WordItemDao            wordItemDao;
+	@Autowired
+	private WordItemStatDao        wordItemStatDao;
 
 	@Autowired
 	private UserManager userService;
@@ -77,7 +79,7 @@ public class VocaAction {
 	private String _password;
 
 	@Value("${sender.email}")
-	private String senderEmail;
+	private String senderEmail = "nkhoang4survey@gmail.com";
 
 	private final String APP_NAME = "Chara";
 	// Google Document Service.
@@ -94,29 +96,6 @@ public class VocaAction {
 		mav.setViewName(ViewConstant.VOCABULARY_INDEX_VIEW);
 
 		return mav;
-	}
-
-	/**
-	 * Render index page.
-	 *
-	 * @return {@link ModelAndView} object
-	 */
-	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
-	public void testMail(HttpServletResponse response, HttpServletRequest request) throws Exception {
-		WordItemStat wis = new WordItemStat();
-		wis.setFailedCount(0);
-		wis.setIndex(9);
-		wis.setProcessTime(1000);
-		wis.setSuccessCount(10);
-
-		Map<String, Object> root = new HashMap<String, Object>();
-		root.put("wordStat", wis);
-
-		String messageBody = MailUtils.buildMail(request.getSession().getServletContext(), "word_stat_mail.ftl", root);
-		MailUtils.sendMail(
-			messageBody, senderEmail, "Report", "nkhoang.it@gmail.com");
-
-		response.getWriter().write("Success");
 	}
 
 
@@ -233,6 +212,118 @@ public class VocaAction {
 	}
 
 	/**
+	 * Daily Lookup will start every 10 hour from 00:01 to 20:01.
+	 * <p/>
+	 * preserved.
+	 */
+	@RequestMapping(value = "/startDailyLookup", method = RequestMethod.GET)
+	public void startDailyLookup(HttpServletResponse response) {
+		// check the word stat entity to see if this is the first time.
+		List<WordItemStat> wordStats = wordItemStatDao.getAllInRange(0, 1);
+		int index = 0;
+		WordItemStat wordStat = null;
+		if (CollectionUtils.isNotEmpty(wordStats)) {
+			wordStat = wordStats.get(0);
+			index = wordStat.getIndex();
+		} else {
+			WordItemStat newWordState = new WordItemStat();
+			newWordState.setIndex(0);
+			newWordState.setFailedCount(0);
+			newWordState.setSuccessCount(0);
+			newWordState.setProcessTime(0);
+
+			wordStat = wordItemStatDao.save(newWordState);
+		}
+
+		LOG.info(wordStat.getId() + "");
+		// starting the queue
+		Queue queue = QueueFactory.getDefaultQueue();
+		queue.add(
+			TaskOptions.Builder.withUrl("/vocabulary/dailyLookup.html").param("id", wordStat.getId() + "")
+			                   .param("index", index + "").param("maxIndex", (index + TOTAL_AMOUNT_LOOKUP_WORD) + "")
+			                   .param("failedCount", wordStat.getFailedCount() + "").param("processingTime", 0 + "")
+			                   .param("successCount", wordStat.getSuccessCount() + "").method(TaskOptions.Method.GET));
+
+		try {
+			response.getWriter().write("success");
+		}
+		catch (Exception e) {
+			LOG.error("Error: ", e);
+		}
+	}
+
+	@RequestMapping(value = "/dailyLookup", method = RequestMethod.GET)
+	public void loadWordItemsFromFile(
+		@RequestParam int index, @RequestParam int maxIndex, @RequestParam int failedCount,
+		@RequestParam int successCount, @RequestParam int processingTime, @RequestParam int id,
+		HttpServletResponse response) {
+		// continue only this condition is met.
+		if (index < maxIndex) {
+			int nextIndex = index + 20;
+			if (nextIndex >= maxIndex) {
+				nextIndex = maxIndex;
+			}
+			Long start = System.currentTimeMillis();
+			List<WordItem> wis = wordItemDao.getAllInRange(index, nextIndex);
+			for (WordItem wi : wis) {
+				try {
+					if (StringUtils.isNotEmpty(wi.getWord())) {
+						Word savedWord = vocabularyService.save(wi.getWord().toLowerCase());
+						// check meanings
+						if (savedWord != null && CollectionUtils.isNotEmpty(savedWord.getKindIdList())) {
+							for (Long wordId : savedWord.getKindIdList()) {
+								if (wordId <= 5) {
+									wi.setHaveVietnamese("Y");
+								}
+								if (wordId > 5) {
+									wi.setHaveEnglish("Y");
+								}
+							}
+							wordItemDao.update(wi);
+							++successCount;
+						}
+					}
+				}
+				catch (IOException ioe) {
+					// set both wordItem 'haveEnglish' and 'haveVietnamese' to 'F' = 'Failed'
+					wi.setHaveEnglish(WORD_ITEM_STATUS_FAILED);
+					wi.setHaveVietnamese(WORD_ITEM_STATUS_FAILED);
+
+					wordItemDao.update(wi);
+
+					++failedCount;
+				}
+			}
+
+			int processTime = (int) (System.currentTimeMillis() - start) / 1000;
+
+			if (index + 20 > maxIndex) {
+				WordItemStat wordItemStat = wordItemStatDao.get(Long.parseLong(id + ""));
+				wordItemStat.setFailedCount(failedCount);
+				wordItemStat.setSuccessCount(successCount);
+				wordItemStat.setIndex(maxIndex);
+				wordItemStat.setProcessTime(processingTime + processTime);
+				// should stop here
+				Map<String, Object> mailData = new HashMap<String, Object>();
+				mailData.put("wordStat", wordItemStat);
+			} else {
+				Queue queue = QueueFactory.getDefaultQueue();
+				queue.add(
+					TaskOptions.Builder.withUrl("/vocabulary/dailyLookup.html").param("id", id + "").param("index", (index + 20) + "")
+					                   .param("maxIndex", maxIndex + "").param("failedCount", failedCount + "")
+					                   .param("processingTime", (processingTime + processTime) + "")
+					                   .param("successCount", successCount + "").method(TaskOptions.Method.GET));
+			}
+		}
+		try {
+			response.getWriter().write("success");
+		}
+		catch (Exception e) {
+			LOG.error("Error: ", e);
+		}
+	}
+
+	/**
 	 * Load word items from file located in WEB-INF/vocabulary folder.
 	 *
 	 * @param response      the {@link HttpServletResponse} object passed in by Spring.
@@ -311,6 +402,15 @@ public class VocaAction {
 		}
 	}
 
+	/**
+	 * This is the trigger to load all word from file loacted in 'WEB-INF/vocabulary' folder.
+	 * <p/>
+	 * This functionality is very restricted because it will take 80% of application capability.
+	 *
+	 * @param response      the {@link HttpServletResponse} object.
+	 * @param startingIndex the index (in file) to start processing.
+	 * @param size          specify the number of rows (word) to be processed.
+	 */
 	@RequestMapping(value = "/triggerLoadWordItemsFromFile", method = RequestMethod.GET)
 	public void triggerLoadWordItemsFromFile(
 		HttpServletResponse response, @RequestParam int startingIndex, @RequestParam int size) {
@@ -827,6 +927,14 @@ public class VocaAction {
 
 	public void setSenderEmail(String senderEmail) {
 		this.senderEmail = senderEmail;
+	}
+
+	public WordItemStatDao getWordItemStatDao() {
+		return wordItemStatDao;
+	}
+
+	public void setWordItemStatDao(WordItemStatDao wordItemStatDao) {
+		this.wordItemStatDao = wordItemStatDao;
 	}
 }
 
