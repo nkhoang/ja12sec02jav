@@ -68,7 +68,6 @@ public class WordItemDaoImpl extends GeneralDaoImpl<WordItem, Long> implements W
      *         or
      *         false.
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public boolean delete(Long id) {
         boolean result = false;
         LOG.info("Delete word item with [id:" + id + "].");
@@ -97,6 +96,31 @@ public class WordItemDaoImpl extends GeneralDaoImpl<WordItem, Long> implements W
         List<WordItem> result = null;
         try {
             Query query = entityManager.createQuery("Select from " + WordItem.class.getName());
+            query.setFirstResult(offset);
+            query.setMaxResults(size);
+
+            result = query.getResultList();
+            LOG.info("Found: " + result.size());
+        } catch (Exception ex) {
+            LOG.info("Failed to get all word items...");
+            LOG.error("Error", ex);
+        }
+        return result;
+    }
+
+    /**
+     * Get word items in range order by specified field.
+     *
+     * @param offset the starting offset.
+     * @param size   is the number of items to be returned.
+     * @param field  ordered-by field.
+     * @return a list of found word items.
+     */
+    public List<WordItem> getAllInRangeWithOrder(int offset, int size, String field) {
+        LOG.info("Get all word items starting from " + offset + " with size=[" + size + "]...");
+        List<WordItem> result = null;
+        try {
+            Query query = entityManager.createQuery("Select from " + WordItem.class.getName() + " order by " + field);
             query.setFirstResult(offset);
             query.setMaxResults(size);
 
