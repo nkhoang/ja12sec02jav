@@ -116,11 +116,11 @@ public class WordItemDaoImpl extends GeneralDaoImpl<WordItem, Long> implements W
      * @param field  ordered-by field.
      * @return a list of found word items.
      */
-    public List<WordItem> getAllInRangeWithOrder(int offset, int size, String field) {
+    public List<WordItem> getAllInRangeWithOrder(int offset, int size, String field, String direction) {
         LOG.info("Get all word items starting from " + offset + " with size=[" + size + "]...");
         List<WordItem> result = null;
         try {
-            Query query = entityManager.createQuery("Select from " + WordItem.class.getName() + " order by " + field);
+            Query query = entityManager.createQuery("Select from " + WordItem.class.getName() + " order by " + field + " " + direction);
             query.setFirstResult(offset);
             query.setMaxResults(size);
 
