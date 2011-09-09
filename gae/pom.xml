@@ -947,6 +947,30 @@
             <version>2.3.18</version>
         </dependency>
 
+        <!-- WS -->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
         <!--
         <dependency>
             <groupId>org.restlet.gae</groupId>
@@ -1056,6 +1080,7 @@
         <activation.version>1.1</activation.version>
         <mail.version>1.4.1</mail.version>
         <org.restlet.version>2.1-SNAPSHOT</org.restlet.version>
+        <cxf.version>2.4.2</cxf.version>
     </properties>
 </project>
 
