@@ -78,6 +78,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+
     <servlet>
         <servlet-name>springMVC</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -88,6 +94,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <servlet-name>RemoteApi</servlet-name>
         <servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>RemoteApi</servlet-name>

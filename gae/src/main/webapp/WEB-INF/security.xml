@@ -7,6 +7,10 @@
 
     <http create-session="always">
         <anonymous/>
+
+        <intercept-url pattern="/jaxws/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
         <intercept-url pattern="/test/*.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Will be main page -->
         <intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>

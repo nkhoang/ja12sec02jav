@@ -191,7 +191,7 @@ public class VocabularyAction {
 	 * @param indexStr word list offset.
 	 * @param response HttpServletResponse.
 	 */
-	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST, method = RequestMethod.GET)
+	/*@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST, method = RequestMethod.GET)
 	public void exportGoogleDocs(
 		@RequestParam("index") String indexStr, @RequestParam("size") String sizeStr,
 		@RequestParam("pageSize") String pageSizeStr, HttpServletResponse response) {
@@ -245,7 +245,7 @@ public class VocabularyAction {
 		catch (Exception e) {
 
 		}
-	}
+	}*/
 
 
 	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_VIA_GD_REQUEST, method = RequestMethod.GET)

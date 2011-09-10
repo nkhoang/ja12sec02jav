@@ -7,6 +7,10 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
        default-lazy-init="true">
+    <!-- WS service -->
+    <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
+        <property name="vocabularyService" ref="vocabularyService" />
+    </bean>
     <!-- Vocabulary Service -->
     <bean id="vocabularyService" class="com.nkhoang.gae.service.impl.VocabularyServiceImpl" scope="prototype">
         <property name="meaningDao" ref="meaningDao"></property>

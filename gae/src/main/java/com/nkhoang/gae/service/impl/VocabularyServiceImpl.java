@@ -121,15 +121,6 @@ public class VocabularyServiceImpl implements VocabularyService {
         return w;
     }
 
-
-    public int getWordSize() {
-        List<Word> words = _vocabularyDao.getAll();
-        if (words == null) {
-            return 0;
-        }
-        return words.size();
-    }
-
     public List<Word> getAllWordsById(List<Long> wordIds) {
         List<Word> words = new ArrayList<Word>();
         if (CollectionUtils.isNotEmpty(wordIds)) {
@@ -172,63 +163,6 @@ public class VocabularyServiceImpl implements VocabularyService {
         return populateWord(word);
     }
 
-
-    public List<Word> lookupWords(
-            List<String> words, String spreadsheetName, String worksheetName, int row, int col, int size) {
-        List<Word> lookupedWord = new ArrayList<Word>();
-
-        List<String> wordList = new ArrayList<String>();
-        if (CollectionUtils.isNotEmpty(words)) {
-            wordList = words;
-        } else {
-            try {
-                wordList = _spreadsheetService.querySpreadsheet(spreadsheetName, worksheetName, row, col, size);
-            } catch (Exception sre) {
-                LOG.error(String.format("Could not query Google Spreadsheet because : %s", sre), sre);
-            }
-        }
-        // create ThreadPoolExecutor
-        ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(MAXIMUM_POOL_SIZE);
-
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(
-                CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.SECONDS, queue,
-                new ThreadPoolExecutor.CallerRunsPolicy());
-
-        int index = 0;
-        if (wordList.size() > 0) {
-            List<FutureTask<VocabularyTaskResult>> taskList = new ArrayList<FutureTask<VocabularyTaskResult>>();
-            do {
-                FutureTask<VocabularyTaskResult> task = new FutureTask<VocabularyTaskResult>(
-                        new VocabularyTaskCallable(wordList.get(index)));
-                // add task to queue
-                taskList.add(task);
-                LOG.info(String.format("Looking up word: %s", wordList.get(index)));
-                executor.execute(task);
-                index++;
-
-            } while (index < wordList.size());
-
-            do {
-            } while (executor.getTaskCount() != executor.getCompletedTaskCount());
-
-            for (FutureTask<VocabularyTaskResult> t : taskList) {
-                try {
-                    do {
-                    } while (!t.isDone());
-                    VocabularyTaskResult result = t.get();
-                    if (result.getWord() == null) {
-                        LOG.info(result.getMesssage());
-                    } else {
-                        lookupedWord.add(result.getWord());
-                    }
-                } catch (Exception e) {
-                    LOG.info(String.format("Thread encountered problem : %s", e));
-                }
-            }
-        }
-
-        return lookupedWord;
-    }
 
     private class VocabularyTaskCallable implements Callable<VocabularyTaskResult> {
         private String _word;
@@ -377,10 +311,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
     }
 
-    /**
-     * Lookup word using Longman online dictionary.
-     * Update to the current word.
-     */
+
     public void lookupENLongman(Word w) throws IOException {
         Source source = checkWordExistence(
                 LONGMAN_DICTIONARY_URL, w.getDescription().toLowerCase(), LONGMAN_DIC_CONTENT_CLASS, DICTIONARY_TYPE.CLASS);
@@ -503,13 +434,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         return m;
     }
 
-    /**
-     * Look up Pron for a word.
-     *
-     * @param w word to get word description.
-     */
+
     public void lookupPron(Word w) {
-        // LOG.debug("looking up PRON for this word : " + w.getDescription());
+        // LOG.info("looking up PRON for this word : " + w.getDescription());
         try {
             Source source = checkWordExistence(
                     CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS,
@@ -580,12 +507,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /**
-     * Lookup word idiom.
-     *
-     * @param aWord word to get description.
-     * @return word updated with idiom.
-     */
+
     public Word lookupIdiom(Word aWord) {
         Source source = checkWordExistence(
                 CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE + CAMBRIDGE_DICT_TYPE_QUERY, aWord.getDescription(),
@@ -652,14 +574,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-    /**
-     * Lookup word using VN dictionary.
-     *
-     * @param word word to lookup.
-     * @return updated word.
-     * @throws IOException
-     * @throws IllegalArgumentException
-     */
+
     public Word lookupVN(String word) throws IOException, IllegalArgumentException {
         Word aWord = null;
         URL url = new URL("http://m.vdict.com/?word=" + word + "&dict=1&searchaction=Lookup");
