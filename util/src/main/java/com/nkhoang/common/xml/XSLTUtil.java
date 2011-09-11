@@ -1,9 +1,6 @@
 package com.nkhoang.common.xml;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -253,12 +250,17 @@ public class XSLTUtil {
 	 *
 	 * @return an string of the resulting xml
 	 */
-	public static String transform(String xml, String xsl) {
+	public static String transform(String xml, String xsl){
+        try {
 		ByteArrayOutputStream result = XSLTUtil.innerTransform(
 			new StreamSource(
-				new ByteArrayInputStream(xml.getBytes())), new StreamSource(
-			new ByteArrayInputStream(xsl.getBytes())), Collections.<String, Object>emptyMap());
-		return result.toString();
+				new ByteArrayInputStream(xml.getBytes("UTF-8"))), new StreamSource(
+			new ByteArrayInputStream(xsl.getBytes("UTF-8"))), Collections.<String, Object>emptyMap());
+            return result.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
 	}
 
 	/**

@@ -2,6 +2,7 @@ package com.nkhoang.gae.ws;
 
 import com.nkhoang.common.collections.CollectionUtils;
 import com.nkhoang.common.xml.XMLUtil;
+import com.nkhoang.common.xml.XSLTUtil;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import org.apache.commons.io.IOUtils;
@@ -16,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 
@@ -37,6 +39,30 @@ public class JaxbTest {
         context.createMarshaller().marshal(w, writer);
         Assert.assertTrue(StringUtils.isNotEmpty(writer.toString()));
         LOG.info(XMLUtil.prettyPrint(writer.toString()));
+    }
+
+    @Test
+    public void testWordXSLT() throws Exception {
+        JAXBContext context = JAXBContext.newInstance(Word.class);
+
+        Word w = vocabularyService.lookupVN("help");
+
+        Writer writer = new StringWriter();
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+        marshaller.marshal(w, writer);
+        String xml = writer.toString();
+        // String xml = IOUtils.toString(this.getClass().getResourceAsStream("word_2.xml"));
+
+        InputStream is = this.getClass().getResourceAsStream("word.xslt");
+
+        String xslt = IOUtils.toString(is);
+        // LOG.info(XMLUtil.prettyPrint(xml));
+        // LOG.info(xslt);
+
+        String output = XSLTUtil.transform(xml, xslt);
+
+        LOG.info(XMLUtil.prettyPrint(output));
     }
 
     @Test

@@ -19,6 +19,7 @@ import java.util.*;
         "timeStamp",
         "jdoDetachedState"
 })
+@XmlSeeAlso({javax.jdo.identity.LongIdentity.class, BitSet.class})
 @XmlRootElement
 public class Word {
 
@@ -104,7 +105,7 @@ public class Word {
     }
 
     /**
-     * Add a new meaning identified by the meaning kind to the current 
+     * Add a new meaning identified by the meaning kind to the current
      *
      * @param kind    the meaning kind.
      * @param meaning the new meaning.
@@ -132,7 +133,7 @@ public class Word {
     }
 
     /**
-     * Add a new kind to the current 
+     * Add a new kind to the current
      *
      * @param kind the new word kind.
      */

@@ -5,6 +5,7 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.gdata.client.docs.DocsService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nkhoang.common.xml.XMLUtil;
 import com.nkhoang.gae.dao.MessageDao;
 import com.nkhoang.gae.dao.WordItemDao;
 import com.nkhoang.gae.dao.WordItemStatDao;
@@ -31,6 +32,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.xalan.xsltc.compiler.Template;
+import org.junit.Assert;
 import org.junit.experimental.theories.PotentialAssignment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +49,8 @@ import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
+import javax.xml.bind.JAXBContext;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -104,6 +104,21 @@ public class VocaAction {
 
 		return mav;
 	}
+
+    @RequestMapping(value = "/xml")
+    public void testJaxb() {
+        try {
+           JAXBContext context = JAXBContext.newInstance(Word.class);
+
+        Word w = vocabularyService.lookupVN("help");
+
+        Writer writer = new StringWriter();
+        context.createMarshaller().marshal(w, writer);
+        LOG.info(XMLUtil.prettyPrint(writer.toString()));
+        }catch (Exception e) {
+            MailUtils.sendMail(e.getMessage(), SENDER_EMAIL, "Error", "nkhoang.it@gmail.com");
+        }
+    }
 
 	@RequestMapping(value = "/triggerRemoveWordItemDuplicates")
 	public void triggerRemoveWordItemDuplicates(

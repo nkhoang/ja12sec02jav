@@ -430,7 +430,9 @@
             <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
             <version>2.3-eb</version>
+            <!--
             <scope>runtime</scope>
+            -->
             <exclusions>
                 <exclusion><!-- Use geronimo-jta_1.1_spec instead -->
                     <groupId>javax.transaction</groupId>
@@ -801,7 +803,7 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.2.2</version>
+            <version>2.2.3</version>
             <exclusions>
                 <exclusion>
                     <artifactId>activation</artifactId>
@@ -812,12 +814,18 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
-            <version>2.2.2</version>
+            <version>${jaxb.impl.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.2.2</version>
+            <version>${jaxb.impl.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jaxb-api</artifactId>
+                    <groupId>javax.xml.bind</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>code.google.com</groupId>
@@ -986,6 +994,10 @@
                     <artifactId>wstx-asl</artifactId>
                     <groupId>org.codehaus.woodstox</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>jaxb-impl</artifactId>
+                    <groupId>com.sun.xml.bind</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -994,6 +1006,12 @@
             <artifactId>cxf-rt-databinding-aegis</artifactId>
             <!-- 2.3.4 or 2.4.0 -->
             <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jaxb-impl</artifactId>
+                    <groupId>com.sun.xml.bind</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>
@@ -1129,6 +1147,8 @@
         <mail.version>1.4.1</mail.version>
         <org.restlet.version>2.1-SNAPSHOT</org.restlet.version>
         <cxf.version>2.4.2</cxf.version>
+        <!-- Work with GAE -->
+        <jaxb.impl.version>2.1.12</jaxb.impl.version>
     </properties>
 </project>
 
