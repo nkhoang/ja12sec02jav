@@ -1,0 +1,733 @@
+<word>
+    <id>110</id>
+    <description>meet</description>
+    <meanings>
+        <content>cu?c g?p g? (c?a nh?ng ng??i ?i s?n ? m?t n?i ?ã h?n tr??c, c?a nh?ng nhà th? thao ?? thi ??u)
+        </content>
+        <id>62</id>
+        <kindId>2</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>g?p, g?p g?</content>
+        <examples>to meet someone in the street</examples>
+        <examples>to meet somebody half-way</examples>
+        <id>66</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>?i ?ón</content>
+        <examples>to meet someone at the station</examples>
+        <id>67</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>(t? M?,ngh?a M?) xin gi?i thi?u, làm quen (v?i ng??i nào)</content>
+        <examples>meet Mr John Brown</examples>
+        <id>68</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>g?p, v?p ph?i, ???ng ??u</content>
+        <examples>to meet danger</examples>
+        <examples>to meet difficulties</examples>
+        <id>69</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>?áp ?ng, tho? mãn, làm v?a lòng</content>
+        <examples>to meet a demand</examples>
+        <examples>to meet the case</examples>
+        <id>70</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>nh?n, ti?p nh?n; ch?u ??ng, cam ch?u</content>
+        <examples>he met his reward</examples>
+        <examples>to meet one's end (death)</examples>
+        <id>71</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>thanh toán (hoá ??n...)</content>
+        <id>72</id>
+        <kindId>4</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>g?p nhau</content>
+        <examples>when shall we meet again?</examples>
+        <id>63</id>
+        <kindId>3</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>g?p g?, t? h?p, h?p</content>
+        <examples>the Committee will meet tomorrow</examples>
+        <id>64</id>
+        <kindId>3</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>g?p nhau, n?i nhau, ti?p vào nhau, g?n vào nhau</content>
+        <id>65</id>
+        <kindId>3</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>(t? c?,ngh?a c?) ?úng, thích h?p</content>
+        <examples>it is meet that</examples>
+        <id>61</id>
+        <kindId>1</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[intransitive,transitive not in passive] to go to a place where someone will be at a particular time,
+            according to an arrangement, so that you can talk or do something together
+        </content>
+        <examples>Meet me at 8.00.</examples>
+        <examples>I'll meet you by the main reception desk.</examples>
+        <examples>Why don't we meet for lunch on Friday?</examples>
+        <examples>We arranged to meet outside the theatre.</examples>
+        <id>76</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>meet (somebody) for something</content>
+        <examples>Why don't we meet for lunch on Friday?</examples>
+        <id>77</id>
+        <kindId>9</kindId>
+        <type>gram</type>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[intransitive,transitive not in passive] to see someone by chance and talk to them</content>
+        <examples>You'll never guess who I met in town.</examples>
+        <examples>I was worried I might meet Henry on the bus.</examples>
+        <id>78</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[intransitive,transitive not in passive] to see and talk to someone for the first time, or be
+            introduced to them
+        </content>
+        <examples>We first met in Florence.</examples>
+        <examples>I met my husband at university.</examples>
+        <examples>Jane, come and meet my brother.</examples>
+        <examples>'This is my niece, Sarah.' 'Pleased to meet you.'</examples>
+        <id>79</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>nice/pleased to meet you</content>
+        <examples>'This is my niece, Sarah.' 'Pleased to meet you.'</examples>
+        <id>80</id>
+        <kindId>9</kindId>
+        <type>collo</type>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>(it was) nice meeting you</content>
+        <id>81</id>
+        <kindId>9</kindId>
+        <type>collo</type>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[transitive] to be waiting for someone at an airport, station etc when they arrive in a plane or train
+        </content>
+        <examples>My dad met us at the station.</examples>
+        <examples>I'll come and meet you off the plane.</examples>
+        <id>82</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[intransitive] to come together in the same place in order to discuss something</content>
+        <examples>The committee meets once a month.</examples>
+        <examples>The two groups will meet next week to discuss the project.</examples>
+        <id>83</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[intransitive,transitive not in passive] to play against another person or team in a competition, or to
+            fight another army in a war
+        </content>
+        <examples>Manchester United will meet Blackburn Rovers in the sixth round of the Cup.</examples>
+        <examples>The two armies finally met on the battlefield at Stamford Bridge.</examples>
+        <id>84</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[intransitive,transitive not in passive] if two things meet, they touch or join at a particular place
+        </content>
+        <examples>The two roads meet just north of Flagstaff.</examples>
+        <examples>Their hands met under the table.</examples>
+        <id>85</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>[transitive] to experience a problem, attitude, or situation</content>
+        <examples>Wherever she went she met hostility and prejudice.</examples>
+        <id>86</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to deal with a problem or something difficult that you have to do</content>
+        <examples>The new building will mean that we can meet the challenge of increasing student numbers.</examples>
+        <id>87</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to do something that someone wants, needs, or expects you to do or be as good as they need, expect etc
+        </content>
+        <examples>The company says it is unable to meet the workers' demands for higher wages.</examples>
+        <examples>The service is tailored to meet your needs.</examples>
+        <examples>beaches which meet European standards of cleanliness</examples>
+        <id>88</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to finish something at the time it is meant to be finished</content>
+        <examples>We are still hoping to meet the November deadline.</examples>
+        <id>89</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to achieve something that you are trying to achieve</content>
+        <examples>It's impossible to meet the sales targets.</examples>
+        <examples>The scheme does not meet its objectives.</examples>
+        <id>90</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to make a payment that needs to be made</content>
+        <examples>The government has promised to meet the cost of clearing up after the floods.</examples>
+        <id>91</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>used to say that someone or something is more interesting, intelligent etc than they seem to be
+        </content>
+        <id>92</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>if two people's eyes meet, they look at each other</content>
+        <examples>Our eyes met momentarily, then he looked away.</examples>
+        <examples>His eyes met Nina's and she smiled.</examples>
+        <id>93</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to look directly at someone who is looking at you</content>
+        <examples>Ruth looked down, unable to meet his eye.</examples>
+        <examples>She turned to meet his gaze.</examples>
+        <id>94</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>if something meets your eyes, you see it</content>
+        <examples>An extraordinary scene met our eyes as we entered the room.</examples>
+        <id>95</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to compete against an opponent who is stronger or more skilful than you are</content>
+        <examples>I think he might have met his match in Simon.</examples>
+        <id>96</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to do some of the things that someone wants, in order to reach an agreement with them</content>
+        <id>97</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>if two moving vehicles meet head-on, they are facing each other and hit each other suddenly and
+            violently
+        </content>
+        <id>98</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to die in a particular way</content>
+        <examples>He met his death at the hands of enemy soldiers.</examples>
+        <id>99</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to die - used humorously</content>
+        <id>100</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to finally be defeated after you have been successful for a long time</content>
+        <id>101</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to meet someone in order to do something together</content>
+        <examples>We often meet up after work and go for a drink.</examples>
+        <examples>I've got to go now, but I'll meet up with you later.</examples>
+        <id>102</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>if roads, paths etc meet up, they join together at a particular place</content>
+        <examples>The path eventually meets up with the main road.</examples>
+        <id>103</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to have a meeting with someone</content>
+        <examples>Representatives of EU countries will meet with senior American politicians to discuss the trade
+            crisis.
+        </examples>
+        <id>104</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to get a particular reaction or result</content>
+        <examples>His comments have met with widespread opposition.</examples>
+        <examples>Her ideas have met with support from doctors and health professionals.</examples>
+        <examples>Our attempts at negotiation finally met with some success.</examples>
+        <id>105</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>meet with opposition/disapproval etc</content>
+        <examples>His comments have met with widespread opposition.</examples>
+        <id>106</id>
+        <kindId>9</kindId>
+        <type>collo</type>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>meet with support/approval etc</content>
+        <examples>Her ideas have met with support from doctors and health professionals.</examples>
+        <id>107</id>
+        <kindId>9</kindId>
+        <type>collo</type>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>meet with success/failure</content>
+        <examples>Our attempts at negotiation finally met with some success.</examples>
+        <id>108</id>
+        <kindId>9</kindId>
+        <type>collo</type>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>to be injured or killed in an accident</content>
+        <id>109</id>
+        <kindId>9</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>a sports competition between people running races, jumping over bars etc</content>
+        <id>74</id>
+        <kindId>8</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>an occasion when a group of people riding horses go out to hunt foxes</content>
+        <id>75</id>
+        <kindId>8</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <meanings>
+        <content>right or suitable</content>
+        <id>73</id>
+        <kindId>7</kindId>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+        <jdoDetachedState
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    </meanings>
+    <pron>/mi?t/</pron>
+    <soundSource>playSoundFromFlash('http://dictionary.cambridge.org/media/british/us_pron/m/mea/meat_/meat.mp3', this)
+    </soundSource>
+    <timeStamp>1315653863264</timeStamp>
+    <jdoDetachedState
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="longIdentity"/>
+    <jdoDetachedState
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+    <jdoDetachedState
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+    <jdoDetachedState
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bitSet"/>
+</word>
