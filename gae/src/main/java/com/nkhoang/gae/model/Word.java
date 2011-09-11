@@ -9,15 +9,14 @@ import java.util.*;
  */
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlType(name = "word", propOrder = {
         "id",
         "description",
         "meanings",
         "pron",
         "soundSource",
-        "timeStamp",
-        "jdoDetachedState"
+        "timeStamp"
 })
 @XmlSeeAlso({javax.jdo.identity.LongIdentity.class, BitSet.class})
 @XmlRootElement
@@ -76,9 +75,6 @@ public class Word {
     private String description;
 
 
-    @Transient
-    @XmlTransient
-    private String currentTime;
     @Transient
     @XmlTransient
     private Map<Long, List<Meaning>> meaningMap = new HashMap<Long, List<Meaning>>(0);
@@ -166,9 +162,6 @@ public class Word {
         return meaningIds;
     }
 
-    public void setMeaningIds(List<Long> meaningIds) {
-        this.meaningIds = meaningIds;
-    }
 
     public Map<String, Long> getKindidmap() {
         return kindIdMap;
@@ -176,10 +169,6 @@ public class Word {
 
     public Map<Long, List<Meaning>> getMeaningMap() {
         return meaningMap;
-    }
-
-    public void setKindIdList(List<Long> kindIdList) {
-        this.kindIdList = kindIdList;
     }
 
     public List<Long> getKindIdList() {
@@ -212,14 +201,6 @@ public class Word {
 
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
-    }
-
-    public String getCurrentTime() {
-        return this.currentTime;
-    }
-
-    public void setCurrentTime(String currentTime) {
-        this.currentTime = currentTime;
     }
 
     public List<Meaning> getMeanings() {

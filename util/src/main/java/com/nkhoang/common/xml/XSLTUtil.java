@@ -254,8 +254,8 @@ public class XSLTUtil {
         try {
 		ByteArrayOutputStream result = XSLTUtil.innerTransform(
 			new StreamSource(
-				new ByteArrayInputStream(xml.getBytes("UTF-8"))), new StreamSource(
-			new ByteArrayInputStream(xsl.getBytes("UTF-8"))), Collections.<String, Object>emptyMap());
+				new ByteArrayInputStream(xml.getBytes())), new StreamSource(
+			new ByteArrayInputStream(xsl.getBytes())), Collections.<String, Object>emptyMap());
             return result.toString();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.nkhoang.gae.dao;
 
-import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.model.WordItem;
 
 import java.util.List;

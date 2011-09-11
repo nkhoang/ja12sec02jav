@@ -1,16 +1,15 @@
 package com.nkhoang.gae.action;
 
-import java.util.Hashtable;
-import java.util.Map;
-
+import com.nkhoang.gae.model.User;
+import com.nkhoang.gae.view.constant.ViewConstant;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nkhoang.gae.model.User;
-import com.nkhoang.gae.view.constant.ViewConstant;
+import java.util.Hashtable;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")

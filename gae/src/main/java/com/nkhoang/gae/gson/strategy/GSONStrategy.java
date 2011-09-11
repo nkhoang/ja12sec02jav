@@ -1,9 +1,9 @@
 package com.nkhoang.gae.gson.strategy;
 
-import java.util.List;
-
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
+
+import java.util.List;
 
 /**
  * GSON strategy is implementation of ExclusionStrategy which helps GSON to know

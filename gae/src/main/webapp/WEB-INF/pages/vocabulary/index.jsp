@@ -189,7 +189,7 @@
         $('#w-nav').empty();
         var $wordKinds = $('<div class="w-ks"></div>');
         // append meaning
-        for (var i in word.meanings) {
+        for (var i in word.meaningMap) {
             // append kind.
             var $kind = $('<div class="w-k"></div>');
             // append anchor
@@ -204,7 +204,7 @@
             $kindAnchor.find('a').html(wordKind[i]);
             $('#w-nav').append($kindAnchor);
             // loop through content.
-            var meanings = word.meanings[i];
+            var meanings = word.meaningMap[i];
             if (meanings.length > 0) {
                 var $meaningWrapper = $('<ul></ul>');
                 for (var j in meanings) {

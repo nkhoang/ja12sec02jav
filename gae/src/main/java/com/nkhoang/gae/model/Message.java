@@ -1,7 +1,5 @@
 package com.nkhoang.gae.model;
 
-import com.nkhoang.gae.utils.DateConverter;
-
 import javax.persistence.*;
 
 @Entity

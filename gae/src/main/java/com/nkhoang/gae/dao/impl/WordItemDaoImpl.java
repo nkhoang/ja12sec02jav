@@ -1,11 +1,9 @@
 package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.WordItemDao;
-import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.model.WordItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;

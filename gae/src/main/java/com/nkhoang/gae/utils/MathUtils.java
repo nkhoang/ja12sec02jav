@@ -3,7 +3,6 @@ package com.nkhoang.gae.utils;
 import com.nkhoang.gae.utils.math.Constants;
 import com.nkhoang.gae.utils.math.Fmt;
 import com.nkhoang.gae.utils.math.Gridtable;
-import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

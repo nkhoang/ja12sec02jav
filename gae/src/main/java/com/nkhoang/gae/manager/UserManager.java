@@ -1,14 +1,13 @@
 package com.nkhoang.gae.manager;
 
-import java.util.List;
-
+import com.nkhoang.gae.dao.UserDao;
+import com.nkhoang.gae.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.nkhoang.gae.dao.UserDao;
-import com.nkhoang.gae.model.User;
+import java.util.List;
 
 public class UserManager implements BaseManager<User, Long> {
 	private static final Log log = LogFactory.getLog(UserManager.class);

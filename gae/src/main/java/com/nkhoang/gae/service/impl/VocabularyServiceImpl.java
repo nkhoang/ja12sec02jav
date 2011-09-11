@@ -8,7 +8,6 @@ import com.nkhoang.gae.model.Meaning;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.SpreadsheetService;
 import com.nkhoang.gae.service.VocabularyService;
-import com.nkhoang.gae.utils.DateConverter;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,8 +21,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 public class VocabularyServiceImpl implements VocabularyService {
     private static final Logger LOG = LoggerFactory
@@ -104,7 +105,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             }
             for (int i = startingIndex; i < lastIndex; i++) {
                 Word w = words.get(i);
-                w.setCurrentTime(DateConverter.formatDefaultDisplayDate(w.getTimeStamp()));
+                // w.setCurrentTime(DateConverter.formatDefaultDisplayDate(w.getTimeStamp()));
                 result.add(w);
             }
         } else {

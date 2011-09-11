@@ -1,17 +1,15 @@
 package com.nkhoang.gae.view;
 
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.servlet.View;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
+import org.springframework.web.servlet.View;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 public class JSONView implements View {
 	public String getContentType() {

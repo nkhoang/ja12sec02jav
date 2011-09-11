@@ -1,16 +1,14 @@
 package com.nkhoang.gae.dao.impl;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
+import com.nkhoang.gae.dao.CategoryDao;
+import com.nkhoang.gae.model.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nkhoang.gae.dao.CategoryDao;
-import com.nkhoang.gae.model.Category;
+import javax.persistence.Query;
+import java.util.List;
 
 @Transactional
 public class CategoryDaoImpl extends GeneralDaoImpl<Category, Long> implements CategoryDao {

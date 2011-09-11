@@ -1,8 +1,6 @@
 package com.nkhoang.gae.dao.impl;
 
-import com.nkhoang.gae.dao.WordItemDao;
 import com.nkhoang.gae.dao.WordItemStatDao;
-import com.nkhoang.gae.model.WordItem;
 import com.nkhoang.gae.model.WordItemStat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

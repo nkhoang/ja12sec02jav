@@ -16,15 +16,14 @@ import java.util.List;
 
 @SuppressWarnings({"JpaAttributeTypeInspection"})
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlType(name = "meaning", propOrder = {
         "content",
         "examples",
         "id",
         "kind",
         "kindId",
-        "type",
-        "jdoDetachedState"
+        "type"
 })
 @XmlRootElement
 public class Meaning {

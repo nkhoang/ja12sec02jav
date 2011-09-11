@@ -1,9 +1,8 @@
 package com.nkhoang.gae.action;
 
+import com.nkhoang.gae.view.constant.ViewConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.nkhoang.gae.view.constant.ViewConstant;
 
 @Controller
 public class PageNotFoundAction {

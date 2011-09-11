@@ -1,6 +1,5 @@
 package com.nkhoang.gae.dao;
 
-import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.model.Message;
 
 import java.util.List;

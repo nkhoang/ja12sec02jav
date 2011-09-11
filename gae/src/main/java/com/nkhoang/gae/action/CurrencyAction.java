@@ -1,15 +1,9 @@
 package com.nkhoang.gae.action;
 
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
-import com.nkhoang.gae.manager.GoldManager;
 import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.service.CurrencyService;
-import com.nkhoang.gae.utils.DateConverter;
-import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
-import com.nkhoang.gae.view.constant.ViewConstant;
-import net.htmlparser.jericho.Element;
-import net.htmlparser.jericho.Source;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/currency")

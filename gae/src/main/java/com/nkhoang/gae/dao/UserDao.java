@@ -1,9 +1,8 @@
 package com.nkhoang.gae.dao;
 
+import com.nkhoang.gae.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import com.nkhoang.gae.model.User;
 
 /**
  * User dao.

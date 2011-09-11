@@ -1,14 +1,12 @@
 package com.nkhoang.gae.dao.impl;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
-
 import com.nkhoang.gae.dao.MeaningDao;
 import com.nkhoang.gae.model.Meaning;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.persistence.Query;
+import java.util.List;
 
 public class MeaningDaoImpl extends GeneralDaoImpl<Meaning, Long> implements MeaningDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(MeaningDaoImpl.class);

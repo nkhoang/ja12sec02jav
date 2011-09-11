@@ -36,33 +36,10 @@ public class JaxbTest {
         Word w = vocabularyService.lookupVN("help");
 
         Writer writer = new StringWriter();
+        Marshaller marshaller = context.createMarshaller();
         context.createMarshaller().marshal(w, writer);
         Assert.assertTrue(StringUtils.isNotEmpty(writer.toString()));
         LOG.info(XMLUtil.prettyPrint(writer.toString()));
-    }
-
-    @Test
-    public void testWordXSLT() throws Exception {
-        JAXBContext context = JAXBContext.newInstance(Word.class);
-
-        Word w = vocabularyService.lookupVN("help");
-
-        Writer writer = new StringWriter();
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-        marshaller.marshal(w, writer);
-        String xml = writer.toString();
-        // String xml = IOUtils.toString(this.getClass().getResourceAsStream("word_2.xml"));
-
-        InputStream is = this.getClass().getResourceAsStream("word.xslt");
-
-        String xslt = IOUtils.toString(is);
-        // LOG.info(XMLUtil.prettyPrint(xml));
-        // LOG.info(xslt);
-
-        String output = XSLTUtil.transform(xml, xslt);
-
-        LOG.info(XMLUtil.prettyPrint(output));
     }
 
     @Test

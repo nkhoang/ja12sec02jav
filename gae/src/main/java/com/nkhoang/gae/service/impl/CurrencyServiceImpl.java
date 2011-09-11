@@ -1,6 +1,5 @@
 package com.nkhoang.gae.service.impl;
 
-import com.nkhoang.gae.dao.CurrencyDao;
 import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.service.CurrencyService;
 import net.htmlparser.jericho.Element;
@@ -11,7 +10,6 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.InputStream;
 import java.text.ParseException;

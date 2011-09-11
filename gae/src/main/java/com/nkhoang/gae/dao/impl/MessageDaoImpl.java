@@ -1,9 +1,7 @@
 package com.nkhoang.gae.dao.impl;
 
-import com.nkhoang.gae.dao.CurrencyDao;
 import com.nkhoang.gae.dao.MessageDao;
 import com.nkhoang.gae.model.Currency;
-import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.model.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
