@@ -363,8 +363,8 @@
         <hibernate.version>3.6.1.Final</hibernate.version>
 
         <!-- Spring -->
-        <spring.version>3.0.5.RELEASE</spring.version>
-        <spring.security.version>3.0.5.RELEASE</spring.security.version>
+        <spring.version>3.1.0.M2</spring.version>
+        <spring.security.version>3.1.0.M2</spring.security.version>
 
 
         <!-- Lucene -->
@@ -576,6 +576,11 @@
     </pluginRepositories>
 
     <repositories>
+        <repository>
+            <id>springsource-milestones</id>
+            <name>SpringSource Milestones Proxy</name>
+            <url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
+        </repository>
         <repository>
             <id>maven2-repository.java.net</id>
             <name>Java.net Repository for Maven</name>

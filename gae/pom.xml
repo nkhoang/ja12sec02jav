@@ -522,12 +522,8 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>${spring-aspects.version}</version>
+            <version>${spring.version}</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>spring-aop</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
                 <exclusion>
                     <artifactId>spring-expression</artifactId>
                     <groupId>org.springframework</groupId>
@@ -545,51 +541,16 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring-core.version}</version>
+            <version>${spring.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring-context-support.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring-test.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
             <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-core</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-asm</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
+
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
@@ -606,10 +567,6 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
                 <exclusion>
                     <artifactId>spring-core</artifactId>
                     <groupId>org.springframework</groupId>
@@ -667,10 +624,6 @@
                 </exclusion>
                 <exclusion>
                     <artifactId>spring-tx</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-aop</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
             </exclusions>
@@ -963,10 +916,6 @@
             <version>${cxf.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>spring-context</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
@@ -1001,12 +950,15 @@
             </exclusions>
         </dependency>
 
+
         <!-- must have if not running in the latest java 6 -->
+        <!--
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>1.0</version>
         </dependency>
+        -->
 
 
         <dependency>
@@ -1045,31 +997,19 @@
             <version>${cxf.version}</version>
         </dependency>
 
-        <!--
+        <!-- Facebook with Spring -->
         <dependency>
-            <groupId>org.restlet.gae</groupId>
-            <artifactId>org.restlet</artifactId>
-            <version>${org.restlet.version}</version>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>1.0.0.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.restlet.gae</groupId>
-            <artifactId>org.restlet.ext.servlet</artifactId>
-            <version>${org.restlet.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.restlet.gae</groupId>
-            <artifactId>org.restlet.ext.jaxb</artifactId>
-            <version>${org.restlet.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.restlet.gae</groupId>
-            <artifactId>org.restlet.ext.json</artifactId>
-            <version>${org.restlet.version}</version>
-        </dependency>
-        -->
     </dependencies>
 
     <profiles>
@@ -1122,13 +1062,17 @@
         <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
 
         <!-- Framework dependency versions -->
+        <!--
         <spring.version>3.0.1.RELEASE</spring.version>
+        -->
         <jsp.version>2.0</jsp.version>
         <servlet.version>2.5</servlet.version>
-        <spring-aspects.version>3.0.2.RELEASE</spring-aspects.version>
-        <spring-core.version>3.0.2.RELEASE</spring-core.version>
-        <spring-context-support.version>3.0.1.RELEASE</spring-context-support.version>
-        <spring.security.version>3.0.1.RELEASE</spring.security.version>
+        <!--
+            <spring-aspects.version>3.0.2.RELEASE</spring-aspects.version>
+            <spring-core.version>3.0.2.RELEASE</spring-core.version>
+            <spring-context-support.version>3.0.1.RELEASE</spring-context-support.version>
+            <spring.security.version>3.0.1.RELEASE</spring.security.version>
+        -->
 
         <!-- Common -->
         <commons-logging.version>1.1.1</commons-logging.version>
