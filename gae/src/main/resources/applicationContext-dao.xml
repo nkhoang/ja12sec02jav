@@ -17,22 +17,29 @@
     <bean id="userDao" class="com.nkhoang.gae.dao.impl.UserDaoImpl"
           scope="prototype">
     </bean>
+
     <bean id="meaningDao" class="com.nkhoang.gae.dao.impl.MeaningDaoImpl"
           scope="prototype">
     </bean>
+
     <bean id="vocabularyDao" class="com.nkhoang.gae.dao.impl.VocabularyDaoImpl"
           scope="prototype">
     </bean>
+
     <bean id="wordItemDao" class="com.nkhoang.gae.dao.impl.WordItemDaoImpl"
           scope="prototype">
     </bean>
+
     <bean id="wordItemStatDao" class="com.nkhoang.gae.dao.impl.WordItemStatDaoImpl" scope="prototype"/>
+
     <bean id="messageDao" class="com.nkhoang.gae.dao.impl.MessageDaoImpl"
           scope="prototype">
     </bean>
+
     <bean id="goldPriceDao" class="com.nkhoang.gae.dao.impl.GoldPriceDaoImpl"
           scope="prototype">
     </bean>
+
     <bean id="currencyDao" class="com.nkhoang.gae.dao.impl.CurrencyDaoImpl"
           scope="prototype">
     </bean>

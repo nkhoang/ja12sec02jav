@@ -7,11 +7,9 @@
 
     <http create-session="always">
         <anonymous/>
-
-        <intercept-url pattern="/jaxws/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!-- jax-rs interface -->
         <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
-        <intercept-url pattern="/test/*.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Will be main page -->
         <intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Handle login -->
@@ -26,34 +24,30 @@
         <!-- Chart data -->
         <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Vocabulary -->
-        <intercept-url pattern="/vocabulary/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/vocabulary/update.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/vocabulary/updateViaGD.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/vocabulary/lookup.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/vocabulary/iVocabulary.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/vocabulary/constructIVocabulary.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-
-        <intercept-url pattern="/vocabulary/iVocabulary2GD.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/vocabulary/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Serve VN Gold price -->
 
-        <intercept-url pattern="/data/clearAllVNGoldPrice.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/data/clearAllVNGoldPrice.html*"
+                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/data/clearAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/service/gold/goldVN.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/service/gold/goldVNData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/service/gold/goldVNAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/service/gold/goldVNData.html*"
+                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/service/gold/goldVNAll.html*"
+                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
         <!-- Serve IN Gold price -->
         <intercept-url pattern="/service/gold/goldIN.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Exchange rate -->
-        <intercept-url pattern="/service/gold/exchangeRate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/service/gold/exchangeRate.html*"
+                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/remote_api*/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/_ah/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/_ah*/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-
 
         <intercept-url pattern="/item/register.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/facebook/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+
         <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER"/>
+
         <logout logout-url="/logout.html" logout-success-url="/login.html?loggedout=true"/>
         <form-login login-page="/index.html"
                     authentication-failure-url="/user/login.html?error=true"

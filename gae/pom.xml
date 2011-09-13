@@ -1001,6 +1001,14 @@
             </exclusions>
         </dependency>
 
+        <!-- must have if not running in the latest java 6 -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-databinding-aegis</artifactId>
@@ -1062,7 +1070,6 @@
             <version>${org.restlet.version}</version>
         </dependency>
         -->
-
     </dependencies>
 
     <profiles>
