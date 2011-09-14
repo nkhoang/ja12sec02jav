@@ -363,8 +363,8 @@
         <hibernate.version>3.6.1.Final</hibernate.version>
 
         <!-- Spring -->
-        <spring.version>3.1.0.M2</spring.version>
-        <spring.security.version>3.1.0.M2</spring.security.version>
+        <spring.version>3.0.6.RELEASE</spring.version>
+        <spring.security.version>3.0.6.RELEASE</spring.security.version>
 
 
         <!-- Lucene -->
@@ -439,16 +439,17 @@
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
                 <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
-                <hibernate.dialect>>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
                 <jdbc.groupId>mysql</jdbc.groupId>
                 <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
                 <jdbc.version>5.1.14</jdbc.version>
-                <jdbc.driverClassName>>com.mysql.jdbc.Driver</jdbc.driverClassName>
+                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password>root</jdbc.password>
             </properties>
         </profile>
+
         <profile>
             <id>derby</id>
             <properties>
