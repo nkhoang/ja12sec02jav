@@ -510,7 +510,7 @@ public class VocaAction {
      * Save and lookup word with meanings and examples
      */
     @RequestMapping(value = "/lookup", method = RequestMethod.GET)
-    public ModelAndView lookupWord(@RequestParam("word") String wordStr, @RequestParam boolean updateIfNeed) {
+    public ModelAndView lookupWord(@RequestParam("word") String wordStr, @RequestParam(defaultValue = "false") boolean updateIfNeed) {
         LOG.info("Should update: [" + Boolean.toString(updateIfNeed) + "]");
         Long id = 0L;
         Word w = null;
