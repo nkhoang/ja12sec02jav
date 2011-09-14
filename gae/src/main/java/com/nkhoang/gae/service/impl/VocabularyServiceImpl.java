@@ -437,7 +437,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public void lookupPron(Word w) {
-        // LOG.info("looking up PRON for this word : " + w.getDescription());
+        LOG.info("looking up PRON for this word : " + w.getDescription());
         try {
             Source source = checkWordExistence(
                     CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS,
@@ -508,7 +508,6 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
-
     public Word lookupIdiom(Word aWord) {
         Source source = checkWordExistence(
                 CAMBRIDGE_DICT_URL_TYPE + CAMBRIDGE_DICT_IDIOM_TYPE + CAMBRIDGE_DICT_TYPE_QUERY, aWord.getDescription(),
@@ -575,6 +574,9 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
 
+    public void update(Word w) {
+        _vocabularyDao.update(w);
+    }
 
     public Word lookupVN(String word) throws IOException, IllegalArgumentException {
         Word aWord = null;

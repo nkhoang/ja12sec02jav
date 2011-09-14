@@ -49,6 +49,14 @@ public interface VocabularyService {
 
     public Word save(String lookupWord) throws IOException;
 
+
+    /**
+     * Update the word with something worth to be updated (pron or soundsource).
+     *
+     * @param w word to be updated.
+     */
+    public void update(Word w);
+
     /**
      * Get all words in specified range. Starting from <code>startingIndex</code> and end with <code>startingIndex + size</code>
      *

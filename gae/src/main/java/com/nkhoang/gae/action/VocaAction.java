@@ -509,14 +509,21 @@ public class VocaAction {
     /**
      * Save and lookup word with meanings and examples
      */
-    @RequestMapping(value = "/" + ViewConstant.VOCABULARY_LOOKUP_REQUEST, method = RequestMethod.GET)
-    public ModelAndView lookupWord(@RequestParam("word") String wordStr) {
+    @RequestMapping(value = "/lookup", method = RequestMethod.GET)
+    public ModelAndView lookupWord(@RequestParam("word") String wordStr, @RequestParam boolean updateIfNeed) {
+        LOG.info("Should update: [" + Boolean.toString(updateIfNeed) + "]");
         Long id = 0L;
         Word w = null;
         ModelAndView modelAndView = new ModelAndView();
         try {
             if (StringUtils.isNotEmpty(wordStr)) {
                 w = vocabularyService.save(wordStr);
+                if (updateIfNeed) {
+                    // in this case the word is loaded from DS then we just populate it with Pron
+                    vocabularyService.lookupPron(w);
+                    // then update
+                    vocabularyService.update(w);
+                }
             }
         } catch (IOException ex) {
             LOG.error("Cound not process word: " + wordStr, ex);

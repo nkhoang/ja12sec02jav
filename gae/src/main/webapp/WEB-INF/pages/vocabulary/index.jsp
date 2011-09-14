@@ -139,7 +139,8 @@
             url: '<c:url value="/vocabulary/lookup.html" />',
             type: 'GET',
             data: {
-                'word': $('#w-input').val().trim()
+                'word': $('#w-input').val().trim(),
+                'updateIfNeed': $('#updateIfNeed').prop('checked')
             },
             dataType: 'json',
             beforeSend : function() {
@@ -304,6 +305,8 @@ Welcome to Vocabulary index page.
         <div>Add a new word</div>
         <input name="word" type="input" id="w-input"/>
         <input id="aw-b" type="button" value="Find" onclick="submitNewWord();"/>
+        <br>
+        Update if need ? <input type="checkbox" name="updateIfNeed" id="updateIfNeed"/>
     </form>
 </div>
 
