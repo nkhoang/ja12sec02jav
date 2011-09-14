@@ -5,6 +5,8 @@
               http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
     <http auto-config="true" lowercase-comparisons="false">
+        <!-- skip test -->
+        <intercept-url pattern="/test*/**" filters="none"/>
         <intercept-url pattern="/images/**" filters="none"/>
         <intercept-url pattern="/styles/**" filters="none"/>
         <intercept-url pattern="/scripts/**" filters="none"/>

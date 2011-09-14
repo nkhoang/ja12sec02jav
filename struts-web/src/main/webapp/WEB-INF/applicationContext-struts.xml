@@ -31,4 +31,7 @@
     </bean>
 
     <bean id="paginatedListFactory" class="com.nkhoang.webapp.helper.PaginateListFactory"></bean>
+
+    <!-- test Action -->
+    <bean id="testAction" class="com.nkhoang.webapp.action.TestAction" />
 </beans>

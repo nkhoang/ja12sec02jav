@@ -66,6 +66,11 @@
             <exception-mapping exception="org.springframework.dao.DataAccessException" result="dataAccessFailure"/>
         </global-exception-mappings>
 
+        <!-- Test action -->
+        <action name="test" class="testAction">
+            <result name="success">/WEB-INF/pages/testUsingMap.jsp</result>
+        </action>
+
         <action name="mainMenu">
             <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
