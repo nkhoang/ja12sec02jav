@@ -3,7 +3,8 @@
              xmlns:beans="http://www.springframework.org/schema/beans"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
               http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
-    <http create-session="always">
+    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+    <http create-session="always" >
         <anonymous/>
         <!-- jax-rs interface -->
         <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
@@ -12,6 +13,10 @@
         <intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Handle login -->
         <intercept-url pattern="/user/login.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!-- for AJAX login -->
+        <intercept-url pattern="/user/authenticate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!-- for user panel -->
+        <intercept-url pattern="/user/userPanel.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Just a reference for access role reference -->
         <intercept-url pattern="/user/admin" access="ROLE_ADMIN"/>
         <intercept-url pattern="/currency/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
@@ -22,7 +27,7 @@
         <!-- Chart data -->
         <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <!-- Vocabulary -->
-        <intercept-url pattern="/vocabulary/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/vocabulary/**" filters="none"/>
         <!-- Serve VN Gold price -->
 
         <intercept-url pattern="/data/clearAllVNGoldPrice.html*"
@@ -52,7 +57,8 @@
                     login-processing-url="/login_check.html" default-target-url="/user/login.html"
                     always-use-default-target="true"/>
     </http>
-    <authentication-manager>
+    <!-- must have alias otherwise it will fail to detect exactly which authentication manager -->
+    <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDao">
             <password-encoder ref="passwordEncoder"/>
         </authentication-provider>

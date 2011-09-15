@@ -18,23 +18,23 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * <p>
+ * <p/>
  * StartupListener class used to initialize and database settings and populate
  * any application-wide drop-downs.
  * <p/>
- * <p>
+ * <p/>
  * Keep in mind that this listener is executed outside of
  * OpenSessionInViewFilter, so if you're using Hibernate you'll have to
  * explicitly initialize all loaded data at the GenericDao or service level to
  * avoid LazyInitializationException. Hibernate.initialize() works well for
  * doing this.
- * 
+ *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class StartupListener implements ServletContextListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(StartupListener.class);
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public void contextInitialized(ServletContextEvent event) {
         LOGGER.debug("Initializing context...");
 
@@ -44,22 +44,21 @@ public class StartupListener implements ServletContextListener {
     }
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        
+
     }
 
     /**
      * This method uses the LookupManager to lookup available roles from the
      * data layer.
-     * 
-     * @param context
-     *            The servlet context
+     *
+     * @param context The servlet context
      */
     public static void setupContext(ServletContext context) {
         LOGGER.debug("Check default user ...");
         ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         ItemManager itemService = (ItemManager) ctx.getBean("itemService");
 
-        UserManager userService = (UserManager) ctx.getBean("userService");
+        UserManager userService = (UserManager) ctx.getBean("userManager");
         PasswordEncoder passwordEncoder = (PasswordEncoder) ctx.getBean("passwordEncoder");
 
         userService.clearAll();

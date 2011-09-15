@@ -9,7 +9,7 @@
        default-lazy-init="true">
     <!-- WS service -->
     <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
-        <property name="vocabularyService" ref="vocabularyService" />
+        <property name="vocabularyService" ref="vocabularyService"/>
     </bean>
     <!-- Vocabulary Service -->
     <bean id="vocabularyService" class="com.nkhoang.gae.service.impl.VocabularyServiceImpl" scope="prototype">
@@ -17,6 +17,16 @@
         <property name="vocabularyDao" ref="vocabularyDao"></property>
         <property name="spreadsheetService" ref="spreadsheetService"></property>
         <property name="messageDao" ref="messageDao"></property>
+    </bean>
+
+    <bean id="userService" class="com.nkhoang.gae.service.impl.UserServiceImpl">
+        <property name="userWordDao" ref="userWordDao"></property>
+        <property name="vocabularyDao" ref="vocabularyDao"></property>
+    </bean>
+
+    <bean id="userManager" class="com.nkhoang.gae.manager.UserManager">
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+        <property name="userDao" ref="userDao"/>
     </bean>
     <!-- Currency service -->
     <bean id="currencyService" class="com.nkhoang.gae.service.impl.CurrencyServiceImpl" scope="prototype">
@@ -53,12 +63,6 @@
         <property name="itemPictureDao" ref="itemPictureDao"/>
         <property name="categoryDao" ref="categoryDao"/>
         <property name="facebookService" ref="facebookService"/>
-    </bean>
-    <!-- User service -->
-    <bean name="userService" class="com.nkhoang.gae.manager.UserManager"
-          scope="prototype">
-        <property name="passwordEncoder" ref="passwordEncoder"/>
-        <property name="userDao" ref="userDao"/>
     </bean>
     <!-- Salt generator -->
     <bean id="passwordSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">

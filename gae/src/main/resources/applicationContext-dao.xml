@@ -26,6 +26,9 @@
           scope="prototype">
     </bean>
 
+    <bean id="userWordDao" class="com.nkhoang.gae.dao.impl.UserWordDaoImpl" scope="prototype">
+    </bean>
+
     <bean id="wordItemDao" class="com.nkhoang.gae.dao.impl.WordItemDaoImpl"
           scope="prototype">
     </bean>

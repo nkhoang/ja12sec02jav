@@ -50,9 +50,12 @@
     }
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.8.16.custom.min.js' />"></script>
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />" />
 
 
 <script type="text/javascript">
+
     //playSoundFromFlash('/media/british/us_pron/a/agr/agric/agriculture.mp3', this)
     function playSoundFromFlash(B) {
         var C = "http://dictionary.cambridge.org/dictionary/british/".replace("http://", "");
@@ -106,7 +109,106 @@
 <script type="text/javascript">
     // empty array.
     var wordKind = [];
+    var wordId;
+    function openLoginDialog() {
+        $( "#login-form" ).dialog( "open" );
+        return false;
+    }
+
+    function displayUserPanel() {
+        $.ajax({
+            url: '<c:url value="/user/userPanel.html" />',
+            type: 'GET',
+            dataType: 'html',
+            success: function(response) {
+                $('#user-zone').html(response);
+            },
+            error: function() {
+                var $failMessage = $('<div></div>').html('An error occurred. Please try again later.');
+                $failMessage.dialog({
+                   autoOpen: true
+                });
+            }
+        });
+    }
+
+    // this function is used when the user has logged in failed. It helps to display a notification to the user.
+    function showFailMessage(title, messageContent) {
+        var $failMessage = $('<div title="' + title + '"></div>').html(messageContent);
+        $failMessage.dialog({
+            modal: true,
+            buttons: {
+                "Close": function(){
+                    $failMessage.dialog('close');
+                }
+            }
+        });
+    }
+
+    // this function is used when the user has logged in successfully. It helps to display a notification to the user.
+    function showSuccessMessage(response) {
+        var $successMessage = $('<div></div>').html('Welcome ' + response.userName + ', you are logged in successfully!!');
+        $successMessage.dialog({
+            modal: true,
+            buttons: {
+                "Close": function(){
+                    $successMessage.dialog('close');
+                }
+            }
+        });
+        // also show the user's username.
+        displayUserPanel();
+    }
+
     $(function() {
+        displayUserPanel();
+        // initialize the login-form dialog. It only be showed when we call 'open'.
+        $( "#login-form" ).dialog({
+            autoOpen: false,
+            height: 220,
+            width: 330,
+            modal: true,
+            buttons: {
+                "Login": function() {
+                    $.ajax({
+                        url: '<c:url value="/user/authenticate.html" />',
+                        type: 'GET',
+                        data: {
+                            'userName': $('#login-userName').val().trim(),
+                            'password': $('#login-password').val().trim()
+                        },
+                        dataType: 'json',
+                        beforeSend : function() {
+
+                        },
+                        success: function(response) {
+                            $('#login-userName').val('');
+                            $('#login-password').val('');
+
+                            $( "#login-form" ).dialog( "close" );
+                            // create message
+                            if (response.result) {
+                                showSuccessMessage(response);
+                            } else {
+                                showFailMessage('Login', 'Invalid username and password. Please try again.');
+                            }
+                        },
+                        error: function() {
+                            showFailMessage('Error', 'Please try again later.');
+                        }
+                    });
+
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            close: function() {
+
+            }
+        });
+
+        // get a list of word kinds.
         $.ajax({
             url: '<c:url value="/vocabulary/wordKind.html" />',
             type: 'POST',
@@ -125,6 +227,7 @@
         });
     });
 
+    // This is the main action of the page. Request a lookup for input word.
     function lookupWord(word) {
         $('#w-input').val(word);
         $('#aw-b').click();
@@ -146,6 +249,8 @@
             success: function(word) {
                 processWord(word);
                 $('#aw-b').removeProp('disabled');
+                // preload sound
+                $('#w-d-sound').click();
             },
             error: function() {
                 alert('Could not lookup requested word. Server error. Please try again later.')
@@ -170,6 +275,8 @@
 
     function processWord(data) {
         var word = data.word;
+        // set global word id.
+        wordId = word.id;
         var $word = $('<div class="w"></div>');
         $('#w-dis').html($word);
         // append title.
@@ -179,9 +286,10 @@
             wordDescription = wordDescription + ' (' + word.pron + ')';
         }
         $('#w-d').html(wordDescription);
-        if (word.soundSource != undefined)
-            $('#w-d').append($('<img onclick="' + word.soundSource
+        if (word.soundSource != undefined) {
+            $('#w-d').append($('<img id="w-d-sound" onclick="' + word.soundSource
                     + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">'));
+        }
         // clear all old data.
         $('#w-nav').empty();
         var $wordKinds = $('<div class="w-ks"></div>');
@@ -225,26 +333,6 @@
         $word.append($wordKinds);
     }
 
-    function refreshRecentWords(offset, size) {
-        if (offset == undefined || offset == null) {
-            offset = 0;
-        }
-        $.ajax({
-            url: '<c:url value="/vocabulary/listRecentWords.html" />',
-            dataType: 'json',
-            type: 'GET',
-            data: {
-                'offset' : offset,
-                'size': size
-            },
-            success: function(data) {
-                processRecentWords(data);
-            },
-            error: function(error) {
-                alert(error);
-            }
-        });
-    }
 </script>
 
 <script type="text/javascript">
@@ -283,16 +371,9 @@
         */
     });
 </script>
-
-<security:authorize url="/user/admin">
-    <script type="text/javascript">
-        $(function() {
-            refreshRecentWords(0, 10);
-        });
-    </script>
-</security:authorize>
 </head>
 <body>
+
 Welcome to Vocabulary index page.
 
 <div id="f-wr">
@@ -305,6 +386,10 @@ Welcome to Vocabulary index page.
         <input id="aw-b" type="button" value="Find" onclick="submitNewWord();"/>
         <br>
         Update if need ? <input type="checkbox" name="updateIfNeed" id="updateIfNeed"/>
+        <br>
+
+        <div id="user-zone">
+        </div>
     </form>
 </div>
 
@@ -321,21 +406,22 @@ Welcome to Vocabulary index page.
     </tbody>
 </table>
 <div id="w-dis">
-
 </div>
 
-<security:authorize url="/user/admin">
-    <div id="recent-w">
-        <div>Recent words: from <input type="input" size="2" value="0" id="w-offset"> size <select id="w-size"
-                                                                                                   onchange="refreshRecentWords($('#w-offset').val(), this.options[this.selectedIndex].value);">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-        </select></div>
-        <div class="recent-ws">
+<div id="login-form" title="Login">
+    <table>
+        <tr>
+            <td><label for="login-userName">Name</label></td>
+            <td>:<input name="userName" type="input" id="login-userName" class="text ui-widget-content ui-corner-all"/></td>
+        </tr>
+        <tr>
+            <td><label for="login-password">Password</label></td>
+            <td>:<input name="password" type="password" id="login-password"
+                       class="text ui-widget-content ui-corner-all"/></td>
+        </tr>
+    </table>
+</div>
 
-        </div>
-    </div>
-</security:authorize>
+
 </body>
 </html>

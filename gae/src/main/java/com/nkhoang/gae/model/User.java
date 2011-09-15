@@ -28,17 +28,6 @@ public class User implements Serializable, UserDetails {
 	@Basic
 	private List<String> roleNames;
 
-	public Map<String, String> getAbc() {
-		return abc;
-	}
-
-	public void setAbc(Map<String, String> abc) {
-		this.abc = abc;
-	}
-
-	private Map<String, String> abc;
-
-
 	// Spring required properties
 	@Basic
 	private boolean enabled;
