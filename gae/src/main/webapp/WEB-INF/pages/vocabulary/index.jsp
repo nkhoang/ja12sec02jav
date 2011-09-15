@@ -3,10 +3,8 @@
 <html>
 <head>
 <title><fmt:message key="webapp.title"/></title>
-<link href="<c:url value='/styles/simple/ext-all.css'/>" rel="stylesheet" media="all"/>
 <style type="text/css">
     body {
-        font: 13px/1.231 "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     }
 
     .w-k {
@@ -15,7 +13,7 @@
     }
 
     .w-k-t {
-        font-size: 180%;
+        font-size: 120%;
         font-weight: bold;
         color: #000080;
     }
@@ -51,8 +49,6 @@
         font-size: 9px;
     }
 </style>
-<script type="text/javascript" src="<c:url value='/js/ext.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/ext-all.js'/>"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 
 
@@ -253,6 +249,7 @@
 
 <script type="text/javascript">
     Ext.onReady(function() {
+        /*
         Ext.namespace("Vocabulary");
 
         Ext.define('Vocabulary.Search', {
@@ -283,6 +280,7 @@
             },
             renderTo: Ext.get('lookup-w-c')
         });
+        */
     });
 </script>
 

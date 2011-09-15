@@ -16,7 +16,7 @@
         }
 
         .w-k-t {
-            font-size: 180%;
+            font-size: 120%;
             font-weight: bold;
             color: #000080;
         }
