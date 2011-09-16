@@ -26,9 +26,8 @@ public class WordTagDaoImpl extends GeneralDaoImpl<WordTag, Long> implements Wor
                 List<Long> userTagIds = new ArrayList<Long>();
                 for (WordTag wordTag : result) {
                     userTagIds.add(wordTag.getUserTagId());
-
-                    return userTagIds;
                 }
+	            return userTagIds;
             }
 
         } catch (NoResultException nre) {

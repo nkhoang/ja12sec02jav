@@ -16,24 +16,71 @@
             }
         </style>
         <script type="text/javascript">
-            var autocomplete;
-            var t;
+            var global_textboxAutocomplete;
+            var global_textboxList;
+            var global_wordId;
+             function getWordTags(listener, wid) {
+                if (wid && listener) {
+                    if (listener) {
+                        $.ajax({
+                            url: '<c:url value="/user/getTags.html" />',
+                            type: 'GET',
+                            data: {
+                                'wordId': wid
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                addTags(listener, response.data);
+                            },
+                            error: function() {
+                                showFailMessage('Error', 'An error occurred. Please try again later.');
+                            }
+                        });
+                    }
+                }
+            }
+
+            function getUserTags(listener) {
+                if (listener) {
+                    $.ajax({
+                        url: '<c:url value="/user/getTags.html" />',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            var autoData = buildAutocompleteData(response.data);
+                            listener.setValues(autoData);
+                        },
+                        error: function() {
+                            showFailMessage('Error', 'An error occurred. Please try again later.');
+                        }
+                    });
+                }
+            }
+
             $(function(){
-                t = new $.TextboxList('#tag-list-box' ,{
+                global_textboxList = new $.TextboxList('#tag-list-box' ,{
                                               unique: true,
                                               plugins: {autocomplete: {
                                                   minLength: 1,
                                                   method: 'binary'
                                               }}
                                           });
-                 autocomplete = t.plugins['autocomplete'];
+                 global_textboxAutocomplete = global_textboxList.plugins['global_textboxAutocomplete'];
                 // get user tags.
-                getUserTags(autocomplete);
-                getWordTags(t, wordId);
+                getUserTags(global_textboxAutocomplete);
+                getWordTags(global_textboxList, global_wordId);
+                global_pageManager.addListener(function(data){
+                    if (data) {
+                        getWordTags(global_textboxList, data.word.id);
+                        global_wordId = data.word.id;
+                    }
+                });
             });
 
 
             function addTags(listener, data){
+                console.debug(listener);
+                listener.plugins['autocomplete'].setValues([[]]);
                 for (var i in data) {
                     listener.add(data[i], i);
                 }
@@ -60,7 +107,7 @@
                             type: 'GET',
                             data: {
                                 'tagName': $('#tag-name').val().trim(),
-                                'wordId': wordId
+                                'wordId': global_wordId
                             },
                             dataType: 'json',
                             success: function(response) {
@@ -85,7 +132,7 @@
                 $('#tag-form').dialog('open');
             }
             function addNewWord() {
-                if (wordId) {
+                if (global_wordId) {
                     $.ajax({
                         url: '<c:url value="/user/saveWord.html" />',
                         type: 'GET',
