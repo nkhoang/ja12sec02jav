@@ -1,11 +1,7 @@
 package com.nkhoang.gae.ws;
 
-import com.nkhoang.common.collections.CollectionUtils;
-import com.nkhoang.common.xml.XMLUtil;
-import com.nkhoang.common.xml.XSLTUtil;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
+import java.io.StringWriter;
+import java.io.Writer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext-service.xml", "/applicationContext-dao.xml"})
@@ -39,7 +36,7 @@ public class JaxbTest {
         Marshaller marshaller = context.createMarshaller();
         context.createMarshaller().marshal(w, writer);
         Assert.assertTrue(StringUtils.isNotEmpty(writer.toString()));
-        LOG.info(XMLUtil.prettyPrint(writer.toString()));
+        // LOG.info(XMLUtil.prettyPrint(writer.toString()));
     }
 
     @Test

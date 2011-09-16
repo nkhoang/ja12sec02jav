@@ -262,11 +262,13 @@
 
 
     <dependencies>
+        <!--
         <dependency>
             <groupId>com.nkhoang.util</groupId>
             <artifactId>projectJAVA-util</artifactId>
             <version>1.0</version>
         </dependency>
+        -->
         <!-- Google -->
         <dependency>
             <groupId>com.google.collections</groupId>
