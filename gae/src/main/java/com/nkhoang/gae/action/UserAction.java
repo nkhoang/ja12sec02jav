@@ -5,9 +5,11 @@ import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
 import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +35,42 @@ public class UserAction {
     private static Logger LOG = LoggerFactory.getLogger(UserAction.class.getCanonicalName());
     @Autowired
     private UserService userService;
+    @Autowired
+    private TagService tagService;
 
     @Autowired
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
+
+    @RequestMapping("/saveTag")
+    public ModelAndView saveTag(
+            @RequestParam(required = false, defaultValue = "") String tagName,
+            @RequestParam(required = false) Long wordId
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+
+        jsonData.put("result", false);
+        if (StringUtils.isNotBlank(tagName) && wordId != null) {
+            try {
+                boolean result = tagService.save(tagName, wordId);
+                if (result) {
+                    jsonData.put("result", true);
+                } else {
+                    jsonData.put("error", "Tag is existing. Save failed.");
+                }
+            } catch (Exception e) {
+                jsonData.put("error", "Could not save word.");
+            }
+
+        } else {
+            jsonData.put("error", "Invalid parameter.");
+        }
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
+    }
 
     @RequestMapping("/userPanel")
     public String showUserPanel() {
@@ -125,5 +159,9 @@ public class UserAction {
 
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
+    }
+
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
     }
 }

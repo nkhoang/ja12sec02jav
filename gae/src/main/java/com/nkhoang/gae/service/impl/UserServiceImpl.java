@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserWordDao userWordDao;
 
 
-    private User getCurrentUser() {
+    public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = null;
         if (principal != null) {

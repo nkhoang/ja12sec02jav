@@ -19,6 +19,13 @@
         <property name="messageDao" ref="messageDao"></property>
     </bean>
 
+    <bean id="tagService" class="com.nkhoang.gae.service.impl.TagServiceImpl">
+        <property name="userService" ref="userService"/>
+        <property name="userTagDao" ref="userTagDao"/>
+        <property name="vocabularyService" ref="vocabularyService"/>
+        <property name="wordTagDao" ref="wordTagDao"/>
+    </bean>
+
     <bean id="userService" class="com.nkhoang.gae.service.impl.UserServiceImpl">
         <property name="userWordDao" ref="userWordDao"></property>
         <property name="vocabularyDao" ref="vocabularyDao"></property>

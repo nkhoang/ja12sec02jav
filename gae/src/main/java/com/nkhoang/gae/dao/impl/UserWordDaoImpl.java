@@ -2,7 +2,6 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.UserWordDao;
 import com.nkhoang.gae.model.UserWord;
-import com.nkhoang.gae.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;

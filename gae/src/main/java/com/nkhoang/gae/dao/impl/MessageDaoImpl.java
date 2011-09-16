@@ -104,7 +104,6 @@ public class MessageDaoImpl extends GeneralDaoImpl<Message, Long> implements Mes
 		return result;
 	}
 
-	@Override
 	public Message getLatestMessage(int categoryId) {
 		try {
 			Query query = entityManager.createQuery(
@@ -122,7 +121,6 @@ public class MessageDaoImpl extends GeneralDaoImpl<Message, Long> implements Mes
 		return null;
 	}
 
-	@Override
 	public List<Message> getLatestMessages(int categoryId, int interval) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
@@ -142,7 +140,6 @@ public class MessageDaoImpl extends GeneralDaoImpl<Message, Long> implements Mes
 		return messages;
 	}
 
-	@Override
 	public void cleanupMessageQueue() {
 		List<Message> messages = new ArrayList<Message>();
 		Query query = entityManager.createQuery(

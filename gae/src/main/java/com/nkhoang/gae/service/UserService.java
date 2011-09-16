@@ -1,5 +1,6 @@
 package com.nkhoang.gae.service;
 
+import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
 import com.nkhoang.gae.model.Word;
 
@@ -23,5 +24,5 @@ public interface UserService {
      */
     List<Word> getWordsFromUser();
 
-
+    User getCurrentUser();
 }

@@ -1,6 +1,5 @@
 package com.nkhoang.gae.dao;
 
-import com.nkhoang.gae.model.Role;
 import com.nkhoang.gae.model.UserWord;
 
 import java.util.List;

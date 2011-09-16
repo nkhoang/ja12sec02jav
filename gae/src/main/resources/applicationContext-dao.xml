@@ -18,6 +18,9 @@
           scope="prototype">
     </bean>
 
+    <bean id="userTagDao" class="com.nkhoang.gae.dao.impl.UserTagDaoImpl" scope="prototype"></bean>
+
+    <bean id="wordTagDao" class="com.nkhoang.gae.dao.impl.WordTagDaoImpl" scope="prototype"></bean>
     <bean id="meaningDao" class="com.nkhoang.gae.dao.impl.MeaningDaoImpl"
           scope="prototype">
     </bean>
