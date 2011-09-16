@@ -10,7 +10,52 @@
 
 <c:choose>
     <c:when test="${isUser}">
+        <style>
+            .textboxlist {
+                width: 350px;
+            }
+        </style>
         <script type="text/javascript">
+            $(function(){
+                var t = new $.TextboxList('#tag-list-box' ,{
+                                              unique: true,
+                                              plugins: {autocomplete: {
+                                                  minLength: 1,
+                                                  method: 'binary'
+                                              }}
+                                          });
+                var autocomplete = t.plugins['autocomplete'];
+                // get user tags.
+                getUserTags(autocomplete);
+            });
+
+            function getUserTags(listener) {
+                $.ajax({
+                    url: '<c:url value="/user/getTags.html" />',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        var autoData = buildAutocompleteData(response.data);
+                        listener.setValues(autoData);
+                    },
+                    error: function() {
+                        showFailMessage('Error', 'An error occurred. Please try again later.');
+                    }
+                })
+            }
+
+            function buildAutocompleteData(data) {
+                var autoData = [];
+                for (var i in data) {
+                    var row = new Array();
+                    row.push(i);
+                    row.push(data[i]);
+                    autoData.push(row);
+                }
+
+                return autoData;
+            }
+
             $('#tag-form').dialog({
                 autoOpen: false,
                 buttons: {
@@ -78,7 +123,7 @@
 
         <div id="word-status"></div>
         <br>
-        <a href="#" onclick="addTag(); return false;">Tag</a> :
+        <a href="#" onclick="addTag(); return false;">Tag</a> : <input type="input" id="tag-list-box" style="width: 400px;"/>
         <div id="user-tag-list">
         </div>
 

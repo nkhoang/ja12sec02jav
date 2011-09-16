@@ -51,7 +51,13 @@
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.8.16.custom.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/GrowingInput.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/TextboxList.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/TextboxList.Autocomplete.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/TextboxList.Autocomplete.Binary.js' />"></script>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />" />
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.css' />" />
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.Autocomplete.css' />" />
 
 
 <script type="text/javascript">
@@ -161,6 +167,12 @@
     }
 
     $(function() {
+        $('#w-input').keypress(function(e){
+          if(e.which == 13 && $(this).val() != ''){
+           submitNewWord();
+              $(this).val('').focus();
+           }
+        });
         displayUserPanel();
         // initialize the login-form dialog. It only be showed when we call 'open'.
         $( "#login-form" ).dialog({
@@ -336,8 +348,8 @@
 </script>
 
 <script type="text/javascript">
-    Ext.onReady(function() {
         /*
+        Ext.onReady(function() {
         Ext.namespace("Vocabulary");
 
         Ext.define('Vocabulary.Search', {
@@ -368,8 +380,8 @@
             },
             renderTo: Ext.get('lookup-w-c')
         });
-        */
     });
+    */
 </script>
 </head>
 <body>

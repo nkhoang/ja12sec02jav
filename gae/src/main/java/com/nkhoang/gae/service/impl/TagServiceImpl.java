@@ -37,6 +37,12 @@ public class TagServiceImpl implements TagService {
         return false;
     }
 
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public List<UserTag> getAllUserTags(Long userId) {
+		User currentUser = userService.getCurrentUser();
+		return userTagDao.getAllUserTags(userId);
+	}
+
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<Word> getAllWordsByTagName(String tagName) {
         if (StringUtils.isNotBlank(tagName)) {
