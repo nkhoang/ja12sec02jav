@@ -9,8 +9,8 @@ import com.nkhoang.gae.model.WordTag;
 import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
 import com.nkhoang.gae.service.VocabularyService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.common.util.CollectionUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class TagServiceImpl implements TagService {
             User currentUser = userService.getCurrentUser();
             UserTag userTag = userTagDao.save(currentUser.getId(), tagName);
             if (userTag != null) {
-                WordTag wordTag = wordTagDao.save(wordId, userTag.getId());
+                WordTag wordTag = wordTagDao.save(wordId, userTag.getId(), currentUser.getId());
                 if (wordTag != null) {
                     return true;
                 }
@@ -37,11 +37,22 @@ public class TagServiceImpl implements TagService {
         return false;
     }
 
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public List<UserTag> getAllUserTags(Long userId) {
-		User currentUser = userService.getCurrentUser();
-		return userTagDao.getAllUserTags(userId);
-	}
+    public List<UserTag> getTagsByWord(Long wordId) {
+        User user = userService.getCurrentUser();
+        if (user != null) {
+            List<Long> userTagIds = wordTagDao.getTagsByWord(wordId, user.getId());
+            if (CollectionUtils.isNotEmpty(userTagIds)) {
+                return userTagDao.getAll(userTagIds);
+            }
+        }
+        return null;
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<UserTag> getAllUserTags(Long userId) {
+        User currentUser = userService.getCurrentUser();
+        return userTagDao.getAllUserTags(userId);
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<Word> getAllWordsByTagName(String tagName) {

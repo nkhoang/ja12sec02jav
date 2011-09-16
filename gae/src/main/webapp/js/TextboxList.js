@@ -122,7 +122,7 @@ $.TextboxList = function(element, _options){
 		if (b){
 			if (!afterEl || !afterEl.length) afterEl = list.find('.' + options.prefix + '-bit-box').filter(':last');
 			b.inject(afterEl.length ? afterEl : list, afterEl.length ? 'after' : 'top');
-		} 
+		}
 		return self;
 	};
 	

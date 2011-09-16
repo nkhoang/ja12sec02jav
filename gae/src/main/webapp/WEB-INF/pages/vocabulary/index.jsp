@@ -116,6 +116,48 @@
     // empty array.
     var wordKind = [];
     var wordId;
+
+
+            function getWordTags(listener, wid) {
+                if (wid && listener) {
+                    if (listener) {
+                        $.ajax({
+                            url: '<c:url value="/user/getTags.html" />',
+                            type: 'GET',
+                            data: {
+                                'wordId': wid
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+
+                                addTags(listener, response.data);
+                            },
+                            error: function() {
+                                showFailMessage('Error', 'An error occurred. Please try again later.');
+                            }
+                        });
+                    }
+                }
+            }
+
+
+            function getUserTags(listener) {
+                if (listener) {
+                    $.ajax({
+                        url: '<c:url value="/user/getTags.html" />',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            var autoData = buildAutocompleteData(response.data);
+                            listener.setValues(autoData);
+                        },
+                        error: function() {
+                            showFailMessage('Error', 'An error occurred. Please try again later.');
+                        }
+                    });
+                }
+            }
+
     function openLoginDialog() {
         $( "#login-form" ).dialog( "open" );
         return false;
@@ -263,6 +305,7 @@
                 $('#aw-b').removeProp('disabled');
                 // preload sound
                 $('#w-d-sound').click();
+                getWordTags(t, wordId);
             },
             error: function() {
                 alert('Could not lookup requested word. Server error. Please try again later.')

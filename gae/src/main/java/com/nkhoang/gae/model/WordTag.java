@@ -13,6 +13,8 @@ public class WordTag {
     @Basic
     private Long userTagId;
     @Basic
+    private Long userId;
+    @Basic
     private Long time;
 
 
@@ -46,5 +48,13 @@ public class WordTag {
 
     public void setUserTagId(Long userTagId) {
         this.userTagId = userTagId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

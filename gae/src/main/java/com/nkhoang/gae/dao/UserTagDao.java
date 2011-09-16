@@ -11,4 +11,6 @@ public interface UserTagDao extends BaseDao<UserTag, Long> {
 
     List<UserTag> getAllUserTags(Long userId);
 
+    List<UserTag> getAll(List<Long> ids);
+
 }

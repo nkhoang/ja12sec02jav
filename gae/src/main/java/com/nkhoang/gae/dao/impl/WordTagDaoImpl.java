@@ -2,15 +2,40 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.WordTagDao;
 import com.nkhoang.gae.model.WordTag;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WordTagDaoImpl extends GeneralDaoImpl<WordTag, Long> implements WordTagDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(WordTagDaoImpl.class);
+
+    public List<Long> getTagsByWord(Long wordId, Long userId) {
+        try {
+            Query query = entityManager.createQuery("Select from " + WordTag.class.getName()
+                    + " t where t.wordId=:wordId and t.userId=:userId");
+            query.setParameter("wordId", wordId);
+            query.setParameter("userId", userId);
+
+            List<WordTag> result = query.getResultList();
+            if (CollectionUtils.isNotEmpty(result)) {
+                List<Long> userTagIds = new ArrayList<Long>();
+                for (WordTag wordTag : result) {
+                    userTagIds.add(wordTag.getUserTagId());
+
+                    return userTagIds;
+                }
+            }
+
+        } catch (NoResultException nre) {
+        }
+        return null;
+
+    }
 
     public WordTag get(Long wordId, Long userTagId) {
         try {
@@ -27,12 +52,13 @@ public class WordTagDaoImpl extends GeneralDaoImpl<WordTag, Long> implements Wor
         return null;
     }
 
-    public WordTag save(Long wordId, Long userTagId) {
+    public WordTag save(Long wordId, Long userTagId, Long userId) {
         if (get(wordId, userTagId) == null) {
             WordTag wordTag = new WordTag();
             wordTag.setTime(System.currentTimeMillis());
             wordTag.setUserTagId(userTagId);
             wordTag.setWordId(wordId);
+            wordTag.setUserId(userId);
 
             return save(wordTag);
         }

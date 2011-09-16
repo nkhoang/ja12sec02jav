@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements UserTagDao {
@@ -69,7 +70,6 @@ public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements Use
     }
 
     public UserTag get(Long id) {
-        // LOGGER.info("Get meaing [id: " + id + "].");
         try {
             Query query = entityManager.createQuery("Select from " + UserTag.class.getName()
                     + " t where t.id=:userTagId");
@@ -83,6 +83,18 @@ public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements Use
         }
         return null;
     }
+
+    public List<UserTag> getAll(List<Long> ids) {
+        List<UserTag> userTags = new ArrayList<UserTag>();
+        for (Long id : ids) {
+            UserTag userTag = get(id);
+            if (userTag != null) {
+                userTags.add(userTag);
+            }
+        }
+        return userTags;
+    }
+
 
     public UserTag get(Long userId, String tagName) {
         try {

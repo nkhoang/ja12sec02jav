@@ -16,32 +16,27 @@
             }
         </style>
         <script type="text/javascript">
+            var autocomplete;
+            var t;
             $(function(){
-                var t = new $.TextboxList('#tag-list-box' ,{
+                t = new $.TextboxList('#tag-list-box' ,{
                                               unique: true,
                                               plugins: {autocomplete: {
                                                   minLength: 1,
                                                   method: 'binary'
                                               }}
                                           });
-                var autocomplete = t.plugins['autocomplete'];
+                 autocomplete = t.plugins['autocomplete'];
                 // get user tags.
                 getUserTags(autocomplete);
+                getWordTags(t, wordId);
             });
 
-            function getUserTags(listener) {
-                $.ajax({
-                    url: '<c:url value="/user/getTags.html" />',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(response) {
-                        var autoData = buildAutocompleteData(response.data);
-                        listener.setValues(autoData);
-                    },
-                    error: function() {
-                        showFailMessage('Error', 'An error occurred. Please try again later.');
-                    }
-                })
+
+            function addTags(listener, data){
+                for (var i in data) {
+                    listener.add(data[i], i);
+                }
             }
 
             function buildAutocompleteData(data) {
