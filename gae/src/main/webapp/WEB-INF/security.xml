@@ -52,7 +52,7 @@
         <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER"/>
 
         <logout logout-url="/logout.html" logout-success-url="/login.html?loggedout=true"/>
-        <form-login login-page="/index.html"
+        <form-login login-page="/vocabulary/index.html"
                     authentication-failure-url="/user/login.html?error=true"
                     login-processing-url="/login_check.html" default-target-url="/user/login.html"
                     always-use-default-target="true"/>

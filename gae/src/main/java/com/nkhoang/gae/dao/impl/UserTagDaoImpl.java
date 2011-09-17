@@ -30,15 +30,16 @@ public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements Use
     }
 
     public UserTag save(Long userId, String tagName) {
-        if (!checkExist(userId, tagName)) {
+        UserTag result = get(userId, tagName);
+        if (result == null) {
             UserTag userTag = new UserTag();
             userTag.setTime(System.currentTimeMillis());
             userTag.setUserId(userId);
             userTag.setTagName(tagName);
-
-            return save(userTag);
+            result = save(userTag);
         }
-        return null;
+
+        return result;
     }
 
     public List<UserTag> getAllUserTags(Long userId) {

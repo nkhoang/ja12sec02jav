@@ -2,10 +2,7 @@ package com.nkhoang.gae.action;
 
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
-import com.nkhoang.gae.model.User;
-import com.nkhoang.gae.model.UserTag;
-import com.nkhoang.gae.model.UserWord;
-import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
 import com.nkhoang.gae.view.JSONView;
@@ -34,171 +31,188 @@ import java.util.*;
 @RequestMapping("/" + ViewConstant.USER_NAMESPACE)
 @SessionAttributes("currentUser")
 public class UserAction {
-	private static Logger LOG = LoggerFactory.getLogger(UserAction.class.getCanonicalName());
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private TagService  tagService;
+    private static Logger LOG = LoggerFactory.getLogger(UserAction.class.getCanonicalName());
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private TagService tagService;
 
-	@Autowired
-	@Qualifier("authenticationManager")
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    @Qualifier("authenticationManager")
+    private AuthenticationManager authenticationManager;
 
-	@RequestMapping("/getTags")
-	public ModelAndView getTags(@RequestParam(required = false) Long wordId) {
-		ModelAndView modelAndView = new ModelAndView();
-		View jsonView = new JSONView();
-		modelAndView.setView(jsonView);
-		Map<String, Object> jsonData = new HashMap<String, Object>();
+    @RequestMapping("/getTags")
+    public ModelAndView getTags(@RequestParam(required = false) Long wordId) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
 
-		User user = userService.getCurrentUser();
-		Map<Long, String> tagMap = new HashMap<Long, String>();
-		if (user != null) {
-			if (wordId != null) {
-				List<UserTag> userTags = tagService.getTagsByWord(wordId);
-				if (CollectionUtils.isNotEmpty(userTags)) {
-					for (UserTag userTag : userTags) {
-						tagMap.put(userTag.getId(), userTag.getTagName());
-					}
-				}
-			} else {
-				List<UserTag> userTags = tagService.getAllUserTags(user.getId());
-				if (CollectionUtils.isNotEmpty(userTags)) {
-					for (UserTag userTag : userTags) {
-						tagMap.put(userTag.getId(), userTag.getTagName());
-					}
-				}
-			}
-		}
-		jsonData.put("data", tagMap);
-		modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        User user = userService.getCurrentUser();
+        Map<Long, String> tagMap = new HashMap<Long, String>();
+        if (user != null) {
+            if (wordId != null) {
+                List<UserTag> userTags = tagService.getTagsByWord(wordId);
+                if (CollectionUtils.isNotEmpty(userTags)) {
+                    for (UserTag userTag : userTags) {
+                        tagMap.put(userTag.getId(), userTag.getTagName());
+                    }
+                }
+            } else {
+                List<UserTag> userTags = tagService.getAllUserTags(user.getId());
+                if (CollectionUtils.isNotEmpty(userTags)) {
+                    for (UserTag userTag : userTags) {
+                        tagMap.put(userTag.getId(), userTag.getTagName());
+                    }
+                }
+            }
+        }
+        jsonData.put("data", tagMap);
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@RequestMapping("/saveTag")
-	public ModelAndView saveTag(
-		@RequestParam(required = false, defaultValue = "") String tagName,
-		@RequestParam(required = false) Long wordId) {
-		ModelAndView modelAndView = new ModelAndView();
-		View jsonView = new JSONView();
-		modelAndView.setView(jsonView);
-		Map<String, Object> jsonData = new HashMap<String, Object>();
+    @RequestMapping("/deleteTag")
+    public ModelAndView deleteTag(
+            @RequestParam(required = false) Long userTagId, @RequestParam(required = false) Long wordId
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
 
-		jsonData.put("result", false);
-		if (StringUtils.isNotBlank(tagName) && wordId != null) {
-			try {
-				boolean result = tagService.save(tagName, wordId);
-				if (result) {
-					jsonData.put("result", true);
-				} else {
-					jsonData.put("error", "Tag is existing. Save failed.");
-				}
-			}
-			catch (Exception e) {
-				jsonData.put("error", "Could not save word.");
-			}
+        jsonData.put("result", false);
+        if (userTagId != null && wordId != null) {
+            boolean result = tagService.delete(userTagId, wordId);
+            jsonData.put("result", result);
+        }
 
-		} else {
-			jsonData.put("error", "Invalid parameter.");
-		}
-		modelAndView.addObject(GSONStrategy.DATA, jsonData);
-		return modelAndView;
-	}
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
+    }
 
-	@RequestMapping("/userPanel")
-	public String showUserPanel() {
-		return "/user/userPanel";
-	}
+    @RequestMapping("/saveTag")
+    public ModelAndView saveTag(
+            @RequestParam(required = false, defaultValue = "") String tagName,
+            @RequestParam(required = false) Long wordId) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
 
-	@RequestMapping("/saveWord")
-	public ModelAndView saveWord(@RequestParam(required = false) Long wordId) {
-		ModelAndView modelAndView = new ModelAndView();
-		View jsonView = new JSONView();
-		modelAndView.setView(jsonView);
-		Map<String, Object> jsonData = new HashMap<String, Object>();
+        jsonData.put("result", false);
+        if (StringUtils.isNotBlank(tagName) && wordId != null) {
+            try {
+                WordTag result = tagService.save(tagName, wordId);
+                if (result != null) {
+                    jsonData.put("result", true);
+                    jsonData.put("data", result.getUserTagId());
+                } else {
+                    jsonData.put("error", "Tag is existing. Save failed.");
+                }
+            } catch (Exception e) {
+                jsonData.put("error", "Could not save word.");
+            }
 
-		jsonData.put("result", false);
-		if (wordId != null) {
-			try {
-				UserWord userWord = userService.addWord(wordId);
-				if (userWord == null) {
-					jsonData.put("error", "Word added before.");
-				} else {
-					jsonData.put("result", true);
-				}
-			}
-			catch (Exception e) {
-				jsonData.put("error", "Could not save word.");
-			}
+        } else {
+            jsonData.put("error", "Invalid parameter.");
+        }
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
+    }
 
-		} else {
-			jsonData.put("error", "Invalid parameter.");
-		}
-		modelAndView.addObject(GSONStrategy.DATA, jsonData);
-		return modelAndView;
-	}
+    @RequestMapping("/userPanel")
+    public String showUserPanel() {
+        return "user/userPanel";
+    }
 
-	@RequestMapping("/authenticate")
-	public ModelAndView authenticate(
-		@RequestParam(defaultValue = "") String userName, @RequestParam(defaultValue = "") String password) {
-		ModelAndView modelAndView = new ModelAndView();
-		View jsonView = new JSONView();
-		modelAndView.setView(jsonView);
-		Map<String, Object> jsonData = new HashMap<String, Object>();
+    @RequestMapping("/saveWord")
+    public ModelAndView saveWord(@RequestParam(required = false) Long wordId) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
 
-		try {
-			Authentication request = new UsernamePasswordAuthenticationToken(userName, password);
-			Authentication authenResult = authenticationManager.authenticate(request);
+        jsonData.put("result", false);
+        if (wordId != null) {
+            try {
+                UserWord userWord = userService.addWord(wordId);
+                if (userWord == null) {
+                    jsonData.put("error", "Word added before.");
+                } else {
+                    jsonData.put("result", true);
+                }
+            } catch (Exception e) {
+                jsonData.put("error", "Could not save word.");
+            }
 
-			SecurityContextHolder.getContext().setAuthentication(authenResult);
+        } else {
+            jsonData.put("error", "Invalid parameter.");
+        }
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
+    }
 
-			User user = (User) authenResult.getPrincipal();
+    @RequestMapping("/authenticate")
+    public ModelAndView authenticate(
+            @RequestParam(defaultValue = "") String userName, @RequestParam(defaultValue = "") String password) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
 
-			jsonData.put("result", true);
-			jsonData.put("userName", user.getUsername());
-		}
-		catch (AuthenticationException aue) {
-			jsonData.put("result", false);
-		}
-		modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        try {
+            Authentication request = new UsernamePasswordAuthenticationToken(userName, password);
+            Authentication authenResult = authenticationManager.authenticate(request);
 
-		return modelAndView;
-	}
+            SecurityContextHolder.getContext().setAuthentication(authenResult);
 
-	@RequestMapping("/" + ViewConstant.LOGIN_REQUEST)
-	public ModelAndView login() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User currentUser = null;
-		if (authentication != null) {
-			Object principal = authentication.getPrincipal();
-			if (principal != null && principal instanceof User) {
-				currentUser = (User) principal;
-			}
-		}
-		Map<String, Object> model = new Hashtable<String, Object>();
-		if (currentUser != null) {
-			model.put("isAdmin", true);
-			model.put("currentUser", currentUser);
-		} else {
-			model.put("isAdmin", false);
-		}
-		return new ModelAndView(ViewConstant.LOGIN_VIEW, model);
-	}
+            User user = (User) authenResult.getPrincipal();
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
+            jsonData.put("result", true);
+            jsonData.put("userName", user.getUsername());
+        } catch (AuthenticationException aue) {
+            jsonData.put("result", false);
+        }
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
 
-	public AuthenticationManager getAuthenticationManager() {
-		return authenticationManager;
-	}
+        return modelAndView;
+    }
 
-	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
+    @RequestMapping("/" + ViewConstant.LOGIN_REQUEST)
+    public ModelAndView login() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = null;
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal != null && principal instanceof User) {
+                currentUser = (User) principal;
+            }
+        }
+        Map<String, Object> model = new Hashtable<String, Object>();
+        if (currentUser != null) {
+            model.put("isAdmin", true);
+            model.put("currentUser", currentUser);
+        } else {
+            model.put("isAdmin", false);
+        }
+        return new ModelAndView(ViewConstant.LOGIN_VIEW, model);
+    }
 
-	public void setTagService(TagService tagService) {
-		this.tagService = tagService;
-	}
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public AuthenticationManager getAuthenticationManager() {
+        return authenticationManager;
+    }
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+    public void setTagService(TagService tagService) {
+        this.tagService = tagService;
+    }
 }

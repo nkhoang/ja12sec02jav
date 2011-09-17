@@ -33,7 +33,14 @@ public class WordTagDaoImpl extends GeneralDaoImpl<WordTag, Long> implements Wor
         } catch (NoResultException nre) {
         }
         return null;
+    }
 
+    public boolean delete(Long wordId, Long userTagId) {
+        WordTag wordTag = get(wordId, userTagId);
+        if (wordTag != null) {
+            return delete(wordTag.getId());
+        }
+        return false;
     }
 
     public WordTag get(Long wordId, Long userTagId) {

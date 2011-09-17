@@ -12,9 +12,11 @@ Script: TextboxList.Autocomplete.Binary.js
 
 $.TextboxList.Autocomplete.Methods.binary = {
 	filter: function(values, search, insensitive, max){
+        console.debug(values);
 		var method = insensitive ? 'toLowerCase' : 'toString', low = 0, high = values.length - 1, lastTry;
 		search = search[method]();
 		while (high >= low){
+
 			var mid = parseInt((low + high) / 2);
 			var curr = values[mid][1].substr(0, search.length)[method]();			
 			var result = ((search == curr) ? 0 : ((search > curr) ? 1 : -1));

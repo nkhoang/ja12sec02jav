@@ -11,6 +11,7 @@ public interface WordTagDao extends BaseDao<WordTag, Long> {
 
     List<Long> getTagsByWord(Long wordId, Long userId);
 
+    boolean delete(Long wordId, Long userTagId);
 
     List<WordTag> getAllWords(Long userTagId);
 

@@ -23,18 +23,21 @@ public class TagServiceImpl implements TagService {
     private UserTagDao userTagDao;
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    public boolean save(String tagName, Long wordId) {
+    public WordTag save(String tagName, Long wordId) {
         if (StringUtils.isNotBlank(tagName)) {
             User currentUser = userService.getCurrentUser();
             UserTag userTag = userTagDao.save(currentUser.getId(), tagName);
             if (userTag != null) {
                 WordTag wordTag = wordTagDao.save(wordId, userTag.getId(), currentUser.getId());
-                if (wordTag != null) {
-                    return true;
-                }
+                return wordTag;
             }
         }
-        return false;
+        return null;
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public boolean delete(Long userTagId, Long wordId) {
+        return wordTagDao.delete(wordId, userTagId);
     }
 
     public List<UserTag> getTagsByWord(Long wordId) {

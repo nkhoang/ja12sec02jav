@@ -3,30 +3,11 @@
 <html>
 <head>
 	<title><fmt:message key="webapp.title" /></title>
-	<script type="text/javascript" src="<c:url value='/js/jquery-1.4.2.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.alerts.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.timer.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/js/captify.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.validate.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.form.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.tooltip.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.fancybox-1.3.1.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.easing-1.3.pack.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.mousewheel-3.0.2.pack.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery-ui.min.js' />"></script>
-	<script type="text/javascript" src="<c:url value='/js/jquery.autocomplete.js' />"></script>
 	<%@ include file="ItemJS.jsp"%>
 	<%@ include file="ItemManagerJS.jsp"%>
 	<%@ include file="script.jsp"%>
-	<script type="text/javascript" src="<c:url value='/js/structure.js'/>"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/theme.css'/>" />
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/jquery.alerts.css'/>" />
 	<link href="<c:url value='/styles/simple/niceforms-default.css' />" rel='stylesheet' type="text/css" />
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/preloader.css'/>" />
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/jquery.tooltip.css' />" />
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/jquery.fancybox-1.3.1.css' />" />
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/jquery-ui.css' />" />
-	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/simple/jquery.autocomplete.css' />" />
 </head>
 <body>
 	<div id="body-wrapper">
