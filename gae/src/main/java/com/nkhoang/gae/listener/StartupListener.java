@@ -54,8 +54,8 @@ public class StartupListener implements ServletContextListener {
      * @param context The servlet context
      */
     public static void setupContext(ServletContext context) {
-        LOGGER.debug("Check default user ...");
-        ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+         LOGGER.debug("Check default user ...");
+       ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         ItemManager itemService = (ItemManager) ctx.getBean("itemService");
 
         UserManager userService = (UserManager) ctx.getBean("userManager");

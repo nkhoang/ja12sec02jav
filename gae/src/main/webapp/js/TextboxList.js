@@ -316,7 +316,7 @@
             growingOptions: {},
             stopEnter: true,
             addOnBlur: false,
-            addKeys: [13]
+            addKeys: [188]
         }, _options);
 
         this.type = type;

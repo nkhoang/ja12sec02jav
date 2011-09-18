@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
             // ok to proceed.
             User currentUser = getCurrentUser();
             if (currentUser != null) {
-                return userWordDao.save(currentUser.getId(), wordId);
+                return userWordDao.save(wordId, currentUser.getId());
             }
         }
         return null;
