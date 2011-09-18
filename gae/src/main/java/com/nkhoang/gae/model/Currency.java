@@ -1,6 +1,6 @@
 package com.nkhoang.gae.model;
 
-import com.nkhoang.gae.utils.DateConverter;
+import com.nkhoang.gae.utils.WebUtils;
 
 import javax.persistence.*;
 
@@ -44,7 +44,7 @@ public class Currency {
     }
 
     public String toString() {
-        return "Currency [" + currency + "] ==> time: " + DateConverter.parseDateFromLong(time) + " buy: " + priceBuy + " sell: " + priceSell;
+        return "Currency [" + currency + "] ==> time: " + WebUtils.parseDateFromLong(time) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public Float getPriceSell() {

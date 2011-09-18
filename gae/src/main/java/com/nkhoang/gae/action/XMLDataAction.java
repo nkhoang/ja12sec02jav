@@ -7,8 +7,8 @@ import com.nkhoang.gae.manager.GoldManager;
 import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.model.GoldPriceSortByTime;
-import com.nkhoang.gae.utils.DateConverter;
 import com.nkhoang.gae.utils.GoldConstants;
+import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import com.ximpleware.AutoPilot;
@@ -167,8 +167,8 @@ public class XMLDataAction {
         ModelAndView mav = new ModelAndView();
         try {
             if (StringUtils.isNotEmpty(fromDateString) && StringUtils.isNotEmpty(toDateString)) {
-                Date fromDate = DateConverter.convertFromStringToken(fromDateString, DateConverter.DEFAULT_GOLD_DATE_FORMAT);
-                Date toDate = DateConverter.convertFromStringToken(toDateString, DateConverter.DEFAULT_GOLD_DATE_FORMAT);
+                Date fromDate = WebUtils.convertFromStringToken(fromDateString, WebUtils.DEFAULT_GOLD_DATE_FORMAT);
+                Date toDate = WebUtils.convertFromStringToken(toDateString, WebUtils.DEFAULT_GOLD_DATE_FORMAT);
 
                 Map<String, List<GoldPrice>> goldMap = buildGoldPrice4Chart(fromDate, toDate);
 
@@ -216,7 +216,7 @@ public class XMLDataAction {
 
                     AutoPilot ap = new AutoPilot(vn);
                     // build caption
-                    String caption = "from " + DateConverter.parseDateFromLong(vnList.get(0).getTime()) + " to " + DateConverter.parseDateFromLong(vnList.get(vnList.size() - 1).getTime());
+                    String caption = "from " + WebUtils.parseDateFromLong(vnList.get(0).getTime()) + " to " + WebUtils.parseDateFromLong(vnList.get(vnList.size() - 1).getTime());
                     // first update "subcaption" attribute of 'chart' tag.
                     int i = vn.getAttrVal("subcaption");
                     if (i != -1) {
@@ -245,7 +245,7 @@ public class XMLDataAction {
                         String categoryTag = "";
                         for (GoldPrice p : vnList) {
 
-                            categoryTag += "\n\t<category label='" + DateConverter.parseDateFromLong(p.getTime()) + "'/>";
+                            categoryTag += "\n\t<category label='" + WebUtils.parseDateFromLong(p.getTime()) + "'/>";
                         }
                         xm.insertAfterHead(categoryTag);
                     }

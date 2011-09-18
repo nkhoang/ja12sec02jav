@@ -13,7 +13,7 @@ import java.util.List;
 
 @Transactional
 public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements UserWordDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserWordDaoImpl.class.getCanonicalName());
+    private static final Logger LOG = LoggerFactory.getLogger(UserWordDaoImpl.class.getCanonicalName());
 
     public List<UserWord> getWordFromUser(Long userId) {
         Query query = entityManager.createQuery("Select from " + UserWord.class.getName() + " t where t.wordId=:wordId");
@@ -25,7 +25,7 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
 
     public UserWord get(Long id) {
         try {
-            LOGGER.debug("Get userword ID: " + id);
+            LOG.debug("Get userword ID: " + id);
             Query query = entityManager.createQuery("Select from " + UserWord.class.getName() + " t where t.id=:userwordID");
             query.setParameter("userwordID", id);
 
@@ -45,13 +45,13 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
             query.setParameter("wordId", wordId);
             UserWord userWord = (UserWord) query.getSingleResult();
             if (userWord != null) {
-                LOGGER.debug("Check wordId-userId: [" + wordId + "-" + userId + "]...  yes");
+                LOG.debug("Check wordId-userId: [" + wordId + "-" + userId + "]...  yes");
                 return true;
             }
 
         } catch (NoResultException e) {
         }
-        LOGGER.debug("Check wordId-userId: [" + wordId + "-" + userId + "]...  no");
+        LOG.debug("Check wordId-userId: [" + wordId + "-" + userId + "]...  no");
         return false;
     }
 
@@ -60,6 +60,22 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
         List<UserWord> result = null;
         try {
             Query query = getEntityManager().createQuery("Select from " + UserWord.class.getName());
+            result = query.getResultList();
+        } catch (NoResultException ex) {
+        }
+        return result;
+    }
+
+
+    public List<UserWord> getRecentUserWords(Long startDate, Long endDate, int offset, int size) {
+        LOG.info(String.format("Get user's recent words by date [%s-%s]..", startDate, endDate));
+        List<UserWord> result = null;
+        try {
+            Query query = getEntityManager().createQuery("Select from " + UserWord.class.getName() + " t where t.time >=:startTime and t.time <=:endTime order by t.time desc");
+            query.setParameter("startTime", startDate);
+            query.setParameter("endTime", endDate);
+            query.setFirstResult(offset);
+            query.setMaxResults(size);
             result = query.getResultList();
         } catch (NoResultException ex) {
         }
@@ -75,7 +91,7 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
             entityManager.flush();
             result = true;
         } catch (Exception e) {
-            LOGGER.error("Error", e);
+            LOG.error("Error", e);
         }
         return result;
     }

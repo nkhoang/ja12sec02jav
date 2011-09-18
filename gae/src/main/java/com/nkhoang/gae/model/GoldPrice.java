@@ -1,6 +1,6 @@
 package com.nkhoang.gae.model;
 
-import com.nkhoang.gae.utils.DateConverter;
+import com.nkhoang.gae.utils.WebUtils;
 
 import javax.persistence.*;
 import java.util.GregorianCalendar;
@@ -54,7 +54,7 @@ public class GoldPrice {
         GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Asia/Bangkok"));
         calendar.setTimeInMillis(time);
 
-        return "Gold ==> Time: " + DateConverter.parseDate(calendar.getTime(), DateConverter.DEFAULT_GOLD_DATE_FORMAT) + " buy: " + priceBuy + " sell: " + priceSell;
+        return "Gold ==> Time: " + WebUtils.parseDate(calendar.getTime(), WebUtils.DEFAULT_GOLD_DATE_FORMAT) + " buy: " + priceBuy + " sell: " + priceSell;
     }
 
     public void setPriceBuy(Float priceBuy) {

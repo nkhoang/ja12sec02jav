@@ -249,13 +249,13 @@ function lookupWord(word) {
     $('#aw-b').click();
 }
 // submit new word.
-function submitNewWord() {
+function submitNewWord(lookupWord, updateIfNeed) {
     $.ajax({
         url: '<c:url value="/vocabulary/lookup.html" />',
         type: 'GET',
         data: {
-            'word': $('#w-input').val().trim(),
-            'updateIfNeed': $('#updateIfNeed').prop('checked')
+            'word': lookupWord,
+            'updateIfNeed': updateIfNeed
         },
         dataType: 'json',
         beforeSend : function() {
@@ -435,7 +435,8 @@ Welcome to Vocabulary index page.
     <form name="aw-form" action="/" id="aw-form">
         <div>Add a new word</div>
         <input name="word" type="input" id="w-input"/>
-        <input id="aw-b" type="button" value="Find" onclick="submitNewWord();"/>
+        <input id="aw-b" type="button" value="Find"
+               onclick="submitNewWord($('#w-input').val().trim(), $('#updateIfNeed').prop('checked'));"/>
         <br>
         Update if need ? <input type="checkbox" name="updateIfNeed" id="updateIfNeed"/>
         <br>

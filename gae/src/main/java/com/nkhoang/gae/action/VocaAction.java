@@ -13,7 +13,7 @@ import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.utils.FileUtils;
-import com.nkhoang.gae.utils.MailUtils;
+import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import com.nkhoang.gae.vocabulary.IVocabularyUtils;
@@ -154,8 +154,8 @@ public class VocaAction {
             sublistSize = wordItems.size();
         }
         mailData.put("sampleList", wordItems.subList(0, sublistSize));
-        messageBody = MailUtils.buildMail(request.getSession().getServletContext(), "remove_duplicate.ftl", mailData);
-        MailUtils.sendMail(messageBody, SENDER_EMAIL, "Remove Duplicates report", "nkhoang.it@gmail.com");
+        messageBody = WebUtils.buildMail(request.getSession().getServletContext(), "remove_duplicate.ftl", mailData);
+        WebUtils.sendMail(messageBody, SENDER_EMAIL, "Remove Duplicates report", "nkhoang.it@gmail.com");
         try {
             response.getWriter().write("success");
         } catch (Exception e) {

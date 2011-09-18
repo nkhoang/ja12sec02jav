@@ -5,7 +5,7 @@ import com.google.appengine.api.labs.taskqueue.TaskOptions;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.GoldManager;
 import com.nkhoang.gae.model.GoldPrice;
-import com.nkhoang.gae.utils.DateConverter;
+import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import org.apache.commons.lang.StringUtils;
@@ -209,7 +209,7 @@ public class GoldVNAction {
             price = new GoldPrice();
             Date priceDate = null;
             try {
-                priceDate = DateConverter.convertFromStringToken(info[0], DateConverter.DEFAULT_GOLD_DATE_FORMAT);
+                priceDate = WebUtils.convertFromStringToken(info[0], WebUtils.DEFAULT_GOLD_DATE_FORMAT);
             } catch (ParseException parseEx) {
                 LOGGER.error("Could not parse date.", parseEx);
                 price = null;

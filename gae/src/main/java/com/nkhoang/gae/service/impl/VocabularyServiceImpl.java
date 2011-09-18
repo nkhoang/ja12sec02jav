@@ -105,7 +105,6 @@ public class VocabularyServiceImpl implements VocabularyService {
             }
             for (int i = startingIndex; i < lastIndex; i++) {
                 Word w = words.get(i);
-                // w.setCurrentTime(DateConverter.formatDefaultDisplayDate(w.getTimeStamp()));
                 result.add(w);
             }
         } else {

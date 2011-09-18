@@ -51,27 +51,6 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         return result;
     }
 
-    public List<Word> get(List<Long> ids) {
-        List words = null;
-        try {
-            StringBuilder queryStr = new StringBuilder();
-            queryStr.append("Select from \" + Word.class.getName() + \" t where t.id in ");
-            queryStr.append("(");
-            for (int i = 0; i < ids.size() - 1; i++) {
-                queryStr.append(ids.get(i));
-                queryStr.append(",");
-            }
-            queryStr.append(ids.get(ids.size() - 1));
-            queryStr.append(")");
-            Query query = entityManager.createQuery(queryStr.toString());
-
-
-            words = (List) query.getResultList();
-        } catch (NoResultException e) {
-        }
-        return words;
-    }
-
     public Word get(Long id) {
         LOGGER.info("Get word ID: " + id);
         try {

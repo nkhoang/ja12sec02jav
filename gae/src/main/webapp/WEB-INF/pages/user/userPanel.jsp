@@ -14,32 +14,83 @@
     .textboxlist {
         width: 350px;
     }
+
     #user-word-list {
-        font-size:  11px;
+        font-size: 11px;
         position: fixed;
         right: 0px;
         top: 20px;
-        border:  1px solid black;
-        padding:  10px;
+        border: 1px solid black;
+        padding: 10px;
     }
 
     #user-words {
         font-size: 12pt;
     }
+
+    #user-words-widget table {
+        margin: 0 auto;
+    }
+
+    #words-container {
+        color: #6f6f6f;
+        height: 193px;
+        width: 160px;
+    }
+
+    #user-words-widget .nav-left, #user-words-widget .nav-right {
+        width: 20px;
+        text-align: center;
+        border: 1px solid #f6f6f6;
+    }
+
+    #user-words-widget .nav-left:hover, #user-words-widget .nav-right:hover {
+        background-color: #DEE7F8;
+        cursor: pointer;
+    }
+
+    #words-container tr.word-row {
+        cursor: pointer;
+    }
+
+    #words-container tr.word-row:hover {
+        background-color: #DEE7F8;
+    }
+
+    #words-container tr.odd {
+        background-color: #f3f3f3;
+    }
+
+    #words-container table {
+        width: 100%;
+        text-align: center;
+        border-top: 1px solid #f4f4f4;
+    }
+
+    #words-container tr {
+        border-bottom: 1px solid #f4f4f4;
+    }
+
 </style>
 <script type="text/javascript">
 var global_textboxList;
 var $global_datepicker;
+var total_word_per_page = 10;
+var global_current_word_offset = 0;
+var global_next_word_offset = global_current_word_offset + total_word_per_page;
 $(function() {
     // create datepicker
     $global_datepicker = $('#user-word-datepicker').datepicker({
         dateFormat: 'dd/mm/yy',
         onSelect: function(dateText, instance) {
-             updateUserSelectedDate(dateText);
+            updateUserSelectedDate(dateText);
+            updateUserWordList(dateText, null, total_word_per_page);
         }
     });
     // update selected date when datepicker successfully created.
     updateUserSelectedDate($.datepicker.formatDate('dd/mm/yy', $global_datepicker.datepicker('getDate')));
+    updateUserWordList($.datepicker.formatDate('dd/mm/yy', $global_datepicker.datepicker('getDate')), null, total_word_per_page);
+    initializeNav();
     // create 'textboxlist'.
     global_textboxList = new $.TextboxList('#tag-list-box', {});
     // add 'Add' event for 'textboxlist'
@@ -83,9 +134,62 @@ $(function() {
     });
 });
 function updateUserSelectedDate(date) {
+    // update the user selected date.
     $('#user-selected-date').html(date);
 }
 
+function updateUserWordList(date, offset, size) {
+    // build data.
+    var ajaxData = {};
+    ajaxData.size = size;
+    ajaxData.date = date;
+    if (offset != null) {
+        ajaxData.offset = offset;
+    }
+    $.ajax({
+        url: '<c:url value="/user/getWords.html" />',
+        type: 'GET',
+        data: ajaxData,
+        dataType: 'json',
+        success: function(response) {
+            // build data
+            var words = response.data;
+            $('#words-container').empty().append($('<table cellpadding="0" cellspacing="0"></table>'));
+            var tableWords = $('#words-container').find('table');
+            var index = 0;
+            for (var i in words) {
+                var row = $('<tr></tr>').attr('class', (index % 2 == 0 ? 'even' : 'odd') + ' word-row').html(words[i])
+                        .attr('onclick', 'submitNewWord("' + words[i] + '", false); return false');
+
+                tableWords.append(row);
+                index++;
+                if (index == total_word_per_page) break;
+            }
+
+            // then update the offset base on the returned value.
+            global_current_word_offset = response.offset;
+            global_next_word_offset = response.nextOffset;
+
+        },
+        error: function() {
+            showFailMessage('Error', 'An error occurred. Please try again later.');
+        }
+    });
+}
+
+function initializeNav() {
+    $('#user-words-widget .nav-right').click(function() {
+        if ((global_current_word_offset + total_word_per_page) <= global_next_word_offset) {
+            updateUserWordList($.datepicker.formatDate('dd/mm/yy', $global_datepicker.datepicker('getDate')), global_next_word_offset, total_word_per_page);
+        }
+    });
+
+    $('#user-words-widget .nav-left').click(function() {
+        if ((global_current_word_offset - total_word_per_page) >= 0) {
+            updateUserWordList($.datepicker.formatDate('dd/mm/yy', $global_datepicker.datepicker('getDate')), global_current_word_offset - total_word_per_page, total_word_per_page);
+        }
+    });
+}
 
 function getWordTags(listener, wid) {
     if (wid && listener) {
@@ -121,7 +225,7 @@ function getUserTags() {
             var tagArr = new Array();
             for (var i in response.data) {
                 var tag = {};
-                tag.id =  i;
+                tag.id = i;
                 tag.name = response.data[i];
 
                 tagArr.push(tag);
@@ -287,7 +391,20 @@ Tags:
 
     <div id="user-words">
         Recent words of: <b><span id="user-selected-date"></span></b>
-        <div id="user-words-widget"></div>
+
+        <div id="user-words-widget">
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="nav-left"><</td>
+                    <td>
+                        <div id="words-container">
+
+                        </div>
+                    </td>
+                    <td class="nav-right">></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 </c:when>

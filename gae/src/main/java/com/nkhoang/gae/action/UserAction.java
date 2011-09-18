@@ -5,6 +5,7 @@ import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
+import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import org.apache.commons.collections.CollectionUtils;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.*;
 
 @Controller
@@ -32,6 +35,7 @@ import java.util.*;
 @SessionAttributes("currentUser")
 public class UserAction {
     private static Logger LOG = LoggerFactory.getLogger(UserAction.class.getCanonicalName());
+    public static final String RECENT_WORD_OFFSET_SESSION = "recentWordOffset";
     @Autowired
     private UserService userService;
     @Autowired
@@ -125,6 +129,32 @@ public class UserAction {
     @RequestMapping("/userPanel")
     public String showUserPanel() {
         return "user/userPanel";
+    }
+
+    @RequestMapping("/getWords")
+    public ModelAndView getWordsByDate(@RequestParam(required = false) String date,
+                                       @RequestParam(required = false) Integer offset,
+                                       @RequestParam(required = false) Integer size,
+                                       HttpServletRequest request) {
+        if (offset == null) {
+            offset = 0;
+        }
+        // get 1 more to check if there is something need to get in the next turn.
+        size = size + 1;
+        // the date must be in the format of the client : mm/dd/yy
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+        List<String> wordList = new ArrayList<String>();
+        if (date != null) {
+            wordList = userService.getUserIdWordByDate(date, offset, size);
+        }
+        jsonData.put("data", wordList);
+        jsonData.put("offset", offset);
+        jsonData.put("nextOffset", offset + wordList.size() - 1);
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
     }
 
     @RequestMapping("/saveWord")

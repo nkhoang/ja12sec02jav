@@ -5,11 +5,14 @@ import com.nkhoang.gae.model.UserWord;
 import com.nkhoang.gae.model.Word;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * User related service.
  */
 public interface UserService {
+    List<String> getUserIdWordByDate(String date, int offset, int size);
+
     /**
      * Add a new word to the current user.
      *
@@ -17,12 +20,6 @@ public interface UserService {
      */
     UserWord addWord(Long wordId);
 
-    /**
-     * Get all words with the current user.
-     *
-     * @return the list of user words.
-     */
-    List<Word> getWordsFromUser();
 
     User getCurrentUser();
 }

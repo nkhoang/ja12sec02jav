@@ -6,21 +6,51 @@ import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.UserService;
-import org.eclipse.jetty.server.Authentication;
+import com.nkhoang.gae.utils.WebUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.util.*;
 
 
 public class UserServiceImpl implements UserService {
+    private static Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class.getCanonicalName());
     @Autowired
     private VocabularyDao vocabularyDao;
     @Autowired
     private UserWordDao userWordDao;
 
+    public List<String> getUserIdWordByDate(String date, int offset, int size) {
+        List<String> wordList = new ArrayList<String>();
+        if (StringUtils.isNotEmpty(date)) {
+            try {
+                Date startDate = WebUtils.parseDate(date + " 00:00:01", WebUtils.DEFAULT_CLIENT_DATE_FORMAT + " HH:mm:ss");
+                Date endDate = WebUtils.parseDate(date + " 23:59:59", WebUtils.DEFAULT_CLIENT_DATE_FORMAT + " HH:mm:ss");
+                List<UserWord> userWords = userWordDao.getRecentUserWords(startDate.getTime(), endDate.getTime(), offset, size);
+                if (CollectionUtils.isNotEmpty(userWords)) {
+                    List<Word> words = new ArrayList<Word>();
+                    for (UserWord userWord : userWords) {
+                        words.add(vocabularyDao.get(userWord.getWordId()));
+                    }
+
+                    if (CollectionUtils.isNotEmpty(words)) {
+                        for (Word w : words) {
+                            wordList.add(w.getDescription());
+                        }
+                    }
+                }
+            } catch (ParseException pare) {
+                LOG.error(String.format("Could not parse date %s with format [%s]", date, WebUtils.DEFAULT_CLIENT_DATE_FORMAT));
+            }
+        }
+        return wordList;
+    }
 
     public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -46,23 +76,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public List<Word> getWordsFromUser() {
-        User user = getCurrentUser();
-        if (user != null) {
-            List<UserWord> userWords = userWordDao.getWordFromUser(user.getId());
-            List<Long> wordIds = new ArrayList<Long>();
-            for (UserWord userWord : userWords) {
-                wordIds.add(userWord.getWordId());
-            }
-
-            List<Word> words = vocabularyDao.get(wordIds);
-
-            return words;
-        }
-
-        return null;
-    }
 
     public void setVocabularyDao(VocabularyDao vocabularyDao) {
         this.vocabularyDao = vocabularyDao;

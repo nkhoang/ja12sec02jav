@@ -85,21 +85,6 @@ public class VocabularyAction {
 		return ViewConstant.VOCABULARY_VIEW;
 	}
 
-	/** Render index page for vocabulary. */
-	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_INDEX_REQUEST, method = RequestMethod.GET)
-	public ModelAndView renderVocabularyIndexPage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(ViewConstant.VOCABULARY_INDEX_VIEW);
-
-		// get the count
-		User user = WebUtils.getCurrentUser();
-		if (user != null) {
-			mav.addObject("isAdmin", true);
-		} else {
-			mav.addObject("isAdmin", false);
-		}
-		return mav;
-	}
 
 	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_MANAGER_REQUEST, method = RequestMethod.GET)
 	public String renderVocabularyManagerPage() {

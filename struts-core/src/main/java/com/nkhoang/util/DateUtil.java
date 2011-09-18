@@ -25,9 +25,6 @@ public final class DateUtil {
     private static Log log = LogFactory.getLog(DateUtil.class);
     private static final String TIME_PATTERN = "HH:mm";
 
-    /**
-     * Checkstyle rule: utility classes should not have public constructor
-     */
     private DateUtil() {
     }
 
