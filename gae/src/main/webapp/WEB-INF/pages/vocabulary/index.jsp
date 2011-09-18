@@ -53,11 +53,10 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.8.16.custom.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/GrowingInput.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/TextboxList.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/TextboxList.Autocomplete.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/TextboxList.Autocomplete.Binary.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery.autocomplete.js' />"></script>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />" />
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.css' />" />
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.Autocomplete.css' />" />
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery.ui.autocomplete' />" />
 
 
 <script type="text/javascript">
