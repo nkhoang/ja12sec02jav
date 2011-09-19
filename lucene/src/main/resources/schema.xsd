@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="meaning" type="meaning"/>
+
+  <xs:element name="word" type="word"/>
+
+  <xs:complexType name="word">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="meanings" type="meaning" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="pron" type="xs:string" minOccurs="0"/>
+      <xs:element name="soundSource" type="xs:string" minOccurs="0"/>
+      <xs:element name="timeStamp" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="meaning">
+    <xs:sequence>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="examples" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="kind" type="xs:string" minOccurs="0"/>
+      <xs:element name="kindId" type="xs:long" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="longIdentity">
+    <xs:complexContent>
+      <xs:extension base="singleFieldIdentity">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="singleFieldIdentity" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="bitSet">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+
