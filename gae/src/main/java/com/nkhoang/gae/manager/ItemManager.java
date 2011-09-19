@@ -6,7 +6,6 @@ import com.nkhoang.gae.dao.ItemPictureDao;
 import com.nkhoang.gae.model.Category;
 import com.nkhoang.gae.model.Item;
 import com.nkhoang.gae.model.ItemPicture;
-import com.nkhoang.gae.service.FacebookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,6 @@ public class ItemManager implements BaseManager<Item, Long> {
 
     private ItemDao itemDao;
     private ItemPictureDao itemPictureDao;
-    private FacebookService facebookService;
     private CategoryDao categoryDao;
 
     public Item get(Long id) {
@@ -69,7 +67,9 @@ public class ItemManager implements BaseManager<Item, Long> {
             if (result) {
                 // starting facebook post removing
                 if (item.getPostId() != null) {
+/*
                     removeResult = facebookService.removePost(item.getPostId());
+*/
                 }
 
                 DataCenter.statusChanged(ITEM_ALL_ID);
@@ -296,12 +296,5 @@ public class ItemManager implements BaseManager<Item, Long> {
     public void setCategoryDao(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
     }
-
-    public FacebookService getFacebookService() {
-        return facebookService;
-    }
-
-    public void setFacebookService(FacebookService facebookService) {
-        this.facebookService = facebookService;
-    }
 }
+

@@ -6,7 +6,6 @@ import com.nkhoang.gae.manager.ItemManager;
 import com.nkhoang.gae.model.Item;
 import com.nkhoang.gae.model.ItemPicture;
 import com.nkhoang.gae.model.User;
-import com.nkhoang.gae.service.FacebookService;
 import com.nkhoang.gae.validator.ItemValidator;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
@@ -39,8 +38,6 @@ import java.util.*;
 public class ItemAction {
     @Autowired
     private ItemManager itemService;
-    @Autowired
-    private FacebookService facebookService;
     @Autowired
     private MessageSource messageSource;
     @Autowired
@@ -166,9 +163,11 @@ public class ItemAction {
                 // starting facebook posting
                 String postId = null;
                 try {
+/*
                     postId = facebookService.postContent(null,
                             item.getDescription(), "http://hoangmy-chara.appspot.com/facebook/item/" + item.getId(), item.getCode(),
                             item.getThumbnail(), "http://hoangmy-chara.appspot.com/facebook/item/" + item.getId());
+*/
                 } catch (Exception e) {
                     LOGGER.error("Error", e);
                 }
@@ -241,9 +240,5 @@ public class ItemAction {
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
-    }
-
-    public void setFacebookService(FacebookService facebookService) {
-        this.facebookService = facebookService;
     }
 }

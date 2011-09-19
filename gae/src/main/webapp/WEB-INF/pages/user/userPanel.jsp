@@ -21,7 +21,7 @@
         right: 0px;
         top: 20px;
         border: 1px solid black;
-        padding: 10px;
+        padding: 12px;
     }
 
     #user-words {
@@ -34,7 +34,7 @@
 
     #words-container {
         color: #6f6f6f;
-        height: 193px;
+        height: 201px;
         width: 160px;
     }
 

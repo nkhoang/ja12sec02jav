@@ -1,21 +1,13 @@
 package com.nkhoang.gae.listener;
 
-import com.nkhoang.gae.manager.ItemManager;
-import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.Item;
-import com.nkhoang.gae.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * <p/>

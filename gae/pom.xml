@@ -335,25 +335,6 @@
             <version>${gdata-spreadsheet-3.0.version}</version>
         </dependency>
 
-        <!-- remember to use the customized version -->
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>${xstream.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xpp3_min</artifactId>
-                    <groupId>xpp3</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Remember to copy over the fixed version -->
-        <dependency>
-            <groupId>xpp3</groupId>
-            <artifactId>xpp3_min</artifactId>
-            <version>${xpp3_min.version}</version>
-        </dependency>
-
         <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
@@ -741,21 +722,6 @@
             <version>${commons-logging.version}</version>
         </dependency>
         <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>facebook-java-api</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>facebook-java-api-annotation-processor</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>code.google.com</groupId>
-            <artifactId>facebook-java-api-schema</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.2.3</version>
@@ -816,11 +782,6 @@
             <artifactId>jericho-html</artifactId>
             <version>${jericho-html.version}</version>
         </dependency>
-        <dependency>
-            <groupId>code.ximpleware</groupId>
-            <artifactId>vtd-xml</artifactId>
-            <version>${vtd-xml.version}</version>
-        </dependency>
         <!-- jaxb and xml -->
         <dependency>
             <groupId>xerces</groupId>
@@ -873,29 +834,6 @@
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
             <version>1.0.b2</version>
-        </dependency>
-        <!-- Lucene -->
-
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-wordnet</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <!-- abtab -->
-        <dependency>
-            <groupId>commons-compress</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>20050911</version>
         </dependency>
 
         <dependency>
@@ -1012,6 +950,11 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.compass-project</groupId>
+            <artifactId>compass</artifactId>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -1064,18 +1007,8 @@
         <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
 
         <!-- Framework dependency versions -->
-        <!--
-        <spring.version>3.0.1.RELEASE</spring.version>
-        -->
         <jsp.version>2.0</jsp.version>
         <servlet.version>2.5</servlet.version>
-        <!--
-            <spring-aspects.version>3.0.2.RELEASE</spring-aspects.version>
-            <spring-core.version>3.0.2.RELEASE</spring-core.version>
-            <spring-context-support.version>3.0.1.RELEASE</spring-context-support.version>
-            <spring.security.version>3.0.1.RELEASE</spring.security.version>
-        -->
-
         <!-- Common -->
         <commons-logging.version>1.1.1</commons-logging.version>
         <!-- JSTL -->
@@ -1090,11 +1023,8 @@
 
         <!-- Other -->
         <jasypt.version>1.8</jasypt.version>
-        <xpp3_min.version>1.1.3.4.O</xpp3_min.version>
         <gson.version>1.7.1</gson.version>
-        <xstream.version>1.3.1</xstream.version>
         <stax-api.version>1.0-2</stax-api.version>
-        <vtd-xml.version>2.9</vtd-xml.version>
         <jericho-html.version>3.1</jericho-html.version>
         <activation.version>1.1</activation.version>
         <mail.version>1.4.1</mail.version>

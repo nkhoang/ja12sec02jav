@@ -121,6 +121,50 @@
             <version>6.0.32</version>
         </dependency>
 
+        <!-- Facebook API -->
+        <dependency>
+            <groupId>code.google.com</groupId>
+            <artifactId>facebook-java-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>code.google.com</groupId>
+            <artifactId>facebook-java-api-annotation-processor</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>code.google.com</groupId>
+            <artifactId>facebook-java-api-schema</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <!-- Common -->
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
     </dependencies>
 </project>
 

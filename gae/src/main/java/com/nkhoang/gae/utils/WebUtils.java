@@ -1,14 +1,11 @@
 package com.nkhoang.gae.utils;
 
-import com.nkhoang.gae.model.User;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import net.htmlparser.jericho.Source;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

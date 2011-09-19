@@ -38,14 +38,7 @@
     <!-- Currency service -->
     <bean id="currencyService" class="com.nkhoang.gae.service.impl.CurrencyServiceImpl" scope="prototype">
     </bean>
-    <!-- Facebook service -->
-    <bean id="facebookService" class="com.nkhoang.gae.service.impl.FacebookServiceImpl" scope="prototype">
-        <property name="apiKey" value="${facebook.api.key}"/>
-        <property name="apiSerect" value="${facebook.api.serect}"/>
-        <property name="facebookSessionId" value="${facebook.fixedSessionId}"/>
-        <property name="username" value="${facebook.username}"/>
-        <property name="password" value="${facebook.password}"/>
-    </bean>
+
     <bean id="backupService" class="com.nkhoang.gae.service.impl.BackupServiceImpl" scope="prototype">
         <property name="username" value="${google.username}"/>
         <property name="password" value="${google.password}"/>
@@ -69,7 +62,6 @@
         <property name="itemDao" ref="itemDao"/>
         <property name="itemPictureDao" ref="itemPictureDao"/>
         <property name="categoryDao" ref="categoryDao"/>
-        <property name="facebookService" ref="facebookService"/>
     </bean>
     <!-- Salt generator -->
     <bean id="passwordSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">

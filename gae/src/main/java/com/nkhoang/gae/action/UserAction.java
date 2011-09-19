@@ -1,11 +1,12 @@
 package com.nkhoang.gae.action;
 
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
-import com.nkhoang.gae.manager.UserManager;
-import com.nkhoang.gae.model.*;
+import com.nkhoang.gae.model.User;
+import com.nkhoang.gae.model.UserTag;
+import com.nkhoang.gae.model.UserWord;
+import com.nkhoang.gae.model.WordTag;
 import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
-import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import org.apache.commons.collections.CollectionUtils;
@@ -27,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
 import java.util.*;
 
 @Controller

@@ -4,18 +4,10 @@ import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
 import com.nkhoang.gae.manager.GoldManager;
-import com.nkhoang.gae.model.Currency;
 import com.nkhoang.gae.model.GoldPrice;
 import com.nkhoang.gae.model.GoldPriceSortByTime;
 import com.nkhoang.gae.utils.GoldConstants;
-import com.nkhoang.gae.utils.WebUtils;
-import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
-import com.ximpleware.AutoPilot;
-import com.ximpleware.VTDGen;
-import com.ximpleware.VTDNav;
-import com.ximpleware.XMLModifier;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.*;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
@@ -152,154 +139,6 @@ public class XMLDataAction {
     }
 
 
-    /**
-     * Return XML to be rendered as a chart.
-     * <p/>
-     * ?fromDate=2008-01-0%2016:00&toDate=2008-05-15%2015:00
-     *
-     * @param fromDateString in default Gold price format.
-     * @param toDateString   in default Gold price format.
-     * @return
-     */
-    @RequestMapping(value = "/" + ViewConstant.XML_DATA_CHART_REQUEST)
-    public ModelAndView retrieveXMLData(@RequestParam("fromDate") String fromDateString, @RequestParam("toDate") String toDateString, HttpServletResponse response) {
-        // test get price range
-        ModelAndView mav = new ModelAndView();
-        try {
-            if (StringUtils.isNotEmpty(fromDateString) && StringUtils.isNotEmpty(toDateString)) {
-                Date fromDate = WebUtils.convertFromStringToken(fromDateString, WebUtils.DEFAULT_GOLD_DATE_FORMAT);
-                Date toDate = WebUtils.convertFromStringToken(toDateString, WebUtils.DEFAULT_GOLD_DATE_FORMAT);
-
-                Map<String, List<GoldPrice>> goldMap = buildGoldPrice4Chart(fromDate, toDate);
-
-
-                List<GoldPrice> vnList = goldMap.get("VND");
-                List<GoldPrice> inList = goldMap.get("USD");
-
-                Currency c = goldService.getExchangeRate("USD");
-                if (c == null) {
-                    c = new Currency();
-                    c.setPriceBuy(19.5f);
-                    c.setPriceSell(19.5f);
-                }
-                convertGoldPriceList(inList, c);
-
-                String xmlStr = "";
-                if (vnList.size() != 0 && inList.size() != 0) {
-                    // find min max for chart
-                    List<Float> minMax = findMinMax(vnList);
-                    if (minMax == null) {
-                        // just in case.
-                        minMax = findMinMax(inList);
-                    }
-
-                    LOGGER.info("Gold Price vnList: " + vnList.size());
-
-                    InputStream is = this.getClass().getResourceAsStream("/MSLine.xml");
-
-                    if (is == null) {
-                        LOGGER.info("Could not load resources.");
-                    }
-
-                    VTDGen vg = new VTDGen(); // Instantiate VTDGen
-                    StringWriter writer = new StringWriter();
-                    IOUtils.copy(is, writer);
-                    String theString = writer.toString();
-                    vg.setDoc(theString.getBytes());
-                    vg.parse(true);
-
-                    XMLModifier xm = new XMLModifier(); //Instantiate XMLModifier
-                    LOGGER.info("Starting to parse XML");
-                    VTDNav vn = vg.getNav();
-
-                    xm.bind(vn);
-
-                    AutoPilot ap = new AutoPilot(vn);
-                    // build caption
-                    String caption = "from " + WebUtils.parseDateFromLong(vnList.get(0).getTime()) + " to " + WebUtils.parseDateFromLong(vnList.get(vnList.size() - 1).getTime());
-                    // first update "subcaption" attribute of 'chart' tag.
-                    int i = vn.getAttrVal("subcaption");
-                    if (i != -1) {
-                        xm.updateToken(i, caption);
-                    }
-                    ap.selectXPath("/chart");
-
-                    i = vn.getAttrVal("yAxisMaxValue");
-                    if (i != -1) {
-                        xm.updateToken(i, (minMax.get(1) + Y_VALUE_PADDING) + "");
-                    }
-
-                    ap.selectXPath("/chart");
-
-                    i = vn.getAttrVal("yAxisMinValue");
-                    if (i != -1) {
-                        float minValue = 0f;
-                        if (minMax.get(0) > Y_VALUE_PADDING) {
-                            minValue = minMax.get(0) - Y_VALUE_PADDING;
-                        }
-                        xm.updateToken(i, minValue + "");
-                    }
-                    ap.selectXPath("/chart/categories");
-                    i = -1;
-                    while ((i = ap.evalXPath()) != -1) {
-                        String categoryTag = "";
-                        for (GoldPrice p : vnList) {
-
-                            categoryTag += "\n\t<category label='" + WebUtils.parseDateFromLong(p.getTime()) + "'/>";
-                        }
-                        xm.insertAfterHead(categoryTag);
-                    }
-                    ap.selectXPath("/chart/dataset[@seriesName='VN']");
-                    i = -1;
-                    while ((i = ap.evalXPath()) != -1) {
-                        String setTag = "";
-                        for (GoldPrice p : vnList) {
-                            String setVal = "";
-                            if (p.getPriceBuy() != null) {
-                                setVal = p.getPriceBuy() != 0 ? p.getPriceBuy() + "" : "";
-                            }
-                            setTag += "\n\t<set value='" + setVal + "'/>";
-
-                        }
-                        xm.insertAfterHead(setTag);
-                    }
-                    ap.selectXPath("/chart/dataset[@seriesName='International']");
-                    i = -1;
-
-                    while ((i = ap.evalXPath()) != -1) {
-                        String setTag = "";
-                        for (GoldPrice p : inList) {
-                            String setVal = "";
-                            if (p.getPriceBuy() != null) {
-                                setVal = (p.getPriceBuy() != 0 ? p.getPriceBuy() + "" : "");
-                            }
-                            setTag += "\n\t<set value='" + setVal + "'/>";
-
-                        }
-                        xm.insertAfterHead(setTag);
-                    }
-
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                    xm.output(bos);
-
-                    xmlStr = bos.toString();
-                }
-
-                View xmlView = new XMLView();
-                mav.setView(xmlView);
-                mav.addObject("data", xmlStr);
-            } else {
-                response.setContentType("text/html");
-            }
-
-        } catch (Exception ex) {
-            LOGGER.error("Could not parse XML file", ex);
-            response.setContentType("text/html");
-        }
-
-        return mav;
-    }
 
     private List<Float> findMinMax(List<GoldPrice> list) {
         Float min = 0f, max = 0f;

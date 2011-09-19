@@ -15,6 +15,7 @@
         <module>util</module>
         <module>struts-core</module>
         <module>struts-web</module>
+		<module>lucene</module>
     </modules>
 
     <build>

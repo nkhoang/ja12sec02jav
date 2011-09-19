@@ -61,7 +61,7 @@ public class VocaAction {
     @Autowired
     private WordItemStatDao wordItemStatDao;
 
-    @Autowired
+	@Autowired
     private UserManager userService;
 
     private static String SENDER_EMAIL = "nkhoang4survey@gmail.com";
@@ -595,15 +595,8 @@ public class VocaAction {
         this.wordItemDao = wordItemDao;
     }
 
-    public String getSENDER_EMAIL() {
-        return SENDER_EMAIL;
-    }
 
-    public void setSENDER_EMAIL(String SENDER_EMAIL) {
-        this.SENDER_EMAIL = SENDER_EMAIL;
-    }
-
-    public WordItemStatDao getWordItemStatDao() {
+	public WordItemStatDao getWordItemStatDao() {
         return wordItemStatDao;
     }
 

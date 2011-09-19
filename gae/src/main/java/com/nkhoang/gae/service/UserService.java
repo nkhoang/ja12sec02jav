@@ -2,10 +2,8 @@ package com.nkhoang.gae.service;
 
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
-import com.nkhoang.gae.model.Word;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * User related service.

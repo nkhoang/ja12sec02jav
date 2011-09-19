@@ -17,16 +17,8 @@ import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
-import com.nkhoang.gae.utils.WebUtils;
-import com.nkhoang.gae.utils.xml.iVocabulary.IVocabularyConstructor;
 import com.nkhoang.gae.view.JSONView;
-import com.nkhoang.gae.view.XMLView;
 import com.nkhoang.gae.view.constant.ViewConstant;
-import com.ximpleware.AutoPilot;
-import com.ximpleware.VTDGen;
-import com.ximpleware.VTDNav;
-import com.ximpleware.XMLModifier;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
@@ -41,12 +33,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -131,108 +119,7 @@ public class VocabularyAction {
 		return mav;
 	}
 
-	@RequestMapping(value = "/" + "constructIVocabulary", method = RequestMethod.GET)
-	public void renderIVocabulary(
-		@RequestParam("dateTime") String dateTime, @RequestParam("chapterTitle") String chapterTitle,
-		@RequestParam("ids") String ids, @RequestParam("exampleIds") String[] exampleIds,
-		@RequestParam("meaningIds") String[] meaningIds, HttpServletResponse response) {
 
-		List<Long> idsList = new ArrayList<Long>();
-		String[] idStrs = ids.split(",");
-		for (String id : idStrs) {
-			idsList.add(Long.parseLong(id.trim()));
-		}
-
-		List<Word> wordList = vocabularyService.getAllWordsById(idsList);
-
-		Map<String, List<Integer>> exampleMap = new HashMap<String, List<Integer>>();
-		// build meaning - example map.
-		for (String example : exampleIds) {
-			// split to get meaning and example index.
-			String[] data = example.split("-");
-			if (exampleMap.get(data[0]) == null) {
-				exampleMap.put(data[0], new ArrayList<Integer>());
-			}
-			exampleMap.get(data[0]).add(Integer.parseInt(data[1]));
-		}
-
-		List<Long> meaningList = new ArrayList<Long>();
-		// build meaning id list
-		for (String s : meaningIds) {
-			meaningList.add(Long.parseLong(s));
-		}
-
-		IVocabularyConstructor constructor = new IVocabularyConstructor();
-		String xml = constructor.constructIVocabularyFile(wordList, 0, wordList.size(), wordList.size(), dateTime, chapterTitle, meaningList, exampleMap);
-    try {
-      response.getWriter().write(xml);
-    } catch (Exception ex) {
-
-    }
-	}
-
-	/**
-	 * Export vocabulary data from an excel file in google docs to new documents in google docs.
-	 * The sample request should look like this: *.appspot.com/vocabulary/iVocabulary2GD.html?index=0&size=200&pageSize=20
-	 *
-	 * @param indexStr word list offset.
-	 * @param response HttpServletResponse.
-	 */
-	/*@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_GOOGLE_DOCS_REQUEST, method = RequestMethod.GET)
-	public void exportGoogleDocs(
-		@RequestParam("index") String indexStr, @RequestParam("size") String sizeStr,
-		@RequestParam("pageSize") String pageSizeStr, HttpServletResponse response) {
-		int index = 0, size = 0, pageSize = 0;
-		// check index param.
-		if (StringUtils.isEmpty(indexStr)) {
-			try {
-				response.getWriter().write("Bad request.");
-			}
-			catch (Exception e) {
-				LOG.info("Could not render response.");
-			}
-		}
-		// check size param.
-		try {
-			size = StringUtils.isEmpty(sizeStr) ? IVOCABULARY_TOTAL_ITEM : Integer.parseInt(sizeStr);
-		}
-		catch (NumberFormatException nfe) {
-			size = IVOCABULARY_TOTAL_ITEM;
-		}
-		// check pageSize param.
-		try {
-			pageSize = StringUtils.isEmpty(pageSizeStr) ? IVOCABULARY_PAGE_SIZE : Integer.parseInt(pageSizeStr);
-		}
-		catch (NumberFormatException nfe) {
-			size = IVOCABULARY_PAGE_SIZE;
-		}
-		index = Integer.parseInt(indexStr);
-		int numberOfWords = vocabularyService.getWordSize();
-		LOG.info("Starting to export iVocabulary to GOOGLE DOCS.");
-		int nextIndex = index + size + 1;
-		if (index + 40 + 1 < numberOfWords) {
-			String xml = constructIVocabularyFile(index, size, pageSize);
-			try {
-				LOG.info("Saving to GOOGLE DOCS.");
-				GoogleDocsUtils.save(docsService, "XML", index + " - " + (index + size), xml, _username, _password);
-			}
-			catch (Exception e) {
-				LOG.info("Could not save to google docs. Try again.");
-				nextIndex = index;
-			}
-			LOG.info(">>>>>>>>>>>>>>>>>>> Posting to Queue with index: [" + index + "]");
-			QueueFactory.getDefaultQueue()
-			            .add(url("/vocabulary/iVocabulary2GD.html?index=" + nextIndex).method(TaskOptions.Method.GET));
-		}
-
-		try {
-			response.setContentType("text/html");
-			response.getWriter().write("Be patient!!!");
-		}
-		catch (Exception e) {
-
-		}
-	}*/
 
 
 	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_VIA_GD_REQUEST, method = RequestMethod.GET)
@@ -511,108 +398,7 @@ public class VocabularyAction {
 	}
 
 
-	/**
-	 * Build iVocabulary file right from an URL.
-	 *
-	 * @param startingIndexStr offset to be started with.
-	 * @param sizeStr          number of words will be processed.
-	 * @param pageSizeStr      number of words in a Page.
-	 * @param response         HttpServletResponse.
-	 *
-	 * @return xml view.
-	 */
-	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_I_VOCABULARY_REQUEST, method = RequestMethod.GET)
-	public ModelAndView buildIVocabularyFile(
-		@RequestParam("startingIndex") String startingIndexStr, @RequestParam("pageSize") String pageSizeStr,
-		@RequestParam("size") String sizeStr, HttpServletResponse response) {
 
-		int startingIndex = 0, size = 100, pageSize = 20; // default size = 100;
-
-		if (StringUtils.isEmpty(startingIndexStr)) {
-			try {
-				response.setContentType("text/html");
-				response.getWriter().write("Check your param. startingIndex must not be ommitted.");
-			}
-			catch (Exception e) {
-				LOG.error("Could not print output.");
-			}
-			return null;
-		} else {
-			startingIndex = Integer.parseInt(startingIndexStr);
-		}
-
-		if (StringUtils.isNotEmpty(sizeStr)) {
-			size = Integer.parseInt(sizeStr);
-		}
-
-		if (StringUtils.isNotEmpty(pageSizeStr)) {
-			pageSize = Integer.parseInt(pageSizeStr);
-		}
-
-		String xmlStr = constructIVocabularyFile(startingIndex, size, pageSize);
-
-		ModelAndView mav = new ModelAndView();
-		mav.setView(new XMLView());
-		mav.addObject("data", xmlStr);
-
-		return mav;
-	}
-
-	/**
-	 * Contruct iVocabulary file from database.
-	 *
-	 * @param startingIndex word offset.
-	 * @param size          iVocabulary page size.
-	 *
-	 * @return xml string.
-	 */
-	private String constructIVocabularyFile(int startingIndex, int size, int pageSize) {
-		List<Word> allWords = vocabularyService.getAllWordsByRange(startingIndex, size);
-		String xml = constructXMLBlockContent(allWords, pageSize, startingIndex, size);
-
-		String xmlStr = "";
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/vocabulary.xml");
-
-			if (is == null) {
-				LOG.info("Could not load resources.");
-			}
-
-			VTDGen vg = new VTDGen(); // Instantiate VTDGen
-			StringWriter writer = new StringWriter();
-			IOUtils.copy(is, writer);
-			String theString = writer.toString();
-			vg.setDoc(theString.getBytes());
-
-			vg.parse(true);
-
-			XMLModifier xm = new XMLModifier(); //Instantiate XMLModifier
-			LOG.info("Starting to parse XML");
-			VTDNav vn = vg.getNav();
-
-			xm.bind(vn);
-
-			AutoPilot ap = new AutoPilot(vn);
-
-			ap.selectXPath("/Vocabulary/Root");
-			int i = -1;
-			while ((i = ap.evalXPath()) != -1) {
-				xm.insertAfterHead(xml);
-			}
-
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-			xm.output(bos);
-
-			xmlStr = bos.toString("UTF-8");
-
-
-		}
-		catch (Exception e) {
-			LOG.info("Could not parse or update vocabulary.xml file.");
-		}
-		return xmlStr;
-	}
 
 	/**
 	 * Populate word with meanings and examples
