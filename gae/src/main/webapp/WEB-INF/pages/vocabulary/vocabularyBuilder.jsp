@@ -13,12 +13,14 @@
         .w-k {
             border-bottom: 1px solid #C0C0C0;
             margin-bottom: 15px;
+            cursor: pointer;
         }
 
         .w-k-t {
             font-size: 120%;
             font-weight: bold;
             color: #000080;
+            cursor: pointer;
         }
 
         .w-k-m {
@@ -109,11 +111,20 @@
                 if (checkENWordKind(i, EN_ids)) {
                     haveMeaning = true;
                     // append kind.
-                    var $kind = $('<div class="w-k"></div>');
+                    var $kind = $('<div class="w-k exp"></div>');
                     // append anchor
                     var $anchor = $('<a name="' + wordKind[i] + '" />');
                     // append kind title.
-                    var $kindTitle = $('<div class="w-k-t"></div>').html(wordKind[i]);
+                    var $kindTitle = $('<div class="w-k-t"></div>').html(wordKind[i]).click(function(){
+                        var $ul = $(this).siblings('ul');
+                        if ($ul.hasClass('exp')) {
+                            $ul.removeClass('exp').addClass('colps');
+                            $ul.slideUp();
+                        } else if ($ul.hasClass('colps')) {
+                            $ul.removeClass('colps').addClass('exp');
+                            $ul.slideDown();
+                        }
+                    });
                     $kind.append($anchor);
                     $kind.append($kindTitle);
                     // append to navigation table.
@@ -124,12 +135,18 @@
                     // loop through content.
                     var meanings = word.meaningMap[i];
                     if (meanings.length > 0) {
-                        var $meaningWrapper = $('<ul></ul>');
+                        var $meaningWrapper = $('<ul class="exp"></ul>');
                         for (var j in meanings) {
                             var $meaning = $('<li class="w-k-m"></li>');
                             var $content = $('<div class="w-k-m-c"></div>');
                             // append check box to know which meaning need to be included.
-                            $content.append($('<input type="checkbox" name="meaningIds" />').prop('value', meanings[j].id));
+                            $content.append($('<input type="checkbox" name="meaningIds" />').click(function(){
+                                if (!$(this).prop('checked')) {
+                                    $(this).parents('li.w-k-m').find('input[type=checkbox]').each(function(){
+                                        $(this).prop('checked', false);
+                                    });
+                                }
+                            }).prop('value', meanings[j].id));
                             $content.append($('<span></span>').html(meanings[j].content));
 
                             $meaning.append($content);
@@ -139,7 +156,11 @@
                                 for (var z in examples) {
                                     var $example = $('<div class="w-k-m-ex"></div>');
                                     // append check box to know which meaning to be included.
-                                    $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex + '-'));
+                                    $example.append($('<input type="checkbox" name="exampleIds" />').prop('value', meanings[j].id + '-' + exampleIndex + '-').click(function(){
+                                        if ($(this).prop('checked')) {
+                                            $(this).parents('li.w-k-m').find('div.w-k-m-c > input').prop('checked', true);
+                                        }
+                                    }));
                                     $example.append($('<span></span>').html(examples[z]));
                                     $meaning.append($example);
                                     exampleIndex++;
