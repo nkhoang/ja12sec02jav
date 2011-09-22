@@ -102,20 +102,6 @@ public class VocabularyAction {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("vocabulary/vocabularyBuilder");
 
-		List<Integer> list  = Arrays.asList(1,2,3,4);
-		List<Integer> list2 = Arrays.asList(4);
-
-		Set<Integer> set = new HashSet<Integer>();
-		Set<Integer> set2 = new HashSet<Integer>();
-		set.addAll(list);
-		set2.addAll(list2);
-
-
-
-		mav.addObject("list", list);
-		mav.addObject("list2", list2);
-		mav.addObject("set", set);
-		mav.addObject("set2", set2);
 		return mav;
 	}
 

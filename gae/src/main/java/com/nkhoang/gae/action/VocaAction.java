@@ -104,7 +104,6 @@ public class VocaAction {
         }
     }
 
-
     /**
      * This method will help to remove duplicate wordItem entities in the DS.
      *
@@ -175,6 +174,11 @@ public class VocaAction {
         return "vocabulary/vocabularyBuilder";
     }
 
+
+    @RequestMapping(value = "/" + "vocabularyBuilder2", method = RequestMethod.GET)
+    public String renderVocabularyBuilder() {
+        return "vocabulary/vocabularyBuilder2";
+    }
 
     /**
      * Construct iVocabulary XML file as the response to the request. Result will be rendered directly to the response.

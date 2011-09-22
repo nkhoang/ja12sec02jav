@@ -9,7 +9,7 @@ import java.util.List;
  * User related service.
  */
 public interface UserService {
-    List<String> getUserIdWordByDate(String date, int offset, int size);
+    List<String> getUserIdWordByDate(String date, int offset, Integer size);
 
     /**
      * Add a new word to the current user.

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserWordDao userWordDao;
 
-    public List<String> getUserIdWordByDate(String date, int offset, int size) {
+    public List<String> getUserIdWordByDate(String date, int offset, Integer size) {
         List<String> wordList = new ArrayList<String>();
         if (StringUtils.isNotEmpty(date)) {
             try {

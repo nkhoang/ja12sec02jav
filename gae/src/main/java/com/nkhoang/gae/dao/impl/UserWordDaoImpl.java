@@ -67,7 +67,7 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
     }
 
 
-    public List<UserWord> getRecentUserWords(Long startDate, Long endDate, int offset, int size) {
+    public List<UserWord> getRecentUserWords(Long startDate, Long endDate, int offset, Integer size) {
         LOG.info(String.format("Get user's recent words by date [%s-%s]..", startDate, endDate));
         List<UserWord> result = null;
         try {
@@ -75,7 +75,9 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
             query.setParameter("startTime", startDate);
             query.setParameter("endTime", endDate);
             query.setFirstResult(offset);
-            query.setMaxResults(size);
+            if (size != null) {
+                query.setMaxResults(size);
+            }
             result = query.getResultList();
         } catch (NoResultException ex) {
         }

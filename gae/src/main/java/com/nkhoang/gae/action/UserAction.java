@@ -139,8 +139,10 @@ public class UserAction {
         if (offset == null) {
             offset = 0;
         }
+        if (size != null) {
         // get 1 more to check if there is something need to get in the next turn.
-        size = size + 1;
+            size = size + 1;
+        }
         // the date must be in the format of the client : mm/dd/yy
         ModelAndView modelAndView = new ModelAndView();
         View jsonView = new JSONView();

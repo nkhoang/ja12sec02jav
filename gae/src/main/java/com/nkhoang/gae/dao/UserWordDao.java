@@ -14,7 +14,7 @@ public interface UserWordDao extends BaseDao<UserWord, Long> {
      * @return a list of userword entities.
      */
 
-    List<UserWord> getRecentUserWords(Long startDate, Long endDate, int offset, int size);
+    List<UserWord> getRecentUserWords(Long startDate, Long endDate, int offset, Integer size);
 
     /**
      * Get all a list of entities showing the relationship between the user with <i>userId</i> and words.
