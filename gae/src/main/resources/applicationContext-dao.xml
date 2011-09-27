@@ -25,6 +25,9 @@
           scope="prototype">
     </bean>
 
+    <bean id="wordLuceneDao" class="com.nkhoang.gae.dao.impl.WordLuceneDaoImpl"
+          scope="prototype"></bean>
+
     <bean id="vocabularyDao" class="com.nkhoang.gae.dao.impl.VocabularyDaoImpl"
           scope="prototype">
     </bean>

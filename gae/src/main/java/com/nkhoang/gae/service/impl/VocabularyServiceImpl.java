@@ -3,9 +3,11 @@ package com.nkhoang.gae.service.impl;
 import com.nkhoang.gae.dao.MeaningDao;
 import com.nkhoang.gae.dao.MessageDao;
 import com.nkhoang.gae.dao.VocabularyDao;
+import com.nkhoang.gae.dao.WordLuceneDao;
 import com.nkhoang.gae.dao.impl.VocabularyDaoImpl;
 import com.nkhoang.gae.model.Meaning;
 import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.WordLucene;
 import com.nkhoang.gae.service.SpreadsheetService;
 import com.nkhoang.gae.service.VocabularyService;
 import net.htmlparser.jericho.Element;
@@ -64,6 +66,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     private MeaningDao _meaningDao;
     private VocabularyDao _vocabularyDao;
     private MessageDao _messageDao;
+    private WordLuceneDao wordLuceneDao;
 
     private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
 
@@ -72,6 +75,11 @@ public class VocabularyServiceImpl implements VocabularyService {
     private enum DICTIONARY_TYPE {
         CLASS,
         ID
+    }
+
+    public List<Word> getAllWords() {
+        List<Word> words = _vocabularyDao.getAll();
+        return words;
     }
 
     public List<Word> getAllWordsByRange(int startingIndex, int size) {
@@ -258,6 +266,13 @@ public class VocabularyServiceImpl implements VocabularyService {
                 word = lookupVN(lookupWord);
                 lookupENLongman(word);
                 lookupPron(word);
+                if (CollectionUtils.isNotEmpty(word.getMeanings())) {
+                    // no error, save to keep track of this word for Lucene.
+                    WordLucene wl = new WordLucene();
+                    wl.setWord(word.getDescription());
+                    wordLuceneDao.save(wl);
+                }
+
                 LOG.debug("===== PROFILING ======");
                 LOG.debug(
                         "= Lookup word " + lookupWord + " took: " + (System.currentTimeMillis() - start) + " ms.");
@@ -689,6 +704,10 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     public void setMessageDao(MessageDao messageDao) {
         _messageDao = messageDao;
+    }
+
+    public void setWordLuceneDao(WordLuceneDao wordLuceneDao) {
+        this.wordLuceneDao = wordLuceneDao;
     }
 }
 

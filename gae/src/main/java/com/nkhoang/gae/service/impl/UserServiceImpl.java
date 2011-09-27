@@ -2,9 +2,12 @@ package com.nkhoang.gae.service.impl;
 
 import com.nkhoang.gae.dao.UserWordDao;
 import com.nkhoang.gae.dao.VocabularyDao;
+import com.nkhoang.gae.dao.WordItemDao;
+import com.nkhoang.gae.dao.WordItemStatDao;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
 import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.WordItemStat;
 import com.nkhoang.gae.service.UserService;
 import com.nkhoang.gae.utils.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -27,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private VocabularyDao vocabularyDao;
     @Autowired
     private UserWordDao userWordDao;
+
 
     public List<String> getUserIdWordByDate(String date, int offset, Integer size) {
         List<String> wordList = new ArrayList<String>();

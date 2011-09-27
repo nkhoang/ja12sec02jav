@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface VocabularyService {
 
+    List<Word> getAllWords();
+
     /**
      * Look up pronunciation for a word.
      *

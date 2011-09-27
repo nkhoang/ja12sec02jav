@@ -82,12 +82,24 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.nkhoang.util</groupId>
+            <artifactId>projectJAVA-util</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
 
+        <!-- GSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- Logging -->
         <dependency>
@@ -316,6 +328,7 @@
         <!-- Application settings -->
         <jaxb.impl.version>2.1.12</jaxb.impl.version>
         <lucene.version>3.4.0</lucene.version>
+        <gson.version>1.7.1</gson.version>
     </properties>
 </project>
 
