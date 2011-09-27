@@ -11,6 +11,7 @@
         <name>constants</name>
         <tag-class>com.nkhoang.webapp.taglib.ConstantsTag</tag-class>
         <tei-class>com.nkhoang.webapp.taglib.ConstantsTei</tei-class>
+        <body-content>empty</body-content>
         <attribute>
             <name>className</name>
         </attribute>
@@ -24,6 +25,7 @@
     <tag>
         <name>country</name>
         <tag-class>com.nkhoang.webapp.taglib.CountryTag</tag-class>
+        <body-content>empty</body-content>
         <attribute>
             <name>name</name>
             <required>false</required>

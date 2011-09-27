@@ -24,6 +24,7 @@ public class TestAction extends BaseAction {
 
 	private Map<String, Map<String, String>> facilityMap  = new HashMap<String, Map<String, String>>();
 	private Map<String, String>              facilityList = new HashMap<String, String>();
+	private List<String> sampleList = new ArrayList<String>();
 	private String optionId = "optionID-123";
 
 	/**
@@ -108,4 +109,14 @@ public class TestAction extends BaseAction {
 	public void setOptionId(String optionId) {
 		this.optionId = optionId;
 	}
+
+	public List<String> getSampleList() {
+		return sampleList;
+	}
+
+	public void setSampleList(List<String> sampleList) {
+		this.sampleList = sampleList;
+	}
 }
+
+

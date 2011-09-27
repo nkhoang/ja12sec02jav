@@ -15,6 +15,7 @@
         <module>util</module>
         <module>struts-core</module>
         <module>struts-web</module>
+        <module>lucene</module>
     </modules>
 
     <build>
@@ -377,57 +378,6 @@
         <dbunit.schema></dbunit.schema>
     </properties>
 
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>2.3</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <consoleOutput>true</consoleOutput>
-                    <configLocation>https://svn.java.net/svn/appfuse~svn/trunk/www/checkstyle.xml</configLocation>
-                    <failsOnError>false</failsOnError>
-                    <maxAllowedViolations>3</maxAllowedViolations>
-                </configuration>
-                <version>2.6</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <excludes>
-                            <exclude>**/model/*.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                </configuration>
-                <version>2.4</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <linkXRef>true</linkXRef>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-                <version>2.5</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.7.1</version>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <profiles>
         <!-- ================= Database Profiles ================= -->

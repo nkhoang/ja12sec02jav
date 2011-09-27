@@ -43,7 +43,6 @@
 </head >
 <body >
 
-<div >
     Option 1:
     <br >
     <!-- Create support list -->
