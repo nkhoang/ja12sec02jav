@@ -11,6 +11,7 @@
     <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
         <property name="vocabularyService" ref="vocabularyService"/>
         <property name="vocabularyDao" ref="vocabularyDao"></property>
+        <property name="wordLuceneDao" ref="wordLuceneDao"></property>
     </bean>
     <!-- Vocabulary Service -->
     <bean id="vocabularyService" class="com.nkhoang.gae.service.impl.VocabularyServiceImpl" scope="prototype">

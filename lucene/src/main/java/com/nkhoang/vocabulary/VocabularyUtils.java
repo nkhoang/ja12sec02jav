@@ -3,7 +3,9 @@ package com.nkhoang.vocabulary;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nkhoang.model.Word;
+import com.nkhoang.model.WordLucene;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -19,12 +21,15 @@ import java.util.List;
 
 public class VocabularyUtils {
     private static final Logger LOG = LoggerFactory.getLogger(VocabularyUtils.class.getCanonicalName());
+    // private static final String HOST_NAME = "dictionary-misschara.appspot.com";
+    private static final String HOST_NAME = "localhost:8080";
     private static JAXBContext context;
 
     private static JAXBContext getJAXBContext() {
         if (context == null) {
             try {
-                context = JAXBContext.newInstance(Word.class);
+                LOG.info(Word.class.getPackage().getName());
+                context = JAXBContext.newInstance(WordLucene.class);
             } catch (JAXBException jaxbe) {
                 LOG.error("Could not initialize jaxb context.");
             }
@@ -33,9 +38,41 @@ public class VocabularyUtils {
         return context;
     }
 
+    public static List<WordLucene> getAllLuceneWords() {
+        HttpClient client = new HttpClient();
+        String searchUrl = "http://" + HOST_NAME + "/services/vocabulary/lucene/getAll";
+        GetMethod get = new GetMethod(searchUrl);
+        List<WordLucene> result = new ArrayList<WordLucene>();
+        try {
+            client.executeMethod(get);
+            InputStream is = get.getResponseBodyAsStream();
+            if (is != null) {
+                result = (List<WordLucene>) getJAXBContext().createUnmarshaller().unmarshal(is);
+            }
+        } catch (IOException ioe) {
+            LOG.error("Could not communicate with server.");
+        } catch (JAXBException jaxbe) {
+            LOG.error("Could not parse entity.", jaxbe);
+        }
+        return result;
+    }
+
+    public static void deleteLuceneWord(Long id) {
+        HttpClient client = new HttpClient();
+        String searchUrl = "http://" + HOST_NAME + "/services/vocabulary/lucene/delete/";
+        searchUrl += id;
+        DeleteMethod delete = new DeleteMethod(searchUrl);
+        List<String> result = new ArrayList<String>();
+        try {
+            client.executeMethod(delete);
+        } catch (IOException ioe) {
+            LOG.error("Could not communicate with server.");
+        }
+    }
+
     public static List<String> getAllWords() {
         HttpClient client = new HttpClient();
-        String searchUrl = "http://dictionary-misschara.appspot.com/services/vocabulary/getAll";
+        String searchUrl = "http://" + HOST_NAME +"/services/vocabulary/getAll";
         GetMethod get = new GetMethod(searchUrl);
         List<String> result = new ArrayList<String>();
         try {
@@ -43,7 +80,8 @@ public class VocabularyUtils {
             String json = get.getResponseBodyAsString();
             if (StringUtils.isNotBlank(json)) {
                 Gson gson = new Gson();
-                Type listType = new TypeToken<List<String>>() {}.getType();
+                Type listType = new TypeToken<List<String>>() {
+                }.getType();
                 result = gson.fromJson(json, listType);
             }
 
