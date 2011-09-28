@@ -2,16 +2,17 @@ package com.nkhoang.gae.action;
 
 import com.google.appengine.api.taskqueue.*;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
-import com.nkhoang.gae.model.User;
-import com.nkhoang.gae.model.UserTag;
-import com.nkhoang.gae.model.UserWord;
-import com.nkhoang.gae.model.WordTag;
+import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
+import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
+import com.nkhoang.search.LuceneUtils;
+import com.nkhoang.vocabulary.VocabularyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.validator.routines.LongValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,15 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -40,6 +43,8 @@ public class UserAction {
     public static final String RECENT_WORD_OFFSET_SESSION = "recentWordOffset";
     @Autowired
     private UserService userService;
+	@Autowired
+	private VocabularyService vocabularyService;
     @Autowired
     private TagService tagService;
 
@@ -78,6 +83,35 @@ public class UserAction {
 
         return modelAndView;
     }
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchVietnamese(@RequestParam("word") String word, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		View jsonView = new JSONView();
+		modelAndView.setView(jsonView);
+		Map<String, Object> jsonData = new HashMap<String, Object>();
+		List<Word> words = new ArrayList<Word>();
+
+		if (StringUtils.isNotEmpty(word)) {
+			try {
+				String path = request.getSession().getServletContext().getRealPath("WEB-INF/classes");
+				List<String> wordIds = LuceneUtils.performSearchByWord(word, path);
+				if (CollectionUtils.isNotEmpty(wordIds)) {
+					List<Long> searchIds = new ArrayList<Long>();
+					for (String id : wordIds) {
+						searchIds.add(Long.parseLong(id));
+					}
+					words = vocabularyService.getAllWordsById(searchIds);
+				}
+			}catch (IOException ioe) {
+				LOG.error("Could not open Lucene searcher.", ioe);
+			}
+		}
+
+		jsonData.put("data", words);
+		modelAndView.addObject(GSONStrategy.DATA, jsonData);
+		return modelAndView;
+	}
 
     @RequestMapping("/deleteTag")
     public ModelAndView deleteTag(
@@ -249,4 +283,8 @@ public class UserAction {
     public void setTagService(TagService tagService) {
         this.tagService = tagService;
     }
+
+	public void setVocabularyService(VocabularyService vocabularyService) {
+		this.vocabularyService = vocabularyService;
+	}
 }

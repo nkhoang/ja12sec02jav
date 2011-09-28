@@ -268,7 +268,14 @@
             <artifactId>projectJAVA-util</artifactId>
             <version>1.0</version>
         </dependency>
+
         -->
+        <dependency>
+            <groupId>com.nkhoang.gae</groupId>
+            <artifactId>projectJAVA-lucene</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- Google -->
         <dependency>
             <groupId>com.google.collections</groupId>

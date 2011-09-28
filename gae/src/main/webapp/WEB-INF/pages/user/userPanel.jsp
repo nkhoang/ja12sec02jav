@@ -32,7 +32,7 @@
         margin: 0 auto;
     }
 
-    #words-container {
+    .words-container {
         color: #6f6f6f;
         height: 201px;
         width: 160px;
@@ -49,25 +49,25 @@
         cursor: pointer;
     }
 
-    #words-container tr.word-row {
+    .words-container tr.word-row {
         cursor: pointer;
     }
 
-    #words-container tr.word-row:hover {
+    .words-container tr.word-row:hover {
         background-color: #DEE7F8;
     }
 
-    #words-container tr.odd {
+    .words-container tr.odd {
         background-color: #f3f3f3;
     }
 
-    #words-container table {
+    .words-container table {
         width: 100%;
         text-align: center;
         border-top: 1px solid #f4f4f4;
     }
 
-    #words-container tr {
+    .words-container tr {
         border-bottom: 1px solid #f4f4f4;
     }
 
@@ -78,7 +78,40 @@ var $global_datepicker;
 var total_word_per_page = 10;
 var global_current_word_offset = 0;
 var global_next_word_offset = global_current_word_offset + total_word_per_page;
+
+
 $(function() {
+    $('#vietnamese-input').keydown(function(event) {
+        if (event.keyCode == '13') {
+            var value = $('#vietnamese-input').val();
+            if (value.length > 0) {
+                $.ajax({
+                    url: '<c:url value="/user/search.html" />',
+                    type: 'POST',
+                    data: {
+                        'word': value
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        // build data
+                        var words = response.data;
+                        $('#search-container').empty().append($('<table cellpadding="0" cellspacing="0"></table>'));
+                        var tableWords = $('#search-container').find('table');
+                        var index = 0;
+                        for (var i in words) {
+                            var row = $('<tr></tr>').attr('class', (index % 2 == 0 ? 'even' : 'odd') + ' word-row').html(words[i])
+                                    .attr('onclick', 'submitNewWord("' + words[i] + '", false); return false');
+
+                            tableWords.append(row);
+                            index++;
+                            if (index == total_word_per_page) break;
+                        }
+                    }
+                });
+            }
+        }
+    });
+
     // create datepicker
     $global_datepicker = $('#user-word-datepicker').datepicker({
         dateFormat: 'dd/mm/yy',
@@ -397,7 +430,7 @@ Tags:
                 <tr>
                     <td class="nav-left"><</td>
                     <td>
-                        <div id="words-container">
+                        <div id="words-container" class="words-container">
 
                         </div>
                     </td>
@@ -405,6 +438,14 @@ Tags:
                 </tr>
             </table>
         </div>
+    </div>
+
+    <div id="vietnamese-search">
+        <div>Vietnamese Search: </div>
+        <input id="vietnamese-input" />
+        <div class="words-container" id="search-container">
+        </div>
+
     </div>
 </div>
 </c:when>

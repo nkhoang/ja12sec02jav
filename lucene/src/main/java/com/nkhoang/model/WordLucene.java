@@ -1,8 +1,10 @@
 package com.nkhoang.model;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
-import java.util.BitSet;
 
 
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)

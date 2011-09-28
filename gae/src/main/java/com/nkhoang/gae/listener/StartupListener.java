@@ -1,13 +1,21 @@
 package com.nkhoang.gae.listener;
 
+import com.nkhoang.gae.manager.ItemManager;
+import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.Item;
+import com.nkhoang.gae.model.User;
+import org.jasypt.spring.security3.PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * <p/>
@@ -46,7 +54,7 @@ public class StartupListener implements ServletContextListener {
      * @param context The servlet context
      */
     public static void setupContext(ServletContext context) {
-         /*LOGGER.debug("Check default user ...");
+         LOGGER.debug("Check default user ...");
        ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         ItemManager itemService = (ItemManager) ctx.getBean("itemService");
 
@@ -65,7 +73,7 @@ public class StartupListener implements ServletContextListener {
             admin.setUsername("admin");
             admin.setFirstName("Hoang");
             admin.setLastName("Nguyen");
-            List<String> roles = new ArrayList<String>(0);
+            List<String> roles = new ArrayList<String> (0);
             roles.add("ROLE_ADMIN");
             roles.add("ROLE_USER");
             // set roles
@@ -77,7 +85,7 @@ public class StartupListener implements ServletContextListener {
             if (admin.getId() != null) {
                 LOGGER.debug("Saving default users [ok]");
             }
-        }*/
+        }
     }
 
     public static Item createItem(Long ipId) {

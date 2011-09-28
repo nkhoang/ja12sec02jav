@@ -7,12 +7,14 @@ import com.nkhoang.model.WordLucene;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -21,15 +23,28 @@ import java.util.List;
 
 public class VocabularyUtils {
     private static final Logger LOG = LoggerFactory.getLogger(VocabularyUtils.class.getCanonicalName());
-    // private static final String HOST_NAME = "dictionary-misschara.appspot.com";
-    private static final String HOST_NAME = "localhost:8080";
+    private static final String HOST_NAME = "dictionary-misschara.appspot.com";
+    // private static final String HOST_NAME = "localhost:8080";
     private static JAXBContext context;
+	private static JAXBContext wordLuceneContext;
+
+	private static JAXBContext getWordLuceneJAXBContext() {
+	    if (wordLuceneContext == null) {
+	        try {
+	            wordLuceneContext = JAXBContext.newInstance(WordLucene.class);
+	        } catch (JAXBException jaxbe) {
+	            LOG.error("Could not initialize jaxb context.");
+	        }
+	    }
+
+	    return wordLuceneContext;
+	}
+
 
     private static JAXBContext getJAXBContext() {
         if (context == null) {
             try {
-                LOG.info(Word.class.getPackage().getName());
-                context = JAXBContext.newInstance(WordLucene.class);
+                context = JAXBContext.newInstance(Word.class);
             } catch (JAXBException jaxbe) {
                 LOG.error("Could not initialize jaxb context.");
             }
@@ -42,19 +57,30 @@ public class VocabularyUtils {
         HttpClient client = new HttpClient();
         String searchUrl = "http://" + HOST_NAME + "/services/vocabulary/lucene/getAll";
         GetMethod get = new GetMethod(searchUrl);
-        List<WordLucene> result = new ArrayList<WordLucene>();
+        List<WordLucene> wordLucenes = new ArrayList<WordLucene>();
         try {
             client.executeMethod(get);
-            InputStream is = get.getResponseBodyAsStream();
-            if (is != null) {
-                result = (List<WordLucene>) getJAXBContext().createUnmarshaller().unmarshal(is);
+            String response = get.getResponseBodyAsString();
+            if (StringUtils.isNotEmpty(response)) {
+	            Gson gson = new Gson();
+	            Type listType = new TypeToken<List<String>>() {
+	            }.getType();
+	            List<String> results = gson.fromJson(response, listType);
+                if (org.apache.commons.collections.CollectionUtils.isNotEmpty(results)) {
+	                for (String s : results) {
+		                InputStream is = IOUtils.toInputStream(s);
+		                Unmarshaller unmarshaller = getWordLuceneJAXBContext().createUnmarshaller();
+		                WordLucene wl = (WordLucene) unmarshaller.unmarshal(is);
+		                wordLucenes.add(wl);
+	                }
+                }
             }
         } catch (IOException ioe) {
             LOG.error("Could not communicate with server.");
         } catch (JAXBException jaxbe) {
             LOG.error("Could not parse entity.", jaxbe);
         }
-        return result;
+        return wordLucenes;
     }
 
     public static void deleteLuceneWord(Long id) {
