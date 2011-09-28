@@ -956,11 +956,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!--
         <dependency>
             <groupId>org.compass-project</groupId>
             <artifactId>compass</artifactId>
         </dependency>
+        -->
 
     </dependencies>
 

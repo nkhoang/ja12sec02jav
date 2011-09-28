@@ -69,7 +69,7 @@ public class TagServiceImpl implements TagService {
                     for (WordTag wordTag : wordTags) {
                         wordIds.add(wordTag.getWordId());
                     }
-                    return vocabularyService.getAllWordsById(wordIds);
+                    return vocabularyService.getAllWordsById(wordIds, true);
                 }
             }
         }

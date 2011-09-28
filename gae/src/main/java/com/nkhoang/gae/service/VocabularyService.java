@@ -74,7 +74,7 @@ public interface VocabularyService {
      * @param wordIds word id list.
      * @return a list of found word.
      */
-    public List<Word> getAllWordsById(List<Long> wordIds);
+    public List<Word> getAllWordsById(List<Long> wordIds, boolean isFull);
 
     /**
      * Like {@link #getAllWordsByRange(int, int)} but without populating with meanings. This is useful in case we need to display word title only.

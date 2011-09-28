@@ -134,7 +134,7 @@ public class LuceneUtilsTest {
 
 	@Test
 	public void testLucene() throws Exception {
-		Query query = LuceneUtils.buildPharseQuery("cá tính");
+		Query query = LuceneUtils.buildPharseQuery("gia đình");
 		List<String> result = LuceneUtils.performSearch(query);
 		for (String s : result) {
 			Word w = VocabularyUtils.lookupWordById(s);

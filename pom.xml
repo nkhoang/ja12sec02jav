@@ -293,12 +293,6 @@
                 <version>${javamail.version}</version>
             </dependency>
 
-            <!-- Lucene -->
-            <dependency>
-                <groupId>org.compass-project</groupId>
-                <artifactId>compass</artifactId>
-                <version>${compass.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>javax.xml.bind</groupId>
@@ -368,8 +362,7 @@
         <spring.security.version>3.0.6.RELEASE</spring.security.version>
 
 
-        <!-- Lucene -->
-        <compass.version>2.2.0</compass.version>
+
 
         <wiser.version>1.2</wiser.version>
 

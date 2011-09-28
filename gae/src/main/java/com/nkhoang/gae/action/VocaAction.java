@@ -272,7 +272,7 @@ public class VocaAction {
         }
 
         // get word list based on what selected.
-        List<Word> wordList = vocabularyService.getAllWordsById(filteredIds);
+        List<Word> wordList = vocabularyService.getAllWordsById(filteredIds, true);
 
         Map<String, List<Integer>> filteredMeaningExampleIdMap = new HashMap<String, List<Integer>>();
         // build meaning - example map.

@@ -86,6 +86,7 @@ public class UserAction {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchVietnamese(@RequestParam("word") String word, HttpServletRequest request) {
+        LOG.info("Word = " + word);
 		ModelAndView modelAndView = new ModelAndView();
 		View jsonView = new JSONView();
 		modelAndView.setView(jsonView);
@@ -101,12 +102,16 @@ public class UserAction {
 					for (String id : wordIds) {
 						searchIds.add(Long.parseLong(id));
 					}
-					words = vocabularyService.getAllWordsById(searchIds);
+					words = vocabularyService.getAllWordsById(searchIds, false);
 				}
 			}catch (IOException ioe) {
 				LOG.error("Could not open Lucene searcher.", ioe);
 			}
 		}
+
+        List<String> attrs = new ArrayList<String>();
+        attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
+        modelAndView.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
 
 		jsonData.put("data", words);
 		modelAndView.addObject(GSONStrategy.DATA, jsonData);

@@ -54,7 +54,7 @@ public class StartupListener implements ServletContextListener {
      * @param context The servlet context
      */
     public static void setupContext(ServletContext context) {
-         LOGGER.debug("Check default user ...");
+      /*   LOGGER.debug("Check default user ...");
        ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         ItemManager itemService = (ItemManager) ctx.getBean("itemService");
 
@@ -85,7 +85,7 @@ public class StartupListener implements ServletContextListener {
             if (admin.getId() != null) {
                 LOGGER.debug("Saving default users [ok]");
             }
-        }
+        }   */
     }
 
     public static Item createItem(Long ipId) {

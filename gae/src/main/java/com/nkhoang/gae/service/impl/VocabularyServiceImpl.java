@@ -129,11 +129,11 @@ public class VocabularyServiceImpl implements VocabularyService {
         return w;
     }
 
-    public List<Word> getAllWordsById(List<Long> wordIds) {
+    public List<Word> getAllWordsById(List<Long> wordIds, boolean isFull) {
         List<Word> words = new ArrayList<Word>();
         if (CollectionUtils.isNotEmpty(wordIds)) {
             for (Long id : wordIds) {
-                Word word = findWordById(id);
+                Word word = findWordById(id, isFull);
                 if (word != null) {
                     words.add(word);
                 }
@@ -165,10 +165,14 @@ public class VocabularyServiceImpl implements VocabularyService {
      * @param id the word id.
      * @return found word.
      */
-    private Word findWordById(Long id) {
+    private Word findWordById(Long id, boolean isFull) {
         Word word = _vocabularyDao.get(id);
 
-        return populateWord(word);
+        if (isFull) {
+            return populateWord(word);
+        } else {
+            return word;
+        }
     }
 
 

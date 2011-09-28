@@ -464,13 +464,13 @@ Welcome to Vocabulary index page.
 <div id="login-form" title="Login">
     <table>
         <tr>
-            <td><label for="login-userName">Name</label></td>
-            <td>:<input name="userName" type="input" id="login-userName" class="text ui-widget-content ui-corner-all"/>
+            <td><label for="login-userName">Name :</label></td>
+            <td><input name="userName" type="input" id="login-userName" class="text ui-widget-content ui-corner-all"/>
             </td>
         </tr>
         <tr>
-            <td><label for="login-password">Password</label></td>
-            <td>:<input name="password" type="password" id="login-password"
+            <td><label for="login-password">Password :</label></td>
+            <td><input name="password" type="password" id="login-password"
                         class="text ui-widget-content ui-corner-all"/></td>
         </tr>
     </table>

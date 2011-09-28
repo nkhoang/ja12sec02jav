@@ -491,7 +491,7 @@ public class VocabularyAction {
 		ModelAndView modelAndView = new ModelAndView();
 		if (user != null) {
 			Map<String, Object> jsonData = new HashMap<String, Object>();
-			List<Word> words = vocabularyService.getAllWordsById(user.getWordList());
+			List<Word> words = vocabularyService.getAllWordsById(user.getWordList(), true);
 			words.addAll(vocabularyService.getAllWordsByRangeWithoutMeanings(0, size)); // get all DB words.
 			jsonData.put("words", words);
 
