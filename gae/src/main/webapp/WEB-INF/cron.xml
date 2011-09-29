@@ -31,7 +31,7 @@
     <cron>
         <url>/vocabulary/triggerLookupWords.html?size=500</url>
         <description>Schedule lookup word items in WordItem table</description>
-        <schedule>every 40 mins</schedule>
+        <schedule>every 20 mins</schedule>
     </cron>
 
 </cronentries>

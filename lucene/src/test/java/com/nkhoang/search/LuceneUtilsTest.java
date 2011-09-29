@@ -30,20 +30,49 @@ public class LuceneUtilsTest {
 	@Test
 	public void testGetAllWords() throws Exception {
 		List<String> words = VocabularyUtils.getAllWords();
-		LOG.info(words.get(words.size()-1));
+		LOG.info(words.get(words.size() - 1));
 		LOG.info(words.size() + "");
 	}
 
 	@Test
 	public void testSaveAllWordsToLucene() throws Exception {
-		List<String> words = VocabularyUtils.getAllWords();
-		for (String s : words) {
-			Word w = VocabularyUtils.lookupWord(s);
-			LOG.info(String.format("Saving [%s] to Lucene....", w.getDescription()));
-			LuceneUtils.writeWordToIndex(w);
+		try {
+			List<String> words = VocabularyUtils.getAllWords();
+			for (String s : words) {
+				Word w = VocabularyUtils.lookupWord(s);
+				LOG.info(String.format("Saving [%s] to Lucene....", w.getDescription()));
+				LuceneUtils.writeWordToIndex(w);
+			}
 		}
+		catch (Exception ex) {
+			LOG.error("Failed to save to Lucene....", ex);
+		}
+		finally {
+			LuceneUtils.closeLuceneWriter();
+		}
+	}
 
-		LuceneUtils.closeLuceneWriter();
+	@Test
+	public void testSaveAllWordLucene() throws Exception {
+		try {
+			List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+			LOG.info("WordLucene size: " + wordLucenes.size());
+			LOG.info("Working with WordLucene.");
+			for (WordLucene wl : wordLucenes) {
+				LOG.info(String.format("Processing ...[%s]", wl.getWord()));
+				Word w = VocabularyUtils.lookupWord(wl.getWord());
+				if (w != null) {
+					LuceneUtils.writeWordToIndex(w);
+					VocabularyUtils.deleteLuceneWord(wl.getId());
+				}
+			}
+		}
+		catch (Exception ex) {
+			LOG.error("Failed to save to Lucene....", ex);
+		}
+		finally {
+			LuceneUtils.closeLuceneWriter();
+		}
 	}
 
 	@Test
@@ -64,7 +93,7 @@ public class LuceneUtilsTest {
 				}
 			}
 			LOG.info("Word size after WordLucene: " + words.size());
-			int count=0;
+			int count = 0;
 			for (String s : words) {
 				LOG.info(String.format("Processing ...[%s]", s));
 				List<String> luceneIds = new ArrayList<String>();
@@ -79,8 +108,8 @@ public class LuceneUtilsTest {
 					LuceneUtils.writeWordToIndex(w);
 					Thread.sleep(400);
 				} else {
-					 LOG.info("Found in Lucene");
-				 }
+					LOG.info("Found in Lucene");
+				}
 				count++;
 				LOG.info("Total counted: " + count);
 			}
@@ -92,6 +121,12 @@ public class LuceneUtilsTest {
 			LuceneUtils.closeLuceneWriter();
 		}
 
+	}
+
+	@Test
+	public void testGetTotalLuceneWords() throws Exception {
+		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+		LOG.info("Total : " + wordLucenes.size());
 	}
 
 	@Test
@@ -122,7 +157,7 @@ public class LuceneUtilsTest {
 	}
 
 	@After
-	public void closeSearcher() throws Exception{
+	public void closeSearcher() throws Exception {
 		LuceneUtils.closeLuceneWriter();
 	}
 

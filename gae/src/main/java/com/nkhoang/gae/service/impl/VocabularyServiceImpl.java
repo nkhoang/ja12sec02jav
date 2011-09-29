@@ -239,25 +239,31 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
     }
 
-    public void save(Word word) {
-        Word savedWord = _vocabularyDao.lookup(word.getDescription());
-        if (savedWord != null) {
-            /*_messageDao.save(
-                   new Message(Message.VOCABULARY_CATEGORY, String.format("[%s] found in DB.", word.getDescription())));*/
-            // LOG.debug(String.format("[%s] found in DB.", word.getDescription().toUpperCase()));
-        } else {
-            word.setTimeStamp(System.currentTimeMillis());
-            saveWordToDatastore(word);
-            /*_messageDao.save(
-                   new Message(
-                       Message.VOCABULARY_CATEGORY, String.format("[%s] saved.", word.getDescription().toUpperCase())));*/
-        }
-    }
-
 
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
         lookupWord = lookupWord.trim().toLowerCase();
-        Word word = _vocabularyDao.lookup(lookupWord);
+        List<Word> words = _vocabularyDao.lookup(lookupWord);
+	    Word word = null;
+	    if (CollectionUtils.isNotEmpty(words)) {
+		    if (words.size() > 1) {
+			    word = words.get(0);
+			    for (Word w : words) {
+				    if (w.getMeaningIds().size() > word.getMeaningIds().size()) {
+					    word = w;
+				    }
+			    }
+			    words.remove(word);
+			    for (Word w : words) {
+				    for (Long id : w.getMeaningIds()) {
+					    _meaningDao.delete(id);
+				    }
+				    _vocabularyDao.delete(w.getId());
+			    }
+		    } else {
+			    word = words.get(0);
+		    }
+	    }
+
         // first check the current status
         if (word != null) {
             LOG.debug(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);

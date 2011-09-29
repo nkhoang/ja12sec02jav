@@ -1,5 +1,6 @@
 package com.nkhoang.gae.dao.impl;
 
+import com.nkhoang.common.collections.CollectionUtils;
 import com.nkhoang.gae.dao.VocabularyDao;
 import com.nkhoang.gae.model.Word;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements VocabularyDao {
@@ -19,19 +21,19 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
      *         or
      *         null.
      */
-    public Word lookup(String word) {
+    public List<Word> lookup(String word) {
         LOGGER.info("Looking up word : " + word);
-        Word result = null;
+	    List<Word> results  = new ArrayList<Word> ();
         try {
             Query query = entityManager.createQuery("Select from " + Word.class.getName()
                     + " t where t.description=:wordDescription");
             query.setParameter("wordDescription", word);
 
-            result = (Word) query.getSingleResult();
+            results = (List<Word>) query.getResultList();
         } catch (NoResultException nre) {
 
         }
-        return result;
+        return results;
     }
 
 

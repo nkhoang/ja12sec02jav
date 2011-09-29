@@ -108,40 +108,6 @@ public class VocabularyAction {
 
 
 
-	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_UPDATE_VIA_GD_REQUEST, method = RequestMethod.GET)
-	public ModelAndView saveWordsFromSpreadsheet(
-		@RequestParam("spreadsheetName") String fileName, @RequestParam("worksheetName") String worksheetName,
-		@RequestParam("row") int rowIndex, @RequestParam("col") int columnIndex, @RequestParam("size") int size) {
-		String message = "";
-		try {
-			postMessage(String.format("Connecting to Google Spreadsheet: %s->%s", fileName, worksheetName));
-			List<String> data = spreadsheetService
-				.querySpreadsheet(fileName, worksheetName, rowIndex, columnIndex, size);
-
-			postMessage(String.format("Number of words found in Google Spreadsheet: %s", data.size()));
-
-			List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);
-			Gson gson = new GsonBuilder().setExclusionStrategies(new GSONStrategy(excludeAttrs)).create();
-
-			for (String w : data) {
-				Word word = gson.fromJson(w, Word.class);
-				vocabularyService.save(word);
-			}
-
-			postMessage("Update finished!!!.");
-			postMessage(String.format("Total words: %s , total saved: %s", size, data.size()));
-		}
-		catch (Exception e) {
-			message = "An error occurred when trying to connect to Google Spreadsheet. Parameters invalid!!";
-			LOG.error(message, e);
-		}
-
-		ModelAndView mav = new ModelAndView();
-		mav.setView(new JSONView());
-		mav.addObject("message", message);
-		return mav;
-	}
-
 	private void postMessage(String s) {
 		messageDao.save(new Message(Message.VOCABULARY_CATEGORY, s));
 	}

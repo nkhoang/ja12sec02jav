@@ -42,13 +42,6 @@ public interface VocabularyService {
      */
     public Word lookupVN(String w) throws IOException;
 
-    /**
-     * Save a word to datastore.
-     *
-     * @param word word to be saved.
-     */
-    public void save(Word word);
-
     public Word save(String lookupWord) throws IOException;
 
 
