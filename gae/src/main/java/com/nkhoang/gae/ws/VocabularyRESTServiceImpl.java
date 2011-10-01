@@ -90,8 +90,8 @@ public class VocabularyRESTServiceImpl {
 	@GET
 	@Produces("application/json")
 	@Path("/getAll")
-	public String getAllWords() {
-		List<Word> words = vocabularyService.getAllWords();
+	public String getAllWords(@QueryParam("offset") int offset, @QueryParam("size") int size, @QueryParam("direction") String direction) {
+		List<Word> words = vocabularyService.getAllWordsByRange(offset, size, direction, false);
 		List<String> wordStrings = new ArrayList<String>();
 		for (Word w : words) {
 			wordStrings.add(w.getDescription());

@@ -3,10 +3,8 @@ package com.nkhoang.search;
 import com.nkhoang.model.Meaning;
 import com.nkhoang.model.Word;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 
@@ -14,7 +12,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
@@ -53,40 +50,71 @@ public class LuceneUtils {
         return getLuceneSearcher(INDEX_DIR);
     }
 
+    /**
+     * Get a Lucene index searcher.
+     *
+     * @param indexDirPath the path to the index directory.
+     * @return the opened index searcher.
+     * @throws IOException if the path to the index is wrong.
+     */
     public static IndexSearcher getLuceneSearcher(String indexDirPath) throws IOException {
         synchronized (LuceneUtils.class) {
             if (_luceneIndexSearcher == null) {
                 File indexDir = new File(indexDirPath);
-                //NIOFS is supposed to be faster on unix based system
-                // Directory dir = SimpleFSDirectory.open(indexDir);
+                // work great with GAE.
                 Directory dir = new SimpleFSDirectory(indexDir);
-                //RAMDirectory dir = new RAMDirectory(NIOFSDirectory.open(indexDir));
                 _luceneIndexSearcher = new IndexSearcher(dir, true);
             }
         }
         return _luceneIndexSearcher;
     }
 
+    /**
+     * Get the index reader for Lucene index.
+     *
+     * @return the index reader.
+     * @throws IOException if the path to the Lucene index is wrong.
+     */
+    public static IndexReader getIndexReader() throws IOException {
+        synchronized (LuceneUtils.class) {
+            if (_luceneIndexReader == null) {
+                _luceneIndexReader = getLuceneSearcher().getIndexReader();
+            }
+        }
 
+        return _luceneIndexReader;
+    }
 
-    public static List<String> performSearch(Query query) throws IOException {
+    /**
+     * Perform searching using default LuceneSearcher.
+     *
+     * @param query the query used to perform the search.
+     * @return a list of found documents.
+     * @throws IOException if the default path to the index is wrong.
+     */
+    public static List<Document> performSearch(Query query) throws IOException {
         return performSearch(query, getLuceneSearcher());
     }
 
+    /**
+     * Close the opened index searcher.
+     *
+     * @throws IOException if the default path to the lucene index is wrong.
+     */
     public static void closeSearcher() throws IOException {
         getLuceneSearcher().close();
     }
 
     /**
-     * perform search with query specified.
+     * Perform search with query specified.
      *
      * @param query    query used to search.
      * @param searcher IndexSearcher instance.
-     * @return list of found items.
+     * @return list of found documents.
      * @throws IOException may throw.
      */
-    public static List<String> performSearch(Query query, IndexSearcher searcher) throws IOException {
-        List<String> ids = new ArrayList<String>();
+    public static List<Document> performSearch(Query query, IndexSearcher searcher) throws IOException {
+        List<Document> docs = new ArrayList<Document>();
         long start = System.currentTimeMillis();
         int maxDoc = DEFAULT_MAXIMUM_SEARCH_RESULTS;
         // perform search.
@@ -94,18 +122,23 @@ public class LuceneUtils {
         LOG.info("Total hits: " + searchResults.totalHits);
         ScoreDoc[] hits = searchResults.scoreDocs;
 
-
         // don't need to limit the output because the maximum search result is set.
         for (ScoreDoc hit : hits) {
             Document found = searcher.doc(hit.doc);
-            ids.add(found.get(LuceneSearchFields.ID));
+            docs.add(found);
         }
 
-        return ids;
+        return docs;
     }
 
 
-    public static Query buildPharseQuery(String searchString){
+    /**
+     * Search word by word content.
+     *
+     * @param searchString the search string which will be split by spaces to compose a {@link PhraseQuery}.
+     * @return the built {@link PhraseQuery}.
+     */
+    public static Query buildPharseQuery(String searchString) {
         PhraseQuery query = new PhraseQuery();
         String[] searchTerms = searchString.split(" ");
         for (int i = 0; i < searchTerms.length; i++) {
@@ -118,92 +151,60 @@ public class LuceneUtils {
     /**
      * Build query based on {@link LuceneSearchFields}.WORD_DESCRIPTION field
      *
-     * @param word word to be built as part of query.
+     * @param description word to be built as part of query.
      * @return {@link Query} object.
      */
-    public static Query buildIdQuery(String word) {
-        TermQuery query = new TermQuery(new Term(LuceneSearchFields.WORD_DESCRIPTION, word));
+    public static Query buildDescriptionQuery(String description) {
+        TermQuery query = new TermQuery(new Term(LuceneSearchFields.WORD_DESCRIPTION, description));
         return query;
     }
 
-    public static List<String> performSearchByWord(String word, String luceneDirPath) throws IOException {
+    /**
+     * Perform searching for word by word content.
+     *
+     * @param content       the content used to search.
+     * @param luceneDirPath the lucene index path.
+     * @return a list of found documents.
+     * @throws IOException if the path to the lucene index is incorrect.
+     */
+    public static List<Document> performSearchByContent(String content, String luceneDirPath) throws IOException {
         String indexDirPath = luceneDirPath + PACKAGE_PATH;
-        LOG.info(indexDirPath);
-        LOG.info(word);
-        return performSearch(buildPharseQuery(word), getLuceneSearcher(indexDirPath));
+        return performSearch(buildPharseQuery(content), getLuceneSearcher(indexDirPath));
     }
 
-    public static List<String> performSearchByWord(String word) throws IOException {
-        return performSearch(buildIdQuery(word), getLuceneSearcher());
+    /**
+     * Perform searching for word by word content.
+     *
+     * @param content the content used to search.
+     * @return a list of found documents.
+     * @throws IOException if the path to the lucene index is incorrect.
+     */
+    public static List<Document> performSearchByContent(String content) throws IOException {
+        return performSearch(buildPharseQuery(content), getLuceneSearcher());
     }
 
+    /**
+     * Perform searching for word by word description.
+     *
+     * @param description the word description.
+     * @return a list of found documents.
+     * @throws IOException if the path to the lucene index is incorrect.
+     */
+    public static List<Document> performSearchByDescription(String description) throws IOException {
+        return performSearch(buildDescriptionQuery(description));
+    }
+
+
+    /**
+     * Get total docs saved into the index.
+     *
+     * @return the number of documents in the index.
+     * @throws IOException if the path to the lucene index is wrong.
+     */
     public static int getTotalDocs() throws IOException {
         return getLuceneSearcher().maxDoc();
     }
 
-    public static Query buildQuery(Word w) throws Exception {
-
-        BooleanQuery query = new BooleanQuery();
-        // buiil query base on 2 main fields.
-        if (StringUtils.isNotBlank(w.getDescription())) {
-            QueryParser parser = new QueryParser(
-                    Version.LUCENE_34, LuceneSearchFields.WORD_DESCRIPTION, new StandardAnalyzer(Version.LUCENE_34));
-            BooleanQuery descriptionQuery = new BooleanQuery();
-            String term = w.getDescription();
-            descriptionQuery
-                    .add(createFuzzyClause(LuceneSearchFields.WORD_DESCRIPTION, term, BooleanClause.Occur.SHOULD));
-            descriptionQuery
-                    .add(createTermClause(LuceneSearchFields.WORD_DESCRIPTION, term, BooleanClause.Occur.SHOULD));
-            descriptionQuery
-                    .add(createWildcardClause(LuceneSearchFields.WORD_DESCRIPTION, term, BooleanClause.Occur.SHOULD));
-
-            query.add(descriptionQuery, BooleanClause.Occur.MUST);
-        }
-        if (CollectionUtils.isNotEmpty(w.getMeanings())) {
-            for (Meaning m : w.getMeanings()) {
-                if (StringUtils.isNotEmpty(m.getContent())) {
-                    QueryParser parser = new QueryParser(
-                            Version.LUCENE_34, LuceneSearchFields.WORD_CONTENT, new StandardAnalyzer(Version.LUCENE_34));
-                    BooleanQuery contentQuery = new BooleanQuery();
-                    String term = m.getContent();
-
-                    contentQuery
-                            .add(createFuzzyClause(LuceneSearchFields.WORD_CONTENT, term, BooleanClause.Occur.SHOULD));
-                    contentQuery
-                            .add(createTermClause(LuceneSearchFields.WORD_CONTENT, term, BooleanClause.Occur.SHOULD));
-                    contentQuery
-                            .add(createWildcardClause(LuceneSearchFields.WORD_CONTENT, term, BooleanClause.Occur.SHOULD));
-                    parser.setDefaultOperator(QueryParser.Operator.AND);
-                    query.add(parser.parse(contentQuery.toString()), BooleanClause.Occur.MUST);
-                }
-            }
-        }
-        return query;
-    }
-
-    private static BooleanClause createTermClause(String field, String term, BooleanClause.Occur occur) {
-        Query query = new TermQuery(new Term(field, term));
-        query.setBoost(BOOST_TERM_QUERY);
-        return new BooleanClause(query, occur);
-    }
-
-
-    private static BooleanClause createFuzzyClause(String field, String term, BooleanClause.Occur occur) {
-        Query query = new FuzzyQuery(new Term(field, term), FUZZY_EDIT_DISTANCE, FUZZY_PREFIX_LENGTH);
-        query.setBoost(BOOST_FUZZY_QUERY);
-        return new BooleanClause(query, occur);
-    }
-
-
-    private static BooleanClause createWildcardClause(String field, String term, BooleanClause.Occur occur) {
-        if (term.length() > STARTS_WITH_MAX_LENGTH) {
-            return createTermClause(field, term, occur);
-        }
-
-        Query query = new WildcardQuery(new Term(field, term + WILDCARD));
-        query.setBoost(BOOST_WILDCARD_QUERY);
-        return new BooleanClause(query, occur);
-    }
 
     /**
      * Open writer.
@@ -246,6 +247,12 @@ public class LuceneUtils {
         }
     }
 
+    /**
+     * Delete word from Lucene Index by the word id.
+     *
+     * @param id the word id.
+     * @throws IOException if the default path to the index is wrong.
+     */
     public static void deleteWordFromIndex(String id) throws IOException {
         IndexWriter writer = LuceneUtils.getLuceneWriter();
         if (writer == null) {
@@ -257,6 +264,18 @@ public class LuceneUtils {
         writer.deleteDocuments(key);
     }
 
+    /**
+     * Write word to the index.
+     * <br/>
+     * <ul>
+     * <li>ID: the word id is the only property stored in the index.</li>
+     * <li>Description: the word description is analyzed and stored.</li>
+     * <li>Meaning: the word meanings are analyzed but not stored.</li>
+     * </ul>
+     *
+     * @param word the {@link Word} entity to be stored.
+     * @throws IOException
+     */
     public static void writeWordToIndex(Word word) throws IOException {
         IndexWriter writer = LuceneUtils.getLuceneWriter();
         if (writer == null) {
@@ -272,7 +291,7 @@ public class LuceneUtils {
         // add description
         document.add(
                 new Field(
-                        LuceneSearchFields.WORD_DESCRIPTION, word.getDescription(), Field.Store.NO, Field.Index.ANALYZED));
+                        LuceneSearchFields.WORD_DESCRIPTION, word.getDescription(), Field.Store.YES, Field.Index.ANALYZED));
         // add content
         if (CollectionUtils.isNotEmpty(word.getMeanings())) {
             for (Meaning m : word.getMeanings()) {
@@ -284,6 +303,30 @@ public class LuceneUtils {
 
         // update Document
         writer.updateDocument(key, document);
+    }
+
+    private static BooleanClause createTermClause(String field, String term, BooleanClause.Occur occur) {
+        Query query = new TermQuery(new Term(field, term));
+        query.setBoost(BOOST_TERM_QUERY);
+        return new BooleanClause(query, occur);
+    }
+
+
+    private static BooleanClause createFuzzyClause(String field, String term, BooleanClause.Occur occur) {
+        Query query = new FuzzyQuery(new Term(field, term), FUZZY_EDIT_DISTANCE, FUZZY_PREFIX_LENGTH);
+        query.setBoost(BOOST_FUZZY_QUERY);
+        return new BooleanClause(query, occur);
+    }
+
+
+    private static BooleanClause createWildcardClause(String field, String term, BooleanClause.Occur occur) {
+        if (term.length() > STARTS_WITH_MAX_LENGTH) {
+            return createTermClause(field, term, occur);
+        }
+
+        Query query = new WildcardQuery(new Term(field, term + WILDCARD));
+        query.setBoost(BOOST_WILDCARD_QUERY);
+        return new BooleanClause(query, occur);
     }
 
 }

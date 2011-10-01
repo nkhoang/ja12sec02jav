@@ -14,16 +14,9 @@ import java.util.List;
 public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements VocabularyDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
 
-    /**
-     * Look up a word from DB.
-     *
-     * @return an obj
-     *         or
-     *         null.
-     */
     public List<Word> lookup(String word) {
         LOGGER.info("Looking up word : " + word);
-	    List<Word> results  = new ArrayList<Word> ();
+        List<Word> results = new ArrayList<Word>();
         try {
             Query query = entityManager.createQuery("Select from " + Word.class.getName()
                     + " t where t.description=:wordDescription");
@@ -67,6 +60,30 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         }
         return null;
     }
+
+    /**
+     * get all word in range from {@code offset} to {@code offset + direction}
+     *
+     * @param offset    the offset to start from.
+     * @param size      the number of words to get.
+     * @param direction the sorting direction.
+     * @return a list of words in specified range.
+     */
+    public List<Word> getAllInRange(int offset, int size, String direction) {
+        LOGGER.info("Get all words starting from " + offset + " with size=[" + size + "]...");
+        List<Word> result = null;
+        try {
+            Query query = entityManager.createQuery("Select from " + Word.class.getName() + " order by timeStamp " + direction);
+            query.setFirstResult(offset);
+            query.setMaxResults(size);
+
+            result = query.getResultList();
+            LOGGER.info("Found: " + result.size());
+        } catch (NoResultException ex) {
+        }
+        return result;
+    }
+
 
     public List<Word> getAllInRange(int offset, int size) {
         LOGGER.info("Get all words starting from " + offset + " with size=[" + size + "]...");

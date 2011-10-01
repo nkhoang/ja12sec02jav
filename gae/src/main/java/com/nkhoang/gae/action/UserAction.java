@@ -1,6 +1,5 @@
 package com.nkhoang.gae.action;
 
-import com.google.appengine.api.taskqueue.*;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.TagService;
@@ -8,11 +7,11 @@ import com.nkhoang.gae.service.UserService;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
+import com.nkhoang.search.LuceneSearchFields;
 import com.nkhoang.search.LuceneUtils;
-import com.nkhoang.vocabulary.VocabularyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.validator.routines.LongValidator;
+import org.apache.lucene.document.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,6 @@ import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 @Controller
@@ -96,11 +94,11 @@ public class UserAction {
 		if (StringUtils.isNotEmpty(word)) {
 			try {
 				String path = request.getSession().getServletContext().getRealPath("WEB-INF/classes");
-				List<String> wordIds = LuceneUtils.performSearchByWord(word, path);
-				if (CollectionUtils.isNotEmpty(wordIds)) {
+				List<Document> documents = LuceneUtils.performSearchByContent(word, path);
+				if (CollectionUtils.isNotEmpty(documents)) {
 					List<Long> searchIds = new ArrayList<Long>();
-					for (String id : wordIds) {
-						searchIds.add(Long.parseLong(id));
+					for (Document doc : documents) {
+						searchIds.add(Long.parseLong(doc.get(LuceneSearchFields.ID)));
 					}
 					words = vocabularyService.getAllWordsById(searchIds, false);
 				}

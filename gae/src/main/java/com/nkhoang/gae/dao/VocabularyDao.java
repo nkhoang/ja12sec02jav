@@ -5,7 +5,9 @@ import com.nkhoang.gae.model.Word;
 import java.util.List;
 
 public interface VocabularyDao extends BaseDao<Word, Long> {
-  public List<Word> lookup(String word);
+  List<Word> lookup(String word);
 
-  public List<Word> getAllInRange(int offset, int size);
+  List<Word> getAllInRange(int offset, int size);
+
+  List<Word> getAllInRange(int offset, int size, String direction);
 }

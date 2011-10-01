@@ -10,6 +10,18 @@ public interface VocabularyService {
     List<Word> getAllWords();
 
     /**
+     * Get all words in range with specific direction. The flag {@code isPopulated} indicates that
+     * whether the result should be the word with fully populated meanings or the word with no meaning.
+     *
+     * @param startingIndex the starting index.
+     * @param size          the number of words should be returned.
+     * @param direction     the sorting direction.
+     * @param isPopulated   the flag indicates that the status of the word.
+     * @return a list of found words.
+     */
+    List<Word> getAllWordsByRange(int startingIndex, int size, String direction, boolean isPopulated);
+
+    /**
      * Look up pronunciation for a word.
      *
      * @param w word to get pronunciation.

@@ -82,6 +82,33 @@ public class VocabularyServiceImpl implements VocabularyService {
         return words;
     }
 
+    public List<Word> getAllWordsByRange(int startingIndex, int size, String direction, boolean isPopulated) {
+        List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size, direction);
+        List<Word> result = new ArrayList<Word>();
+        if (isPopulated) {
+            if (CollectionUtils.isNotEmpty(words)) {
+                int lastIndex = startingIndex + size;
+                if (lastIndex > words.size()) {
+                    lastIndex = words.size() - 1;
+                }
+                for (int i = startingIndex; i < lastIndex; i++) {
+                    Word w = words.get(i);
+                    populateWord(w);
+
+                    result.add(w);
+                }
+            } else {
+                LOG.debug(
+                        String.format("There is no word in range specified [%d]-[%d]", startingIndex, startingIndex + size));
+            }
+            return result;
+        } else {
+            return words;
+        }
+
+    }
+
+
     public List<Word> getAllWordsByRange(int startingIndex, int size) {
         List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
@@ -243,26 +270,26 @@ public class VocabularyServiceImpl implements VocabularyService {
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
         lookupWord = lookupWord.trim().toLowerCase();
         List<Word> words = _vocabularyDao.lookup(lookupWord);
-	    Word word = null;
-	    if (CollectionUtils.isNotEmpty(words)) {
-		    if (words.size() > 1) {
-			    word = words.get(0);
-			    for (Word w : words) {
-				    if (w.getMeaningIds().size() > word.getMeaningIds().size()) {
-					    word = w;
-				    }
-			    }
-			    words.remove(word);
-			    for (Word w : words) {
-				    for (Long id : w.getMeaningIds()) {
-					    _meaningDao.delete(id);
-				    }
-				    _vocabularyDao.delete(w.getId());
-			    }
-		    } else {
-			    word = words.get(0);
-		    }
-	    }
+        Word word = null;
+        if (CollectionUtils.isNotEmpty(words)) {
+            if (words.size() > 1) {
+                word = words.get(0);
+                for (Word w : words) {
+                    if (w.getMeaningIds().size() > word.getMeaningIds().size()) {
+                        word = w;
+                    }
+                }
+                words.remove(word);
+                for (Word w : words) {
+                    for (Long id : w.getMeaningIds()) {
+                        _meaningDao.delete(id);
+                    }
+                    _vocabularyDao.delete(w.getId());
+                }
+            } else {
+                word = words.get(0);
+            }
+        }
 
         // first check the current status
         if (word != null) {
