@@ -54,7 +54,7 @@ public class LuceneUtilsTest {
     public void testSaveAllWordsToLucene() throws Exception {
         try {
             // get the first 1000.
-            List<String> words = VocabularyUtils.getAllWordsByRange(7000, 1000, "asc");
+            List<String> words = VocabularyUtils.getAllWordsByRange(10000, 1000, "asc");
             LOG.info("Total size : " + words.size());
             for (String s : words) {
                 Word w = VocabularyUtils.lookupWord(s);
@@ -253,7 +253,7 @@ public class LuceneUtilsTest {
     @Test
     public void testLuceneSearch
             () throws Exception {
-        Query query = LuceneUtils.buildPharseQuery("gia đình");
+        Query query = LuceneUtils.buildPharseQuery("thắt chặt");
         List<Document> documents = LuceneUtils.performSearch(query);
         for (Document doc : documents) {
             Word w = VocabularyUtils.lookupWordById(doc.get(LuceneSearchFields.ID));
