@@ -184,7 +184,7 @@ public class LuceneUtilsTest {
     public void testSaveAllWordsToLucene() throws Exception {
         try {
             // get the first 1000.
-            List<String> words = VocabularyUtils.getAllWordsByRange(10000, 1000, "asc");
+            List<String> words = VocabularyUtils.getAllWordsByRange(21000, 2000, "asc");
             LOG.info("Total size : " + words.size());
             for (String s : words) {
                 Word w = VocabularyUtils.lookupWord(s);
