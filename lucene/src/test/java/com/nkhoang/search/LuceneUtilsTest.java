@@ -5,6 +5,7 @@ import com.nkhoang.model.Word;
 import com.nkhoang.model.WordLucene;
 import com.nkhoang.vocabulary.VocabularyUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
@@ -16,6 +17,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +38,137 @@ public class LuceneUtilsTest {
 
     @Test
     /**
+     * Last index = 26106.
+     */
+    public void testSaveAllWordsToFile() throws Exception {
+        List<String> words = new ArrayList<String>();
+        List<String> wordList = new ArrayList<String>();
+        // first call.
+        int index = 0;
+        int total = 0;
+        LOG.info("checking with index =" + index);
+        words = VocabularyUtils.getAllWordsByRange(index, 1000, "asc");
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(new File("lucene/src/main/resources/Words.txt"));
+            do {
+                wordList.addAll(words);
+                index += 1000;
+                LOG.info("checking with index =" + index);
+                for (String w : words) {
+                    writer.append(w + " \n");
+                }
+
+                total += words.size();
+                words = VocabularyUtils.getAllWordsByRange(index, 1000, "asc");
+            } while (CollectionUtils.isNotEmpty(words));
+        } catch (Exception e) {
+
+        } finally {
+            if (writer != null)
+                writer.close();
+        }
+
+        LOG.info("total: " + wordList.size());
+    }
+
+    @Test
+    public void testGetWordsNotInLuceneIndex() throws Exception {
+
+        FileReader reader = null;
+        FileWriter writer = null;
+        LineNumberReader lineReader = null;
+        try {
+            List<String> wordList = new ArrayList<String>();
+
+            reader = new FileReader(new File("lucene/src/main/resources/FilteredWords.txt"));
+            lineReader = new LineNumberReader(reader);
+            String line = "";
+            while (StringUtils.isNotEmpty(line = lineReader.readLine())) {
+                wordList.add(line.trim());
+            }
+
+            LOG.info("WordList size: " + wordList.size());
+            writer = new FileWriter(new File("lucene/src/main/resources/NotInLuceneList.txt"));
+            for (String s : wordList) {
+                List<Document> docs = LuceneUtils.performSearchByDescription(s);
+                if (CollectionUtils.isEmpty(docs)) {
+                    writer.append(s + "\n");
+                }
+            }
+        } catch (Exception e) {
+
+        } finally {
+            reader.close();
+            lineReader.close();
+            writer.close();
+        }
+    }
+
+    @Test
+    public void testGetWordsNotInLuceneList() throws Exception {
+        List<String> wordList = new ArrayList<String>();
+        List<String> wordLuceneList = new ArrayList<String>();
+        FileReader reader = null;
+        LineNumberReader lineReader = null;
+        try {
+            reader = new FileReader(new File("lucene/src/main/resources/Words.txt"));
+            lineReader = new LineNumberReader(reader);
+            String line = "";
+            while (StringUtils.isNotEmpty(line = lineReader.readLine())) {
+                wordList.add(line.trim());
+            }
+            reader = new FileReader(new File("lucene/src/main/resources/LuceneWords.txt"));
+            lineReader = new LineNumberReader(reader);
+            while (StringUtils.isNotEmpty(line = lineReader.readLine())) {
+                wordLuceneList.add(line.trim());
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            reader.close();
+            lineReader.close();
+        }
+        LOG.info("WordList size: " + wordList.size());
+        LOG.info("WordLuceneList size: " + wordLuceneList.size());
+
+        wordList.removeAll(wordLuceneList);
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(new File("lucene/src/main/resources/FilteredWords.txt"));
+            for (String w : wordList) {
+                writer.append(w + "\n");
+            }
+        } catch (Exception e) {
+        } finally {
+            if (writer != null)
+                writer.close();
+        }
+        LOG.info("Filtered size : " + wordList.size());
+    }
+
+    @Test
+    public void testSaveAllLuceneWordToFile() throws Exception {
+        List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+        FileWriter writer = null;
+        try {
+
+            writer = new FileWriter(new File("lucene/src/main/resources/LuceneWords.txt"));
+            for (WordLucene wl : wordLucenes) {
+                writer.append(wl.getWord() + " \n");
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (writer != null)
+                writer.close();
+        }
+        LOG.info("WordLucene size: " + wordLucenes.size());
+    }
+
+    @Test
+    /**
      * Test write word to Lucene. Perform looking up using the main site service.
      */
     public void testWriteWord() throws Exception {
@@ -43,12 +179,6 @@ public class LuceneUtilsTest {
         LuceneUtils.closeLuceneWriter();
     }
 
-    @Test
-    public void testGetAllWords() throws Exception {
-        LOG.info("Caution: This only works when the size is small. ");
-        List<String> words = VocabularyUtils.getAllWordsByRange(0, 100, "asc");
-        LOG.info("Total words in the main site is :" + words.size());
-    }
 
     @Test
     public void testSaveAllWordsToLucene() throws Exception {

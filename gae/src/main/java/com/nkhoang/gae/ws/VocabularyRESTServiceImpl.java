@@ -6,6 +6,8 @@ import com.nkhoang.gae.dao.WordLuceneDao;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.model.WordLucene;
 import com.nkhoang.gae.service.VocabularyService;
+import com.nkhoang.search.LuceneUtils;
+import com.nkhoang.vocabulary.VocabularyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,6 @@ public class VocabularyRESTServiceImpl {
 	private VocabularyDao     vocabularyDao;
 	private WordLuceneDao     wordLuceneDao;
 
-	@GET
 	@Produces("application/xml")
 	@Path("/search/{word}")
 	public Word search(@PathParam("word") String word) {

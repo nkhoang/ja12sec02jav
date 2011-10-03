@@ -387,42 +387,6 @@ function VocabularyManager() {
 
 </script>
 
-<script type="text/javascript">
-    /*
-     Ext.onReady(function() {
-     Ext.namespace("Vocabulary");
-
-     Ext.define('Vocabulary.Search', {
-     extend: 'Ext.form.field.Base',
-     inputType: 'text',
-     initComponent: function() {
-     this.callParent();
-     this.on('specialkey', this.checkEnterKey, this);
-     },
-     checkEnterKey: function(field, e) {
-     var value = this.getValue();
-     if (e.getKey() === e.ENTER && !Ext.isEmpty(value)) {
-     Ext.MessageBox.alert("Key Entered", value);
-     }
-     },
-     alias: 'widget.searchfield'
-     });
-
-     Ext.create('Ext.form.Panel', {
-     title:"Lookup your new word",
-     layout: 'anchor',
-     bodyPadding: 5,
-     width: 320,
-     items: {
-     xtype: 'searchfield',
-     fieldLabel: 'Word',
-     name: 'query'
-     },
-     renderTo: Ext.get('lookup-w-c')
-     });
-     });
-     */
-</script>
 </head>
 <body>
 

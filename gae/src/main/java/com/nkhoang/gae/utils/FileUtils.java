@@ -31,14 +31,4 @@ public class FileUtils {
 
         return wordList;
     }
-
-    public static void writeToCSV(List<String> data, String filePath) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
-
-        for (String row : data) {
-            writer.write(row);
-            writer.write("\n");
-        }
-        writer.close();
-    }
 }

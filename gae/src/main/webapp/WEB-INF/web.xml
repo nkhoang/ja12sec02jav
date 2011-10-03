@@ -91,8 +91,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     </servlet>
 
     <servlet>
+        <display-name>Remote API Servlet</display-name>
         <servlet-name>RemoteApi</servlet-name>
         <servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
