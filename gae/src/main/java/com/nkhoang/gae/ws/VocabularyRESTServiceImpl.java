@@ -30,6 +30,8 @@ public class VocabularyRESTServiceImpl {
 	private VocabularyDao     vocabularyDao;
 	private WordLuceneDao     wordLuceneDao;
 
+
+    @GET
 	@Produces("application/xml")
 	@Path("/search/{word}")
 	public Word search(@PathParam("word") String word) {
