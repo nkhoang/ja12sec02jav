@@ -27,11 +27,12 @@
         <description>Keep up the site!</description>
         <schedule>every 1 minutes</schedule>
     </cron>
-
+             <!--
     <cron>
-        <url>/vocabulary/triggerLookupWords.html?size=500</url>
+        <url>/vocabulary/triggerInternalLookupWords.html?size=500</url>
         <description>Schedule lookup word items in WordItem table</description>
         <schedule>every 30 mins</schedule>
     </cron>
+    -->
 
 </cronentries>

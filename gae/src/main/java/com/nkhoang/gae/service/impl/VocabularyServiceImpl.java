@@ -331,7 +331,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      *
      * @param word word to be saved.
      */
-    private void saveWordToDatastore(Word word) {
+    public void saveWordToDatastore(Word word) {
         if (word != null) {
             // build list of meaning
             for (int i = 0; i < Word.WORD_KINDS.length; i++) {
