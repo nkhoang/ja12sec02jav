@@ -18,8 +18,6 @@
         <property name="meaningDao" ref="meaningDao"></property>
         <property name="vocabularyDao" ref="vocabularyDao"></property>
         <property name="spreadsheetService" ref="spreadsheetService"></property>
-        <property name="messageDao" ref="messageDao"></property>
-        <property name="wordLuceneDao" ref="wordLuceneDao"></property>
     </bean>
 
     <bean id="tagService" class="com.nkhoang.gae.service.impl.TagServiceImpl">

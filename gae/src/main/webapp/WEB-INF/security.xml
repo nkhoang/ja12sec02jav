@@ -6,30 +6,28 @@
     <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
     <http create-session="always" >
         <anonymous/>
-        <!-- jax-rs interface -->
-        <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-
         <!-- Will be main page -->
-        <intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/index.html" filters="none"/>
         <!-- Handle login -->
-        <intercept-url pattern="/user/login.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/user/login.html*" filters="none"/>
         <!-- for AJAX login -->
-        <intercept-url pattern="/user/authenticate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/user/authenticate.html*" filters="none"/>
         <!-- for user panel -->
-        <intercept-url pattern="/user/userPanel.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/user/userPanel.html*" filters="none"/>
         <!-- Just a reference for access role reference -->
         <intercept-url pattern="/user/admin" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/currency/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <!-- Item can be listed by any one -->
-        <intercept-url pattern="/item/viewAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-
-        <intercept-url pattern="/chart/view.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <!-- Chart data -->
-        <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <!-- jax-rs interface -->
+        <intercept-url pattern="/services/**" filters="none"/>
         <!-- Vocabulary -->
         <intercept-url pattern="/vocabulary/**" filters="none"/>
-        <!-- Serve VN Gold price -->
+        <intercept-url pattern="/sessioncleanup/**" filters="none"/>
 
+
+
+        <!-- Serve VN Gold price -->
+        <intercept-url pattern="/item/viewAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/chart/view.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/data/clearAllVNGoldPrice.html*"
                        access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/data/clearAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>

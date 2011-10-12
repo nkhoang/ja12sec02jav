@@ -9,9 +9,10 @@ import com.nkhoang.gae.dao.WordItemDao;
 import com.nkhoang.gae.dao.WordItemStatDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
-import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.model.Meaning;
+import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.WordItem;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.utils.FileUtils;
@@ -19,7 +20,6 @@ import com.nkhoang.gae.utils.WebUtils;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import com.nkhoang.gae.vocabulary.IVocabularyUtils;
-import com.nkhoang.model.*;
 import com.nkhoang.vocabulary.VocabularyUtils;
 import freemarker.template.TemplateException;
 import org.apache.commons.collections.CollectionUtils;
@@ -137,13 +137,13 @@ public class VocaAction {
 		if (CollectionUtils.isNotEmpty(wordItems)) {
 			for (WordItem wi : wordItems) {
 				try {
-					com.nkhoang.model.Word w  = VocabularyUtils.lookupWord(wi.getWord());
+					com.nkhoang.model.Word w = VocabularyUtils.lookupWord(wi.getWord());
 					// convert Word to Word.
 					Word word = new Word();
 					word.setPron(w.getPron());
 					word.setDescription(w.getDescription());
 					word.setSoundSource(w.getSoundSource());
-					List<Meaning> meanings  = new ArrayList<Meaning>();
+					List<Meaning> meanings = new ArrayList<Meaning>();
 					for (com.nkhoang.model.Meaning m : w.getMeanings()) {
 						Meaning meaning = new Meaning();
 						meaning.setContent(m.getContent());
@@ -166,44 +166,17 @@ public class VocaAction {
 
 
 	@RequestMapping(value = "/lookupWordsTask")
-	public void lookupWordsTask(@RequestParam int size, HttpServletRequest request, HttpServletResponse response) {
-		// there is only one record in WordItemStat table.
-		List<WordItemStat> wordItemStats = wordItemStatDao.getAllInRange(0, 1);
-		if (CollectionUtils.isEmpty(wordItemStats)) {
-			// init one.
-			WordItemStat stat = new WordItemStat();
-			stat.setFailedCount(0);
-			stat.setErrorLog("");
-			stat.setIndex(0);
-			stat.setProcessTime(0);
-			stat.setSuccessCount(0);
-
-			wordItemStatDao.save(stat);
-		} else {
-			WordItemStat currentStat = wordItemStats.get(0);
-			// now get the wordItem.
-			List<WordItem> wordItems = wordItemDao.getAllInRange(currentStat.getIndex(), size);
-			if (CollectionUtils.isNotEmpty(wordItems)) {
-				int failedCount = 0;
-				int successCount = 0;
-				Long currentTime = System.currentTimeMillis();
-				for (WordItem wi : wordItems) {
-					try {
-						vocabularyService.save(wi.getWord());
-						successCount++;
-						wordItemDao.delete(wi.getId());
-					}
-					catch (Exception ex) {
-						failedCount++;
-					}
+	public void lookupWordsTask(@RequestParam int size) {
+		// now get the wordItem.
+		List<WordItem> wordItems = wordItemDao.getAllInRange(0, size);
+		if (CollectionUtils.isNotEmpty(wordItems)) {
+			for (WordItem wi : wordItems) {
+				try {
+					vocabularyService.save(wi.getWord());
+					wordItemDao.delete(wi.getId());
 				}
-				int processTime = (int) (System.currentTimeMillis() - currentTime) / 1000;
-				currentStat.setIndex(0);
-				currentStat.setProcessTime(processTime);
-				currentStat.setSuccessCount(successCount);
-				currentStat.setFailedCount(failedCount);
-
-				wordItemStatDao.update(currentStat);
+				catch (Exception ex) {
+				}
 			}
 		}
 	}

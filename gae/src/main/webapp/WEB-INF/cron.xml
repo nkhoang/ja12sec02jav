@@ -27,12 +27,19 @@
         <description>Keep up the site!</description>
         <schedule>every 1 minutes</schedule>
     </cron>
-             <!--
+
     <cron>
-        <url>/vocabulary/triggerInternalLookupWords.html?size=500</url>
-        <description>Schedule lookup word items in WordItem table</description>
+        <url>/vocabulary/triggerLookupWords.html?size=500</url>
+        <description>Schedule lookup word items in WordItem table.</description>
         <schedule>every 30 mins</schedule>
     </cron>
-    -->
+
+
+    <cron>
+        <url>/cron/sessioncleanup</url>
+        <description>Schedule remove session from DS.</description>
+        <schedule>every 2hrs</schedule>
+    </cron>
+
 
 </cronentries>

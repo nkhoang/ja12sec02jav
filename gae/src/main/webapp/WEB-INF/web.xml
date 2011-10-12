@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>ApplicationResources</param-value>
     </context-param>
-
     <context-param>
         <param-name>defaultHtmlEscape</param-name>
         <param-value>false</param-value>
     </context-param>
-
     <!-- Define the default CSS Theme -->
     <!-- Set this param to change css theme -->
     <context-param>
@@ -32,7 +29,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
         <param-value>en</param-value>
     </context-param>
-
     <!-- Settings for Spring core -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -50,14 +46,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-
     <!--
          This is useful because current browsers typically do not set a
          character encoding even if specified in the HTML page or form
@@ -78,50 +72,41 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <servlet>
         <servlet-name>CXFServlet</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>_ah_sessioncleanup</servlet-name>
         <servlet-class>com.google.apphosting.utils.servlet.SessionCleanupServlet</servlet-class>
     </servlet>
-     
     <servlet-mapping>
         <servlet-name>_ah_sessioncleanup</servlet-name>
-        <url-pattern>/_ah/sessioncleanup</url-pattern>
+        <url-pattern>/cron/sessioncleanup</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>springMVC</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet>
         <display-name>Remote API Servlet</display-name>
         <servlet-name>RemoteApi</servlet-name>
         <servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>RemoteApi</servlet-name>
         <url-pattern>/_ah/remote_api</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>springMVC</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>HotHandler</servlet-name>
         <servlet-class>com.nkhoang.gae.servlet.HotHandlerServlet</servlet-class>
@@ -138,8 +123,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <servlet-name>CronHandler</servlet-name>
         <url-pattern>/cron/hothandler</url-pattern>
     </servlet-mapping>
-
-
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
@@ -150,5 +133,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     <listener>
         <listener-class>com.nkhoang.gae.listener.StartupListener</listener-class>
     </listener>
-
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>
