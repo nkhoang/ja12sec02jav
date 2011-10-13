@@ -1,0 +1,84 @@
+<html >
+<head >
+	<script type="text/javascript" src="firebug-lite.js" ></script >
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" />
+	<script type="text/javascript" src="modernizr.js" />
+	<script type="text/javascript" >
+
+		$(function() {
+			canvasApp();
+		});
+		function canvasSupport() {
+			// checking for canvas support using modernizr.
+			return Modernizr.canvas;
+		}
+
+		function canvasApp() {
+			console.trace("Starting app...");
+			if (!canvasSupport()) {
+				return;
+			}
+			var theCanvas = $('#canvas').get(0);
+			var context = theCanvas.getContext("2d");
+			drawScreen(context);
+		}
+		function drawScreen(context) {
+			// http://aud.kurs24.com/usd/?q=799
+			context.fillStyle = "rgb(69, 114, 167)";
+			context.strokeStyle = "rgb(103, 105, 108)";
+			// draw rect.
+			context.fillRect(0, 4, 100, 100);
+			// draw stroke rect
+			context.strokeRect(0, 4, 100, 100);
+
+			// draw rect with line width
+			context.lineWidth = 5;
+			context.strokeRect(110, 4, 100, 100);
+
+			// draw text.
+			context.lineWidth = 1;
+			var text = "Hello, World!";
+			context.font = "Courier 60px serif";
+			context.fillText(text, 250, 100);
+
+			// draw line.
+			context.beginPath(); // Start the path
+			context.moveTo(0, 110); // Set the path origin
+			context.lineTo(300, 110); // Set the path destination
+			context.closePath(); // Close the path
+			context.stroke();
+
+			// draw circle.
+			context.beginPath();
+			context.arc(120,120, 50, 0, Math.PI, false);
+			context.closePath();
+			context.stroke();
+			context.fill();
+
+			// draw line with line width
+			context.lineWidth = 20;
+			context.beginPath(); // Start the path
+			context.moveTo(0, 190); // Set the path origin
+			context.lineTo(300, 190); // Set the path destination
+			context.closePath(); // Close the path
+			context.stroke();
+
+			// erase canvas.
+			// context.clearRect(0, 0, canvas.width(), canvas.height());
+			context.fillRect(0, 220, 100, 100);
+			context.fillStyle = "rgb(166, 114, 167)";
+			context.fillRect(50, 225, 100, 100);
+		}
+	</script >
+</head >
+<body >
+<div >
+	Hello from Canvas!.
+
+	<canvas id="canvas" width="1000" height="1000" >
+		Your browser does not support HTML5 Canvas.
+	</canvas >
+
+</div >
+</body >
+</html >
