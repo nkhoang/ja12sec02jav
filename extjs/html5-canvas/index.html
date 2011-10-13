@@ -80,8 +80,12 @@
 			context.fillRect(0, 220, 100, 100);
 
 			context.clearRect(0, 0 , canvas.width, canvas.height);
+			// set global alpha.
+			context.globalAlpha = 0.5;
 			context.rotate(0.7854); // Rotate 45 degrees (Math.PI/4)
 			context.fillRect(200, 150, 100, 100);
+
+			context.transform()
 		}
 	</script >
 </head >
