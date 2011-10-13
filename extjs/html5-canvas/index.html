@@ -65,9 +65,23 @@
 
 			// erase canvas.
 			// context.clearRect(0, 0, canvas.width(), canvas.height());
+
+			// save state
+			// context.save();
+			// restore state.
+			// context.restore();
+
+			// translation.
+			context.save();
+			context.translate(50, 50);
+			context.scale(2,2);
 			context.fillRect(0, 220, 100, 100);
-			context.fillStyle = "rgb(166, 114, 167)";
-			context.fillRect(50, 225, 100, 100);
+			context.restore();
+			context.fillRect(0, 220, 100, 100);
+
+			context.clearRect(0, 0 , canvas.width, canvas.height);
+			context.rotate(0.7854); // Rotate 45 degrees (Math.PI/4)
+			context.fillRect(200, 150, 100, 100);
 		}
 	</script >
 </head >
