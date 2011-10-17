@@ -1,5 +1,6 @@
 package com.nkhoang.gae.action;
 
+import com.ctc.wstx.util.WordSet;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.TagService;
@@ -96,11 +97,21 @@ public class UserAction {
 				String path = request.getSession().getServletContext().getRealPath("WEB-INF/classes");
 				List<Document> documents = LuceneUtils.performSearchByContent(word, path);
 				if (CollectionUtils.isNotEmpty(documents)) {
-					List<Long> searchIds = new ArrayList<Long>();
+					List<String> foundWords = new ArrayList<String>();
 					for (Document doc : documents) {
-						searchIds.add(Long.parseLong(doc.get(LuceneSearchFields.ID)));
+						foundWords.add(doc.get(LuceneSearchFields.WORD_DESCRIPTION));
 					}
-					words = vocabularyService.getAllWordsById(searchIds, false);
+                    for (String w : foundWords) {
+                        Word fullWord = vocabularyService.lookupWord(w);
+                        if (fullWord != null) {
+                            words.add(fullWord);
+                        }
+                        else {
+                            Word newWord = new Word();
+                            newWord.setDescription(w);
+                            words.add(newWord);
+                        }
+                    }
 				}
 			}catch (IOException ioe) {
 				LOG.error("Could not open Lucene searcher.", ioe);

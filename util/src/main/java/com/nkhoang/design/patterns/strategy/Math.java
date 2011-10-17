@@ -2,7 +2,6 @@ package com.nkhoang.design.patterns.strategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.rmi.runtime.Log;
 
 public class Math {
     private static Logger LOG = LoggerFactory.getLogger(Math.class.getCanonicalName());

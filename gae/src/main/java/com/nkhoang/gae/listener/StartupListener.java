@@ -1,21 +1,12 @@
 package com.nkhoang.gae.listener;
 
-import com.nkhoang.gae.manager.ItemManager;
-import com.nkhoang.gae.manager.UserManager;
-import com.nkhoang.gae.model.Item;
-import com.nkhoang.gae.model.User;
-import org.jasypt.spring.security3.PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * <p/>
@@ -55,8 +46,7 @@ public class StartupListener implements ServletContextListener {
      */
     public static void setupContext(ServletContext context) {
       /*   LOGGER.debug("Check default user ...");
-       ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
-        ItemManager itemService = (ItemManager) ctx.getBean("itemService");
+       ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context)
 
         UserManager userService = (UserManager) ctx.getBean("userManager");
         PasswordEncoder passwordEncoder = (PasswordEncoder) ctx.getBean("passwordEncoder");
@@ -86,20 +76,5 @@ public class StartupListener implements ServletContextListener {
                 LOGGER.debug("Saving default users [ok]");
             }
         }   */
-    }
-
-    public static Item createItem(Long ipId) {
-        Item item = new Item();
-        item.setCode("s001");
-        item.setDescription("A Description");
-        item.setPrice(123L);
-        Calendar calendar = Calendar.getInstance();
-        item.setDateAdded(calendar.getTime());
-        item.setThumbnail("https://docs.google.com/File?id=d5brrvd_932dsqqhrc8_b");
-        item.setThumbnailBig("http://docs.google.com/File?id=d5brrvd_1064htxmhbdd_b");
-
-        item.getPictureIds().add(ipId);
-
-        return item;
     }
 }

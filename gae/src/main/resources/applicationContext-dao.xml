@@ -4,15 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
        default-lazy-init="true">
-    <!-- Category Dao -->
-    <bean id="categoryDao" class="com.nkhoang.gae.dao.impl.CategoryDaoImpl"
-          scope="prototype"></bean>
-    <!-- Item dao -->
-    <bean id="itemDao" class="com.nkhoang.gae.dao.impl.ItemDaoImpl"
-          scope="prototype"></bean>
     <!-- Item picture dao -->
-    <bean id="itemPictureDao" class="com.nkhoang.gae.dao.impl.ItemPictureDaoImpl"
-          scope="prototype"></bean>
     <!-- User dao -->
     <bean id="userDao" class="com.nkhoang.gae.dao.impl.UserDaoImpl"
           scope="prototype">
@@ -39,20 +31,6 @@
           scope="prototype">
     </bean>
 
-    <bean id="wordItemStatDao" class="com.nkhoang.gae.dao.impl.WordItemStatDaoImpl" scope="prototype"/>
-
-    <bean id="messageDao" class="com.nkhoang.gae.dao.impl.MessageDaoImpl"
-          scope="prototype">
-    </bean>
-
-    <bean id="goldPriceDao" class="com.nkhoang.gae.dao.impl.GoldPriceDaoImpl"
-          scope="prototype">
-    </bean>
-
-    <bean id="currencyDao" class="com.nkhoang.gae.dao.impl.CurrencyDaoImpl"
-          scope="prototype">
-    </bean>
-
     <!-- JPA entity manager -->
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
@@ -63,14 +41,8 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <!--
-        PostProcessors to perform exception translation on @Repository classes
-        (from native exceptions such as JPA PersistenceExceptions to Spring's
-        DataAccessException hierarchy).
-      -->
-    <bean
-            class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-    <bean
-            class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 </beans>
 

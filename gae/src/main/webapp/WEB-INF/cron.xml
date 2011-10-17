@@ -38,7 +38,7 @@
     <cron>
         <url>/cron/sessioncleanup</url>
         <description>Schedule remove session from DS.</description>
-        <schedule>every 2hrs</schedule>
+        <schedule>every 2 hours</schedule>
     </cron>
 
 

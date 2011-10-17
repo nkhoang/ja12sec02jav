@@ -56,6 +56,8 @@ public interface VocabularyService {
 
     public Word save(String lookupWord) throws IOException;
 
+    public Word lookupWord(String word) throws IOException;
+
 	public void saveWordToDatastore(Word word);
     /**
      * Update the word with something worth to be updated (pron or soundsource).

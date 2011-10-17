@@ -1,102 +1,186 @@
-<html >
-<head >
-	<script type="text/javascript" src="firebug-lite.js" ></script >
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" />
-	<script type="text/javascript" src="modernizr.js" />
-	<script type="text/javascript" >
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"/>
+    <script type="text/javascript" src="modernizr.js"></script>
+    <script type="text/javascript">
 
-		$(function() {
-			canvasApp();
-		});
-		function canvasSupport() {
-			// checking for canvas support using modernizr.
-			return Modernizr.canvas;
-		}
+        $(function() {
+            canvasApp();
+        });
+        function canvasSupport() {
+            // checking for canvas support using modernizr.
+            return true;
+        }
 
-		function canvasApp() {
-			console.trace("Starting app...");
-			if (!canvasSupport()) {
-				return;
-			}
-			var theCanvas = $('#canvas').get(0);
-			var context = theCanvas.getContext("2d");
-			drawScreen(context);
-		}
-		function drawScreen(context) {
-			// http://aud.kurs24.com/usd/?q=799
-			context.fillStyle = "rgb(69, 114, 167)";
-			context.strokeStyle = "rgb(103, 105, 108)";
-			// draw rect.
-			context.fillRect(0, 4, 100, 100);
-			// draw stroke rect
-			context.strokeRect(0, 4, 100, 100);
+        function canvasApp() {
+            console.trace("Starting app...");
+            if (!canvasSupport()) {
+                return;
+            }
+            var theCanvas = $('#canvas').get(0);
+            var context = theCanvas.getContext("2d");
+            // drawScreen(context);
+            //drawGradient2(context)
+            // drawBezier(context);
+            drawAnimation(context)
+        }
 
-			// draw rect with line width
-			context.lineWidth = 5;
-			context.strokeRect(110, 4, 100, 100);
+        function Shape(x, y) {
+            this.x = x;
+            this.y = y;
+        }
 
-			// draw text.
-			context.lineWidth = 1;
-			var text = "Hello, World!";
-			context.font = "Courier 60px serif";
-			context.fillText(text, 250, 100);
+        function drawAnimation(context) {
+            var shapes = new Array();
+            shapes.push(new Shape(10, 10));
+            shapes.push(new Shape(100, 100));
+            shapes.push(new Shape(150, 150));
+            animate();
+            function animate() {
+                context.clearRect(0, 0 , canvas.width, canvas.height);
+                for (i = 0 ;i < shapes.length;i++) {
+                    context.fillRect(shapes[i].x++, shapes[i].y, 10, 10);
+                }
+                setTimeout(animate, 33);
+            }
+        }
 
-			// draw line.
-			context.beginPath(); // Start the path
-			context.moveTo(0, 110); // Set the path origin
-			context.lineTo(300, 110); // Set the path destination
-			context.closePath(); // Close the path
-			context.stroke();
 
-			// draw circle.
-			context.beginPath();
-			context.arc(120,120, 50, 0, Math.PI, false);
-			context.closePath();
-			context.stroke();
-			context.fill();
+        function drawGradient(context) {
+            var gradient = context.createRadialGradient(300, 300, 10, 100, 100, 50);
+            gradient.addColorStop(0, "rgba(0, 0, 0, 0.5)");
+            gradient.addColorStop(1, "rgba(150, 150, 150, 0.5)");
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        function drawGradient2(context) {
+            var gradient = context.createRadialGradient(50, 50, 10, 50, 50, 150);
+            gradient.addColorStop(1, "rgb(0, 0, 0)");
+            gradient.addColorStop(0, "rgb(150, 150, 150)");
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, 100, 100);
+        }
 
-			// draw line with line width
-			context.lineWidth = 20;
-			context.beginPath(); // Start the path
-			context.moveTo(0, 190); // Set the path origin
-			context.lineTo(300, 190); // Set the path destination
-			context.closePath(); // Close the path
-			context.stroke();
+        function drawBezier(context) {
+            context.lineWidth = 5;
+            context.beginPath();
+            context.moveTo(50, 250);
+            context.quadraticCurveTo(250, 100, 450, 250);
+            context.stroke();
+        }
 
-			// erase canvas.
-			// context.clearRect(0, 0, canvas.width(), canvas.height());
 
-			// save state
-			// context.save();
-			// restore state.
-			// context.restore();
+        function drawScreen(context) {
+            // http://aud.kurs24.com/usd/?q=799
+            context.fillStyle = "rgb(69, 114, 167)";
+            context.strokeStyle = "rgb(103, 105, 108)";
+            // draw rect.
+            context.fillRect(0, 4, 100, 100);
+            // draw stroke rect
+            context.strokeRect(0, 4, 100, 100);
 
-			// translation.
-			context.save();
-			context.translate(50, 50);
-			context.scale(2,2);
-			context.fillRect(0, 220, 100, 100);
-			context.restore();
-			context.fillRect(0, 220, 100, 100);
+            // draw rect with line width
+            context.lineWidth = 5;
+            context.strokeRect(110, 4, 100, 100);
 
-			context.clearRect(0, 0 , canvas.width, canvas.height);
-			// set global alpha.
-			context.globalAlpha = 0.5;
-			context.rotate(0.7854); // Rotate 45 degrees (Math.PI/4)
-			context.fillRect(200, 150, 100, 100);
+            // draw text.
+            context.lineWidth = 1;
+            var text = "Hello, World!";
+            context.font = "Courier 60px serif";
+            context.fillText(text, 250, 100);
 
-			context.transform()
-		}
-	</script >
-</head >
-<body >
-<div >
-	Hello from Canvas!.
+            // draw line.
+            context.beginPath(); // Start the path
+            context.moveTo(0, 110); // Set the path origin
+            context.lineTo(300, 110); // Set the path destination
+            context.closePath(); // Close the path
+            context.stroke();
 
-	<canvas id="canvas" width="1000" height="1000" >
-		Your browser does not support HTML5 Canvas.
-	</canvas >
+            // draw circle.
+            context.beginPath();
+            context.arc(120, 120, 50, 0, Math.PI, false);
+            context.closePath();
+            context.stroke();
+            context.fill();
 
-</div >
-</body >
-</html >
+            // draw line with line width
+            context.lineWidth = 20;
+            context.beginPath(); // Start the path
+            context.moveTo(0, 190); // Set the path origin
+            context.lineTo(300, 190); // Set the path destination
+            context.closePath(); // Close the path
+            context.stroke();
+
+            // erase canvas.
+            // context.clearRect(0, 0, canvas.width(), canvas.height());
+
+            // save state
+            // context.save();
+            // restore state.
+            // context.restore();
+
+            // translation.
+            context.save();
+            context.translate(50, 50);
+            context.scale(2, 2);
+            context.fillRect(0, 220, 100, 100);
+            context.restore();
+            context.fillRect(0, 220, 100, 100);
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.save();
+            // set global alpha.
+            context.globalAlpha = 0.5;
+            context.rotate(0.7854); // Rotate 45 degrees (Math.PI/4)
+            context.fillRect(200, 150, 100, 100);
+
+            // reset everything
+            context.restore();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // using global composition.
+            context.fillStyle = "rgb(63, 169, 245)";
+            context.fillRect(50, 50, 100, 100);
+            context.globalCompositeOperation = "source-over";
+            // context.globalCompositeOperation = "destination-over";
+            // context.globalCompositeOperation = "source-atop";
+            // context.globalCompositeOperation = "source-in";
+            // context.globalCompositeOperation = "destination-in";
+            context.fillStyle = "rgb(250, 203, 102)";
+            context.fillRect(75, 75, 100, 100);
+            context.fillStyle = "rgb(255, 123, 172)";
+            context.fillRect(100, 100, 100, 100);
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // context.shadowBlur = 20;
+            context.shadowOffsetX = 10;
+            context.shadowOffsetY = 10;
+            context.shadowColor = "rgba(100, 100, 100, 0.5)";
+            context.fillRect(50, 50, 100, 100);
+
+            context.fillStyle = "rgb(0, 0, 0)";
+            context.shadowColor = "rgb(255, 0, 0)"; // Red
+            context.shadowBlur = 50;
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+            context.beginPath();
+            context.arc(400, 100, 50, 0, Math.PI * 2, false);
+            context.closePath();
+            context.fill();
+
+
+        }
+    </script>
+</head>
+<body>
+<div>
+    Hello from Canvas!.
+
+    <canvas id="canvas" width="1000" height="1000">
+        Your browser does not support HTML5 Canvas.
+    </canvas>
+
+</div>
+</body>
+</html>

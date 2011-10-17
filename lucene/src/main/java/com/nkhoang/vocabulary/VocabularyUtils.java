@@ -20,6 +20,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,24 +162,21 @@ public class VocabularyUtils {
      */
     public static Word lookupWord(String word) {
         Word w = null;
-        HttpClient client = new HttpClient();
-        String searchUrl = "http://dictionary-misschara.appspot.com/services/vocabulary/search/";
-        if (StringUtils.isNotBlank(word)) {
-            searchUrl += word;
-            GetMethod get = new GetMethod(searchUrl);
+        try {
+            URL url = new URL("http://dictionary-misschara.appspot.com/services/vocabulary/search/" + word);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            InputStream is = connection.getInputStream();
 
-            try {
-                client.executeMethod(get);
-                InputStream is = get.getResponseBodyAsStream();
-                if (is != null) {
-                    w = (Word) getJAXBContext().createUnmarshaller().unmarshal(is);
-                }
-
-            } catch (IOException ioex) {
-                LOG.error("Could not communicate with server to lookup word.");
-            } catch (JAXBException jaxbe) {
-                LOG.error("Could not convert received stream to entity.", jaxbe);
+            if (is != null) {
+                w = (Word) getJAXBContext().createUnmarshaller().unmarshal(is);
             }
+        } catch (MalformedURLException mfue) {
+            LOG.error("The lookup word using RESTful services is provided with incorrect URL.", mfue);
+        } catch (IOException ioe) {
+            LOG.error("Could not communicate with the server.", ioe);
+        } catch (JAXBException jaxbe) {
+            LOG.error("Could not convert received stream to entity.", jaxbe);
         }
         return w;
     }

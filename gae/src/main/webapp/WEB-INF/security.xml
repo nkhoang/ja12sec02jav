@@ -7,20 +7,20 @@
     <http create-session="always" >
         <anonymous/>
         <!-- Will be main page -->
-        <intercept-url pattern="/index.html" filters="none"/>
+        <intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Handle login -->
-        <intercept-url pattern="/user/login.html*" filters="none"/>
+        <intercept-url pattern="/user/login.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- for AJAX login -->
-        <intercept-url pattern="/user/authenticate.html*" filters="none"/>
+        <intercept-url pattern="/user/authenticate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- for user panel -->
-        <intercept-url pattern="/user/userPanel.html*" filters="none"/>
+        <intercept-url pattern="/user/userPanel.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Just a reference for access role reference -->
         <intercept-url pattern="/user/admin" access="ROLE_ADMIN"/>
         <!-- jax-rs interface -->
-        <intercept-url pattern="/services/**" filters="none"/>
+        <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Vocabulary -->
-        <intercept-url pattern="/vocabulary/**" filters="none"/>
-        <intercept-url pattern="/sessioncleanup/**" filters="none"/>
+        <intercept-url pattern="/vocabulary/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/sessioncleanup/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
 

@@ -36,34 +36,12 @@
         <property name="passwordEncoder" ref="passwordEncoder"/>
         <property name="userDao" ref="userDao"/>
     </bean>
-    <!-- Currency service -->
-    <bean id="currencyService" class="com.nkhoang.gae.service.impl.CurrencyServiceImpl" scope="prototype">
-    </bean>
-
-    <bean id="backupService" class="com.nkhoang.gae.service.impl.BackupServiceImpl" scope="prototype">
-        <property name="username" value="${google.username}"/>
-        <property name="password" value="${google.password}"/>
-        <property name="defaultFolder" value="${google.defaultFolder}"/>
-        <property name="defaultDocument" value="${google.defaultDocument}"/>
-    </bean>
 
     <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="prototype">
         <property name="username" value="${google.username}"/>
         <property name="password" value="${google.password}"/>
     </bean>
 
-    <!-- Gold Service -->
-    <bean name="goldService" class="com.nkhoang.gae.manager.GoldManager" scope="prototype">
-        <property name="goldPriceDao" ref="goldPriceDao"/>
-        <property name="currencyDao" ref="currencyDao"/>
-    </bean>
-    <!-- Item Service -->
-    <bean name="itemService" class="com.nkhoang.gae.manager.ItemManager"
-          scope="prototype">
-        <property name="itemDao" ref="itemDao"/>
-        <property name="itemPictureDao" ref="itemPictureDao"/>
-        <property name="categoryDao" ref="categoryDao"/>
-    </bean>
     <!-- Salt generator -->
     <bean id="passwordSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
         <property name="salt" value="${jasypt.digest.salt}"/>

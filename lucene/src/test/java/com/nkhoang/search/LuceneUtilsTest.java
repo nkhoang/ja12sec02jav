@@ -185,8 +185,9 @@ public class LuceneUtilsTest {
 		// LOG.info("Total Docs: " + LuceneUtils.getTotalDocs());
 		Word w = VocabularyUtils.lookupWord("oblational");
 
-		LuceneUtils.writeWordToIndex(w);
-		LuceneUtils.closeLuceneWriter();
+        LOG.info(w.getDescription());
+		// LuceneUtils.writeWordToIndex(w);
+		// LuceneUtils.closeLuceneWriter();
 	}
 
 
@@ -408,7 +409,7 @@ public class LuceneUtilsTest {
 
 	@Test
 	public void testLuceneSearch() throws Exception {
-		Query query = LuceneUtils.buildPharseQuery("vui nhộn");
+		Query query = LuceneUtils.buildPharseQuery("cà ");
 		List<Document> documents = LuceneUtils.performSearch(query);
 		for (Document doc : documents) {
 			Word w = VocabularyUtils.lookupWordById(doc.get(LuceneSearchFields.ID));

@@ -6,13 +6,9 @@ import com.google.gdata.client.docs.DocsService;
 import com.google.gdata.client.spreadsheet.CellQuery;
 import com.google.gdata.data.spreadsheet.CellEntry;
 import com.google.gdata.data.spreadsheet.CellFeed;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.nkhoang.gae.dao.MessageDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.Meaning;
-import com.nkhoang.gae.model.Message;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
@@ -53,8 +49,6 @@ public class VocabularyAction {
 	@Autowired
 	private VocabularyService      vocabularyService;
 	@Autowired
-	private MessageDao             messageDao;
-	@Autowired
 	private UserManager            userService;
 
 	@Value("${google.username}")
@@ -79,22 +73,6 @@ public class VocabularyAction {
 		return "vocabulary/manager";
 	}
 
-	@RequestMapping(value = "/" + ViewConstant.VOCABULARY_RENDER_MESSAGE_REQUEST, method = RequestMethod.GET)
-	public ModelAndView renderVocabularyMessages(
-		@RequestParam("interval") int interval) {
-		List<Message> messages = messageDao.getLatestMessages(Message.VOCABULARY_CATEGORY, interval);
-
-		ModelAndView mav = new ModelAndView();
-		mav.setView(new JSONView());
-
-		List<String> attrs = new ArrayList<String>();
-		attrs.addAll(Arrays.asList(Message.SKIP_FIELDS));
-		mav.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
-
-		mav.addObject("data", messages);
-
-		return mav;
-	}
 
 
 	@RequestMapping(value = "/" + "vocabularyBuilder", method = RequestMethod.GET)
@@ -108,9 +86,6 @@ public class VocabularyAction {
 
 
 
-	private void postMessage(String s) {
-		messageDao.save(new Message(Message.VOCABULARY_CATEGORY, s));
-	}
 
 	//http://localhost:7070/vocabulary/updateViaGD.html?spreadsheetName=wordlist&worksheetName=wordlist&row=1&col=2&size=10
 
@@ -556,11 +531,4 @@ public class VocabularyAction {
 		_password = password;
 	}
 
-	public MessageDao getMessageDao() {
-		return messageDao;
-	}
-
-	public void setMessageDao(MessageDao messageDao) {
-		this.messageDao = messageDao;
-	}
 }

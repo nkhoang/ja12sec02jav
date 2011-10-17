@@ -6,17 +6,11 @@
 
     <persistence-unit name="pum">
         <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
-        <class>com.nkhoang.gae.model.Item</class>
-        <class>com.nkhoang.gae.model.ItemPicture</class>
         <class>com.nkhoang.gae.model.User</class>
         <class>com.nkhoang.gae.model.Role</class>
         <class>com.nkhoang.gae.model.Meaning</class>
-        <class>com.nkhoang.gae.model.Category</class>
         <class>com.nkhoang.gae.model.Word</class>
         <class>com.nkhoang.gae.model.WordItem</class>
-        <class>com.nkhoang.gae.model.GoldPrice</class>
-        <class>com.nkhoang.gae.model.Currency</class>
-        <class>com.nkhoang.gae.model.WordItemStat</class>
         <class>com.nkhoang.gae.model.WordTag</class>
         <class>com.nkhoang.gae.model.UserTag</class>
         <class>com.nkhoang.gae.model.UserWord</class>

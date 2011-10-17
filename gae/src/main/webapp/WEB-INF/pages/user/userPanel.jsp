@@ -22,6 +22,7 @@
         top: 20px;
         border: 1px solid black;
         padding: 12px;
+        overflow: auto;
     }
 
     #user-words, #vietnamese-search {
@@ -36,6 +37,7 @@
         color: #6f6f6f;
         height: 201px;
         width: 160px;
+        overflow: auto;
     }
 
     #vietnamese-search .words-container {

@@ -4,9 +4,7 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.gdata.client.docs.DocsService;
-import com.nkhoang.gae.dao.MessageDao;
 import com.nkhoang.gae.dao.WordItemDao;
-import com.nkhoang.gae.dao.WordItemStatDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.Meaning;
@@ -57,11 +55,7 @@ public class VocaAction {
 	@Autowired
 	private VocabularyService      vocabularyService;
 	@Autowired
-	private MessageDao             messageDao;
-	@Autowired
 	private WordItemDao            wordItemDao;
-	@Autowired
-	private WordItemStatDao        wordItemStatDao;
 
 	@Autowired
 	private UserManager userService;
@@ -577,14 +571,6 @@ public class VocaAction {
 		this.spreadsheetService = spreadsheetService;
 	}
 
-	public MessageDao getMessageDao() {
-		return messageDao;
-	}
-
-	public void setMessageDao(MessageDao messageDao) {
-		this.messageDao = messageDao;
-	}
-
 	public WordItemDao getWordItemDao() {
 		return wordItemDao;
 	}
@@ -594,13 +580,7 @@ public class VocaAction {
 	}
 
 
-	public WordItemStatDao getWordItemStatDao() {
-		return wordItemStatDao;
-	}
 
-	public void setWordItemStatDao(WordItemStatDao wordItemStatDao) {
-		this.wordItemStatDao = wordItemStatDao;
-	}
 }
 
 
