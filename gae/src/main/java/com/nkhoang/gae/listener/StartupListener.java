@@ -1,12 +1,18 @@
 package com.nkhoang.gae.listener;
 
+import com.nkhoang.gae.manager.UserManager;
+import com.nkhoang.gae.model.User;
+import org.jasypt.spring.security3.PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p/>
@@ -23,58 +29,58 @@ import java.util.Calendar;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class StartupListener implements ServletContextListener {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StartupListener.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StartupListener.class);
 
-    @SuppressWarnings({"unchecked"})
-    public void contextInitialized(ServletContextEvent event) {
-        LOGGER.debug("Initializing context...");
+	@SuppressWarnings({"unchecked"})
+	public void contextInitialized(ServletContextEvent event) {
+		LOGGER.debug("Initializing context...");
 
-        ServletContext context = event.getServletContext();
+		ServletContext context = event.getServletContext();
 
-        setupContext(context);
-    }
+		setupContext(context);
+	}
 
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+	public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
-    }
+	}
 
-    /**
-     * This method uses the LookupManager to lookup available roles from the
-     * data layer.
-     *
-     * @param context The servlet context
-     */
-    public static void setupContext(ServletContext context) {
-      /*   LOGGER.debug("Check default user ...");
-       ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context)
+	/**
+	 * This method uses the LookupManager to lookup available roles from the
+	 * data layer.
+	 *
+	 * @param context The servlet context
+	 */
+	public static void setupContext(ServletContext context) {
+		/*LOGGER.debug("Check default user ...");
+		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
-        UserManager userService = (UserManager) ctx.getBean("userManager");
-        PasswordEncoder passwordEncoder = (PasswordEncoder) ctx.getBean("passwordEncoder");
+		UserManager userService = (UserManager) ctx.getBean("userManager");
+		PasswordEncoder passwordEncoder = (PasswordEncoder) ctx.getBean("passwordEncoder");
 
-        userService.clearAll();
+		userService.clearAll();
 
-        List<User> users = userService.listAll();
-        if (users != null && users.size() > 0) {
-            LOGGER.debug("Default users existed");
-        } else {
-            LOGGER.debug("Creating default users...");
-            User admin = new User();
-            admin.setEnabled(true);
-            admin.setUsername("admin");
-            admin.setFirstName("Hoang");
-            admin.setLastName("Nguyen");
-            List<String> roles = new ArrayList<String> (0);
-            roles.add("ROLE_ADMIN");
-            roles.add("ROLE_USER");
-            // set roles
-            admin.setRoleNames(roles);
-            admin.setPassword(passwordEncoder.encodePassword("admin", null));
+		List<User> users = userService.listAll();
+		if (users != null && users.size() > 0) {
+			LOGGER.debug("Default users existed");
+		} else {
+			LOGGER.debug("Creating default users...");
+			User admin = new User();
+			admin.setEnabled(true);
+			admin.setUsername("admin");
+			admin.setFirstName("Hoang");
+			admin.setLastName("Nguyen");
+			List<String> roles = new ArrayList<String>(0);
+			roles.add("ROLE_ADMIN");
+			roles.add("ROLE_USER");
+			// set roles
+			admin.setRoleNames(roles);
+			admin.setPassword(passwordEncoder.encodePassword("admin", null));
 
-            userService.save(admin);
+			userService.save(admin);
 
-            if (admin.getId() != null) {
-                LOGGER.debug("Saving default users [ok]");
-            }
-        }   */
-    }
+			if (admin.getId() != null) {
+				LOGGER.debug("Saving default users [ok]");
+			}
+		}*/
+	}
 }

@@ -6,8 +6,6 @@ import com.nkhoang.gae.dao.WordLuceneDao;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.model.WordLucene;
 import com.nkhoang.gae.service.VocabularyService;
-import com.nkhoang.search.LuceneUtils;
-import com.nkhoang.vocabulary.VocabularyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,6 @@ import javax.ws.rs.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +26,6 @@ public class VocabularyRESTServiceImpl {
 	private VocabularyService vocabularyService;
 	private VocabularyDao     vocabularyDao;
 	private WordLuceneDao     wordLuceneDao;
-
 
     @GET
 	@Produces("application/xml")

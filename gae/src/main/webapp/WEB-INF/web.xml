@@ -124,7 +124,7 @@
         <url-pattern>/cron/hothandler</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>vocabulary/index.html</welcome-file>
     </welcome-file-list>
     <!-- Spring -->
     <listener>
