@@ -307,7 +307,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         if (source == null) {
             source = checkWordExistence(
                     LONGMAN_DICTIONARY_URL,
-                    w.getDescription().toLowerCase() + "_" + i + "?q=" + w.getDescription().toLowerCase(),
+                    w.getDescription().toLowerCase() + "_" + i,
                     LONGMAN_DIC_CONTENT_CLASS,
                     DICTIONARY_TYPE.CLASS);
         }
@@ -387,7 +387,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             }
             source = checkWordExistence(
                     LONGMAN_DICTIONARY_URL,
-                    w.getDescription().toLowerCase() + "_" + ++i + "?q=" + w.getDescription().toLowerCase(),
+                    w.getDescription().toLowerCase() + "_" + ++i,
                     LONGMAN_DIC_CONTENT_CLASS,
                     DICTIONARY_TYPE.CLASS);
         }
@@ -435,7 +435,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             if (source == null) {
                 // check it again
                 source = checkWordExistence(
-                        CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase() + "_" + i, CAMBRIDGE_DICT_CONTENT_CLASS,
+                        CAMBRIDGE_DICT_URL, w.getDescription().toLowerCase() + "_" + i + "?q=" + w.getDescription().toLowerCase(), CAMBRIDGE_DICT_CONTENT_CLASS,
                         DICTIONARY_TYPE.CLASS);
             }
             while (source != null) {
