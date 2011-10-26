@@ -22,25 +22,28 @@ import java.util.*;
 @XmlRootElement
 public class Word {
 
-    // is used for detecting vietnamese kind of 
+    // used for Vietnamese language.
     public static final byte[] NOUN_BYTES = {100, 97, 110, 104, 32, 116, -31, -69, -85};
     public static final byte[] VERB_IN = {110, -31, -69, -103, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
     public static final byte[] VERB_TR = {110, 103, 111, -31, -70, -95, 105, 32, -60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
     public static final byte[] VERB_BYTES = {-60, -111, -31, -69, -103, 110, 103, 32, 116, -31, -69, -85};
     public static final byte[] VERB_ADJ = {116, -61, -83, 110, 104, 32, 116, -31, -69, -85};
     public static final byte[] VERB_ADV = {112, 104, -61, -77, 32, 116, -31, -69, -85};
-    public static final String[] SKIP_FIELDS = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp", "meanings"};
+
     public static String WORD_KIND_NOUN = "";
     public static String WORD_KIND_VERB_IN = "";
     public static String WORD_KIND_VERB_TR = "";
     public static String WORD_KIND_ADJ = "";
     public static String WORD_KIND_VERB = "";
+	public static String WORD_KIND_ADV = "";
     public static final String WORD_KIND_NOUN_EN = "noun";
     public static final String WORD_KIND_VERB_EN = "verb";
     public static final String WORD_KIND_ADJ_EN = "adjective";
     public static final String WORD_KIND_ADV_EN = "adverb";
     public static String[] WORD_KINDS = {};
-    public static String WORD_KIND_ADV = "";
+
+	// skipped fields.
+	public static final String[] SKIP_FIELDS = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp", "meanings"};
 
     // initialize block.
     {
@@ -73,6 +76,9 @@ public class Word {
     private List<Long> meaningIds = new ArrayList<Long>(0);
     @Basic
     private String description;
+	@Basic
+	@XmlTransient
+	private List<Long> phraseIds = new ArrayList<Long>(0);
 
 
     @Transient
@@ -210,5 +216,13 @@ public class Word {
     public void setMeanings(List<Meaning> meanings) {
         this.meanings = meanings;
     }
+
+	public List<Long> getPhraseIds() {
+		return phraseIds;
+	}
+
+	public void setPhraseIds(List<Long> phraseIds) {
+		this.phraseIds = phraseIds;
+	}
 }
 

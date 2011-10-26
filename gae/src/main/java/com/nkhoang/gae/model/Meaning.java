@@ -32,6 +32,11 @@ public class Meaning {
     private Long id;
     @Basic
     private String content;
+	// based on oxford dictionary.
+	@Basic
+	private String grammarGroup;
+	@Basic
+	private String languageGroup;
     @Basic
     private Long kindId;
     @Basic
@@ -39,6 +44,7 @@ public class Meaning {
     private String kind;
     @Basic
     private String type;
+	// skip datastore field.
     public static final String SKIP_FIELDS[] = {"jdoDetachedState"};
 
     public Meaning(String content, Long kindId) {
@@ -46,6 +52,7 @@ public class Meaning {
         this.kindId = kindId;
     }
 
+	// no default constructor.
     public Meaning() {
 
     }

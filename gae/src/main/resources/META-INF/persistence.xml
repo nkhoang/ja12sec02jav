@@ -10,6 +10,8 @@
         <class>com.nkhoang.gae.model.Role</class>
         <class>com.nkhoang.gae.model.Meaning</class>
         <class>com.nkhoang.gae.model.Word</class>
+        <class>com.nkhoang.gae.model.Sense</class>
+        <class>com.nkhoang.gae.model.Phrase</class>
         <class>com.nkhoang.gae.model.WordItem</class>
         <class>com.nkhoang.gae.model.WordTag</class>
         <class>com.nkhoang.gae.model.UserTag</class>
