@@ -1,5 +1,7 @@
 package com.nkhoang.gae.model;
 
+import com.google.gdata.data.dublincore.Title;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,10 @@ public class Phrase {
 	@Basic
 	private String description;
 	@Basic
-	private List<Long> subSenses = new ArrayList<Long>();
+	private List<Long> senseIds = new ArrayList<Long>(0);
+	@Transient
+	private List<Sense> senseList = new ArrayList<Sense>(0);
+
 
     public Long getId() {
         return id;
@@ -31,11 +36,19 @@ public class Phrase {
         this.description = description;
     }
 
-    public List<Long> getSubSenses() {
-        return subSenses;
-    }
+	public List<Long> getSenseIds() {
+		return senseIds;
+	}
 
-    public void setSubSenses(List<Long> subSenses) {
-        this.subSenses = subSenses;
-    }
+	public void setSenseIds(List<Long> senseIds) {
+		this.senseIds = senseIds;
+	}
+
+	public List<Sense> getSenseList() {
+		return senseList;
+	}
+
+	public void setSenseList(List<Sense> senseList) {
+		this.senseList = senseList;
+	}
 }

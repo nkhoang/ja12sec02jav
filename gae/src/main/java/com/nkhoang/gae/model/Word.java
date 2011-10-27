@@ -80,11 +80,15 @@ public class Word {
     @Basic
     @XmlTransient
     private List<Long> phraseIds = new ArrayList<Long>(0);
-
+	@Transient
+	private List<Phrase> phraseList = new ArrayList<Phrase>(0);
 
     @Transient
     @XmlTransient
     private Map<Long, List<Sense>> meaningMap = new HashMap<Long, List<Sense>>(0);
+	@Transient
+	@XmlTransient
+	private Map<String, List<Phrase>> phraseMap = new HashMap<String, List<Phrase>>();
     @Transient
     private List<Sense> meanings = new ArrayList<Sense>();
     @Transient
@@ -106,6 +110,15 @@ public class Word {
             i++;
         }
     }
+
+	public void addPhrase(String phraseName, Phrase phrase) {
+		if (phraseMap.get(phraseName) == null ) {
+			phraseMap.put(phraseName, new ArrayList<Phrase>());
+		}
+
+		phraseMap.get(phraseName).add(phrase);
+		phraseList.add(phrase);
+	}
 
     /**
      * Add a new meaning identified by the meaning kind to the current
@@ -225,5 +238,13 @@ public class Word {
     public void setPhraseIds(List<Long> phraseIds) {
         this.phraseIds = phraseIds;
     }
+
+	public List<Phrase> getPhraseList() {
+		return phraseList;
+	}
+
+	public void setPhraseList(List<Phrase> phraseList) {
+		this.phraseList = phraseList;
+	}
 }
 

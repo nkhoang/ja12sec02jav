@@ -15,7 +15,7 @@ public class OxfordLookupServiceTest {
     private LookupService oxfordLookupService;
     @Test
     public void testLookup() {
-        Word w = oxfordLookupService.lookup("display");
+        Word w = oxfordLookupService.lookup("come");
         w.getDescription();
     }
 }

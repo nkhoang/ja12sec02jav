@@ -44,6 +44,8 @@ public class Meaning {
     @Basic
     private List<String> examples = new ArrayList<String>(0);
     private String kind;
+	@Basic
+	private String wordForm;
     @Basic
     private String type;
     // skip datastore field.
@@ -131,4 +133,12 @@ public class Meaning {
     public void setLanguageGroup(String languageGroup) {
         this.languageGroup = languageGroup;
     }
+
+	public String getWordForm() {
+		return wordForm;
+	}
+
+	public void setWordForm(String wordForm) {
+		this.wordForm = wordForm;
+	}
 }
