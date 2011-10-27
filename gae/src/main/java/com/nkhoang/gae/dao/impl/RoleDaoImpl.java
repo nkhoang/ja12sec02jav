@@ -4,52 +4,13 @@ import com.nkhoang.gae.dao.RoleDao;
 import com.nkhoang.gae.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Query;
-import java.util.List;
-
 @Transactional
-public class RoleDaoImpl extends GeneralDaoImpl<Role, Long> implements RoleDao {
+public class RoleDaoImpl extends BaseDaoImpl<Role, Long> implements RoleDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleDaoImpl.class);
 
-    public Role get(Long id) {
-        LOGGER.debug("Get role ID: " + id);
-        Query query = entityManager.createQuery("Select from " + Role.class.getName() + " t where t.id=:roleID");
-        query.setParameter("roleID", id);
-
-        Role role = (Role) query.getSingleResult();
-        if (role != null) {
-            return role;
-        }
-
-        return null;
+    public String getClassName() {
+        return Role.class.getName();
     }
-
-    public List<Role> getAll() {
-        List<Role> result = null;
-        try {
-            Query query = getEntityManager().createQuery("Select from " + Role.class.getName());
-            result = query.getResultList();
-        } catch (Exception ex) {
-            LOGGER.error("Error", ex);
-        }
-        return result;
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public boolean delete(Long id) {
-        boolean result = false;
-        try {
-            Query query = entityManager.createQuery("Delete from " + Role.class.getName() + " i where i.id=" + id);
-            query.executeUpdate();
-            entityManager.flush();
-            result = true;
-        } catch (Exception e) {
-            LOGGER.error("Error", e);
-        }
-        return result;
-    }
-
 }

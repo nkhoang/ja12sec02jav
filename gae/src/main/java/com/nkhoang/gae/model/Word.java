@@ -35,15 +35,17 @@ public class Word {
     public static String WORD_KIND_VERB_TR = "";
     public static String WORD_KIND_ADJ = "";
     public static String WORD_KIND_VERB = "";
-	public static String WORD_KIND_ADV = "";
+    public static String WORD_KIND_ADV = "";
     public static final String WORD_KIND_NOUN_EN = "noun";
     public static final String WORD_KIND_VERB_EN = "verb";
     public static final String WORD_KIND_ADJ_EN = "adjective";
     public static final String WORD_KIND_ADV_EN = "adverb";
+    public static final String WORD_KIND_EXCLAIM_EN = "exclamation";
+    public static final String WORD_KIND_PROPOSITION_EN = "preposition";
     public static String[] WORD_KINDS = {};
 
-	// skipped fields.
-	public static final String[] SKIP_FIELDS = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp", "meanings"};
+    // skipped fields.
+    public static final String[] SKIP_FIELDS = {"jdoDetachedState", "kindIdMap", "meaningIds", "timeStamp", "meanings"};
 
     // initialize block.
     {
@@ -56,9 +58,8 @@ public class Word {
             WORD_KIND_VERB = new String(VERB_BYTES, "UTF-8");
 
             WORD_KINDS = new String[]{WORD_KIND_VERB, WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
-                    WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN};
-
-
+                    WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN, WORD_KIND_EXCLAIM_EN,
+                    WORD_KIND_PROPOSITION_EN};
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,16 +77,16 @@ public class Word {
     private List<Long> meaningIds = new ArrayList<Long>(0);
     @Basic
     private String description;
-	@Basic
-	@XmlTransient
-	private List<Long> phraseIds = new ArrayList<Long>(0);
+    @Basic
+    @XmlTransient
+    private List<Long> phraseIds = new ArrayList<Long>(0);
 
 
     @Transient
     @XmlTransient
-    private Map<Long, List<Meaning>> meaningMap = new HashMap<Long, List<Meaning>>(0);
+    private Map<Long, List<Sense>> meaningMap = new HashMap<Long, List<Sense>>(0);
     @Transient
-    private List<Meaning> meanings = new ArrayList<Meaning>();
+    private List<Sense> meanings = new ArrayList<Sense>();
     @Transient
     @XmlTransient
     private List<Long> kindIdList = new ArrayList();
@@ -112,12 +113,12 @@ public class Word {
      * @param kind    the meaning kind.
      * @param meaning the new meaning.
      */
-    public void addMeaning(Long kind, Meaning meaning) {
+    public void addMeaning(Long kind, Sense meaning) {
         // add to the meaning list.
         meanings.add(meaning);
-        List<Meaning> meaningList = meaningMap.get(kind);
+        List<Sense> meaningList = meaningMap.get(kind);
         if (meaningList == null) {
-            meaningList = new ArrayList<Meaning>(0);
+            meaningList = new ArrayList<Sense>(0);
             meaningMap.put(kind, meaningList);
             kindIdList.add(kind);
         }
@@ -140,11 +141,11 @@ public class Word {
      * @param kind the new word kind.
      */
     public void addKind(Long kind) {
-        meaningMap.put(kind, new ArrayList<Meaning>(0));
+        meaningMap.put(kind, new ArrayList<Sense>(0));
         kindIdList.add(kind);
     }
 
-    public List<Meaning> getMeaning(Long kind) {
+    public List<Sense> getMeaning(Long kind) {
         return meaningMap.get(kind);
     }
 
@@ -173,7 +174,7 @@ public class Word {
         return kindIdMap;
     }
 
-    public Map<Long, List<Meaning>> getMeaningMap() {
+    public Map<Long, List<Sense>> getMeaningMap() {
         return meaningMap;
     }
 
@@ -209,20 +210,20 @@ public class Word {
         this.timeStamp = timeStamp;
     }
 
-    public List<Meaning> getMeanings() {
+    public List<Sense> getMeanings() {
         return meanings;
     }
 
-    public void setMeanings(List<Meaning> meanings) {
+    public void setMeanings(List<Sense> meanings) {
         this.meanings = meanings;
     }
 
-	public List<Long> getPhraseIds() {
-		return phraseIds;
-	}
+    public List<Long> getPhraseIds() {
+        return phraseIds;
+    }
 
-	public void setPhraseIds(List<Long> phraseIds) {
-		this.phraseIds = phraseIds;
-	}
+    public void setPhraseIds(List<Long> phraseIds) {
+        this.phraseIds = phraseIds;
+    }
 }
 

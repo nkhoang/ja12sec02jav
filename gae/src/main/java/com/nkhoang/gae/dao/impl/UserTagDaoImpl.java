@@ -4,14 +4,20 @@ import com.nkhoang.gae.dao.UserTagDao;
 import com.nkhoang.gae.model.UserTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements UserTagDao {
+@Transactional
+public class UserTagDaoImpl extends BaseDaoImpl<UserTag, Long> implements UserTagDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserTagDaoImpl.class);
+
+    public String getClassName() {
+        return UserTag.class.getName();
+    }
 
     public boolean checkExist(Long userId, String tagName) {
         try {
@@ -55,35 +61,7 @@ public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements Use
         return null;
     }
 
-    public boolean delete(Long id) {
-        LOGGER.info("Delete userTag with [id:" + id + "].");
-        boolean result = false;
-        try {
-            Query query = entityManager.createQuery("Delete from " + UserTag.class.getName() + " i where i.id=" + id);
-            query.executeUpdate();
-            entityManager.flush();
-            result = true;
-        } catch (Exception e) {
-            LOGGER.info("Failed to delete userTag with [id:" + id + "].");
-            LOGGER.error("Error", e);
-        }
-        return result;
-    }
 
-    public UserTag get(Long id) {
-        try {
-            Query query = entityManager.createQuery("Select from " + UserTag.class.getName()
-                    + " t where t.id=:userTagId");
-            query.setParameter("userTagId", id);
-
-            UserTag userTag = (UserTag) query.getSingleResult();
-            if (userTag != null) {
-                return userTag;
-            }
-        } catch (NoResultException e) {
-        }
-        return null;
-    }
 
     public List<UserTag> getAll(List<Long> ids) {
         List<UserTag> userTags = new ArrayList<UserTag>();
@@ -111,15 +89,4 @@ public class UserTagDaoImpl extends GeneralDaoImpl<UserTag, Long> implements Use
         return null;
     }
 
-    public List<UserTag> getAll() {
-        LOGGER.info("Get all userTags ...");
-        List<UserTag> result = null;
-        try {
-            Query query = entityManager.createQuery("Select from " + UserTag.class.getName());
-            result = query.getResultList();
-
-        } catch (NoResultException ex) {
-        }
-        return result;
-    }
 }

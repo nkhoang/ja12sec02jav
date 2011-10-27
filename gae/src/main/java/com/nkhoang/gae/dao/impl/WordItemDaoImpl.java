@@ -10,77 +10,13 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Transactional
-public class WordItemDaoImpl extends GeneralDaoImpl<WordItem, Long> implements WordItemDao {
+public class WordItemDaoImpl extends BaseDaoImpl<WordItem, Long> implements WordItemDao {
     private static final Logger LOG = LoggerFactory.getLogger(WordItemDaoImpl.class);
 
-    /**
-     * Get a category.
-     *
-     * @return an object
-     *         or
-     *         null.
-     */
-    public WordItem get(Long id) {
-        LOG.debug("Get word item [id: " + id + "].");
-        try {
-            Query query = entityManager.createQuery("Select from " + WordItem.class.getName()
-                    + " t where t.id=:wordItemId");
-            query.setParameter("wordItemId", id);
 
-            WordItem wi = (WordItem) query.getSingleResult();
-            if (wi != null) {
-                return wi;
-            }
-        } catch (Exception e) {
-            LOG.info("Failed to get word item with [id: " + id + "].");
-            LOG.error("Error", e);
-        }
-
-        return null;
+    public String getClassName() {
+        return WordItem.class.getName();
     }
-
-    /**
-     * Get all categories.
-     *
-     * @return a list
-     *         or
-     *         null.
-     */
-    public List<WordItem> getAll() {
-        List<WordItem> result = null;
-        LOG.info("Get all word items from DB.");
-        try {
-            Query query = getEntityManager().createQuery("Select from " + WordItem.class.getName());
-            result = query.getResultList();
-        } catch (Exception ex) {
-            LOG.info("Failed to get all word items from DB.");
-            LOG.error("Error", ex);
-        }
-        return result;
-    }
-
-    /**
-     * Delete category with id.
-     *
-     * @return true
-     *         or
-     *         false.
-     */
-    public boolean delete(Long id) {
-        boolean result = false;
-        LOG.info("Delete word item with [id:" + id + "].");
-        try {
-            Query query = entityManager.createQuery("Delete from " + WordItem.class.getName() + " i where i.id=" + id);
-            query.executeUpdate();
-            entityManager.flush();
-            result = true;
-        } catch (Exception e) {
-            LOG.info("Failed to delete word item with [id:" + id + "].");
-            LOG.error("Error", e);
-        }
-        return result;
-    }
-
 
     /**
      * Get word items in range.
@@ -130,5 +66,4 @@ public class WordItemDaoImpl extends GeneralDaoImpl<WordItem, Long> implements W
         }
         return result;
     }
-
 }

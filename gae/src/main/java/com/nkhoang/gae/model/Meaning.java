@@ -32,11 +32,13 @@ public class Meaning {
     private Long id;
     @Basic
     private String content;
-	// based on oxford dictionary.
-	@Basic
-	private String grammarGroup;
-	@Basic
-	private String languageGroup;
+    // based on oxford dictionary.
+    @Basic
+    // for example: mass noun...
+    private String grammarGroup;
+    @Basic
+    // for example: informal, formal...
+    private String languageGroup;
     @Basic
     private Long kindId;
     @Basic
@@ -44,7 +46,7 @@ public class Meaning {
     private String kind;
     @Basic
     private String type;
-	// skip datastore field.
+    // skip datastore field.
     public static final String SKIP_FIELDS[] = {"jdoDetachedState"};
 
     public Meaning(String content, Long kindId) {
@@ -52,7 +54,7 @@ public class Meaning {
         this.kindId = kindId;
     }
 
-	// no default constructor.
+    // no default constructor.
     public Meaning() {
 
     }
@@ -112,5 +114,21 @@ public class Meaning {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getGrammarGroup() {
+        return grammarGroup;
+    }
+
+    public void setGrammarGroup(String grammarGroup) {
+        this.grammarGroup = grammarGroup;
+    }
+
+    public String getLanguageGroup() {
+        return languageGroup;
+    }
+
+    public void setLanguageGroup(String languageGroup) {
+        this.languageGroup = languageGroup;
     }
 }

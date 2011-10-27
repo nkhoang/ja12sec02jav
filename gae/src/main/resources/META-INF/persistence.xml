@@ -6,6 +6,7 @@
 
     <persistence-unit name="pum">
         <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
+        <class>com.nkhoang.gae.model.AppConfig</class>
         <class>com.nkhoang.gae.model.User</class>
         <class>com.nkhoang.gae.model.Role</class>
         <class>com.nkhoang.gae.model.Meaning</class>

@@ -171,7 +171,7 @@ public class VocabularyServiceImpl implements VocabularyService {
             List<Long> meaningIds = w.getMeaningIds();
             for (Long meaningId : meaningIds) {
                 Meaning meaning = _meaningDao.get(meaningId);
-                w.addMeaning(meaning.getKindId(), meaning);
+                //aa w.addMeaning(meaning.getKindId(), meaning);
             }
         }
         return w;
@@ -269,7 +269,9 @@ public class VocabularyServiceImpl implements VocabularyService {
         if (word != null) {
             // build list of meaning
             for (int i = 0; i < Word.WORD_KINDS.length; i++) {
-                List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
+                //aa List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
+                List<Meaning> meanings = new ArrayList<Meaning>(); // should remove.
+
                 if (CollectionUtils.isNotEmpty(meanings)) {
                     //LOG.info("found : " + meanings.size() + " meanings for this word");
                     for (Meaning meaning : meanings) {
@@ -357,7 +359,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     }
                     // check to make sure content is not blank.
                     if (StringUtils.isNotBlank(mainM.getContent())) {
-                        w.addMeaning(w.getKindidmap().get(kind), mainM);
+                         //aa w.addMeaning(w.getKindidmap().get(kind), mainM);
                     }
 
                     // process gram example. Another type of meaning.
@@ -368,7 +370,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                             mm.setType(GRAM_MEANING_TYPE);
                             // make sure content is not blank.
                             if (StringUtils.isNotEmpty(mm.getContent())) {
-                                w.addMeaning(w.getKindidmap().get(kind), mm);
+                                //aa w.addMeaning(w.getKindidmap().get(kind), mm);
                             }
                         }
                     }
@@ -379,7 +381,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                             Meaning mm = processSubExampleLongman(colloexa, "COLLO", w.getKindidmap().get(kind));
                             mm.setType(COLLO_MEANING_TYPE);
                             if (StringUtils.isNotEmpty(mm.getContent())) { // make sure content is not blank.
-                                w.addMeaning(w.getKindidmap().get(kind), mm);
+                                //aa w.addMeaning(w.getKindidmap().get(kind), mm);
                             }
                         }
                     }
@@ -643,7 +645,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                                 LOG.info(">>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>>>>>>>> Null for kind: " + kind);
                             }
                             if (meaning != null && StringUtils.isNotBlank(meaning.getContent()) && kindId != null) {
-                                aWord.addMeaning(kindId, meaning);
+                                //aa aWord.addMeaning(kindId, meaning);
                             }
                         }
                     }

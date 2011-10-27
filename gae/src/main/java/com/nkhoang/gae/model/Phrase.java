@@ -15,4 +15,27 @@ public class Phrase {
 	@Basic
 	private List<Long> subSenses = new ArrayList<Long>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Long> getSubSenses() {
+        return subSenses;
+    }
+
+    public void setSubSenses(List<Long> subSenses) {
+        this.subSenses = subSenses;
+    }
 }

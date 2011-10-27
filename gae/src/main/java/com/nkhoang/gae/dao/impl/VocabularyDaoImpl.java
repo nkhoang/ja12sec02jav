@@ -1,6 +1,5 @@
 package com.nkhoang.gae.dao.impl;
 
-import com.nkhoang.common.collections.CollectionUtils;
 import com.nkhoang.gae.dao.VocabularyDao;
 import com.nkhoang.gae.model.Word;
 import org.slf4j.Logger;
@@ -11,8 +10,12 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements VocabularyDao {
+public class VocabularyDaoImpl extends BaseDaoImpl<Word, Long> implements VocabularyDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
+
+    public String getClassName() {
+        return Word.class.getName();
+    }
 
     public List<Word> lookup(String word) {
         LOGGER.info("Looking up word : " + word);
@@ -29,37 +32,6 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         return results;
     }
 
-
-    public boolean delete(Long id) {
-        LOGGER.info("Delete word with ID: " + id);
-        boolean result = false;
-        try {
-            Query query = entityManager.createQuery("Delete from " + Word.class.getName() + " i where i.id=" + id);
-            query.executeUpdate();
-            entityManager.flush();
-
-            result = true;
-        } catch (Exception e) {
-            LOGGER.info("Failed to delete word with ID: " + id);
-            LOGGER.error("Error", e);
-        }
-        return result;
-    }
-
-    public Word get(Long id) {
-        LOGGER.info("Get word ID: " + id);
-        try {
-            Query query = entityManager.createQuery("Select from " + Word.class.getName() + " t where t.id=:wordID");
-            query.setParameter("wordID", id);
-
-            Word word = (Word) query.getSingleResult();
-            if (word != null) {
-                return word;
-            }
-        } catch (NoResultException e) {
-        }
-        return null;
-    }
 
     /**
      * get all word in range from {@code offset} to {@code offset + direction}
@@ -99,16 +71,4 @@ public class VocabularyDaoImpl extends GeneralDaoImpl<Word, Long> implements Voc
         }
         return result;
     }
-
-    public List<Word> getAll() {
-        LOGGER.info("Get all words ...");
-        List<Word> result = null;
-        try {
-            Query query = entityManager.createQuery("Select from " + Word.class.getName());
-            result = query.getResultList();
-        } catch (NoResultException ex) {
-        }
-        return result;
-    }
-
 }

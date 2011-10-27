@@ -11,24 +11,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, UserDetailsService {
+public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao, UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
-    public User get(Long id) {
-        LOGGER.debug("Get user ID: " + id);
-        Query query = entityManager.createQuery("Select from " + User.class.getName() + " t where t.id=:userID");
-        query.setParameter("userID", id);
-
-        User user = (User) query.getSingleResult();
-        if (user != null) {
-            return user;
-        }
-
-        return null;
+    public String getClassName() {
+        return User.class.getName();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -51,7 +41,6 @@ public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, 
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Query query = entityManager
                 .createQuery("select from " + User.class.getName() + " u where u.username=:username");
         query.setParameter("username", username.trim());
@@ -63,28 +52,4 @@ public class UserDaoImpl extends GeneralDaoImpl<User, Long> implements UserDao, 
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         }
     }
-
-    public List<User> getAll() {
-        Query query = getEntityManager().createQuery("Select from " + User.class.getName());
-        List<User> users = new ArrayList<User>(0);
-        List result = query.getResultList();
-        for (Object aResult : result) {
-            users.add((User) aResult);
-        }
-        return users;
-    }
-
-    public boolean delete(Long id) {
-        boolean result = false;
-        try {
-            Query query = entityManager.createQuery("Delete from " + User.class.getName() + " i where i.id=" + id);
-            query.executeUpdate();
-            entityManager.flush();
-            result = true;
-        } catch (Exception e) {
-            LOGGER.error("Error", e);
-        }
-        return result;
-    }
-
 }

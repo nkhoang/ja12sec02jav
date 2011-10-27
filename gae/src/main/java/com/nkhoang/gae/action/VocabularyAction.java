@@ -8,7 +8,6 @@ import com.google.gdata.data.spreadsheet.CellEntry;
 import com.google.gdata.data.spreadsheet.CellFeed;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
-import com.nkhoang.gae.model.Meaning;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.VocabularyService;
@@ -16,7 +15,6 @@ import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,6 @@ import org.springframework.web.servlet.View;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.url;
@@ -193,139 +190,6 @@ public class VocabularyAction {
 		}
 
 	}
-
-	/**
-	 * Contruct XML complied with iVocabulary XVOC format.
-	 *
-	 * @param allWords      list of words.
-	 * @param size          number of words contained in a Page.
-	 * @param startingIndex offset of the list.
-	 * @param requestSize   number of words will be processed.
-	 *
-	 * @return xml string.
-	 */
-
-	private String constructXMLBlockContent(List<Word> allWords, int size, int startingIndex, int requestSize) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-		formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-
-		Date currentDate = GregorianCalendar.getInstance().getTime();
-		try {
-			currentDate = formatter.parse("20/11/2010");
-			int incrementDay = 0;
-			if (startingIndex != 0) {
-				incrementDay = (startingIndex + requestSize) / size;
-			} else if (startingIndex == 0) {
-				incrementDay = requestSize / size;
-			}
-
-			currentDate = DateUtils.addDays(currentDate, incrementDay + 1);
-		}
-		catch (Exception e) {
-			LOG.info("Use current date.");
-
-		}
-
-		formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-		formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-
-
-		StringBuilder xmlBuilder = new StringBuilder();
-
-		xmlBuilder.append("<Chapter title='" + startingIndex + " - " + (requestSize + startingIndex) + "' >");
-		int counter = 1;
-		int dayCounter = -1;
-		for (Word w : allWords) {
-			if (counter == 1 || counter > size) {
-				counter = 1; // reset counter.
-				String dateStr = formatter.format(DateUtils.addDays(currentDate, dayCounter - 1));
-				dayCounter++;
-
-				xmlBuilder.append("<Page title='" + dateStr + "' >");
-			}
-
-			StringBuilder comment = new StringBuilder();
-			StringBuilder targetWords = new StringBuilder();
-
-			String pron = w.getPron() == null ? "" : w.getPron(); // append to comment. remove null
-
-			List<Meaning> lmn = w.getMeaning(w.getKindidmap().get("noun")); // meaning for noun.
-			if (lmn != null && lmn.size() > 0) {
-				Meaning m = lmn.get(0);
-
-				String content = m.getContent();
-
-				targetWords.append("(n) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (n) " + m.getExamples().get(0));
-				}
-			}
-
-			List<Meaning> lmv = w.getMeaning(w.getKindidmap().get("verb")); // meaning for verb.
-			if (lmv != null && lmv.size() > 0) {
-				Meaning m = lmv.get(0);
-
-				String content = m.getContent();
-
-				targetWords.append("(v) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (v) " + m.getExamples().get(0));
-				}
-
-			}
-
-			List<Meaning> lmadj = w.getMeaning(w.getKindidmap().get("adjective")); // meaning for adjective
-			if (lmadj != null && lmadj.size() > 0) {
-				Meaning m = lmadj.get(0);
-
-				String content = m.getContent();
-
-				targetWords.append("(adj) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (adj) " + m.getExamples().get(0));
-				}
-
-			}
-
-			List<Meaning> lmadv = w.getMeaning(w.getKindidmap().get("adverb")); // meaning for adv.
-			if (lmadv != null && lmadv.size() > 0) {
-				Meaning m = lmadv.get(0);
-
-				String content = m.getContent();
-
-				targetWords.append("(adv) " + content + "\n");
-				if (m.getExamples() != null && m.getExamples().size() > 0) {
-					comment.append(" (adv) " + m.getExamples().get(0));
-				}
-			}
-
-			if (StringUtils.isNotEmpty(comment.toString())) {
-				xmlBuilder.append(
-					"<Word sourceWord=\"" + w.getDescription() + " " + pron + "\" targetWord=\"" +
-					targetWords.toString() + "\">");
-				xmlBuilder.append("<Comment>" + comment.toString() + "</Comment>");
-				xmlBuilder.append("</Word>");
-			}
-
-			if (counter + (size * dayCounter) == allWords.size()) {
-				xmlBuilder.append("</Page>"); // append ending tag.
-			} else {
-
-				counter++;
-				if (counter > size) {
-					xmlBuilder.append("</Page>"); // append ending tag.
-				}
-			}
-
-		}
-
-		xmlBuilder.append("</Chapter>");
-
-		return xmlBuilder.toString();
-	}
-
-
-
 
 	/**
 	 * Populate word with meanings and examples

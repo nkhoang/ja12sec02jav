@@ -4,7 +4,6 @@ import com.nkhoang.gae.dao.UserWordDao;
 import com.nkhoang.gae.model.UserWord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
@@ -12,8 +11,12 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Transactional
-public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements UserWordDao {
+public class UserWordDaoImpl extends BaseDaoImpl<UserWord, Long> implements UserWordDao {
     private static final Logger LOG = LoggerFactory.getLogger(UserWordDaoImpl.class.getCanonicalName());
+
+    public String getClassName() {
+        return UserWord.class.getName();
+    }
 
     public List<UserWord> getWordFromUser(Long userId) {
         Query query = entityManager.createQuery("Select from " + UserWord.class.getName() + " t where t.wordId=:wordId");
@@ -23,20 +26,6 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
         return result;
     }
 
-    public UserWord get(Long id) {
-        try {
-            LOG.debug("Get userword ID: " + id);
-            Query query = entityManager.createQuery("Select from " + UserWord.class.getName() + " t where t.id=:userwordID");
-            query.setParameter("userwordID", id);
-
-            UserWord userWord = (UserWord) query.getSingleResult();
-            if (userWord != null) {
-                return userWord;
-            }
-        } catch (NoResultException e) {
-        }
-        return null;
-    }
 
     public boolean checkExist(Long userId, Long wordId) {
         try {
@@ -56,17 +45,6 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
     }
 
 
-    public List<UserWord> getAll() {
-        List<UserWord> result = null;
-        try {
-            Query query = getEntityManager().createQuery("Select from " + UserWord.class.getName());
-            result = query.getResultList();
-        } catch (NoResultException ex) {
-        }
-        return result;
-    }
-
-
     public List<UserWord> getRecentUserWords(Long startDate, Long endDate, int offset, Integer size) {
         LOG.info(String.format("Get user's recent words by date [%s-%s]..", startDate, endDate));
         List<UserWord> result = null;
@@ -80,20 +58,6 @@ public class UserWordDaoImpl extends GeneralDaoImpl<UserWord, Long> implements U
             }
             result = query.getResultList();
         } catch (NoResultException ex) {
-        }
-        return result;
-    }
-
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public boolean delete(Long id) {
-        boolean result = false;
-        try {
-            Query query = entityManager.createQuery("Delete from " + UserWord.class.getName() + " i where i.id=" + id);
-            query.executeUpdate();
-            entityManager.flush();
-            result = true;
-        } catch (Exception e) {
-            LOG.error("Error", e);
         }
         return result;
     }
