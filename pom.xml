@@ -359,7 +359,7 @@
 
         <!-- Spring -->
         <spring.version>3.0.6.RELEASE</spring.version>
-        <spring.security.version>3.0.6.RELEASE</spring.security.version>
+        <spring.security.version>3.0.7.RELEASE</spring.security.version>
 
 
 

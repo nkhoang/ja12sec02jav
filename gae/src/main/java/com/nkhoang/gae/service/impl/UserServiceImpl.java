@@ -29,16 +29,24 @@ public class UserServiceImpl implements UserService {
     private VocabularyDao vocabularyDao;
     @Autowired
     private UserWordDao userWordDao;
-	@Autowired
-	private DictionaryDao dictionaryDao;
+    @Autowired
+    private DictionaryDao dictionaryDao;
 
 
-	public Dictionary addNewDictionary(String dictName, String dictDescription) {
-		Dictionary dict = new Dictionary();
-		dict.setDescription(dictDescription);
-		dict.setName(dictName);
-		return dictionaryDao.save(dict);
-	}
+    public Dictionary addNewDictionary(String dictName, String dictDescription) {
+        // check dictName first.
+        Dictionary dict = dictionaryDao.getDictionaryByName(dictName);
+        if (dict == null) {
+            dict = new Dictionary();
+            dict.setDescription(dictDescription);
+            dict.setName(dictName);
+            dict = dictionaryDao.save(dict);
+        } else {
+            dict = null;
+        }
+
+        return dict;
+    }
 
 
     public List<String> getUserIdWordByDate(String date, int offset, Integer size) {
@@ -100,11 +108,11 @@ public class UserServiceImpl implements UserService {
         this.userWordDao = userWordDao;
     }
 
-	public DictionaryDao getDictionaryDao() {
-		return dictionaryDao;
-	}
+    public DictionaryDao getDictionaryDao() {
+        return dictionaryDao;
+    }
 
-	public void setDictionaryDao(DictionaryDao dictionaryDao) {
-		this.dictionaryDao = dictionaryDao;
-	}
+    public void setDictionaryDao(DictionaryDao dictionaryDao) {
+        this.dictionaryDao = dictionaryDao;
+    }
 }

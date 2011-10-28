@@ -1,49 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
               http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
-    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
-    <http create-session="always" >
+    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+    <beans:bean id="securityContextPersistenceFilter"
+                class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <beans:property name='securityContextRepository'>
+            <beans:bean class='org.springframework.security.web.context.HttpSessionSecurityContextRepository'>
+                <beans:property name='allowSessionCreation' value='true'/>
+            </beans:bean>
+        </beans:property>
+    </beans:bean>
+
+    <http create-session="always">
         <anonymous/>
-        <!-- Will be main page -->
+        <!-- main page -->
         <intercept-url pattern="/index.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- Handle login -->
+
         <intercept-url pattern="/user/login.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- for AJAX login -->
         <intercept-url pattern="/user/authenticate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- for user panel -->
+
         <intercept-url pattern="/user/userPanel.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- Just a reference for access role reference -->
-        <intercept-url pattern="/user/admin/**" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/user/dictionary/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/user/admin.html" access="ROLE_ADMIN"/>
+
+
         <!-- jax-rs interface -->
         <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- Vocabulary -->
         <intercept-url pattern="/vocabulary/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/sessioncleanup/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- Serve VN Gold price -->
-        <intercept-url pattern="/item/viewAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/chart/view.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/data/chartData.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/data/clearAllVNGoldPrice.html*"
-                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/data/clearAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/service/gold/goldVN.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/service/gold/goldVNData.html*"
-                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/service/gold/goldVNAll.html*"
-                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
-        <!-- Serve IN Gold price -->
-        <intercept-url pattern="/service/gold/goldIN.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <!-- Exchange rate -->
-        <intercept-url pattern="/service/gold/exchangeRate.html*"
-                       access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+
+        <!-- App -->
+        <intercept-url pattern="/sessioncleanup/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/remote_api*/*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-
-        <intercept-url pattern="/item/register.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/facebook/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 
         <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER"/>
 
@@ -61,4 +52,5 @@
     </authentication-manager>
     <!-- method security -->
     <global-method-security pre-post-annotations="enabled"/>
+
 </beans:beans>
