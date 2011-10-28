@@ -1,5 +1,6 @@
 package com.nkhoang.gae.service;
 
+import com.nkhoang.gae.model.Dictionary;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
 
@@ -20,4 +21,6 @@ public interface UserService {
 
 
     User getCurrentUser();
+
+	Dictionary addNewDictionary(String dictName, String dictDescription);
 }

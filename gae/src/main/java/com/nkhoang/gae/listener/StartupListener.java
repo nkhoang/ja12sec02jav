@@ -51,7 +51,7 @@ public class StartupListener implements ServletContextListener {
 	 * @param context The servlet context
 	 */
 	public static void setupContext(ServletContext context) {
-		/*LOGGER.debug("Check default user ...");
+		LOGGER.debug("Check default user ...");
 		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
 		UserManager userService = (UserManager) ctx.getBean("userManager");
@@ -81,6 +81,6 @@ public class StartupListener implements ServletContextListener {
 			if (admin.getId() != null) {
 				LOGGER.debug("Saving default users [ok]");
 			}
-		}*/
+		}
 	}
 }

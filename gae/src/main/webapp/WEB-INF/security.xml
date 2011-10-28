@@ -15,15 +15,13 @@
         <!-- for user panel -->
         <intercept-url pattern="/user/userPanel.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Just a reference for access role reference -->
-        <intercept-url pattern="/user/admin" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/user/admin/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/user/dictionary/**" access="ROLE_ADMIN"/>
         <!-- jax-rs interface -->
         <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- Vocabulary -->
         <intercept-url pattern="/vocabulary/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/sessioncleanup/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-
-
-
         <!-- Serve VN Gold price -->
         <intercept-url pattern="/item/viewAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/chart/view.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>

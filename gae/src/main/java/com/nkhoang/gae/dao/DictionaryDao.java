@@ -1,6 +1,7 @@
 package com.nkhoang.gae.dao;
 
-import java.util.Dictionary;
+
+import com.nkhoang.gae.model.Dictionary;
 
 public interface DictionaryDao extends BaseDao<Dictionary, Long> {
 }

@@ -1,7 +1,9 @@
 package com.nkhoang.gae.service.impl;
 
+import com.nkhoang.gae.dao.DictionaryDao;
 import com.nkhoang.gae.dao.UserWordDao;
 import com.nkhoang.gae.dao.VocabularyDao;
+import com.nkhoang.gae.model.Dictionary;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserWord;
 import com.nkhoang.gae.model.Word;
@@ -27,6 +29,16 @@ public class UserServiceImpl implements UserService {
     private VocabularyDao vocabularyDao;
     @Autowired
     private UserWordDao userWordDao;
+	@Autowired
+	private DictionaryDao dictionaryDao;
+
+
+	public Dictionary addNewDictionary(String dictName, String dictDescription) {
+		Dictionary dict = new Dictionary();
+		dict.setDescription(dictDescription);
+		dict.setName(dictName);
+		return dictionaryDao.save(dict);
+	}
 
 
     public List<String> getUserIdWordByDate(String date, int offset, Integer size) {
@@ -87,4 +99,12 @@ public class UserServiceImpl implements UserService {
     public void setUserWordDao(UserWordDao userWordDao) {
         this.userWordDao = userWordDao;
     }
+
+	public DictionaryDao getDictionaryDao() {
+		return dictionaryDao;
+	}
+
+	public void setDictionaryDao(DictionaryDao dictionaryDao) {
+		this.dictionaryDao = dictionaryDao;
+	}
 }

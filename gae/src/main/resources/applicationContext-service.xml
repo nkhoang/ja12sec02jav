@@ -32,6 +32,7 @@
     <bean id="userService" class="com.nkhoang.gae.service.impl.UserServiceImpl">
         <property name="userWordDao" ref="userWordDao"></property>
         <property name="vocabularyDao" ref="vocabularyDao"></property>
+        <property name="dictionaryDao"  ref="dictionaryDao"></property>
     </bean>
 
     <bean id="userManager" class="com.nkhoang.gae.manager.UserManager">
