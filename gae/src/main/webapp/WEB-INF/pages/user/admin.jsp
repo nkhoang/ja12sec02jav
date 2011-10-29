@@ -19,8 +19,35 @@
     <c:if test="${isUser}">
         <script type="text/javascript">
 
+            function listAllDicts() {
+                $.ajax({
+                    url : '<c:url value="/user/getAllDicts.html" />',
+                    dataType: 'json',
+                    type: 'POST',
+                    beforeSend: function() {
+                    },
+                    success: function(response) {
+                        if (response && response.data) {
+
+                            $content = $('#dict-table-view .content');
+                            $content.empty();
+                            if ($content) {
+                                for (i = 0; i < response.data.length; i++) {
+                                    var $tr = $('<tr></tr>');
+                                    var dict = response.data[i];
+                                    $tr.append($('<td></td>').html(dict.name));
+                                    $tr.append($('<td></td>').html(dict.description));
+                                    $content.append($tr);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
             function addNewDictionary(element) {
                 if ($(element).data('loading')) {
+                    showMessage({ title:'Dictionary', text: 'Working... please wait!!!'});
                     return false;
                 }
                 $.ajax({
@@ -40,6 +67,7 @@
                                 showMessage({ title:'Dictionary', text: response.data.error});
                             } else {
                                 showMessage({ title:'Dictionary', text: 'Added successfully!'});
+                                listAllDicts();
                             }
                         }
                     },
@@ -50,7 +78,6 @@
                     }
                 });
             }
-
         </script>
     </c:if>
 </head>
@@ -82,6 +109,18 @@
                     </tr>
                     </tbody>
                 </table>
+                <div>Dictionary View</div>
+                <div id="dict-table-view">
+                    <table cellpadding="4" cellspacing="0" border="1" >
+                        <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        </thead>
+                        <tbody class="content">
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
         </div>
         <%@ include file="/common/notify-template.jsp" %>

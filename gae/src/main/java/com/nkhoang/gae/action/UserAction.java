@@ -57,6 +57,25 @@ public class UserAction {
         return "user/admin";
     }
 
+
+    @RequestMapping(value="/getAllDicts", method = RequestMethod.POST)
+    public ModelAndView getAllDicts() {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
+
+        List<Dictionary> dicts = userService.getAllDictionaries();
+
+        jsonData.put("data", dicts);
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        List<String> attrs = new ArrayList<String>();
+        attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
+        modelAndView.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
+
+        return modelAndView;
+    }
+
     @RequestMapping( value = "/addDictionary", method = RequestMethod.POST)
     public ModelAndView addNewDictionary(
             @RequestParam(defaultValue = "") String dictName,

@@ -48,6 +48,10 @@ public class UserServiceImpl implements UserService {
         return dict;
     }
 
+    public List<Dictionary> getAllDictionaries() {
+        return dictionaryDao.getAll();
+    }
+
 
     public List<String> getUserIdWordByDate(String date, int offset, Integer size) {
         List<String> wordList = new ArrayList<String>();

@@ -11,6 +11,7 @@ public class Dictionary {
 	private String name;
 	@Basic
 	private String description;
+    public static final String[] SKIP_FIELDS = {"jdoDetachedState"};
 
 	public Long getId() {
 		return id;
