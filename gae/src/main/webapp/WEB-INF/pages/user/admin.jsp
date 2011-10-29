@@ -11,8 +11,14 @@
 <head>
     <title><fmt:message key="webapp.title"/></title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" rel="stylesheet"
+          type="text/css">
+
     <c:if test="${isUser}">
         <script type="text/javascript">
+
             function addNewDictionary(element) {
                 if ($(element).data('loading')) {
                     return false;
@@ -31,7 +37,9 @@
                     success: function(response) {
                         if (response.data) {
                             if (response.data.error) {
-                                alert(response.data.error);
+                                showMessage({ title:'Dictionary', text: response.data.error});
+                            } else {
+                                showMessage({ title:'Dictionary', text: 'Added successfully!'});
                             }
                         }
                     },
@@ -76,6 +84,7 @@
                 </table>
             </div>
         </div>
+        <%@ include file="/common/notify-template.jsp" %>
     </c:when>
     <c:otherwise>
         Are you misschara user ? If yes, you can <a href="#" onclick="openLoginDialog();">here</a>.
