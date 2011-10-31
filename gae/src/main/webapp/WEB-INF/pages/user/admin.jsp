@@ -311,6 +311,7 @@
             </div>
          </div>
          <div>
+
             <div>Register a new dictionary service:</div>
 
             <script type="text/javascript">
@@ -338,7 +339,7 @@
                   $("#appConfigGrid").kendoGrid({
                      dataSource : appConfigDataSource,
                      rowTemplate : kendo.template($("#appconfigTemplate").html()),
-                     height : 250,
+                     height : 200,
                      scrollable : {
                         // enable vertical scrolling.
                         virtual : false
@@ -377,9 +378,9 @@
                </tr>
                </tbody>
             </table>
+            <div class="grid-container">
             <%@ include file="/common/appconfig-template.jsp" %>
             AppConfig properties:
-            <div class="grid-container">
                <table id="appConfigGrid">
                   <thead>
                   <tr>
@@ -389,11 +390,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                     <td colspan="2"></td>
-                  </tr>
                   </tbody>
                </table>
+               <br />
+               <br />
             </div>
          </div>
       </div>
