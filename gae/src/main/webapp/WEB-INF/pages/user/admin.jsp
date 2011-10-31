@@ -12,9 +12,14 @@
     <title><fmt:message key="webapp.title"/></title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
+    <script src="http://cdn.kendostatic.com/2011.3.1007/js/kendo.all.min.js"></script>
 
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" rel="stylesheet"
           type="text/css">
+
+    <link href="http://cdn.kendostatic.com/2011.3.1007/styles/kendo.common.min.css" rel="stylesheet"/>
+    <link href="http://cdn.kendostatic.com/2011.3.1007/styles/kendo.kendo.min.css" rel="stylesheet"/>
+    <link href="/styles/kendo.blueopal.min.css" rel="stylesheet" type="text/css"/>
 
     <c:if test="${isUser}">
         <script type="text/javascript">
@@ -111,7 +116,7 @@
                 </table>
                 <div>Dictionary View</div>
                 <div id="dict-table-view">
-                    <table cellpadding="4" cellspacing="0" border="1" >
+                    <table cellpadding="4" cellspacing="0" border="1">
                         <thead>
                         <th>Name</th>
                         <th>Description</th>
