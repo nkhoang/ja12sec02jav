@@ -204,12 +204,12 @@ Welcome to admin page.
           </script>
           <script id="dictTemplate" type="text/x-kendo-tmpl">
             <tr>
-              <td width="20">
+              <td width="20px">
                 <img class="handler"
                     src="http://www.defaulticon.com/sites/default/files/styles/icon-front-page-32x32-preview/public/field/image/cancel.png"
                     alt="Delete" height="19" onclick="deleteDict(this, '#= id #', '#= name #');"/>
               </td>
-              <td width="90">
+              <td width="90px">
                 #= name #
               </td>
               <td>
@@ -220,8 +220,8 @@ Welcome to admin page.
           <table id="dictGrid">
               <thead>
                   <tr >
-                      <th width="20" style="text-align: center" > X </th>
-                      <th width="90" >Name</th>
+                      <th width="22px" style="text-align: center" > X </th>
+                      <th width="92px" >Name</th>
                       <th>Description</th>
                   </tr>
               </thead>
