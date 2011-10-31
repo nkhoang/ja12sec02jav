@@ -29,6 +29,10 @@
         font-family: Arial, Helvetica, sans-serif;
       }
 
+      .handler {
+        cursor: pointer;
+      }
+
       #dict-grid-container table th {
         background-color: #EF652A;
         border-color: #D75B26 #D75B26 #D75B26 #F28455;
@@ -106,6 +110,8 @@
                 $(element).data('loading', true);
               },
               success : function(response) {
+                $('#dictionary-name').val('');
+                $('#dictionary-des').val('');
                 if (response.data) {
                   if (response.data.error) {
                     showMessage({
@@ -158,8 +164,8 @@ Welcome to admin page.
           </tr>
           </tbody>
         </table>
-        <div>Dictionary View</div>
-        <div id=" dict-grid-container">
+        <div>Dictionary:</div>
+        <div id="dict-grid-container">
           <script type="text/javascript">
             function renderDictGrid() {
               dictDataSource = new kendo.data.DataSource({
@@ -190,6 +196,7 @@ Welcome to admin page.
                       // enable vertical scrolling.
                       virtual : false
                     },
+                    selectable: true,
                     pageable : true
                   });
               dictGrid = $("#dictGrid").data("kendoGrid");
@@ -198,11 +205,11 @@ Welcome to admin page.
           <script id="dictTemplate" type="text/x-kendo-tmpl">
             <tr>
               <td width="20">
-                <img
+                <img class="handler"
                     src="http://www.defaulticon.com/sites/default/files/styles/icon-front-page-32x32-preview/public/field/image/cancel.png"
-                    alt="Delete" width="15" onclick="deleteDict(this, '#= id #', '#= name #');"/>
+                    alt="Delete" height="19" onclick="deleteDict(this, '#= id #', '#= name #');"/>
               </td>
-              <td width="70">
+              <td width="90">
                 #= name #
               </td>
               <td>
@@ -214,7 +221,7 @@ Welcome to admin page.
               <thead>
                   <tr >
                       <th width="20" style="text-align: center" > X </th>
-                      <th width="70" >Name</th>
+                      <th width="90" >Name</th>
                       <th>Description</th>
                   </tr>
               </thead>
