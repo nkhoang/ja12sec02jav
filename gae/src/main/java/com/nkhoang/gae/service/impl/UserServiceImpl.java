@@ -53,6 +53,10 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public boolean deleteDictionary(Long id) {
+        return dictionaryDao.delete(id);
+    }
+
     public List<String> getUserIdWordByDate(String date, int offset, Integer size) {
         List<String> wordList = new ArrayList<String>();
         if (StringUtils.isNotEmpty(date)) {

@@ -57,8 +57,21 @@ public class UserAction {
         return "user/admin";
     }
 
+    @RequestMapping(value = "/deleteDict", method = RequestMethod.GET)
+    public ModelAndView deleteDict(@RequestParam(required = false) Long dictId) {
+        ModelAndView modelAndView = new ModelAndView();
+        View jsonView = new JSONView();
+        modelAndView.setView(jsonView);
+        Map<String, Object> jsonData = new HashMap<String, Object>();
 
-    @RequestMapping(value="/getAllDicts", method = RequestMethod.POST)
+        Boolean result = userService.deleteDictionary(dictId);
+
+        jsonData.put("data", result);
+        modelAndView.addObject(GSONStrategy.DATA, jsonData);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/getAllDicts", method = RequestMethod.GET)
     public ModelAndView getAllDicts() {
         ModelAndView modelAndView = new ModelAndView();
         View jsonView = new JSONView();
@@ -76,7 +89,7 @@ public class UserAction {
         return modelAndView;
     }
 
-    @RequestMapping( value = "/addDictionary", method = RequestMethod.POST)
+    @RequestMapping(value = "/addDictionary", method = RequestMethod.POST)
     public ModelAndView addNewDictionary(
             @RequestParam(defaultValue = "") String dictName,
             @RequestParam(defaultValue = "") String dictDescription) {

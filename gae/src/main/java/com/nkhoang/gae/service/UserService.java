@@ -25,4 +25,6 @@ public interface UserService {
 	Dictionary addNewDictionary(String dictName, String dictDescription);
 
     List<Dictionary> getAllDictionaries();
+
+    boolean deleteDictionary(Long id);
 }
