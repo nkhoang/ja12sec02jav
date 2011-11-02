@@ -60,6 +60,11 @@ public class UserAction {
       return "user/admin";
    }
 
+    @RequestMapping("/advancedAdmin")
+   public String renderAdvancedAdminPage() {
+      return "user/advancedAdmin";
+   }
+
    @RequestMapping(value = "/deleteAppConfig", method = RequestMethod.GET)
    public ModelAndView deleteAppConfig(@RequestParam(required = false) Long id) {
       ModelAndView modelAndView = new ModelAndView();
