@@ -11,6 +11,6 @@ public class RoleDaoImpl extends BaseDaoImpl<Role, Long> implements RoleDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleDaoImpl.class);
 
     public String getClassName() {
-        return Role.class.getName();
+        return "Role";
     }
 }

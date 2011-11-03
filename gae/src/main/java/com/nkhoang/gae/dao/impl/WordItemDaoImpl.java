@@ -15,7 +15,7 @@ public class WordItemDaoImpl extends BaseDaoImpl<WordItem, Long> implements Word
 
 
     public String getClassName() {
-        return WordItem.class.getName();
+        return "WordItem";
     }
 
     /**

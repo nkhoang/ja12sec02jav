@@ -16,7 +16,7 @@ public class UserTagDaoImpl extends BaseDaoImpl<UserTag, Long> implements UserTa
     private static final Logger LOGGER = LoggerFactory.getLogger(UserTagDaoImpl.class);
 
     public String getClassName() {
-        return UserTag.class.getName();
+        return "UserTag";
     }
 
     public boolean checkExist(Long userId, String tagName) {

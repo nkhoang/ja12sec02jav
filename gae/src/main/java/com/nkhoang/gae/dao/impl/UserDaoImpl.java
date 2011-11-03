@@ -18,7 +18,7 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao, Use
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     public String getClassName() {
-        return User.class.getName();
+        return "User";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

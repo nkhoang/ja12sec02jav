@@ -11,6 +11,6 @@ public class WordLuceneDaoImpl extends BaseDaoImpl<WordLucene, Long> implements 
     private static final Logger LOG = LoggerFactory.getLogger(WordLuceneDaoImpl.class);
 
     public String getClassName() {
-        return WordLucene.class.getName();
+        return "WordLucene";
     }
 }

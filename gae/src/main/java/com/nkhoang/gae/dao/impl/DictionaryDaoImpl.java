@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DictionaryDaoImpl extends BaseDaoImpl<Dictionary, Long> implements DictionaryDao {
     public String getClassName() {
-        return Dictionary.class.getName();
+        return "Dictionary";
     }
 
     public Dictionary getDictionaryByName(String dictName) {

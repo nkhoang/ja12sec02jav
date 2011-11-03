@@ -15,7 +15,7 @@ public class UserWordDaoImpl extends BaseDaoImpl<UserWord, Long> implements User
     private static final Logger LOG = LoggerFactory.getLogger(UserWordDaoImpl.class.getCanonicalName());
 
     public String getClassName() {
-        return UserWord.class.getName();
+        return "UserWord";
     }
 
     public List<UserWord> getWordFromUser(Long userId) {

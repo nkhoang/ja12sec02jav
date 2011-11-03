@@ -9,6 +9,6 @@ public class MeaningDaoImpl extends BaseDaoImpl<Meaning, Long> implements Meanin
     private static final Logger LOGGER = LoggerFactory.getLogger(MeaningDaoImpl.class);
 
     public String getClassName() {
-        return Meaning.class.getName();
+        return "Meaning";
     }
 }

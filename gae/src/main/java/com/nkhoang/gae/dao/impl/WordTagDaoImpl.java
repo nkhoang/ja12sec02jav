@@ -15,7 +15,7 @@ public class WordTagDaoImpl extends BaseDaoImpl<WordTag, Long> implements WordTa
     private static final Logger LOGGER = LoggerFactory.getLogger(WordTagDaoImpl.class);
 
     public String getClassName() {
-        return WordTag.class.getName();
+        return "WordTag";
     }
 
     public List<Long> getTagsByWord(Long wordId, Long userId) {

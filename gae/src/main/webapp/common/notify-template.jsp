@@ -1,6 +1,7 @@
 <script type="text/javascript" src="<c:url value='/js/jquery.notify.js' />"></script>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/ui.notify.css' />"/>
 <script type="text/javascript">
+    var $container;
     function showMessage(vars, opts) {
         return $container.notify("create", vars, opts);
     }

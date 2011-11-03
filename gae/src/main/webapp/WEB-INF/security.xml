@@ -30,6 +30,7 @@
 
         <!-- jax-rs interface -->
         <intercept-url pattern="/services/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/services/dictionary/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/vocabulary/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/data/clearAll.html*" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
 

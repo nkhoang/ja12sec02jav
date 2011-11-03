@@ -14,7 +14,7 @@ public class VocabularyDaoImpl extends BaseDaoImpl<Word, Long> implements Vocabu
     private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyDaoImpl.class);
 
     public String getClassName() {
-        return Word.class.getName();
+        return "Word";
     }
 
     public List<Word> lookup(String word) {
