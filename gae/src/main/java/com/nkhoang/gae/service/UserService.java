@@ -22,7 +22,7 @@ public interface UserService {
 
     User getCurrentUser();
 
-	Dictionary addNewDictionary(String dictName, String dictDescription);
+    Dictionary addNewDictionary(String dictName, String dictDescription);
 
     List<Dictionary> getAllDictionaries();
 
