@@ -61,7 +61,7 @@ public class VocabularyRESTServiceImpl {
         if (updateAppConfig.getId() != null && updateAppConfig.getId() != 0) {
             AppConfig dbAppConfig = appConfigDao.get(updateAppConfig.getId());
             dbAppConfig.setLabel(dbAppConfig.getLabel());
-            dbAppConfig.setValues(dbAppConfig.getValues());
+            dbAppConfig.setValue(dbAppConfig.getValue());
             appConfigDao.update(dbAppConfig);
             return gson.toJson(dbAppConfig);
         } else {

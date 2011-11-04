@@ -15,6 +15,7 @@
         <property name="dictionaryDao" ref="dictionaryDao"></property>
         <property name="appConfigDao" ref="appConfigDao"></property>
     </bean>
+
     <!-- Vocabulary Service -->
     <bean id="vocabularyService" class="com.nkhoang.gae.service.impl.VocabularyServiceImpl" scope="prototype">
         <property name="meaningDao" ref="meaningDao"></property>
@@ -27,6 +28,7 @@
     </bean>
 
     <bean id="oxfordLookupService" class="com.nkhoang.gae.service.impl.OxfordLookupServiceImpl"/>
+    <bean id="longmanLookupService" class="com.nkhoang.gae.service.impl.LongmanLookupServiceImpl"/>
 
     <bean id="tagService" class="com.nkhoang.gae.service.impl.TagServiceImpl">
         <property name="userService" ref="userService"/>

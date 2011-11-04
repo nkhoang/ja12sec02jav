@@ -8,10 +8,10 @@
     <script type="text/javascript" src="<c:url value='/js/ext-all.js' />"></script>
     <link href="<c:url value='/resources/css/ext-all-gray.css'/>" rel="stylesheet" media="all"/>
     <style type="text/css">
-        .dictionary-add {
+        .button-add {
             background-image: url('<c:url value="/styles/images/add.png" />') !important;
         }
-        .dictionary-remove {
+        .button-remove {
             background-image: url('<c:url value="/styles/images/delete.png" />') !important;
         }
     </style>
@@ -109,7 +109,7 @@
                 tbar: [
                     {
                         text: 'Add Dictionary',
-                        iconCls: 'dictionary-add',
+                        iconCls: 'button-add',
                         handler : function() {
                             rowEditing.cancelEdit();
                             // Create a model instance
@@ -124,7 +124,7 @@
                     {
                         itemId: 'removeDictionary',
                         text: 'Remove Dictionary',
-                        iconCls: 'dictionary-remove',
+                        iconCls: 'button-remove',
                         handler: function() {
                             var sm = grid.getSelectionModel();
                             rowEditing.cancelEdit();
@@ -151,7 +151,7 @@
                 fields: [
                     {name: 'id', type: 'int'},
                     'label',
-                    'values'
+                    'value'
                 ]
             });
 
@@ -188,30 +188,30 @@
                             verb = name + 'd';
                         }
                         showMessage({
-                             title : 'Dictionary',
-                             text : Ext.String.format("{0} dictionary: {1}", verb, record.data.name)
+                             title : 'AppConfig',
+                             text : Ext.String.format("{0} appConfig: {1}", verb, record.data.label)
                           });
                     }
                 }
             });
-            var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+            var appConfigRowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
                     clicksToMoveEditor: 1,
                     autoCancel: false,
                     listeners: {
                         'edit': function(editor) {
-                            dictionaryStore.sync();
-                            dictionaryStore.load();
+                            appConfigStore.sync();
+                            appConfigStore.load();
                         }
                     }
                 });
-            var grid = Ext.create('Ext.grid.Panel', {
-                id: 'dictionary-grid',
-                store: dictionaryStore,
+            var appConfigGrid = Ext.create('Ext.grid.Panel', {
+                id: 'appConfig-grid',
+                store: appConfigStore,
                 columns: [
                     Ext.create('Ext.grid.RowNumberer'),
                     {
-                        header: 'Name',
-                        dataIndex: 'name',
+                        header: 'Label',
+                        dataIndex: 'label',
                         flex: 1,
                         editor: {
                             // defaults to textfield if no xtype is supplied
@@ -219,8 +219,8 @@
                         }
                     },
                     {
-                        header: 'Description',
-                        dataIndex: 'description',
+                        header: 'Value',
+                        dataIndex: 'value',
                         flex: 1,
                         editor: {
                             // defaults to textfield if no xtype is supplied
@@ -228,46 +228,46 @@
                         }
                     }
                 ],
-                renderTo: 'dict-grid-container',
+                renderTo: 'appConfig-grid-container',
                 width: 600,
                 height: 400,
-                title: 'Available Dictionary',
+                title: 'AppConfig Properties',
                 frame: true,
                 tbar: [
                     {
-                        text: 'Add Dictionary',
-                        iconCls: 'dictionary-add',
+                        text: 'Add Property',
+                        iconCls: 'button-add',
                         handler : function() {
-                            rowEditing.cancelEdit();
+                            appConfigRowEditing.cancelEdit();
                             // Create a model instance
-                            var r = Ext.create('Dictionary', {
-                                name: '',
-                                description: ''
+                            var r = Ext.create('AppConfig', {
+                                label: '',
+                                values: []
                             });
-                            dictionaryStore.insert(0, r);
-                            rowEditing.startEdit(0, 0);
+                            appConfigStore.insert(0, r);
+                            appConfigRowEditing.startEdit(0, 0);
                         }
                     },
                     {
-                        itemId: 'removeDictionary',
-                        text: 'Remove Dictionary',
-                        iconCls: 'dictionary-remove',
+                        itemId: 'removeAppConfig',
+                        text: 'Remove AppConfig',
+                        iconCls: 'button-remove',
                         handler: function() {
-                            var sm = grid.getSelectionModel();
-                            rowEditing.cancelEdit();
-                            dictionaryStore.remove(sm.getSelection());
-                            dictionaryStore.sync();
-                            if (dictionaryStore.getCount() > 0) {
+                            var sm = appConfigGrid.getSelectionModel();
+                            appConfigRowEditing.cancelEdit();
+                            appConfigStore.remove(sm.getSelection());
+                            appConfigStore.sync();
+                            if (appConfigStore.getCount() > 0) {
                                 sm.select(0);
                             }
                         },
                         disabled: true
                     }
                 ],
-                plugins: [rowEditing],
+                plugins: [appConfigRowEditing],
                 listeners: {
                     'selectionchange': function(view, records) {
-                        grid.down('#removeDictionary').setDisabled(!records.length);
+                        appConfigGrid.down('#removeAppConfig').setDisabled(!records.length);
                     }
                 }
             });
@@ -276,6 +276,7 @@
 </head>
 <body>
 <div id="dict-grid-container"></div>
+<div id="appConfig-grid-container"></div>
 <%@ include file="/common/notify-template.jsp" %>
 </body>
 </html>

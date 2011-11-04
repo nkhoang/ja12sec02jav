@@ -34,6 +34,7 @@
 	</bean>
 
 
+
 	<!-- json view -->
 	<bean id="jsonView" class="com.nkhoang.gae.view.JSONView">
 

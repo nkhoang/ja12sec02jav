@@ -8,6 +8,8 @@ import com.nkhoang.gae.dao.WordItemDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.*;
+import com.nkhoang.gae.service.ApplicationService;
+import com.nkhoang.gae.service.LookupService;
 import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.service.impl.SpreadsheetServiceImpl;
 import com.nkhoang.gae.utils.FileUtils;
@@ -22,6 +24,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -38,7 +42,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/** VocaAction will replace the old {@link VocabularyAction} to handle vocabulary request. */
 @Controller
 @RequestMapping("/" + ViewConstant.VOCABULARY_NAMESPACE)
 public class VocaAction {
@@ -46,14 +49,15 @@ public class VocaAction {
 	private static final int    TOTAL_AMOUNT_LOOKUP_WORD = 100;
 	private static final String WORD_ITEM_STATUS_FAILED  = "F";
 
-	@Autowired
-	private SpreadsheetServiceImpl spreadsheetService;
-	@Autowired
+    @Autowired
 	private VocabularyService      vocabularyService;
-	@Autowired
+    @Autowired
 	private WordItemDao            wordItemDao;
-
-	@Autowired
+    @Autowired
+    private ApplicationService applicationService;
+    @Value("new java.util.ArrayList() {@oxfordLookupService, @longmanLookupService}")
+    private List<LookupService> lookupService;
+    @Autowired
 	private UserManager userService;
 
 	private static String SENDER_EMAIL = "nkhoang4survey@gmail.com";
@@ -71,6 +75,12 @@ public class VocaAction {
 	public ModelAndView renderVocabularyIndex() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(ViewConstant.VOCABULARY_INDEX_VIEW);
+
+        if (lookupService == null)
+            LOG.info(" NULLLLLLLLL");
+        else {
+            LOG.info(lookupService.size() + "");
+        }
 
 		return mav;
 	}
@@ -438,6 +448,17 @@ public class VocaAction {
 	}
 
 
+    @RequestMapping(value ="sendMail")
+    public void sendMail(HttpServletResponse response) {
+        WebUtils.sendMail("Hello From Hoang,", SENDER_EMAIL, "Remove Duplicates report", "nkhoang.it@gmail.com");
+        try {
+            response.getWriter().write("success");
+        } catch (Exception e) {
+
+        }
+    }
+
+
 	/**
 	 * Get wordkind list.
 	 *
@@ -521,14 +542,6 @@ public class VocaAction {
 		return userService;
 	}
 
-	public SpreadsheetServiceImpl getSpreadsheetService() {
-		return spreadsheetService;
-	}
-
-	public void setSpreadsheetService(SpreadsheetServiceImpl spreadsheetService) {
-		this.spreadsheetService = spreadsheetService;
-	}
-
 	public WordItemDao getWordItemDao() {
 		return wordItemDao;
 	}
@@ -537,7 +550,21 @@ public class VocaAction {
 		this.wordItemDao = wordItemDao;
 	}
 
+    public ApplicationService getApplicationService() {
+        return applicationService;
+    }
 
+    public void setApplicationService(ApplicationService applicationService) {
+        this.applicationService = applicationService;
+    }
+
+    public List<LookupService> getLookupService() {
+        return lookupService;
+    }
+
+    public void setLookupService(List<LookupService> lookupService) {
+        this.lookupService = lookupService;
+    }
 }
 
 

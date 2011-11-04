@@ -21,10 +21,15 @@ import java.util.List;
 public class OxfordLookupServiceImpl implements LookupService {
 	private static final Logger LOG                = LoggerFactory
 		.getLogger(OxfordLookupServiceImpl.class.getCanonicalName());
+    private static final String SERVICE_NAME = "oxford";
 	private static final String OXFORD_URL_LINK    = "http://oxforddictionaries.com/definition/";
 	// 10 seconds is just enough, do not need to wait more.
 	private static final int    CONNECTION_TIMEOUT = 10000;
 	private static final String HTML_ATTR_CLASS    = "class";
+
+    public String getServiceName() {
+        return SERVICE_NAME;
+    }
 
 	public Word lookup(String word) {
 		Word w = null;

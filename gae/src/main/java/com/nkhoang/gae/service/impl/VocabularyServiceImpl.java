@@ -1,16 +1,19 @@
 package com.nkhoang.gae.service.impl;
 
 import com.nkhoang.gae.dao.MeaningDao;
+import com.nkhoang.gae.dao.PhraseDao;
+import com.nkhoang.gae.dao.SenseDao;
 import com.nkhoang.gae.dao.VocabularyDao;
 import com.nkhoang.gae.dao.impl.VocabularyDaoImpl;
 import com.nkhoang.gae.model.Meaning;
+import com.nkhoang.gae.model.Phrase;
+import com.nkhoang.gae.model.Sense;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.SpreadsheetService;
 import com.nkhoang.gae.service.VocabularyService;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +60,8 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     private MeaningDao _meaningDao;
     private VocabularyDao _vocabularyDao;
+    private PhraseDao phraseDao;
+    private SenseDao senseDao;
 
     private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
 
@@ -201,6 +206,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         return null;
     }
 
+
     public Word save(String lookupWord) throws IOException, IllegalArgumentException {
         lookupWord = lookupWord.trim().toLowerCase();
         List<Word> words = _vocabularyDao.lookup(lookupWord);
@@ -266,36 +272,49 @@ public class VocabularyServiceImpl implements VocabularyService {
      * @param word word to be saved.
      */
     public void saveWordToDatastore(Word word) {
-        if (word != null) {
-            // build list of meaning
-            for (int i = 0; i < Word.WORD_KINDS.length; i++) {
-                //aa List<Meaning> meanings = word.getMeaning(Long.parseLong(i + ""));
-                List<Meaning> meanings = new ArrayList<Meaning>(); // should remove.
-
-                if (CollectionUtils.isNotEmpty(meanings)) {
-                    //LOG.info("found : " + meanings.size() + " meanings for this word");
-                    for (Meaning meaning : meanings) {
-                        // save
-                        try {
-                            Meaning savedMeaning = _meaningDao.save(meaning);
-                            word.addMeaningId(savedMeaning.getId());
-                        } catch (Exception e) {
-                            LOG.debug(String.format("Failed to save meaning [%d] to DB.", meaning.toString()), e);
+        try {
+            if (word != null && (CollectionUtils.isNotEmpty(word.getMeanings()) || CollectionUtils.isNotEmpty(word.getPhraseList()))) {
+                if (CollectionUtils.isNotEmpty(word.getMeanings())) {
+                    for (Sense sense : word.getMeanings()) {
+                        if (CollectionUtils.isNotEmpty(sense.getSubSenses())) {
+                            for (Meaning subSense : sense.getSubSenses()) {
+                                Meaning savedSubSense = _meaningDao.save(subSense);
+                                // add to sense.
+                                sense.getSubSenseIds().add(savedSubSense.getId());
+                            }
                         }
+                        // now save sense.
+                        Sense savedSense = senseDao.save(sense);
+                        // add to word.
+                        word.getMeaningIds().add(savedSense.getId());
                     }
                 }
-            }
-            try {
-                word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-                if (MapUtils.isNotEmpty(word.getMeaningMap())) {
-                    _vocabularyDao.save(word);
-                    LOG.debug("word: " + word.getDescription() + " saved!!!!");
-                } else {
-                    LOG.debug("Could not find any word's meanings");
+                if (CollectionUtils.isNotEmpty(word.getPhraseList())) {
+                    for (Phrase phrase : word.getPhraseList()) {
+                        if (CollectionUtils.isNotEmpty(phrase.getSenseList())) {
+                            for (Sense sense : phrase.getSenseList()) {
+                                if (CollectionUtils.isNotEmpty(sense.getSubSenses())) {
+                                    for (Meaning subSense : sense.getSubSenses()) {
+                                        Meaning savedSubSense = _meaningDao.save(subSense);
+                                        sense.getSubSenseIds().add(savedSubSense.getId());
+                                    }
+                                }
+                                Sense savedSense = senseDao.save(sense);
+                                phrase.getSenseIds().add(savedSense.getId());
+                            }
+                        }
+                        Phrase savedPhrase = phraseDao.save(phrase);
+                        word.getPhraseIds().add(savedPhrase.getId());
+                    }
                 }
-            } catch (Exception e) {
-                LOG.debug("Could not save word:" + word.toString(), e);
+                word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
+                _vocabularyDao.save(word);
+                LOG.debug("word: " + word.getDescription() + " saved!!!!");
+            } else {
+                LOG.debug(String.format("Word %d does not have any meaning to save.", word.getDescription()));
             }
+        } catch (Exception e) {
+            LOG.error("Unexpected exception has been occurred.", e);
         }
     }
 
@@ -359,7 +378,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     }
                     // check to make sure content is not blank.
                     if (StringUtils.isNotBlank(mainM.getContent())) {
-                         //aa w.addMeaning(w.getKindidmap().get(kind), mainM);
+                        //aa w.addMeaning(w.getKindidmap().get(kind), mainM);
                     }
 
                     // process gram example. Another type of meaning.
@@ -677,6 +696,22 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     public void setSpreadsheetService(SpreadsheetService spreadsheetService) {
         _spreadsheetService = spreadsheetService;
+    }
+
+    public PhraseDao getPhraseDao() {
+        return phraseDao;
+    }
+
+    public void setPhraseDao(PhraseDao phraseDao) {
+        this.phraseDao = phraseDao;
+    }
+
+    public SenseDao getSenseDao() {
+        return senseDao;
+    }
+
+    public void setSenseDao(SenseDao senseDao) {
+        this.senseDao = senseDao;
     }
 }
 

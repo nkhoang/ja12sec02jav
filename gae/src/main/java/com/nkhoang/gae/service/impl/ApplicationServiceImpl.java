@@ -25,7 +25,7 @@ public class ApplicationServiceImpl implements ApplicationService {
       AppConfig savedAppConfig = appConfigDao.getAppConfigByLabel(label);
       if (savedAppConfig != null) {
          savedAppConfig.setLabel(label);
-         savedAppConfig.getValues().add(value);
+         savedAppConfig.setValue(value);
          // update
          appConfigDao.update(savedAppConfig);
       } else {
@@ -33,7 +33,7 @@ public class ApplicationServiceImpl implements ApplicationService {
          List<String> values = new ArrayList<String>();
          values.add(value);
          savedAppConfig.setLabel(label);
-         savedAppConfig.setValues(values);
+         savedAppConfig.setValue(value);
          appConfigDao.save(savedAppConfig);
       }
 
