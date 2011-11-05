@@ -66,7 +66,6 @@ public class ViewConstant {
     public static final String FACEBOOK_NAMESPACE = "facebook";
     public static final String ITEM_NAMESPACE = "item";
     public static final String USER_NAMESPACE = "user";
-    public static final String VOCABULARY_NAMESPACE = "vocabulary";
     // This is the namespace which will replace the 'vocabulary' namespace.
     public static final String VOCA_NAMESPACE = "voca";
 }

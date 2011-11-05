@@ -9,7 +9,7 @@ import com.nkhoang.gae.model.Meaning;
 import com.nkhoang.gae.model.Phrase;
 import com.nkhoang.gae.model.Sense;
 import com.nkhoang.gae.model.Word;
-import com.nkhoang.gae.service.SpreadsheetService;
+import com.nkhoang.gae.service.ApplicationService;
 import com.nkhoang.gae.service.VocabularyService;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
@@ -17,16 +17,18 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
+@Service("vocabularyService")
 public class VocabularyServiceImpl implements VocabularyService {
     private static final Logger LOG = LoggerFactory
             .getLogger(VocabularyDaoImpl.class.getCanonicalName());
@@ -58,12 +60,33 @@ public class VocabularyServiceImpl implements VocabularyService {
     private static final String CAMBRIDGE_DICT_CONTENT_CLASS_2nd = "gwblock ";
     private static final String CAMBRIDGE_DICT_KIND_CLASS = "header";
 
-    private MeaningDao _meaningDao;
-    private VocabularyDao _vocabularyDao;
+    @Autowired
+    private ApplicationService applicationService;
+    @Autowired
+    private CentralLookupService centralLookupService;
+    @Autowired
+    private MeaningDao meaningDao;
+    @Autowired
+    private VocabularyDao vocabularyDao;
+    @Autowired
     private PhraseDao phraseDao;
+    @Autowired
     private SenseDao senseDao;
 
-    private com.nkhoang.gae.service.SpreadsheetService _spreadsheetService;
+    /**
+     * Hold the dictionary label value which will be used to lookup the configured values.
+     * <br />
+     * To change value of this field may involve these following files/steps:
+     * <ul>
+     * <li>appConfig.properties: hold the dictionary key name.</li>
+     * <li>admin page: change the label name accordingly.</li>
+     * </ul>
+     */
+    @Value("#{appConfig.dictionary}")
+    private String dictionaryKeyName;
+
+    @Value("#{appConfig.delimiter}")
+    private String delimiter;
 
     private static final String LONGMAN_DICTIONARY_URL = "http://www.ldoceonline.com/dictionary/";
 
@@ -73,12 +96,12 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     public List<Word> getAllWords() {
-        List<Word> words = _vocabularyDao.getAll();
+        List<Word> words = vocabularyDao.getAll();
         return words;
     }
 
     public List<Word> getAllWordsByRange(int startingIndex, int size, String direction, boolean isPopulated) {
-        List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size, direction);
+        List<Word> words = vocabularyDao.getAllInRange(startingIndex, size, direction);
         List<Word> result = new ArrayList<Word>();
         if (isPopulated) {
             if (CollectionUtils.isNotEmpty(words)) {
@@ -106,7 +129,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public List<Word> getAllWordsByRange(int startingIndex, int size) {
-        List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size);
+        List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
         if (CollectionUtils.isNotEmpty(words)) {
             int lastIndex = startingIndex + size;
@@ -127,7 +150,7 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     public List<Word> getAllWordsByRangeWithoutMeanings(int startingIndex, int size) {
-        List<Word> words = _vocabularyDao.getAllInRange(startingIndex, size);
+        List<Word> words = vocabularyDao.getAllInRange(startingIndex, size);
         List<Word> result = new ArrayList<Word>();
         if (CollectionUtils.isNotEmpty(words)) {
             int lastIndex = startingIndex + size;
@@ -147,7 +170,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public Word populateWord(Long id) {
-        Word w = _vocabularyDao.get(id);
+        Word w = vocabularyDao.get(id);
         populateWord(w);
         return w;
     }
@@ -175,7 +198,7 @@ public class VocabularyServiceImpl implements VocabularyService {
         if (w != null) {
             List<Long> meaningIds = w.getMeaningIds();
             for (Long meaningId : meaningIds) {
-                Meaning meaning = _meaningDao.get(meaningId);
+                Meaning meaning = meaningDao.get(meaningId);
                 //aa w.addMeaning(meaning.getKindId(), meaning);
             }
         }
@@ -189,7 +212,7 @@ public class VocabularyServiceImpl implements VocabularyService {
      * @return found word.
      */
     private Word findWordById(Long id, boolean isFull) {
-        Word word = _vocabularyDao.get(id);
+        Word word = vocabularyDao.get(id);
 
         if (isFull) {
             return populateWord(word);
@@ -198,73 +221,81 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
     }
 
-    public Word lookupWord(String word) throws IOException {
-        List<Word> foundWords = _vocabularyDao.lookup(word);
-        if (CollectionUtils.isNotEmpty(foundWords)) {
-            return foundWords.get(0);
-        }
-        return null;
-    }
-
-
-    public Word save(String lookupWord) throws IOException, IllegalArgumentException {
-        lookupWord = lookupWord.trim().toLowerCase();
-        List<Word> words = _vocabularyDao.lookup(lookupWord);
-        Word word = null;
-        if (CollectionUtils.isNotEmpty(words)) {
-            if (words.size() > 1) {
-                word = words.get(0);
-                for (Word w : words) {
-                    if (w.getMeaningIds().size() > word.getMeaningIds().size()) {
-                        word = w;
+    public Map<String, Word> lookup(String requestWord) {
+        Map<String, Word> wordMap = new HashMap<String, Word>();
+        if (StringUtils.isNotBlank(requestWord)) {
+            // first get the configuration dictionaries.
+            LOG.info("dictionaryKeyName = " + dictionaryKeyName);
+            List<String> configValues = applicationService.getAppConfig(dictionaryKeyName, delimiter);
+            if (CollectionUtils.isNotEmpty(configValues)) {
+                // check DB first
+                Word dbWord = findWord(requestWord);
+                if (dbWord == null) {
+                    wordMap = centralLookupService.lookup(requestWord, configValues);
+                    // save to DB
+                    for (Word w : wordMap.values()) {
+                        saveWordToDatastore(w);
                     }
-                }
-                words.remove(word);
-                for (Word w : words) {
-                    for (Long id : w.getMeaningIds()) {
-                        _meaningDao.delete(id);
-                    }
-                    _vocabularyDao.delete(w.getId());
+                } else {
+                    wordMap.put(dbWord.getSourceName(), dbWord);
                 }
             } else {
-                word = words.get(0);
+                LOG.info("No configured dictionary. Lookup action aborted!!!");
             }
         }
-
-        // first check the current status
-        if (word != null) {
-            LOG.debug(">>>>>>>>>>>>>>>>>>> Found :" + lookupWord);
-            word = populateWord(word);
-        } else {
-            LOG.debug("Saving word : " + lookupWord);
-            word = null;
-            try {
-                long start = System.currentTimeMillis();
-                word = lookupVN(lookupWord);
-                lookupENLongman(word);
-                lookupPron(word);
-                if (CollectionUtils.isNotEmpty(word.getMeanings())) {
-                    // no error, save to keep track of this word for Lucene.
-                    /*WordLucene wl = new WordLucene();
-                                             wl.setWord(word.getDescription());
-                                             wordLuceneDao.save(wl);*/
-                }
-
-                LOG.debug("===== PROFILING ======");
-                LOG.debug(
-                        "= Lookup word " + lookupWord + " took: " + (System.currentTimeMillis() - start) + " ms.");
-                LOG.debug("======================");
-            } catch (IOException ex) {
-                LOG.debug("Failed to connect to dictionary to lookup word definition.", ex);
-                throw ex;
-            } catch (IllegalArgumentException iae) {
-                LOG.debug("Failed to parse URL with wrong arguments.", iae);
-                throw iae;
-            }
-            saveWordToDatastore(word);
-        }
-        return word;
+        return wordMap;
     }
+
+    public Word findWord(String requestWord) {
+        List<Word> wordList = vocabularyDao.lookup(requestWord);
+        Word w = null;
+        if (CollectionUtils.isNotEmpty(wordList)) {
+            // it should be one.
+            w = wordList.get(0);
+            if (CollectionUtils.isNotEmpty(w.getMeaningIds())) {
+                for (Long senseId : w.getMeaningIds()) {
+                    Sense sense = senseDao.get(senseId);
+                    if (sense != null) {
+                        if (CollectionUtils.isNotEmpty(sense.getSubSenseIds())) {
+                            for (Long subSenseId : sense.getSubSenseIds()) {
+                                Meaning subSense = meaningDao.get(subSenseId);
+                                if (subSense != null) {
+                                    sense.getSubSenses().add(subSense);
+                                }
+                            }
+                        }
+                        w.addMeaning(w.getKindidmap().get(sense.getKind()), sense);
+                    }
+                }
+            }
+            if (CollectionUtils.isNotEmpty(w.getPhraseIds())) {
+                for (Long phraseId : w.getPhraseIds()) {
+                    Phrase phrase = phraseDao.get(phraseId);
+                    if (phrase != null) {
+                        if (CollectionUtils.isNotEmpty(phrase.getSenseIds())) {
+                            for (Long senseId : phrase.getSenseIds()) {
+                                Sense sense = senseDao.get(senseId);
+                                if (sense != null) {
+                                    if (CollectionUtils.isNotEmpty(sense.getSubSenseIds())) {
+                                        for (Long subSenseId : sense.getSubSenseIds()) {
+                                            Meaning subSense = meaningDao.get(subSenseId);
+                                            if (subSense != null) {
+                                                sense.getSubSenses().add(subSense);
+                                            }
+                                        }
+                                    }
+                                    phrase.getSenseList().add(sense);
+                                }
+                            }
+                        }
+                        w.getPhraseList().add(phrase);
+                    }
+                }
+            }
+        }
+        return w;
+    }
+
 
     /**
      * Not only save word to DS. Word's meanings are also get saved.
@@ -278,7 +309,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     for (Sense sense : word.getMeanings()) {
                         if (CollectionUtils.isNotEmpty(sense.getSubSenses())) {
                             for (Meaning subSense : sense.getSubSenses()) {
-                                Meaning savedSubSense = _meaningDao.save(subSense);
+                                Meaning savedSubSense = meaningDao.save(subSense);
                                 // add to sense.
                                 sense.getSubSenseIds().add(savedSubSense.getId());
                             }
@@ -295,7 +326,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                             for (Sense sense : phrase.getSenseList()) {
                                 if (CollectionUtils.isNotEmpty(sense.getSubSenses())) {
                                     for (Meaning subSense : sense.getSubSenses()) {
-                                        Meaning savedSubSense = _meaningDao.save(subSense);
+                                        Meaning savedSubSense = meaningDao.save(subSense);
                                         sense.getSubSenseIds().add(savedSubSense.getId());
                                     }
                                 }
@@ -308,7 +339,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                     }
                 }
                 word.setTimeStamp(GregorianCalendar.getInstance().getTimeInMillis());
-                _vocabularyDao.save(word);
+                vocabularyDao.save(word);
                 LOG.debug("word: " + word.getDescription() + " saved!!!!");
             } else {
                 LOG.debug(String.format("Word %d does not have any meaning to save.", word.getDescription()));
@@ -585,7 +616,7 @@ public class VocabularyServiceImpl implements VocabularyService {
 
 
     public void update(Word w) {
-        _vocabularyDao.update(w);
+        vocabularyDao.update(w);
     }
 
     public Word lookupVN(String word) throws IOException, IllegalArgumentException {
@@ -651,7 +682,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                                             StringUtils.isNotEmpty(meaning.getContent())) {
                                         // should not store any meanings if content is null or blank.
                                         String example = content.getChildElements().get(0).getChildElements().get(0)
-                                                .getContent().toString();
+                                                                .getContent().toString();
                                         if (StringUtils.isNotBlank(example)) {
                                             meaning.addExample(example);
                                         }
@@ -675,28 +706,21 @@ public class VocabularyServiceImpl implements VocabularyService {
     }
 
     public MeaningDao getMeaningDao() {
-        return _meaningDao;
+        return meaningDao;
     }
 
     public void setMeaningDao(MeaningDao meaningDao) {
-        _meaningDao = meaningDao;
+        this.meaningDao = meaningDao;
     }
 
     public VocabularyDao getVocabularyDao() {
-        return _vocabularyDao;
+        return vocabularyDao;
     }
 
     public void setVocabularyDao(VocabularyDao vocabularyDao) {
-        _vocabularyDao = vocabularyDao;
+        this.vocabularyDao = vocabularyDao;
     }
 
-    public SpreadsheetService getSpreadsheetService() {
-        return _spreadsheetService;
-    }
-
-    public void setSpreadsheetService(SpreadsheetService spreadsheetService) {
-        _spreadsheetService = spreadsheetService;
-    }
 
     public PhraseDao getPhraseDao() {
         return phraseDao;
@@ -712,6 +736,38 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     public void setSenseDao(SenseDao senseDao) {
         this.senseDao = senseDao;
+    }
+
+    public ApplicationService getApplicationService() {
+        return applicationService;
+    }
+
+    public void setApplicationService(ApplicationService applicationService) {
+        this.applicationService = applicationService;
+    }
+
+    public CentralLookupService getCentralLookupService() {
+        return centralLookupService;
+    }
+
+    public void setCentralLookupService(CentralLookupService centralLookupService) {
+        this.centralLookupService = centralLookupService;
+    }
+
+    public String getDictionaryKeyName() {
+        return dictionaryKeyName;
+    }
+
+    public void setDictionaryKeyName(String dictionaryKeyName) {
+        this.dictionaryKeyName = dictionaryKeyName;
+    }
+
+    public String getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
     }
 }
 

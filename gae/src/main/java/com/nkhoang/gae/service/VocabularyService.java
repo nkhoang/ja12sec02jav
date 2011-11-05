@@ -4,6 +4,7 @@ import com.nkhoang.gae.model.Word;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface VocabularyService {
 
@@ -54,17 +55,25 @@ public interface VocabularyService {
      */
     public Word lookupVN(String w) throws IOException;
 
-    public Word save(String lookupWord) throws IOException;
+    /**
+     * Find existing word in DS.
+     *
+     * @param requestWord the requested word in String.
+     * @return found word.
+     */
+    Word findWord(String requestWord);
 
-    public Word lookupWord(String word) throws IOException;
 
-	public void saveWordToDatastore(Word word);
+    void saveWordToDatastore(Word word);
+
     /**
      * Update the word with something worth to be updated (pron or soundsource).
      *
      * @param w word to be updated.
      */
-    public void update(Word w);
+    void update(Word w);
+
+    Map<String, Word> lookup(String requestWord);
 
     /**
      * Get all words in specified range. Starting from <code>startingIndex</code> and end with <code>startingIndex + size</code>
@@ -73,7 +82,7 @@ public interface VocabularyService {
      * @param size          total word to be returned.
      * @return a list of word in range.
      */
-    public List<Word> getAllWordsByRange(int startingIndex, int size);
+    List<Word> getAllWordsByRange(int startingIndex, int size);
 
     /**
      * Return a list of words with by providing a list of <code>word ID</code>.
@@ -81,7 +90,7 @@ public interface VocabularyService {
      * @param wordIds word id list.
      * @return a list of found word.
      */
-    public List<Word> getAllWordsById(List<Long> wordIds, boolean isFull);
+    List<Word> getAllWordsById(List<Long> wordIds, boolean isFull);
 
     /**
      * Like {@link #getAllWordsByRange(int, int)} but without populating with meanings. This is useful in case we need to display word title only.

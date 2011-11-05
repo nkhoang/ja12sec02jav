@@ -2,7 +2,6 @@ package com.nkhoang.gae.dao.impl;
 
 import com.nkhoang.gae.dao.AppConfigDao;
 import com.nkhoang.gae.model.AppConfig;
-import com.nkhoang.gae.model.Dictionary;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.Query;

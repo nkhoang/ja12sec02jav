@@ -1,7 +1,5 @@
 package com.nkhoang.gae.model;
 
-import com.google.gdata.data.dublincore.Title;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

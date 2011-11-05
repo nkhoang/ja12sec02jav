@@ -13,6 +13,7 @@ import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.model.WordLucene;
 import com.nkhoang.gae.service.VocabularyService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Path("/")
@@ -129,14 +131,11 @@ public class VocabularyRESTServiceImpl {
     @Produces("application/xml")
     @Path("vocabulary/search/{word}")
     public Word search(@PathParam("word") String word) {
-        Word result = null;
-        try {
-            result = vocabularyService.save(word);
-        } catch (Exception ex) {
-            LOG.error(String.format("WS could not lookup: ", word), ex);
+        Map<String, Word> wordMap = vocabularyService.lookup(word);
+        if (MapUtils.isNotEmpty(wordMap)) {
+            return wordMap.values().iterator().next();
         }
-
-        return result;
+        return null;
     }
 
     @GET

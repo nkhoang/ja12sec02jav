@@ -5,9 +5,12 @@ import com.nkhoang.gae.model.AppConfig;
 import java.util.List;
 
 public interface ApplicationService {
-   List<AppConfig> getApplicationConfiguration();
+    List<AppConfig> getApplicationConfiguration();
 
-   AppConfig saveAppConfig(String label, String value);
+    AppConfig saveAppConfig(String label, String value);
 
-   boolean deleteAppConfig(Long id);
+    boolean deleteAppConfig(Long id);
+
+    AppConfig getAppConfig(String configKey);
+    List<String> getAppConfig(String configKey, String delimiter);
 }

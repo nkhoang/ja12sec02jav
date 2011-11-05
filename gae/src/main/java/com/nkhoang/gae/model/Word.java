@@ -100,6 +100,8 @@ public class Word {
 
     @Basic
     private Long timeStamp;
+    @Basic
+    private String sourceName;
 
 
     public Word() {
@@ -246,5 +248,13 @@ public class Word {
 	public void setPhraseList(List<Phrase> phraseList) {
 		this.phraseList = phraseList;
 	}
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
 }
 
