@@ -28,7 +28,7 @@ import java.util.List;
 
 public class VocabularyUtils {
     private static final Logger LOG = LoggerFactory.getLogger(VocabularyUtils.class.getCanonicalName());
-    private static final String HOST_NAME = "dictionary-misschara.appspot.com";
+    private static final String HOST_NAME = "mini-dict.appspot.com";
     private static JAXBContext context;
     private static JAXBContext wordLuceneContext;
 

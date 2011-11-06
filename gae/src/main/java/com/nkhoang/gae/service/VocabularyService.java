@@ -66,6 +66,9 @@ public interface VocabularyService {
 
     void saveWordToDatastore(Word word);
 
+   boolean checkConfiguredDicts();
+
+
     /**
      * Update the word with something worth to be updated (pron or soundsource).
      *

@@ -1,5 +1,7 @@
 package com.nkhoang.gae.model;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.util.*;
@@ -40,8 +42,13 @@ public class Word {
     public static final String WORD_KIND_VERB_EN = "verb";
     public static final String WORD_KIND_ADJ_EN = "adjective";
     public static final String WORD_KIND_ADV_EN = "adverb";
+   public static final String WORD_KIND_PLURAL_NOUN_EN = "plural noun";
     public static final String WORD_KIND_EXCLAIM_EN = "exclamation";
     public static final String WORD_KIND_PROPOSITION_EN = "preposition";
+   public static final String WORD_KIND_CARDINAL_NUMBER_EN = "cardinal number";
+   public static final String WORD_KIND_ORDINAL_NUMBER_EN = "ordinal number";
+   public static final String WORD_KIND_PRONOUN_EN = "pronoun";
+   public static final String WORD_KIND_CONJUNCTION_EN = "conjunction";
     public static String[] WORD_KINDS = {};
 
     // skipped fields.
@@ -59,7 +66,8 @@ public class Word {
 
             WORD_KINDS = new String[]{WORD_KIND_VERB, WORD_KIND_ADJ, WORD_KIND_NOUN, WORD_KIND_VERB_IN, WORD_KIND_VERB_TR,
                     WORD_KIND_ADV, WORD_KIND_ADV_EN, WORD_KIND_ADJ_EN, WORD_KIND_NOUN_EN, WORD_KIND_VERB_EN, WORD_KIND_EXCLAIM_EN,
-                    WORD_KIND_PROPOSITION_EN};
+                    WORD_KIND_PROPOSITION_EN, WORD_KIND_PLURAL_NOUN_EN, WORD_KIND_CARDINAL_NUMBER_EN, WORD_KIND_PRONOUN_EN,
+                  WORD_KIND_CONJUNCTION_EN, WORD_KIND_ORDINAL_NUMBER_EN};
         } catch (Exception e) {
             e.printStackTrace();
         }

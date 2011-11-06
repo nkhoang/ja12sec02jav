@@ -49,7 +49,7 @@ public class LuceneUtilsTest {
 		words = VocabularyUtils.getAllWordsByRange(index, 1000, "asc");
 		FileWriter writer = null;
 		try {
-			writer = new FileWriter(new File("lucene/src/main/resources/Words.txt"));
+			writer = new FileWriter(new File("lucene/src/main/resources/listALlWords.txt"));
 			do {
 				wordList.addAll(words);
 				index += 1000;

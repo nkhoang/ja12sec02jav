@@ -221,6 +221,11 @@ public class VocabularyServiceImpl implements VocabularyService {
         }
     }
 
+   public boolean checkConfiguredDicts() {
+      List<String> configValues = applicationService.getAppConfig(dictionaryKeyName, delimiter);
+      return (CollectionUtils.isNotEmpty(configValues));
+   }
+
     public Map<String, Word> lookup(String requestWord) {
         Map<String, Word> wordMap = new HashMap<String, Word>();
         if (StringUtils.isNotBlank(requestWord)) {
