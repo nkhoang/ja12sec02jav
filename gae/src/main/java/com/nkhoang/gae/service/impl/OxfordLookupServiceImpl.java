@@ -258,11 +258,11 @@ public class OxfordLookupServiceImpl implements LookupService {
                         if (CollectionUtils.isNotEmpty(senseList)) {
                            for (Element senseEle : senseList) {
                               if (checkElementProperty(senseEle, HTML_ATTR_CLASS, "sense")) {
+                                 sense = null;
+                                 sense = processSense(senseEle);
                                  if (sense != null) {
                                     phrase.getSenseList().add(sense);
                                  }
-                                 sense = null;
-                                 sense = processSense(senseEle);
                               } else if (checkElementProperty(senseEle, HTML_ATTR_CLASS, "subSense")) {
                                  if (sense != null) {
                                     Meaning m = processSubSense(senseEle);
@@ -270,8 +270,8 @@ public class OxfordLookupServiceImpl implements LookupService {
                                        sense.getSubSenses().add(m);
                                  }
                               }
-
                            }
+
                         }
                      }
                   }

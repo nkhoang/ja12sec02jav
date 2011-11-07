@@ -20,35 +20,35 @@ public class SpreadsheetServiceTest {
 
 	@Test
 	public void testGetDataFromSpreadsheet() throws Exception {
-		List<String> production_pol_config = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 1, 101);
-		List<String> dev_pol_config = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 2, 101);
-		List<String> dev_pol_existing = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 3, 101);
-		production_pol_config.removeAll(dev_pol_config);
-		production_pol_config.removeAll(dev_pol_existing);
-		LOG.info("Total count : " + production_pol_config.size());
+		List<String> script = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 1, 136);
+		List<String> test = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 2, 136);
+		List<String> prod = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 3, 136);
+        List<String> db = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 4, 136);
+
+        script.removeAll(prod);
+
+        LOG.info("Total : " + test.size());
 		StringBuilder stringBuilder = new StringBuilder();
-		for (String s : production_pol_config) {
+		for (String s : script) {
 			stringBuilder.append(s + "\n");
 		}
 		LOG.info(stringBuilder.toString());
 
-		LOG.info("POL_DATA_A :");
+        test.removeAll(db);
+        test.removeAll(script);
 
-		dev_pol_config = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_A", 1, 1, 150);
-		production_pol_config = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_A", 1, 2, 150);
-		production_pol_config.removeAll(dev_pol_config);
+		LOG.info("Total table in test in difference (-db, -script): " + test.size());
 		stringBuilder = new StringBuilder();
-		for (String s : production_pol_config) {
+		for (String s : test) {
 			stringBuilder.append(s + "\n");
 		}
 		LOG.info(stringBuilder.toString());
 
-		LOG.info("POL_DATA_B :");
-		dev_pol_config = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_B", 1, 1, 151);
-		production_pol_config = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_B", 1, 2, 151);
-		production_pol_config.removeAll(dev_pol_config);
-		stringBuilder = new StringBuilder();
-		for (String s : production_pol_config) {
+        prod.removeAll(script);
+        prod.removeAll(db);
+        LOG.info("Total table in prod in difference (-test, -script, -db): " + prod.size());
+        stringBuilder = new StringBuilder();
+		for (String s : prod) {
 			stringBuilder.append(s + "\n");
 		}
 		LOG.info(stringBuilder.toString());

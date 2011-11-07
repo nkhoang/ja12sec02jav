@@ -342,7 +342,7 @@ public class VocabularyAction {
                   "Load word items from file with starting index [%d] - [%d]", startingIndex, startingIndex + size));
       // waste the resource because we're going to use this function only one.
       List<String> wordList = FileUtils.readWordsFromFile(
-            request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/fullList.txt"));
+            request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/allWords.txt"));
       boolean shouldNotContinue = false;
       if (size == 0 || (startingIndex + size > maxIndex)) {
          shouldNotContinue = true;

@@ -75,7 +75,7 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
 
             for (CellEntry entry : feed.getEntries()) {
                 String cellData = entry.getCell().getValue();
-                result.add(cellData);
+                result.add(cellData.trim());
             }
         }
 

@@ -62,6 +62,16 @@
       font-weight: bold;
    }
 
+
+   #w-dis {
+      width: 600px;
+      float: left;
+       font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+       margin-left: 40px;
+       line-height: 18px;
+       font-size: 12pt;
+   }
+
    .w-k {
       border-bottom: 1px solid #C0C0C0;
       margin-bottom: 15px;
@@ -76,10 +86,32 @@
    .w-k-m {
    }
 
+   .w-phrase {
+       color: #000080;
+   }
+
+   div.w-k > ol > li {
+    color: #A8397A;
+   font-weight: bold;
+   }
+
+   div.w-k-m-container {
+       color: black;
+       font-weight: normal;;
+   }
+
+   li.w-k-m-sub {
+   }
+
+   .grammarGroup, .languageGroup {
+       font-style: italic;
+       font-weight: bold;
+       font-size: 11px;
+   }
+
    .w-k-m-c {
       font-weight: bold;
-      color: #A8397A;
-      font-size: 90%;
+      font-size: 14px;
    }
 
    .w-k-m-ex {
@@ -89,16 +121,48 @@
       font-size: 90%;
    }
 
-   #w-dis {
-      width: 600px;
-      float: left;
-      margin-left: 40px;
-   }
 
    #recent-w {
       width: 300px;
       float: left;
    }
+
+   div.w-k-m-examples {
+       font-size: 12px;
+       font-style: italic;
+   }
+
+   ol li.w-k-m:hover {
+       border: #CCCCCC 1px solid;
+       background-color: #FFF;
+       padding:  0 0 0 3px;
+   }
+
+   ol li.w-k-m {
+      padding : 1px 0 1px 4px;
+   }
+
+   ul li.w-k-m-sub:hover {
+       border: #CCCCCC 1px solid;
+       padding:  0 0 0 39px;
+       background-color: #E8F2FB;
+       background-position: 30px 7px;
+   }
+
+   ul li.w-k-m-sub {
+       list-style: none outside none;
+       background: url("<c:url value='/styles/images/bullet_gray.png' />") no-repeat scroll 31px 8px transparent;
+       font-size: 13px;
+       margin-left: -40px;
+       padding: 1px 0px 1px 40px;
+   }
+
+   ul.w-k-m-sub-example {
+       list-style: none;
+       font-style: italic;
+       font-size: 12px;
+   }
+
 
    .w-time {
       font-size: 9px;
@@ -109,7 +173,7 @@
 <script type="text/javascript" src="<c:url value='/js/GrowingInput.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/TextboxList.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery.autocomplete.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/jquery.template.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery.jtemplate.js' />"></script>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.css' />"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery.autocomplete.css' />"/>
@@ -210,9 +274,6 @@ function showSuccessMessage(response) {
    displayUserPanel('#user-zone');
 }
 
-/**
- * Show login dialog.
- */
 function openLoginDialog() {
    $("#login-form").dialog("open");
 }
@@ -302,17 +363,14 @@ function submitNewWord(lookupWord, updateIfNeed) {
       dataType: 'json',
       beforeSend : function() {
          $('#w-input').val($('#w-input').val().trim());
-         $('#aw-b').prop('disabled', 'disabled');
       },
       success: function(word) {
          global_pageManager.processWord(word);
-         $('#aw-b').removeProp('disabled');
          // preload sound
          $('#w-d-sound').click();
       },
       error: function() {
          alert('Could not lookup requested word. Server error. Please try again later.')
-         $('#aw-b').removeProp('disabled');
       }
    });
 }
@@ -368,23 +426,9 @@ function VocabularyManager() {
       for (var dictName in response.data) {
          var word = response.data[dictName];
          if (word) {
-            // set global word id.
-            ajaxData = response.data;
-            var $word = $('<div class="w"></div>');
-            // $('#w-dis').html($word);
-            // append title.
-            var $title = $('<div class="w-t"></div>').html(word.description);
-            var wordDescription = word.description;
-            if (word.pron != undefined) {
-               wordDescription = wordDescription + ' (' + word.pron + ')';
-            }
-            $('#w-d').html(wordDescription);
-            if (word.soundSource != undefined) {
-               $('#w-d').append($('<img id="w-d-sound" onclick="' + word.soundSource + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">'));
-            }
             // clear all old data.
             $('#w-nav').empty();
-            var $wordKinds = $('<div class="w-ks"></div>');
+             $('#w-d').append(word.description);
             // append meaning
             for (var i in word.meaningMap) {
                // append kind.
@@ -400,43 +444,14 @@ function VocabularyManager() {
                var $kindAnchor = $('<div><a href="' + kindAnchorId + '" /></div>');
                $kindAnchor.find('a').html(wordKind[i]);
                $('#w-nav').append($kindAnchor);
-               // loop through content.
-               var meanings = word.meaningMap[i];
-               if (meanings.length > 0) {
-                  var $meaningWrapper = $('<ol></ol>');
-                  for (var j in meanings) {
-                     var $meaning = $('<li class="w-k-m"></li>');
-                     var $content = $('<div class="w-k-m-c"></div>').html(meanings[j].definition);
-                     $meaning.append($content);
-                     // get sub content.
-                     if (meanings[j].subSenses && meanings[j].subSenses.length > 0) {
-                        var subSenseObj = meanings[j].subSenses[z];
-                        var $subSenseWrapper = $('<ul></ul>');
-                        for (var z in meanings[j].subSenses) {
-                           var $subSense = $('<li class="w-k-m-s" ></li>');
-                           var $subSenseContent = $('<div class="w-k-m-s-c"></div>')
-                                 .html("<b>" + subSenseObj.grammarGroup + "</b>" +
-                                       "<i>" + subSenseObj.languageGroup + "</i>" + subSenseObj.content);
-
-                        }
-                     }
-                     var examples = meanings[j].examples;
-                     if (examples.length > 0) {
-                        for (var z in examples) {
-                           var $example = $('<div class="w-k-m-ex"></div>').html(examples[z]);
-                           $meaning.append($example);
-                        }
-                     }
-                     $meaningWrapper.append($meaning);
-                  }
-                  $kind.append($meaningWrapper);
-               }
-               $wordKinds.append($kind);
             }
-
-            // $word.append($wordKinds);
-
-            fireListener();
+             $('#w-phrase').append('Phrase');
+            for (var i = 0; i < word.phraseList.length ; i++) {
+                var $phraseAnchor = $('<div><a href="#' + word.phraseList[i].description + '" /></div>');
+                $phraseAnchor.find('a').html(word.phraseList[i].description);
+                $('#w-phrase-nav').append($phraseAnchor);
+            }
+           fireListener();
             // in case user search before login.
             global_wordId = word.id;
          }
@@ -474,15 +489,19 @@ function VocabularyManager() {
 </div>
 
 <table>
-   <thead>
-   <th>Definition</th>
-   <th>Navigation</th>
-   </thead>
    <tbody>
-   <tr>
-      <td id="w-d"></td>
-      <td id="w-nav"></td>
-   </tr>
+       <tr>
+          <td id="w-d"></td>
+          <td id="w-nav"></td>
+       </tr>
+   </tbody>
+</table>
+<table>
+       <tbody>
+           <tr>
+              <td id="w-phrase"></td>
+              <td id="w-phrase-nav"></td>
+           </tr>
    </tbody>
 </table>
 <div id="w-container">

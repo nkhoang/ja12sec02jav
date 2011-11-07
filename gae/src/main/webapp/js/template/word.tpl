@@ -19,6 +19,7 @@
       {#foreach $T.phraseList as phrase}
          <div class="w-phrase">
             <div class="w-phrase-des">{$T.phrase.description}</div>
+             <a name="{$T.phrase.description}" />
             {#if $T.phrase.senseList}
             {#include SENSE root=$T.phrase.senseList}
             {#/if}
@@ -33,46 +34,48 @@
 <ol>
    {#foreach $T as meaning}
    <li class="w-k-m">
-      <div class="w-k-m-c">
-         {#if $T.meaning.grammarGroup}
-         <span class="w-k-m-grammarGroup">{$T.meaning.grammarGroup}</span>
-         {#/if}
-         {#if $T.meaning.languageGroup}
-         <span class="w-k-m-languageGroup">[{$T.meaning.languageGroup}]</span>
-         {#/if}
-         {$T.meaning.definition}
+       <div class="w-k-m-container">
+          <div class="w-k-m-c">
+             {#if $T.meaning.grammarGroup}
+             <span class="w-k-m-grammarGroup grammarGroup">{$T.meaning.grammarGroup}</span>
+             {#/if}
+             {#if $T.meaning.languageGroup}
+             <span class="w-k-m-languageGroup languageGroup">[{$T.meaning.languageGroup}]</span>
+             {#/if}
+             {$T.meaning.definition}
+          </div>
+          {#if $T.meaning.examples}
+          <div class="w-k-m-examples">
+             {#foreach $T.meaning.examples as example}
+             <div class="w-k-m-example">{$T.example}</div>
+             {#/for }
+          </div>
+          {#/if}
+          {#if $T.meaning.subSenses}
+          <ul class="w-k-m-subs">
+             {#foreach $T.meaning.subSenses as subSense}
+                <li class="w-k-m-sub">
+                   <div class="w-k-m-sub-c">
+                      {#if $T.subSense.grammarGroup}
+                      <span class="w-k-m-grammarGroup grammarGroup">{$T.subSense.grammarGroup}</span>
+                      {#/if}
+                      {#if $T.subSense.languageGroup}
+                      <span class="w-k-m-languageGroup languageGroup">[{$T.subSense.languageGroup}]</span>
+                      {#/if}
+                      {$T.subSense.content}
+                   </div>
+                   {#if $T.subSense.examples}
+                   <ul class="w-k-m-sub-example">
+                      {#foreach $T.subSense.examples as example}
+                         <li>{$T.example}</li>
+                      {#/for}
+                   </ul>
+                   {#/if}
+                </li>
+             {#/for}
+          </ul>
+          {#/if}
       </div>
-      {#if $T.meaning.examples}
-      <div class="w-k-m-examples">
-         {#foreach $T.meaning.examples as example}
-         <div class="w-k-m-example">{$T.example}</div>
-         {#/for }
-      </div>
-      {#/if}
-      {#if $T.meaning.subSenses}
-      <ul class="w-k-m-subs">
-         {#foreach $T.meaning.subSenses as subSense}
-            <li class="w-k-m-sub">
-               <div class="w-k-m-sub-c">
-                  {#if $T.subSense.grammarGroup}
-                  <span class="w-k-m-grammarGroup">{$T.subSense.grammarGroup}</span>
-                  {#/if}
-                  {#if $T.subSense.languageGroup}
-                  <span class="w-k-m-languageGroup">[{$T.subSense.languageGroup}]</span>
-                  {#/if}
-                  {$T.subSense.content}
-               </div>
-               {#if $T.subSense.examples}
-               <ul class="w-k-m-sub-example">
-                  {#foreach $T.subSense.examples as example}
-                     <li>{$T.example}</li>
-                  {#/for}
-               </ul>
-               {#/if}
-            </li>
-         {#/for}
-      </ul>
-      {#/if}
    </li>
    {#/for}
 </ol>
