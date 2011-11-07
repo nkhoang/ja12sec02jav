@@ -233,14 +233,14 @@ public class UserAction {
                   foundWords.add(doc.get(LuceneSearchFields.WORD_DESCRIPTION));
                }
                for (String w : foundWords) {
-                  Word fullWord = vocabularyService.findWord(w);
+                  /*Word fullWord = vocabularyService.findWord(w);
                   if (fullWord != null) {
                      words.add(fullWord);
                   } else {
                      Word newWord = new Word();
                      newWord.setDescription(w);
                      words.add(newWord);
-                  }
+                  }*/
                }
             }
          } catch (IOException ioe) {
@@ -248,9 +248,6 @@ public class UserAction {
          }
       }
 
-      List<String> attrs = new ArrayList<String>();
-      attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
-      modelAndView.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
 
       jsonData.put("data", words);
       modelAndView.addObject(GSONStrategy.DATA, jsonData);

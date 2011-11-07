@@ -256,7 +256,9 @@ public class VocabularyAction {
       }
 
       // get word list based on what selected.
-      List<Word> wordList = vocabularyService.getAllWordsById(filteredIds, true);
+      // TODO: to change this.
+      // List<Word> wordList = vocabularyService.getAllWordsById(filteredIds, true);
+      List<Word> wordList = null;
 
       Map<String, List<Integer>> filteredMeaningExampleIdMap = new HashMap<String, List<Integer>>();
       // build meaning - example map.
@@ -342,7 +344,7 @@ public class VocabularyAction {
                   "Load word items from file with starting index [%d] - [%d]", startingIndex, startingIndex + size));
       // waste the resource because we're going to use this function only one.
       List<String> wordList = FileUtils.readWordsFromFile(
-            request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/allWords.txt"));
+            request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/fullList.txt"));
       boolean shouldNotContinue = false;
       if (size == 0 || (startingIndex + size > maxIndex)) {
          shouldNotContinue = true;
@@ -473,9 +475,6 @@ public class VocabularyAction {
       View jsonView = new JSONView();
       mav.setView(jsonView);
 
-      List<String> attrs = new ArrayList<String>();
-      attrs.addAll(Arrays.asList(Word.SKIP_FIELDS));
-      mav.addObject(GSONStrategy.EXCLUDE_ATTRIBUTES, attrs);
       mav.addObject(GSONStrategy.DATA, jsonData);
       return mav;
    }

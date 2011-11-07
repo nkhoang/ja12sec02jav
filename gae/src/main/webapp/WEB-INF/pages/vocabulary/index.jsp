@@ -428,7 +428,7 @@ function VocabularyManager() {
          if (word) {
             // clear all old data.
             $('#w-nav').empty();
-             $('#w-d').append(word.description);
+             $('#w-d').html(word.description);
             // append meaning
             for (var i in word.meaningMap) {
                // append kind.
@@ -445,7 +445,8 @@ function VocabularyManager() {
                $kindAnchor.find('a').html(wordKind[i]);
                $('#w-nav').append($kindAnchor);
             }
-             $('#w-phrase').append('Phrase');
+             $('#w-phrase').html('Phrase');
+            $('#w-phrase-nav').empty();
             for (var i = 0; i < word.phraseList.length ; i++) {
                 var $phraseAnchor = $('<div><a href="#' + word.phraseList[i].description + '" /></div>');
                 $phraseAnchor.find('a').html(word.phraseList[i].description);

@@ -1,7 +1,6 @@
 package com.nkhoang.gae.service;
 
 import com.google.gdata.util.ServiceException;
-import com.nkhoang.gae.model.Word;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +17,4 @@ public interface SpreadsheetService {
   public List<String> querySpreadsheet(
       String spreadSheetName, String worksheetName, int row, int col, int size) throws IOException, ServiceException;
 
-  public void updateWordMeaningToSpreadsheet(
-      List<Word> wordList, String spreadSheetName, String worksheetName,
-      int offset, int target) throws IOException, ServiceException;
 }

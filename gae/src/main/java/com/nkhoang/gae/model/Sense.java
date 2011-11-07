@@ -1,102 +1,80 @@
 package com.nkhoang.gae.model;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@SuppressWarnings({"JpaAttributeTypeInspection"})
 public class Sense {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @Basic
-    private String wordForm;
-    @Basic
-    private String grammarGroup;
-    @Basic
-    private String languageGroup;
-    @Basic
-    private String definition;
-    @Basic
-    private String kind;
-    @Transient
-    private List<Meaning> subSenses = new ArrayList<Meaning>(0);
-    @Basic
-    private List<String> examples = new ArrayList<String>(0);
-    @Basic
-    private List<Long> subSenseIds = new ArrayList<Long>(0);
+   private String id;
+   private String wordForm;
+   private String grammarGroup;
+   private String languageGroup;
+   private String definition;
+   private String kind;
+   private List<Meaning> subSenses = new ArrayList<Meaning>(0);
+   private List<String> examples = new ArrayList<String>(0);
 
 
-    public Long getId() {
-        return id;
-    }
+   public String getWordForm() {
+      return wordForm;
+   }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   public void setWordForm(String wordForm) {
+      this.wordForm = wordForm;
+   }
 
-    public String getWordForm() {
-        return wordForm;
-    }
+   public String getGrammarGroup() {
+      return grammarGroup;
+   }
 
-    public void setWordForm(String wordForm) {
-        this.wordForm = wordForm;
-    }
+   public void setGrammarGroup(String grammarGroup) {
+      this.grammarGroup = grammarGroup;
+   }
 
-    public String getGrammarGroup() {
-        return grammarGroup;
-    }
+   public String getLanguageGroup() {
+      return languageGroup;
+   }
 
-    public void setGrammarGroup(String grammarGroup) {
-        this.grammarGroup = grammarGroup;
-    }
+   public void setLanguageGroup(String languageGroup) {
+      this.languageGroup = languageGroup;
+   }
 
-    public String getLanguageGroup() {
-        return languageGroup;
-    }
+   public String getDefinition() {
+      return definition;
+   }
 
-    public void setLanguageGroup(String languageGroup) {
-        this.languageGroup = languageGroup;
-    }
+   public void setDefinition(String definition) {
+      this.definition = definition;
+   }
 
-    public String getDefinition() {
-        return definition;
-    }
+   public List<Meaning> getSubSenses() {
+      return subSenses;
+   }
 
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
+   public void setSubSenses(List<Meaning> subSenses) {
+      this.subSenses = subSenses;
+   }
 
-    public List<Meaning> getSubSenses() {
-        return subSenses;
-    }
+   public List<String> getExamples() {
+      return examples;
+   }
 
-    public void setSubSenses(List<Meaning> subSenses) {
-        this.subSenses = subSenses;
-    }
+   public void setExamples(List<String> examples) {
+      this.examples = examples;
+   }
 
-    public List<String> getExamples() {
-        return examples;
-    }
+   public String getKind() {
+      return kind;
+   }
 
-    public void setExamples(List<String> examples) {
-        this.examples = examples;
-    }
+   public void setKind(String kind) {
+      this.kind = kind;
+   }
 
-    public String getKind() {
-        return kind;
-    }
+   public String getId() {
+      return id;
+   }
 
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
-
-    public List<Long> getSubSenseIds() {
-        return subSenseIds;
-    }
-
-    public void setSubSenseIds(List<Long> subSenseIds) {
-        this.subSenseIds = subSenseIds;
-    }
+   public void setId(String id) {
+      this.id = id;
+   }
 }

@@ -3,10 +3,7 @@ package com.nkhoang.gae.service.impl;
 import com.nkhoang.gae.dao.DictionaryDao;
 import com.nkhoang.gae.dao.UserWordDao;
 import com.nkhoang.gae.dao.VocabularyDao;
-import com.nkhoang.gae.model.Dictionary;
-import com.nkhoang.gae.model.User;
-import com.nkhoang.gae.model.UserWord;
-import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.service.UserService;
 import com.nkhoang.gae.utils.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -67,7 +64,8 @@ public class UserServiceImpl implements UserService {
                 if (CollectionUtils.isNotEmpty(userWords)) {
                     List<Word> words = new ArrayList<Word>();
                     for (UserWord userWord : userWords) {
-                        words.add(vocabularyDao.get(userWord.getWordId()));
+                       // TODO: add words for user here.
+                        // words.add(vocabularyDao.get(userWord.getWordId()));
                     }
 
                     if (CollectionUtils.isNotEmpty(words)) {
@@ -96,7 +94,7 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public UserWord addWord(Long wordId) {
         // check word existence.
-        Word w = vocabularyDao.get(wordId);
+        WordEntity w = vocabularyDao.get(wordId);
         if (w != null) {
             // ok to proceed.
             User currentUser = getCurrentUser();

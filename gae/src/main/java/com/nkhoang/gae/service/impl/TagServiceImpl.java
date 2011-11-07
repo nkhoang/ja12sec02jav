@@ -4,7 +4,6 @@ import com.nkhoang.gae.dao.UserTagDao;
 import com.nkhoang.gae.dao.WordTagDao;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.model.UserTag;
-import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.model.WordTag;
 import com.nkhoang.gae.service.TagService;
 import com.nkhoang.gae.service.UserService;
@@ -13,7 +12,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TagServiceImpl implements TagService {
@@ -56,26 +54,6 @@ public class TagServiceImpl implements TagService {
         User currentUser = userService.getCurrentUser();
         return userTagDao.getAllUserTags(userId);
     }
-
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public List<Word> getAllWordsByTagName(String tagName) {
-        if (StringUtils.isNotBlank(tagName)) {
-            User currentUser = userService.getCurrentUser();
-            UserTag userTag = userTagDao.get(currentUser.getId(), tagName);
-            if (userTag != null) {
-                List<WordTag> wordTags = wordTagDao.getAllWords(userTag.getId());
-                if (!CollectionUtils.isEmpty(wordTags)) {
-                    List<Long> wordIds = new ArrayList<Long>();
-                    for (WordTag wordTag : wordTags) {
-                        wordIds.add(wordTag.getWordId());
-                    }
-                    return vocabularyService.getAllWordsById(wordIds, true);
-                }
-            }
-        }
-        return null;
-    }
-
 
     public void setWordTagDao(WordTagDao wordTagDao) {
         this.wordTagDao = wordTagDao;

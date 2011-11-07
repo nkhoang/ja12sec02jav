@@ -1,13 +1,13 @@
 package com.nkhoang.gae.dao;
 
-import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.WordEntity;
 
 import java.util.List;
 
-public interface VocabularyDao extends BaseDao<Word, Long> {
-  List<Word> lookup(String word);
+public interface VocabularyDao extends BaseDao<WordEntity, Long> {
+   WordEntity lookup(String word);
 
-  List<Word> getAllInRange(int offset, int size);
+   List<WordEntity> getAllInRange(int offset, int size);
 
-  List<Word> getAllInRange(int offset, int size, String direction);
+   List<WordEntity> getAllInRange(int offset, int size, String direction);
 }

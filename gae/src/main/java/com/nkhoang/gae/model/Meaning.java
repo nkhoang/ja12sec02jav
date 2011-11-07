@@ -1,6 +1,5 @@
 package com.nkhoang.gae.model;
 
-import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,132 +12,118 @@ import java.util.List;
  *
  * @author hoangnk
  */
-
-@SuppressWarnings({"JpaAttributeTypeInspection"})
-@Entity
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlType(name = "meaning", propOrder = {
-        "content",
-        "examples",
-        "id",
-        "kind",
-        "kindId",
-        "type"
+      "content",
+      "examples",
+      "kind",
+      "kindId",
+      "type"
 })
 @XmlRootElement
 public class Meaning {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @Basic
-    private String content;
-    // based on oxford dictionary.
-    @Basic
-    // for example: mass noun...
-    private String grammarGroup;
-    @Basic
-    // for example: informal, formal...
-    private String languageGroup;
-    @Basic
-    private Long kindId;
-    @Basic
-    private List<String> examples = new ArrayList<String>(0);
-    private String kind;
-	@Basic
-	private String wordForm;
-    @Basic
-    private String type;
-    // skip datastore field.
-    public static final String SKIP_FIELDS[] = {"jdoDetachedState"};
+   private String id;
+   private String content;
+   // based on oxford dictionary.
+   // for example: mass noun...
+   private String grammarGroup;
+   // for example: informal, formal...
+   private String languageGroup;
+   private Long kindId;
+   private List<String> examples = new ArrayList<String>(0);
+   private String kind;
+   private String wordForm;
+   private String type;
+   // skip datastore field.
 
-    public Meaning(String content, Long kindId) {
-        this.content = content;
-        this.kindId = kindId;
-    }
+   public Meaning(String content, Long kindId) {
+      this.content = content;
+      this.kindId = kindId;
+   }
 
-    // no default constructor.
-    public Meaning() {
+   // no default constructor.
+   public Meaning() {
 
-    }
+   }
 
-    public void addExample(String example) {
-        this.examples.add(example);
-    }
+   public void addExample(String example) {
+      this.examples.add(example);
+   }
 
-    public List<String> getExamples() {
-        return this.examples;
-    }
+   public List<String> getExamples() {
+      return this.examples;
+   }
 
-    @Override
-    public String toString() {
-        return content + "\n" + examples.toString();
-    }
+   @Override
+   public String toString() {
+      return content + "\n" + examples.toString();
+   }
 
-    public Long getId() {
-        return id;
-    }
+   public String getContent() {
+      return content;
+   }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   public void setContent(String content) {
+      this.content = content;
+   }
 
-    public String getContent() {
-        return content;
-    }
+   public void setExamples(List<String> examples) {
+      this.examples = examples;
+   }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+   public void setKindId(Long kindId) {
+      this.kindId = kindId;
+   }
 
-    public void setExamples(List<String> examples) {
-        this.examples = examples;
-    }
+   public Long getKindId() {
+      return kindId;
+   }
 
-    public void setKindId(Long kindId) {
-        this.kindId = kindId;
-    }
+   public void setKind(String kind) {
+      this.kind = kind;
+   }
 
-    public Long getKindId() {
-        return kindId;
-    }
+   public String getKind() {
+      return kind;
+   }
 
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
+   public String getType() {
+      return type;
+   }
 
-    public String getKind() {
-        return kind;
-    }
+   public void setType(String type) {
+      this.type = type;
+   }
 
-    public String getType() {
-        return type;
-    }
+   public String getGrammarGroup() {
+      return grammarGroup;
+   }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+   public void setGrammarGroup(String grammarGroup) {
+      this.grammarGroup = grammarGroup;
+   }
 
-    public String getGrammarGroup() {
-        return grammarGroup;
-    }
+   public String getLanguageGroup() {
+      return languageGroup;
+   }
 
-    public void setGrammarGroup(String grammarGroup) {
-        this.grammarGroup = grammarGroup;
-    }
+   public void setLanguageGroup(String languageGroup) {
+      this.languageGroup = languageGroup;
+   }
 
-    public String getLanguageGroup() {
-        return languageGroup;
-    }
+   public String getWordForm() {
+      return wordForm;
+   }
 
-    public void setLanguageGroup(String languageGroup) {
-        this.languageGroup = languageGroup;
-    }
+   public void setWordForm(String wordForm) {
+      this.wordForm = wordForm;
+   }
 
-	public String getWordForm() {
-		return wordForm;
-	}
+   public String getId() {
+      return id;
+   }
 
-	public void setWordForm(String wordForm) {
-		this.wordForm = wordForm;
-	}
+   public void setId(String id) {
+      this.id = id;
+   }
 }

@@ -11,13 +11,8 @@
 
 
     <bean id="userTagDao" class="com.nkhoang.gae.dao.impl.UserTagDaoImpl" scope="prototype"></bean>
-    <bean id="phraseDao" class="com.nkhoang.gae.dao.impl.PhraseDaoImpl" scope="prototype"></bean>
-    <bean id="senseDao" class="com.nkhoang.gae.dao.impl.SenseDaoImpl" scope="prototype"></bean>
 
     <bean id="wordTagDao" class="com.nkhoang.gae.dao.impl.WordTagDaoImpl" scope="prototype"></bean>
-    <bean id="meaningDao" class="com.nkhoang.gae.dao.impl.MeaningDaoImpl"
-          scope="prototype">
-    </bean>
 
     <bean id="wordLuceneDao" class="com.nkhoang.gae.dao.impl.WordLuceneDaoImpl"
           scope="prototype"></bean>

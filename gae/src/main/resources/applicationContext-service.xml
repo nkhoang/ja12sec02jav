@@ -9,6 +9,8 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
        default-lazy-init="true">
+
+   <bean id="appCache" class="com.nkhoang.gae.service.impl.AppCache" scope="singleton"></bean>
     <!-- WS service -->
     <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
         <property name="vocabularyService" ref="vocabularyService"/>
@@ -16,6 +18,7 @@
         <property name="wordLuceneDao" ref="wordLuceneDao"></property>
         <property name="dictionaryDao" ref="dictionaryDao"></property>
         <property name="appConfigDao" ref="appConfigDao"></property>
+       <property name="applicationService" ref="applicationService"></property>
     </bean>
 
     <bean id="centralLookupService" class="com.nkhoang.gae.service.impl.CentralLookupService" scope="prototype">
@@ -26,9 +29,6 @@
         </property>
     </bean>
 
-    <bean id="applicationService" class="com.nkhoang.gae.service.impl.ApplicationServiceImpl" scope="prototype">
-        <property name="appConfigDao" ref="appConfigDao"></property>
-    </bean>
 
     <bean id="oxfordLookupService" class="com.nkhoang.gae.service.impl.OxfordLookupServiceImpl"/>
     <bean id="longmanLookupService" class="com.nkhoang.gae.service.impl.LongmanLookupServiceImpl"/>

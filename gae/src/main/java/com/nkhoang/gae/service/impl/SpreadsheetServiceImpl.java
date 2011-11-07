@@ -8,16 +8,15 @@ import com.google.gdata.data.batch.BatchStatus;
 import com.google.gdata.data.batch.BatchUtils;
 import com.google.gdata.data.spreadsheet.*;
 import com.google.gdata.util.ServiceException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.nkhoang.gae.gson.strategy.GSONStrategy;
-import com.nkhoang.gae.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -80,62 +79,6 @@ public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.Spreadshe
         }
 
         return result;
-    }
-
-    public void updateWordMeaningToSpreadsheet(
-            List<Word> wordList, String spreadSheetName, String worksheetName,
-            int offset, int target) throws IOException, ServiceException {
-        List<CellAddress> cellAddrs = new ArrayList<CellAddress>();
-        List<CellAddress> cellMeaningAddrs = new ArrayList<CellAddress>();
-
-        Gson gson = null;
-        List<String> excludeAttrs = Arrays.asList(Word.SKIP_FIELDS);
-        if (excludeAttrs != null && excludeAttrs.size() > 0) {
-            gson = new GsonBuilder().setExclusionStrategies(
-                    new GSONStrategy(excludeAttrs)).create();
-        } else {
-            gson = new Gson();
-        }
-
-        int rowIndex = offset;
-        for (Word w : wordList) {
-            cellAddrs.add(new CellAddress(rowIndex, 1, w.getDescription()));
-            cellMeaningAddrs.add(new CellAddress(rowIndex, 2, gson.toJson(w)));
-            rowIndex++;
-        }
-
-        // create ThreadPoolExecutor
-        ArrayBlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(MAXIMUM_POOL_SIZE);
-
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.SECONDS, queue, new ThreadPoolExecutor.CallerRunsPolicy());
-
-        URL cellFeedUrl = findSpreadSheetCellUrlByTitle(spreadSheetName, worksheetName);
-        CellFeed cellFeed = getService().getFeed(cellFeedUrl, CellFeed.class);
-        List<Integer> failedTask = new ArrayList<Integer>();
-        int listOffset = 0;
-        do {
-            LOGGER.info(String.format("Batch from offset [%s-%s] starting...", offset, offset + wordList.size()));
-            // minimize the request to google service.
-            Map<String, CellEntry> cellEntries = getCellEntryMap(
-                    getService(), cellFeedUrl, cellAddrs, listOffset, offset, wordList.size());
-            Map<String, CellEntry> cellMeaningEntries = getCellEntryMap(
-                    getService(), cellFeedUrl, cellMeaningAddrs, listOffset, offset, wordList.size());
-            int batchTarget = offset + wordList.size();
-            do {
-                LOGGER.info(String.format("Updating ... offset [ %s ]", offset));
-                executor.execute(new UpdateDataTask(cellFeed, cellAddrs, listOffset, offset, cellFeedUrl, cellEntries, batchTarget));
-                executor.execute(new UpdateDataTask(cellFeed, cellMeaningAddrs, listOffset, offset, cellFeedUrl, cellMeaningEntries, batchTarget));
-                offset += MAXIMUM_CELL_UPDATE_AT_TIME;
-                listOffset += MAXIMUM_CELL_UPDATE_AT_TIME;
-            } while (offset < batchTarget);
-            // keep this until the batch finish then process to the next batch.
-            do {
-            } while (executor.getTaskCount() != executor.getCompletedTaskCount());
-        } while (offset < target);
-        do {
-            // LOGGER.info(String.format("Status: %s/%s", executor.getCompletedTaskCount(), executor.getTaskCount()));
-        } while (executor.getTaskCount() != executor.getCompletedTaskCount());
-
     }
 
 

@@ -1,52 +1,35 @@
 package com.nkhoang.gae.model;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@SuppressWarnings({"JpaAttributeTypeInspection"})
 public class Phrase {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
-	@Basic
-	private String description;
-	@Basic
-	private List<Long> senseIds = new ArrayList<Long>(0);
-	@Transient
-	private List<Sense> senseList = new ArrayList<Sense>(0);
+   private String id;
+   private String description;
+   private List<Sense> senseList = new ArrayList<Sense>(0);
 
 
-    public Long getId() {
-        return id;
-    }
+   public String getDescription() {
+      return description;
+   }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   public void setDescription(String description) {
+      this.description = description;
+   }
 
-    public String getDescription() {
-        return description;
-    }
+   public List<Sense> getSenseList() {
+      return senseList;
+   }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+   public void setSenseList(List<Sense> senseList) {
+      this.senseList = senseList;
+   }
 
-	public List<Long> getSenseIds() {
-		return senseIds;
-	}
+   public String getId() {
+      return id;
+   }
 
-	public void setSenseIds(List<Long> senseIds) {
-		this.senseIds = senseIds;
-	}
-
-	public List<Sense> getSenseList() {
-		return senseList;
-	}
-
-	public void setSenseList(List<Sense> senseList) {
-		this.senseList = senseList;
-	}
+   public void setId(String id) {
+      this.id = id;
+   }
 }
