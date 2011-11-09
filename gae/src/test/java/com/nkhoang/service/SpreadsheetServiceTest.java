@@ -24,33 +24,27 @@ public class SpreadsheetServiceTest {
 		List<String> test = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 2, 136);
 		List<String> prod = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 3, 136);
         List<String> db = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 4, 136);
+        List<String> updatedScript = spreadsheetService.querySpreadsheet("POL_CONFIG", "POL_CONFIG", 1, 5, 136);
 
-        script.removeAll(prod);
+
+        test.removeAll(prod);
+
+
 
         LOG.info("Total : " + test.size());
 		StringBuilder stringBuilder = new StringBuilder();
-		for (String s : script) {
-			stringBuilder.append(s + "\n");
-		}
-		LOG.info(stringBuilder.toString());
-
-        test.removeAll(db);
-        test.removeAll(script);
-
-		LOG.info("Total table in test in difference (-db, -script): " + test.size());
-		stringBuilder = new StringBuilder();
 		for (String s : test) {
 			stringBuilder.append(s + "\n");
 		}
 		LOG.info(stringBuilder.toString());
 
-        prod.removeAll(script);
-        prod.removeAll(db);
-        LOG.info("Total table in prod in difference (-test, -script, -db): " + prod.size());
-        stringBuilder = new StringBuilder();
+        /*prod.removeAll(db);
+
+        LOG.info("Total : " + test.size());
+		stringBuilder = new StringBuilder();
 		for (String s : prod) {
 			stringBuilder.append(s + "\n");
 		}
-		LOG.info(stringBuilder.toString());
+		LOG.info(stringBuilder.toString());*/
 	}
 }

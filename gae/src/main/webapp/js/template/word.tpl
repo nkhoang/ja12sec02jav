@@ -8,8 +8,8 @@
     <div class="w-ks">
       {#foreach $T.meaningMap as meanings}
       <div class="w-k">
-         <a name="{$P.wordKind[$T.meanings$key]}" />
-         <div class="w-k-t">{$P.wordKind[$T.meanings$key]}</div>
+         <a name="{$T.meanings$key}" />
+         <div class="w-k-t">{$T.meanings$key}</div>
            {#include SENSE root=$T.meanings}
       </div>
       {#/for}
@@ -31,6 +31,7 @@
 {#/template MAIN}
 
 {#template SENSE}
+
 <ol>
    {#foreach $T as meaning}
    <li class="w-k-m">

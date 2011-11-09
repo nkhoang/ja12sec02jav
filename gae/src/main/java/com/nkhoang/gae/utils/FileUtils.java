@@ -20,6 +20,7 @@ public class FileUtils {
      * @return a list of word in string.
      */
     public static List<String> readWordsFromFile(String filePath) {
+        LOG.info("Getting data from file: " + filePath);
         List<String> wordList = new ArrayList<String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));

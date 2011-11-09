@@ -130,7 +130,7 @@ public class VocabularyServiceImpl implements VocabularyService {
       return (CollectionUtils.isNotEmpty(configValues));
    }
 
-   public void refreshAppCache() {
+   private void refreshAppCache() {
       List<AppConfig> appConfigs = applicationService.getApplicationConfiguration();
       for (AppConfig appConfig : appConfigs) {
          if (StringUtils.isNotBlank(appConfig.getValue())) {
@@ -145,6 +145,9 @@ public class VocabularyServiceImpl implements VocabularyService {
          // first get the configuration dictionaries.
          LOG.info("dictionaryKeyName = " + dictionaryKeyName);
          List<String> configValues = appCache.getProperty(dictionaryKeyName);
+          if (CollectionUtils.isEmpty(configValues)) {
+            refreshAppCache();
+          }
          if (CollectionUtils.isNotEmpty(configValues)) {
             // check DB first
             WordEntity dbWordEntity = findWord(requestWord);
@@ -229,10 +232,10 @@ public class VocabularyServiceImpl implements VocabularyService {
             kind = kinds.get(0).getTextExtractor().toString().trim();
             //LOG.debug("Kind: " + kind);
          }
-         if (w.getKindidmap().get(kind) == null) {
+         //if (w.getKindidmap().get(kind) == null) {
             //LOG.debug(">>>>>>>>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>> Kind not found in the map: " + kind);
-            return;
-         }
+           // return;
+         //}
          // process meaning
          List<Element> meaningList = source.getAllElementsByClass(LONGMAN_DICT_CLASS_MEANING);
          if (CollectionUtils.isNotEmpty(meaningList)) {
@@ -251,8 +254,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                if (CollectionUtils.isNotEmpty(ftdefs)) {
                   ftdef = ftdefs.get(0);
                   // create this meaning
-                  mainM = new Meaning(
-                        gramStr + " " + ftdef.getTextExtractor().toString(), w.getKindidmap().get(kind));
+                  // mainM = new Meaning(gramStr + " " + ftdef.getTextExtractor().toString(), w.getKindidmap().get(kind));
                   //LOG.debug("Meaning: " + ftdef.getTextExtractor().toString());
                } else {
                   //LOG.debug("Could not check definition for this word: " + word);
@@ -274,23 +276,23 @@ public class VocabularyServiceImpl implements VocabularyService {
                List<Element> gramexas = meaning.getAllElementsByClass(LONGMAN_DICT_CLASS_MEANING_EXTRA);
                if (CollectionUtils.isNotEmpty(gramexas)) {
                   for (Element gramexa : gramexas) {
-                     Meaning mm = processSubExampleLongman(gramexa, "PROPFORM", w.getKindidmap().get(kind));
-                     mm.setType(GRAM_MEANING_TYPE);
+                     // Meaning mm = processSubExampleLongman(gramexa, "PROPFORM", w.getKindidmap().get(kind));
+                     // mm.setType(GRAM_MEANING_TYPE);
                      // make sure content is not blank.
-                     if (StringUtils.isNotEmpty(mm.getContent())) {
+                     // if (StringUtils.isNotEmpty(mm.getContent())) {
                         //aa w.addMeaning(w.getKindidmap().get(kind), mm);
-                     }
+                     // }
                   }
                }
 
                List<Element> colloexas = meaning.getAllElementsByClass("ColloExa"); // process gram example
                if (CollectionUtils.isNotEmpty(colloexas)) {
                   for (Element colloexa : colloexas) {
-                     Meaning mm = processSubExampleLongman(colloexa, "COLLO", w.getKindidmap().get(kind));
+                     /*Meaning mm = processSubExampleLongman(colloexa, "COLLO", w.getKindidmap().get(kind));
                      mm.setType(COLLO_MEANING_TYPE);
                      if (StringUtils.isNotEmpty(mm.getContent())) { // make sure content is not blank.
                         //aa w.addMeaning(w.getKindidmap().get(kind), mm);
-                     }
+                     }*/
                   }
                }
             }
@@ -534,7 +536,7 @@ public class VocabularyServiceImpl implements VocabularyService {
                         for (Element content : liContent) {
                            if (StringUtils.equals(content.getName(), "b")) {
                               String contentRaw = content.getContent().toString();
-                              meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
+                              //aa meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
                               //LOG.debug("content : " + contentRaw);
                            } else if (StringUtils.equals(content.getName(), "ul") &&
                                  StringUtils.isNotEmpty(meaning.getContent())) {
@@ -548,7 +550,8 @@ public class VocabularyServiceImpl implements VocabularyService {
                            }
                         }
                      }
-                     Long kindId = aWord.getKindidmap().get(kind);
+                     // Long kindId = aWord.getKindidmap().get(kind);
+                      Long kindId = null;
                      if (kindId == null) {
                         LOG.info(">>>>>>>>>>>>>>>>>> CRITICAL >>>>>>>>>>>>>>>>>>>>> Null for kind: " + kind);
                      }

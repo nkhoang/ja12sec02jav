@@ -93,7 +93,7 @@ public class VocabularyAction {
             Queue queue = QueueFactory.getDefaultQueue();
             queue.add(
                     TaskOptions.Builder.withUrl("/vocabulary/lookupWordsTask.html").param("size", size + "")
-                                       .method(TaskOptions.Method.GET));
+                            .method(TaskOptions.Method.GET));
             try {
                 response.getWriter().write("Task: 'Lookup Words Task' started.");
             } catch (Exception e) {
@@ -107,17 +107,16 @@ public class VocabularyAction {
 
     @RequestMapping(value = "/lookupWordsTask")
     public void lookupWordsTask(@RequestParam int size, HttpServletRequest request) {
-
         // get word list from appCache first.
-        List<String> fullWordItems = appCache.getProperty(ViewConstant.WORD_ITEM_INDEX_KEY);
+        LOG.info("Refresh appCache with full word list.");
+        // then refresh it by loading it from file.
+        List<String> fullWordItems = FileUtils.readWordsFromFile(
+                request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/fullList.txt"));
+
+        LOG.info("wordList size: " + fullWordItems.size());
         if (CollectionUtils.isEmpty(fullWordItems)) {
-            // then refresh it by loading it from file.
-            fullWordItems = FileUtils.readWordsFromFile(
-                    request.getSession().getServletContext().getRealPath("WEB-INF/vocabulary/fullList.txt"));
-            LOG.info("wordList size: " + fullWordItems.size());
-            // update appCache.
-            appCache.removeProperty(ViewConstant.WORD_ITEM_INDEX_KEY);
-            appCache.addProperty(ViewConstant.WORD_ITEM_INDEX_KEY, fullWordItems);
+            WebUtils.sendMail("Hi Boss, <br/> <p>I could not load words from the file in server. Please check it out.</p>", mailSender, "Daily Lookup Report", "nkhoang.it@gmail.com");
+            return;
         }
         // get starting index from DS.
         int wordItemIndex = 0;
@@ -180,7 +179,7 @@ public class VocabularyAction {
         Queue queue = QueueFactory.getDefaultQueue();
         queue.add(
                 TaskOptions.Builder.withUrl("/vocabulary/removeWordItemDuplicates.html").param("index", startingIndex + "")
-                                   .param("size", size + "").method(TaskOptions.Method.GET));
+                        .param("size", size + "").method(TaskOptions.Method.GET));
         try {
             response.getWriter().write("Task: 'Remove Duplicate WordItem' started.");
         } catch (Exception e) {
@@ -313,23 +312,6 @@ public class VocabularyAction {
         }
     }
 
-
-    /**
-     * Get wordkind list.
-     *
-     * @return the wordkind list in JSON format.
-     */
-    @RequestMapping(value = "/wordKind", method = RequestMethod.POST)
-    public ModelAndView getWordKind() {
-        ModelAndView modelAndView = new ModelAndView();
-        View jsonView = new JSONView();
-        modelAndView.setView(jsonView);
-        Map<String, Object> jsonData = new HashMap<String, Object>();
-        jsonData.put("wordKind", Word.WORD_KINDS);
-        modelAndView.addObject(GSONStrategy.DATA, jsonData);
-
-        return modelAndView;
-    }
 
     /**
      * Save and lookup word with meanings and examples

@@ -231,7 +231,7 @@
 </script>
 
 <script type="text/javascript">
-var wordKind = [];
+
 function displayUserPanel(zoneId) {
    $.ajax({
       url: '<c:url value="/user/userPanel.html" />',
@@ -328,18 +328,6 @@ $(function() {
       }
    });
 
-   // get a list of word kinds.
-   $.ajax({
-      url: '<c:url value="/vocabulary/wordKind.html" />',
-      type: 'POST',
-      dataType: 'json',
-      success: function(data) {
-         wordKind = data.wordKind;
-      },
-      error: function() {
-         alert("Failed to retrieve content from server. Cannot display data correctly. Please try again.");
-      }
-   });
    // prevent the form submitting.
    $('#aw-form').submit(function() {
       $('#aw-b').click();
@@ -420,7 +408,6 @@ function VocabularyManager() {
    this.processWord = function(response) {
       for (var dictName in response.data) {
          $('#w-dis').setTemplateURL('<c:url value="/js/template/word.tpl" />');
-         $("#w-dis").setParam('wordKind', wordKind);
          $("#w-dis").processTemplate(response.data[dictName]);
       }
       for (var dictName in response.data) {
@@ -434,15 +421,15 @@ function VocabularyManager() {
                // append kind.
                var $kind = $('<div class="w-k"></div>');
                // append anchor
-               var $anchor = $('<a name="' + wordKind[i] + '" />');
+               var $anchor = $('<a name="' + i + '" />');
                // append kind title.
-               var $kindTitle = $('<div class="w-k-t"></div>').html(wordKind[i]);
+               var $kindTitle = $('<div class="w-k-t"></div>').html(i);
                $kind.append($anchor);
                $kind.append($kindTitle);
                // append to navigation table.
-               var kindAnchorId = '#' + wordKind[i];
+               var kindAnchorId = '#' + i;
                var $kindAnchor = $('<div><a href="' + kindAnchorId + '" /></div>');
-               $kindAnchor.find('a').html(wordKind[i]);
+               $kindAnchor.find('a').html(i);
                $('#w-nav').append($kindAnchor);
             }
              $('#w-phrase').html('Phrase');
