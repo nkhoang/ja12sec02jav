@@ -1,6 +1,7 @@
 package com.nkhoang.gae.view.constant;
 
 public class ViewConstant {
+    public static final String WORD_ITEM_INDEX_KEY = "wordItemIndex";
     /**
      * VIEW
      */

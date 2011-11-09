@@ -24,10 +24,6 @@
     <bean id="userWordDao" class="com.nkhoang.gae.dao.impl.UserWordDaoImpl" scope="prototype">
     </bean>
 
-    <bean id="wordItemDao" class="com.nkhoang.gae.dao.impl.WordItemDaoImpl"
-          scope="prototype">
-    </bean>
-
     <bean id="appConfigDao" class="com.nkhoang.gae.dao.impl.AppConfigDaoImpl" scope="prototype"></bean>
 
     <bean id="dictionaryDao" class="com.nkhoang.gae.dao.impl.DictionaryDaoImpl" scope="prototype"></bean>
