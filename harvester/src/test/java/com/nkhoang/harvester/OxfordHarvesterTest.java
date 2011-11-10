@@ -39,6 +39,7 @@ public class OxfordHarvesterTest {
         List<String> wordList = FileUtils.readWordsFromFile("harvester/src/test/resources/fullList.txt");
         LOG.info("Total size: " + wordList.size());
         int i = 0;
+        //2514
         List<String> invalidList = new ArrayList<String>();
         if (CollectionUtils.isNotEmpty(wordList)) {
             for (String word : wordList) {
