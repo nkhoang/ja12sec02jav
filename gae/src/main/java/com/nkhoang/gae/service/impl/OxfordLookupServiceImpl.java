@@ -5,7 +5,6 @@ import com.nkhoang.gae.model.Phrase;
 import com.nkhoang.gae.model.Sense;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.LookupService;
-import com.nkhoang.gae.utils.WebUtils;
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
 import org.apache.commons.collections.CollectionUtils;
@@ -20,6 +19,9 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * Oxford Lookup Service.
+ */
 public class OxfordLookupServiceImpl implements LookupService {
     private static final Logger LOG = LoggerFactory
             .getLogger(OxfordLookupServiceImpl.class.getCanonicalName());
@@ -37,10 +39,16 @@ public class OxfordLookupServiceImpl implements LookupService {
         this.mailSender = mailSender;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getServiceName() {
         return SERVICE_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Word lookup(String word) {
         Word w = null;
         try {

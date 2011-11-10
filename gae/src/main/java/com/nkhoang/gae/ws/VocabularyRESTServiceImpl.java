@@ -5,23 +5,19 @@ import com.google.gson.GsonBuilder;
 import com.nkhoang.gae.dao.AppConfigDao;
 import com.nkhoang.gae.dao.DictionaryDao;
 import com.nkhoang.gae.dao.VocabularyDao;
-import com.nkhoang.gae.dao.WordLuceneDao;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
-import com.nkhoang.gae.model.*;
+import com.nkhoang.gae.model.AppConfig;
+import com.nkhoang.gae.model.Dictionary;
+import com.nkhoang.gae.model.Word;
+import com.nkhoang.gae.model.WordEntity;
 import com.nkhoang.gae.service.ApplicationService;
 import com.nkhoang.gae.service.VocabularyService;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +28,7 @@ public class VocabularyRESTServiceImpl {
    private static Logger LOG = LoggerFactory.getLogger(VocabularyRESTServiceImpl.class.getCanonicalName());
    private VocabularyService vocabularyService;
    private VocabularyDao vocabularyDao;
-   private WordLuceneDao wordLuceneDao;
+
    private DictionaryDao dictionaryDao;
    private AppConfigDao appConfigDao;
    private ApplicationService applicationService;
@@ -141,36 +137,6 @@ public class VocabularyRESTServiceImpl {
       return new Word();
    }
 
-   @GET
-   @Produces("application/json")
-   @Path("/lucene/getAll")
-   public String getAllLuceneWords() {
-      List<WordLucene> wordLucenes = wordLuceneDao.getAll();
-      List<String> results = new ArrayList<String>();
-      try {
-         JAXBContext context = JAXBContext.newInstance(WordLucene.class);
-         Marshaller marshaller = context.createMarshaller();
-
-         if (CollectionUtils.isNotEmpty(wordLucenes)) {
-            for (WordLucene wl : wordLucenes) {
-               StringWriter writer = new StringWriter();
-               marshaller.marshal(wl, writer);
-               results.add(writer.toString());
-            }
-         }
-      } catch (JAXBException jaxbe) {
-         LOG.error("Could not initialize JAXBContext.", jaxbe);
-      }
-      Gson gson = new Gson();
-      return gson.toJson(results);
-   }
-
-   @DELETE
-   @Consumes("text/plain")
-   @Path("/lucene/delete/{id}")
-   public void deleteLuceneWord(@PathParam("id") Long id) {
-      wordLuceneDao.delete(id);
-   }
 
    public VocabularyService getVocabularyService() {
       return vocabularyService;
@@ -189,9 +155,6 @@ public class VocabularyRESTServiceImpl {
       this.vocabularyDao = vocabularyDao;
    }
 
-   public void setWordLuceneDao(WordLuceneDao wordLuceneDao) {
-      this.wordLuceneDao = wordLuceneDao;
-   }
 
    public DictionaryDao getDictionaryDao() {
       return dictionaryDao;
