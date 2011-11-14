@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings({"JpaAttributeTypeInspection"})
@@ -20,10 +21,29 @@ public class User implements Serializable, UserDetails {
 	private String firstName;
 	@Basic
 	private String lastName;
+   @Basic
+   private String middleName;
 	@Basic
 	private String username;
 	@Basic
 	private String password;
+   @Basic
+   private String email;
+   @Basic
+   private String phoneNumber;
+   @Basic
+   private Date birthDate;
+   @Basic
+   private CustomerGender gender;
+   @Basic
+   private Long personalId;
+   @Basic
+   private PersonalIdType personalIdType;
+   @Basic
+   private String issuePlace;
+   @Basic
+   private Date issueDate;
+
 	@Basic
 	private List<String> roleNames;
 
@@ -35,6 +55,16 @@ public class User implements Serializable, UserDetails {
 	private boolean accountExpired;
 	private boolean accountLocked;
 	private boolean credentialExpired;
+
+   enum PersonalIdType {
+      CIVIL,
+      VISA
+   }
+
+   enum CustomerGender {
+      MALE,
+      FEMALE
+   }
 
 	public Collection<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
@@ -118,4 +148,99 @@ public class User implements Serializable, UserDetails {
 		return wordList;
 	}
 
+   public String getMiddleName() {
+      return middleName;
+   }
+
+   public void setMiddleName(String middleName) {
+      this.middleName = middleName;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
+   public String getPhoneNumber() {
+      return phoneNumber;
+   }
+
+   public void setPhoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+   }
+
+   public Date getBirthDate() {
+      return birthDate;
+   }
+
+   public void setBirthDate(Date birthDate) {
+      this.birthDate = birthDate;
+   }
+
+   public CustomerGender getGender() {
+      return gender;
+   }
+
+   public void setGender(CustomerGender gender) {
+      this.gender = gender;
+   }
+
+   public Long getPersonalId() {
+      return personalId;
+   }
+
+   public void setPersonalId(Long personalId) {
+      this.personalId = personalId;
+   }
+
+   public PersonalIdType getPersonalIdType() {
+      return personalIdType;
+   }
+
+   public void setPersonalIdType(PersonalIdType personalIdType) {
+      this.personalIdType = personalIdType;
+   }
+
+   public String getIssuePlace() {
+      return issuePlace;
+   }
+
+   public void setIssuePlace(String issuePlace) {
+      this.issuePlace = issuePlace;
+   }
+
+   public Date getIssueDate() {
+      return issueDate;
+   }
+
+   public void setIssueDate(Date issueDate) {
+      this.issueDate = issueDate;
+   }
+
+   public boolean isAccountExpired() {
+      return accountExpired;
+   }
+
+   public void setAccountExpired(boolean accountExpired) {
+      this.accountExpired = accountExpired;
+   }
+
+   public boolean isAccountLocked() {
+      return accountLocked;
+   }
+
+   public void setAccountLocked(boolean accountLocked) {
+      this.accountLocked = accountLocked;
+   }
+
+   public boolean isCredentialExpired() {
+      return credentialExpired;
+   }
+
+   public void setCredentialExpired(boolean credentialExpired) {
+      this.credentialExpired = credentialExpired;
+   }
 }
