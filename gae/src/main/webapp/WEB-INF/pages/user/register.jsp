@@ -140,11 +140,38 @@
             fieldLabel: 'Gi&#7899;i t&#237;nh',
             cls: 'x-check-group-alt',
             items: [
-                {boxLabel: 'Name', name: 'rb-auto', inputValue: 'male', checked: true},
+                {boxLabel: 'Nam', name: 'rb-auto', inputValue: 'male', checked: true},
                 {boxLabel: 'N&#7919;', name: 'rb-auto', inputValue: 'female' }
             ]
         },
-
+        {
+            xtype: 'numberfield',
+            fieldLabel: 'S&#7889; ch&#7913;ng minh',
+            name: 'personalId',
+            hideTrigger: true,
+            minValue: 11,
+            maxValue: 20
+        },
+        {
+            xtype: 'radiogroup',
+            name: 'personalIdType',
+            fieldLabel: 'Lo&#7841;i',
+            cls: 'x-check-group-alt',
+            items: [
+                {boxLabel: 'CMND', name: 'rb-auto', inputValue: 'civil', checked: true},
+                {boxLabel: 'VISA', name: 'rb-auto', inputValue: 'visa' }
+            ]
+        }, {
+            xtype: 'textfield',
+            name: 'issuePlace',
+            fieldLabel: 'N&#417;i C&#7845;p',
+            allowBlank: false
+        },
+        {
+            xtype: 'datefield',
+            name: 'issueDate',
+            fieldLabel: 'Ng&#224;y c&#7845;p'
+        },
             /*
          * Terms of Use acceptance checkbox. Two things are special about this:
          * 1) The boxLabel contains a HTML link to the Terms of Use page; a special click listener opens this
