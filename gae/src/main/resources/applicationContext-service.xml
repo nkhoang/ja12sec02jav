@@ -15,7 +15,6 @@
     <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
         <property name="vocabularyService" ref="vocabularyService"/>
         <property name="vocabularyDao" ref="vocabularyDao"></property>
-        <property name="wordLuceneDao" ref="wordLuceneDao"></property>
         <property name="dictionaryDao" ref="dictionaryDao"></property>
         <property name="appConfigDao" ref="appConfigDao"></property>
        <property name="applicationService" ref="applicationService"></property>

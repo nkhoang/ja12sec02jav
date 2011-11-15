@@ -55,15 +55,15 @@ public class UserAction {
    @Qualifier("authenticationManager")
    private AuthenticationManager authenticationManager;
 
-   @RequestMapping("/admin")
-   public String renderAdminPage() {
-      return "user/admin";
-   }
-
-    @RequestMapping("/advancedAdmin")
+    @RequestMapping("/admin")
    public String renderAdvancedAdminPage() {
       return "user/advancedAdmin";
    }
+
+    @RequestMapping("/register")
+    public String renderRegisterPage() {
+        return "user/register";
+    }
 
    @RequestMapping(value = "/deleteAppConfig", method = RequestMethod.GET)
    public ModelAndView deleteAppConfig(@RequestParam(required = false) Long id) {

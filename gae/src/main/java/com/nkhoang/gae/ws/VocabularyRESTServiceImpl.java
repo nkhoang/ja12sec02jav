@@ -28,7 +28,6 @@ public class VocabularyRESTServiceImpl {
    private static Logger LOG = LoggerFactory.getLogger(VocabularyRESTServiceImpl.class.getCanonicalName());
    private VocabularyService vocabularyService;
    private VocabularyDao vocabularyDao;
-
    private DictionaryDao dictionaryDao;
    private AppConfigDao appConfigDao;
    private ApplicationService applicationService;
