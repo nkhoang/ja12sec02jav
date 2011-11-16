@@ -58,6 +58,10 @@ public class User implements Serializable, UserDetails {
     private boolean accountLocked;
     private boolean credentialExpired;
 
+    public static final String[] SKIP_FIELDS_USER =
+          {"jdoDetachedState", "password", "roleNames", "wordList", "enabled", "accountExpired",
+          "accountLocked", "credentialExpired"};
+
     public enum PersonalIdType {
         CIVIL,
         VISA

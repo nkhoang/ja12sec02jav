@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,6 +71,15 @@ public class StartupListener implements ServletContextListener {
 			admin.setUsername("admin");
 			admin.setFirstName("Hoang");
 			admin.setLastName("Nguyen");
+         admin.setMiddleName("Khanh");
+         admin.setEmail("nkhoang.it@gmail.com");
+         admin.setIssueDate(new Date());
+         admin.setBirthDate(new Date());
+         admin.setGender(User.CustomerGender.FEMALE);
+         admin.setPersonalId(123123123123L);
+         admin.setPersonalIdType(User.PersonalIdType.VISA);
+         admin.setIssuePlace("HCM");
+         admin.setPhoneNumber("2342432423423");
 			List<String> roles = new ArrayList<String>(0);
 			roles.add(Role.UserRole.ROLE_ADMIN.name());
 			roles.add(Role.UserRole.ROLE_USER.name());

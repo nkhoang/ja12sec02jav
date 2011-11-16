@@ -336,16 +336,16 @@ Ext.onReady(function() {
                   handler: function() {
                      var form = this.up('form').getForm();
 
-                      form.submit({
-                          clientValidation: true,
-                          url: '<c:url value="/user/registerUser.html" />',
-                          success: function(form, action) {
+                     form.submit({
+                        clientValidation: true,
+                        url: '<c:url value="/user/registerUser.html" />',
+                        success: function(form, action) {
 
-                          },
-                          failure: function(form, action) {
-                              //...
-                          }
-                      });
+                        },
+                        failure: function(form, action) {
+                           //...
+                        }
+                     });
 
 
                      if (form.isValid()) {
