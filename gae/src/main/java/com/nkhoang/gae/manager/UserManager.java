@@ -54,6 +54,9 @@ public class UserManager implements BaseManager<User, Long> {
 	}
 
 	public User save(User o) {
+      // use password encoder to encode password
+      o.setPassword(passwordEncoder.encodePassword(o.getPassword(), null));
+      // then save.
 		return userDao.save(o);
 	}
 

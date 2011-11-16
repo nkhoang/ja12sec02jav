@@ -56,12 +56,12 @@ public class User implements Serializable, UserDetails {
 	private boolean accountLocked;
 	private boolean credentialExpired;
 
-   enum PersonalIdType {
+   public enum PersonalIdType {
       CIVIL,
       VISA
    }
 
-   enum CustomerGender {
+   public enum CustomerGender {
       MALE,
       FEMALE
    }

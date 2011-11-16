@@ -1,6 +1,7 @@
 package com.nkhoang.gae.action;
 
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
+import com.nkhoang.gae.manager.UserManager;
 import com.nkhoang.gae.model.*;
 import com.nkhoang.gae.model.Dictionary;
 import com.nkhoang.gae.service.ApplicationService;
@@ -33,6 +34,8 @@ import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -50,20 +53,91 @@ public class UserAction {
    private TagService tagService;
    @Autowired
    private ApplicationService applicationService;
+   @Autowired
+   private UserManager userManager;
 
    @Autowired
    @Qualifier("authenticationManager")
    private AuthenticationManager authenticationManager;
 
-    @RequestMapping("/admin")
+   @RequestMapping("/admin")
    public String renderAdvancedAdminPage() {
       return "user/advancedAdmin";
    }
 
-    @RequestMapping("/register")
-    public String renderRegisterPage() {
-        return "user/register";
-    }
+   @RequestMapping("/register")
+   public String renderRegisterPage() {
+      return "user/register";
+   }
+
+   @RequestMapping("/registerUser")
+   public ModelAndView registerUser(
+         @RequestParam(required = false) String firstName,
+         @RequestParam(required = false, defaultValue = "") String middleName,
+         @RequestParam(required = false) String lastName,
+         @RequestParam(required = false) String username,
+         @RequestParam(required = false) String password1,
+         @RequestParam(required = false) String password2,
+         @RequestParam(required = false) Long phoneNumber,
+         @RequestParam(defaultValue = "", required = false) String birthDate,
+         @RequestParam(required = false) String gender,
+         @RequestParam(required = false) Long personalId,
+         @RequestParam(required = false) String personalIdType,
+         @RequestParam(required = false) String issueDate,
+         @RequestParam(required = false) String issuePlace
+   ) {
+      ModelAndView modelAndView = new ModelAndView();
+      View jsonView = new JSONView();
+      modelAndView.setView(jsonView);
+      Map<String, Object> jsonData = new HashMap<String, Object>();
+
+      if (StringUtils.isNotBlank(firstName)
+            && StringUtils.isNotBlank(lastName) && StringUtils.isNotBlank(username)
+            && (StringUtils.isNotBlank(password1) && StringUtils.isNotBlank(password2) && StringUtils.equals(password1, password2))
+            ) {
+         User user = new User();
+         user.setPassword(password1);
+         user.setFirstName(firstName);
+         user.setLastName(lastName);
+         user.setMiddleName(middleName);
+         user.setUsername(username);
+         user.setPhoneNumber(phoneNumber + "");
+         // convert birthDate
+         if (StringUtils.isNotBlank(birthDate)) {
+            try {
+               SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
+               user.setBirthDate(dateFormat.parse(birthDate));
+            } catch (ParseException pex) {
+               LOG.error("Could not parse birth date.");
+            }
+         }
+         if (StringUtils.isNotBlank(gender)) {
+            user.setGender(User.CustomerGender.MALE.name().equalsIgnoreCase(gender) ? User.CustomerGender.MALE : User.CustomerGender.FEMALE);
+         }
+         if (personalId != null) {
+            user.setPersonalId(personalId);
+         }
+         if (StringUtils.isNotBlank(personalIdType)) {
+            user.setPersonalIdType(User.PersonalIdType.CIVIL.name().equalsIgnoreCase(personalIdType) ? User.PersonalIdType.CIVIL : User.PersonalIdType.VISA);
+         }
+         if (StringUtils.isNotBlank(issueDate)) {
+            try {
+               SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
+               user.setIssueDate(dateFormat.parse(issueDate));
+            } catch (ParseException pex) {
+               LOG.error("Could not parse issue date.");
+            }
+         }
+         if (StringUtils.isNotBlank(issuePlace)) {
+            user.setIssuePlace(issuePlace);
+         }
+      } else {
+         jsonData.put("error", "Invalid form request.");
+      }
+
+      modelAndView.addObject(GSONStrategy.DATA, jsonData);
+      return modelAndView;
+   }
 
    @RequestMapping(value = "/deleteAppConfig", method = RequestMethod.GET)
    public ModelAndView deleteAppConfig(@RequestParam(required = false) Long id) {
@@ -433,5 +507,13 @@ public class UserAction {
 
    public void setApplicationService(ApplicationService applicationService) {
       this.applicationService = applicationService;
+   }
+
+   public UserManager getUserManager() {
+      return userManager;
+   }
+
+   public void setUserManager(UserManager userManager) {
+      this.userManager = userManager;
    }
 }
