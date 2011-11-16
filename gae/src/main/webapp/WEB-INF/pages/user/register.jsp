@@ -72,7 +72,7 @@ Ext.onReady(function() {
             name: 'firstName',
             fieldLabel: '<fmt:message key="register.firstName" />',
             allowBlank: false,
-            blankText: '<fmt:message key="register.firstName.error.missing" />',
+            blankText: '<fmt:message key="register.error.missing" />',
             minLength: 2,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 30,
@@ -82,8 +82,6 @@ Ext.onReady(function() {
             xtype: 'textfield',
             name: 'middleName',
             fieldLabel: '<fmt:message key="register.middleName" />',
-            allowBlank: false,
-            blankText: '<fmt:message key="register.middleName.error.missing" />',
             minLength: 2,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 30,
@@ -94,7 +92,7 @@ Ext.onReady(function() {
             name: 'lastName',
             fieldLabel: '<fmt:message key="register.lastName" />',
             allowBlank: false,
-            blankText: '<fmt:message key="register.lastName.error.missing" />',
+            blankText: '<fmt:message key="register.error.missing" />',
             minLength: 2,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 30,
@@ -105,7 +103,7 @@ Ext.onReady(function() {
             name: 'username',
             fieldLabel: '<fmt:message key="register.userName" />',
             allowBlank: false,
-            blankText: '<fmt:message key="register.userName.error.missing" />',
+            blankText: '<fmt:message key="register.error.missing" />',
             minLength: 5,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 25,
@@ -116,9 +114,9 @@ Ext.onReady(function() {
             name: 'email',
             fieldLabel: '<fmt:message key="register.email" />',
             vtype: 'email',
-            emailText: '<fmt:message key="register.email.error.invalid" />',
             allowBlank: false,
-            blankText: '<fmt:message key="register.email.error.missing" />'
+            blankText: '<fmt:message key="register.error.missing" />',
+            emailText: '<fmt:message key="register.email.error.invalid" />'
          },
          {
             xtype: 'textfield',
@@ -127,6 +125,7 @@ Ext.onReady(function() {
             inputType: 'password',
             style: 'margin-top:15px',
             allowBlank: false,
+            blankText: '<fmt:message key="register.error.missing" />',
             minLength: 6,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 15,
@@ -138,6 +137,7 @@ Ext.onReady(function() {
             fieldLabel: '<fmt:message key="register.repeatPassword" />',
             inputType: 'password',
             allowBlank: false,
+            blankText: '<fmt:message key="register.error.missing" />',
             /**
              * Custom validator implementation - checks that the value matches what was entered into
              * the password1 field.
@@ -217,7 +217,7 @@ Ext.onReady(function() {
          {
             xtype: 'checkboxfield',
             name: 'acceptTerms',
-            fieldLabel: 'Terms of Use',
+            fieldLabel: '<fmt:message key="register.termTitle"/>',
             hideLabel: true,
             style: 'margin-top:15px',
             boxLabel: 'T&#244;i &#273;&#227; &#273;&#7885;c v&#224; ch&#7845;p nh&#7853;n <a href="http://www.sencha.com/legal/terms-of-use/" class="terms">&#272;i&#7873;u kho&#7843;n s&#7917; d&#7909;ng</a>.',
@@ -281,8 +281,8 @@ Ext.onReady(function() {
                   id: 'formErrorState',
                   baseCls: 'form-error-state',
                   flex: 1,
-                  validText: 'Form is valid',
-                  invalidText: 'Form has errors',
+                  validText: '<fmt:message key="register.form.valid" />',
+                  invalidText: '<fmt:message key="register.form.invalid" />',
                   tipTpl: Ext.create('Ext.XTemplate', '<ul><tpl for="."><li><span class="field-name">{name}</span>: <span class="error">{error}</span></li></tpl></ul>'),
 
                   getTip: function() {
@@ -290,7 +290,8 @@ Ext.onReady(function() {
                      if (!tip) {
                         tip = this.tip = Ext.widget('tooltip', {
                            target: this.el,
-                           title: 'Error Details:',
+                           preventHeader: true,
+                           title: '<fmt:message key="register.form.errorTitle" />:',
                            autoHide: false,
                            anchor: 'top',
                            mouseOffset: [-11, -2],
@@ -335,18 +336,17 @@ Ext.onReady(function() {
                   handler: function() {
                      var form = this.up('form').getForm();
 
-                     /* Normally we would submit the form to the server here and handle the response...
                       form.submit({
-                      clientValidation: true,
-                      url: 'register.php',
-                      success: function(form, action) {
-                      //...
-                      },
-                      failure: function(form, action) {
-                      //...
-                      }
+                          clientValidation: true,
+                          url: '<c:url value="/user/registerUser.html" />',
+                          success: function(form, action) {
+
+                          },
+                          failure: function(form, action) {
+                              //...
+                          }
                       });
-                      */
+
 
                      if (form.isValid()) {
                         Ext.Msg.alert('Submitted Values', form.getValues(true));

@@ -1,6 +1,7 @@
 package com.nkhoang.gae.listener;
 
 import com.nkhoang.gae.manager.UserManager;
+import com.nkhoang.gae.model.Role;
 import com.nkhoang.gae.model.User;
 import org.jasypt.spring.security3.PasswordEncoder;
 import org.slf4j.Logger;
@@ -70,8 +71,8 @@ public class StartupListener implements ServletContextListener {
 			admin.setFirstName("Hoang");
 			admin.setLastName("Nguyen");
 			List<String> roles = new ArrayList<String>(0);
-			roles.add("ROLE_ADMIN");
-			roles.add("ROLE_USER");
+			roles.add(Role.UserRole.ROLE_ADMIN.name());
+			roles.add(Role.UserRole.ROLE_USER.name());
 			// set roles
 			admin.setRoleNames(roles);
 			admin.setPassword(passwordEncoder.encodePassword("admin", null));
