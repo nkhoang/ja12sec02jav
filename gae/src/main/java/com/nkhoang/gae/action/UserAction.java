@@ -146,13 +146,13 @@ public class UserAction {
             }
          }
          if (StringUtils.isNotBlank(gender)) {
-            user.setGender(User.CustomerGender.MALE.name().equalsIgnoreCase(gender) ? User.CustomerGender.MALE : User.CustomerGender.FEMALE);
+            user.setGender(gender);
          }
          if (personalId != null) {
             user.setPersonalId(personalId);
          }
          if (StringUtils.isNotBlank(personalIdType)) {
-            user.setPersonalIdType(User.PersonalIdType.CIVIL.name().equalsIgnoreCase(personalIdType) ? User.PersonalIdType.CIVIL : User.PersonalIdType.VISA);
+            user.setPersonalIdType(personalIdType);
          }
          if (StringUtils.isNotBlank(issueDate)) {
             try {

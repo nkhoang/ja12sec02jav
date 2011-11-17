@@ -75,9 +75,9 @@ public class StartupListener implements ServletContextListener {
          admin.setEmail("nkhoang.it@gmail.com");
          admin.setIssueDate(new Date());
          admin.setBirthDate(new Date());
-         admin.setGender(User.CustomerGender.FEMALE);
+         admin.setGender(User.CustomerGender.FEMALE.name());
          admin.setPersonalId(123123123123L);
-         admin.setPersonalIdType(User.PersonalIdType.VISA);
+         admin.setPersonalIdType(User.PersonalIdType.VISA.name());
          admin.setIssuePlace("HCM");
          admin.setPhoneNumber("2342432423423");
 			List<String> roles = new ArrayList<String>(0);

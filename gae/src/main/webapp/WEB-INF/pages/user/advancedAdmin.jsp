@@ -67,6 +67,7 @@
                     }
                 }
             });
+
             var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
                     clicksToMoveEditor: 1,
                     autoCancel: false,

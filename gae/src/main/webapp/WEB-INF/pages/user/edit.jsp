@@ -22,6 +22,14 @@ Ext.onReady(function() {
 
    Ext.define('UserModel', {
       extend: 'Ext.data.Model',
+      proxy: {
+          type: 'ajax',
+          url: '<c:url value="/user/getUserData.html" />',
+          reader: {
+            type: 'json',
+            root: 'data'
+          }
+      },
       fields: [
          {name: 'id', type: 'int'},
          'firstName',
@@ -91,11 +99,11 @@ Ext.onReady(function() {
             me.hasBeenDirty = true;
          }
       },
-      reader: Ext.create('Ext.data.reader.Json', {
+      /*reader: Ext.create('Ext.data.reader.Json', {
             model: 'UserModel',
             record : 'data',
             successProperty: '@success'
-        }),
+        }),*/
       items: [
          {
             xtype: 'textfield',
@@ -390,16 +398,23 @@ Ext.onReady(function() {
       ]
    });
 
-   formPanel.getForm().load({
+    Ext.ModelMgr.getModel('UserModel').load(1 ,{ // load user with ID of "1"
+        success: function(user) {
+            formPanel.loadRecord(user); // when user is loaded successfully, load the data into the form
+        }
+    });
+
+   /*formPanel.getForm().load({
       url: '<c:url value="/user/getUserData.html" />',
       success: function(form, action ) {
          console.debug(form);
          var userModel = formPanel.getForm().getRecord();
-         var genders = Ext.getCmp("genderGroup");
-         genders.setValue({gender: userModel.gender});
+          console.debug(userModel);
+         // var genders = Ext.getCmp("genderGroup");
+         // genders.setValue({gender: userModel.gender});
       },
       waitMsg: 'Loading...'
-   });
+   });*/
 });
 </script>
 </head>

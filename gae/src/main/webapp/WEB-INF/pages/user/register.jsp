@@ -168,9 +168,10 @@ Ext.onReady(function() {
             xtype: 'radiogroup',
             fieldLabel: '<fmt:message key="register.gender" />',
             cls: 'x-check-group-alt',
+            name: "gender",
             items: [
-               {boxLabel: '<fmt:message key="register.gender.male" />', name: 'gender', inputValue: 'male', checked: true},
-               {boxLabel: '<fmt:message key="register.gender.female" />', name: 'gender', inputValue: 'female' }
+               {boxLabel: '<fmt:message key="register.gender.male" />', name: 'gender', inputValue: 'MALE', checked: true},
+               {boxLabel: '<fmt:message key="register.gender.female" />', name: 'gender', inputValue: 'FEMALE' }
             ]
          },
          {

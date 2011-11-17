@@ -34,11 +34,11 @@ public class User implements Serializable, UserDetails {
     @Basic
     private Date birthDate;
     @Basic
-    private CustomerGender gender;
+    private String gender;
     @Basic
     private Long personalId;
     @Basic
-    private PersonalIdType personalIdType;
+    private String personalIdType;
     @Basic
     private String issuePlace;
     @Basic
@@ -186,13 +186,6 @@ public class User implements Serializable, UserDetails {
         this.birthDate = birthDate;
     }
 
-    public CustomerGender getGender() {
-        return gender;
-    }
-
-    public void setGender(CustomerGender gender) {
-        this.gender = gender;
-    }
 
     public Long getPersonalId() {
         return personalId;
@@ -202,13 +195,7 @@ public class User implements Serializable, UserDetails {
         this.personalId = personalId;
     }
 
-    public PersonalIdType getPersonalIdType() {
-        return personalIdType;
-    }
 
-    public void setPersonalIdType(PersonalIdType personalIdType) {
-        this.personalIdType = personalIdType;
-    }
 
     public String getIssuePlace() {
         return issuePlace;
@@ -256,5 +243,21 @@ public class User implements Serializable, UserDetails {
 
     public void setCustomerValue(float customerValue) {
         this.customerValue = customerValue;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPersonalIdType() {
+        return personalIdType;
+    }
+
+    public void setPersonalIdType(String personalIdType) {
+        this.personalIdType = personalIdType;
     }
 }
