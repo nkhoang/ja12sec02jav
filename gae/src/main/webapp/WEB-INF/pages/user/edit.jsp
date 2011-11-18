@@ -44,7 +44,7 @@ Ext.onReady(function() {
          },
          'gender',
          'personalId',
-         'personalTypeId',
+         'personalIdType',
          {
             name: 'issueDate',
             type: 'date'
@@ -99,11 +99,6 @@ Ext.onReady(function() {
             me.hasBeenDirty = true;
          }
       },
-      /*reader: Ext.create('Ext.data.reader.Json', {
-            model: 'UserModel',
-            record : 'data',
-            successProperty: '@success'
-        }),*/
       items: [
          {
             xtype: 'textfield',
@@ -139,13 +134,8 @@ Ext.onReady(function() {
          {
             xtype: 'textfield',
             name: 'username',
-            fieldLabel: '<fmt:message key="register.userName" />',
-            allowBlank: false,
-            blankText: '<fmt:message key="register.error.missing" />',
-            minLength: 5,
-            minLengthText: '<fmt:message key="register.error.min" />',
-            maxLength: 25,
-            maxLengthText: '<fmt:message key="register.error.max" />'
+             disabled: true,
+            fieldLabel: '<fmt:message key="register.userName" />'
          },
          {
             xtype: 'textfield',
@@ -162,8 +152,7 @@ Ext.onReady(function() {
             fieldLabel: '<fmt:message key="register.password" />',
             inputType: 'password',
             style: 'margin-top:15px',
-            allowBlank: false,
-            blankText: '<fmt:message key="register.error.missing" />',
+            allowBlank: true,
             minLength: 6,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 15,
@@ -174,8 +163,7 @@ Ext.onReady(function() {
             name: 'password2',
             fieldLabel: '<fmt:message key="register.repeatPassword" />',
             inputType: 'password',
-            allowBlank: false,
-            blankText: '<fmt:message key="register.error.missing" />',
+            allowBlank: true,
             /**
              * Custom validator implementation - checks that the value matches what was entered into
              * the password1 field.
@@ -207,10 +195,11 @@ Ext.onReady(function() {
             id: "genderGroup",
             fieldLabel: '<fmt:message key="register.gender" />',
             cls: 'x-check-group-alt',
+            name: 'gender',
             defaults: {xtype: "radio",name: "gender"},
             items: [
-               {boxLabel: '<fmt:message key="register.gender.male" />', inputValue: 'male', checked: true},
-               {boxLabel: '<fmt:message key="register.gender.female" />', inputValue: 'female' }
+               {boxLabel: '<fmt:message key="register.gender.male" />', name: 'gender', inputValue: 'MALE', checked: true},
+               {boxLabel: '<fmt:message key="register.gender.female" />', name: 'gender', inputValue: 'FEMALE' }
             ]
          },
          {
@@ -226,11 +215,13 @@ Ext.onReady(function() {
          {
             xtype: 'radiogroup',
             name: 'personalIdType',
+            id: 'personalIdTypeGroup',
             fieldLabel: '<fmt:message key="register.personalId.type" />',
+            defaults: {xtype: "radio",name: "personalIdType"},
             cls: 'x-check-group-alt',
             items: [
-               {boxLabel: 'CMND', name: 'personalIdType', inputValue: 'civil', checked: true},
-               {boxLabel: 'VISA', name: 'personalIdType', inputValue: 'visa' }
+               {boxLabel: 'CMND', name: 'personalIdType', inputValue: 'CIVIL', checked: true},
+               {boxLabel: 'VISA', name: 'personalIdType', inputValue: 'VISA' }
             ]
          },
          {
@@ -401,6 +392,13 @@ Ext.onReady(function() {
     Ext.ModelMgr.getModel('UserModel').load(1 ,{ // load user with ID of "1"
         success: function(user) {
             formPanel.loadRecord(user); // when user is loaded successfully, load the data into the form
+            // select gender radio.
+            var genderGroup = Ext.getCmp("genderGroup");
+            genderGroup.setValue({gender : user.get('gender')});
+            // select personal id type radio.
+            var personalIdTypeGroup = Ext.getCmp("personalIdTypeGroup");
+            personalIdTypeGroup.setValue({personalIdType: user.get('personalIdType')});
+
         }
     });
 
