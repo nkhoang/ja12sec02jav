@@ -40,6 +40,33 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDao, Use
         return password;
     }
 
+
+    public boolean checkUsername(String username){
+        Query query = entityManager
+                .createQuery("select from " + User.class.getName() + " u where u.username=:username");
+        query.setParameter("username", username.trim());
+
+        List<User> result = query.getResultList();
+        if (result != null && result.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean checkEmail(String email) {
+        Query query = entityManager
+                .createQuery("select from " + User.class.getName() + " u where u.email=:email");
+        query.setParameter("email", email.trim());
+
+        List<User> result = query.getResultList();
+        if (result != null && result.size() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Query query = entityManager
                 .createQuery("select from " + User.class.getName() + " u where u.username=:username");

@@ -36,7 +36,7 @@ public class User implements Serializable, UserDetails {
     @Basic
     private String gender;
     @Basic
-    private Long personalId;
+    private String personalId;
     @Basic
     private String personalIdType;
     @Basic
@@ -186,16 +186,13 @@ public class User implements Serializable, UserDetails {
         this.birthDate = birthDate;
     }
 
-
-    public Long getPersonalId() {
+    public String getPersonalId() {
         return personalId;
     }
 
-    public void setPersonalId(Long personalId) {
+    public void setPersonalId(String personalId) {
         this.personalId = personalId;
     }
-
-
 
     public String getIssuePlace() {
         return issuePlace;

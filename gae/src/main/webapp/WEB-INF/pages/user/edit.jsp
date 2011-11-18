@@ -8,6 +8,8 @@
 <script type="text/javascript" src="<c:url value='/js/ext-all.js' />"></script>
 <link href="<c:url value='/resources/css/ext-all-gray.css'/>" rel="stylesheet" media="all"/>
 <script type="text/javascript">
+var loadedUser;
+var formPanel;
 Ext.onReady(function() {
    Ext.tip.QuickTipManager.init();
 
@@ -53,7 +55,7 @@ Ext.onReady(function() {
       ]
    });
 
-   var formPanel = Ext.widget('form', {
+   formPanel = Ext.widget('form', {
       renderTo: Ext.getBody(),
       frame: true,
       width: 650,
@@ -174,13 +176,12 @@ Ext.onReady(function() {
             }
          },
          {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             fieldLabel: '<fmt:message key="register.phoneNumber" />',
             name: 'phoneNumber',
-            hideTrigger: true,
-            minLength: 8,
+            minLength: 7,
             minLengthText: '<fmt:message key="register.error.min" />',
-            maxLength: 11,
+            maxLength: 13,
             maxLengthText: '<fmt:message key="register.error.max" />'
          },
          {
@@ -203,11 +204,10 @@ Ext.onReady(function() {
             ]
          },
          {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             fieldLabel: '<fmt:message key="register.personalId" />',
             name: 'personalId',
-            hideTrigger: true,
-            minLength: 11,
+            minLength: 9,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 20,
             maxLengthText: '<fmt:message key="register.error.max" />'
@@ -235,64 +235,6 @@ Ext.onReady(function() {
             editable: false,
             invalidText: '<fmt:message key="register.error.date.invalid" />',
             fieldLabel: '<fmt:message key="register.issueDate" />'
-         },
-         /*
-          * Terms of Use acceptance checkbox. Two things are special about this:
-          * 1) The boxLabel contains a HTML link to the Terms of Use page; a special click listener opens this
-          *    page in a modal Ext window for convenient viewing, and the Decline and Accept buttons in the window
-          *    update the checkbox's state automatically.
-          * 2) This checkbox is required, i.e. the form will not be able to be submitted unless the user has
-          *    checked the box. Ext does not have this type of validation built in for checkboxes, so we add a
-          *    custom getErrors method implementation.
-          */
-         {
-            xtype: 'checkboxfield',
-            name: 'acceptTerms',
-            fieldLabel: '<fmt:message key="register.termTitle"/>',
-            hideLabel: true,
-            style: 'margin-top:15px',
-            boxLabel: 'T&#244;i &#273;&#227; &#273;&#7885;c v&#224; ch&#7845;p nh&#7853;n <a href="http://www.sencha.com/legal/terms-of-use/" class="terms">&#272;i&#7873;u kho&#7843;n s&#7917; d&#7909;ng</a>.',
-
-            // Listener to open the Terms of Use page link in a modal window
-            listeners: {
-               click: {
-                  element: 'boxLabelEl',
-                  fn: function(e) {
-                     var target = e.getTarget('.terms'),
-                           win;
-                     if (target) {
-                        win = Ext.widget('window', {
-                           title: 'Terms of Use',
-                           modal: true,
-                           html: '<iframe src="' + target.href + '" width="950" height="500" style="border:0"></iframe>',
-                           buttons: [
-                              {
-                                 text: 'Decline',
-                                 handler: function() {
-                                    this.up('window').close();
-                                    formPanel.down('[name=acceptTerms]').setValue(false);
-                                 }
-                              },
-                              {
-                                 text: 'Accept',
-                                 handler: function() {
-                                    this.up('window').close();
-                                    formPanel.down('[name=acceptTerms]').setValue(true);
-                                 }
-                              }
-                           ]
-                        });
-                        win.show();
-                        e.preventDefault();
-                     }
-                  }
-               }
-            },
-
-            // Custom validation logic - requires the checkbox to be checked
-            getErrors: function() {
-               return this.getValue() ? [] : ['<fmt:message key="register.acceptTerm" /> ']
-            }
          }
       ],
 
@@ -305,15 +247,14 @@ Ext.onReady(function() {
                align: 'middle'
             },
             padding: '10 10 5',
-
             items: [
                {
                   xtype: 'component',
                   id: 'formErrorState',
                   baseCls: 'form-error-state',
                   flex: 1,
-                  validText: '<fmt:message key="register.form.valid" />',
-                  invalidText: '<fmt:message key="register.form.invalid" />',
+                  validText: '<fmt:message key="edit.form.valid" />',
+                  invalidText: '<fmt:message key="edit.form.invalid" />',
                   tipTpl: Ext.create('Ext.XTemplate', '<ul><tpl for="."><li><span class="field-name">{name}</span>: <span class="error">{error}</span></li></tpl></ul>'),
 
                   getTip: function() {
@@ -322,7 +263,7 @@ Ext.onReady(function() {
                         tip = this.tip = Ext.widget('tooltip', {
                            target: this.el,
                            preventHeader: true,
-                           title: '<fmt:message key="register.form.errorTitle" />:',
+                           title: '<fmt:message key="edit.form.errorTitle" />:',
                            autoHide: false,
                            anchor: 'top',
                            mouseOffset: [-11, -2],
@@ -361,7 +302,6 @@ Ext.onReady(function() {
                {
                   xtype: 'button',
                   formBind: true,
-                  disabled: true,
                   text: '<fmt:message key="register.button.submit" />',
                   width: 140,
                   handler: function() {
@@ -370,18 +310,20 @@ Ext.onReady(function() {
                      form.submit({
                         clientValidation: true,
                         url: '<c:url value="/user/registerUser.html" />',
+                         params: {
+                            id: loadedUser.get('id')
+                        },
                         success: function(form, action) {
-
+                            Ext.Msg.alert('Success', action.result.msg);
+                            refreshUserModel();
                         },
                         failure: function(form, action) {
-                           //...
+                            Ext.Msg.alert('Failed', action.result.msg);
                         }
                      });
-
-
-                     if (form.isValid()) {
+                     /* if (form.isValid()) {
                         Ext.Msg.alert('Submitted Values', form.getValues(true));
-                     }
+                     } */
                   }
                }
             ]
@@ -389,8 +331,13 @@ Ext.onReady(function() {
       ]
    });
 
+    refreshUserModel();
+});
+
+function refreshUserModel() {
     Ext.ModelMgr.getModel('UserModel').load(1 ,{ // load user with ID of "1"
         success: function(user) {
+            loadedUser = user;
             formPanel.loadRecord(user); // when user is loaded successfully, load the data into the form
             // select gender radio.
             var genderGroup = Ext.getCmp("genderGroup");
@@ -398,22 +345,10 @@ Ext.onReady(function() {
             // select personal id type radio.
             var personalIdTypeGroup = Ext.getCmp("personalIdTypeGroup");
             personalIdTypeGroup.setValue({personalIdType: user.get('personalIdType')});
-
         }
     });
+}
 
-   /*formPanel.getForm().load({
-      url: '<c:url value="/user/getUserData.html" />',
-      success: function(form, action ) {
-         console.debug(form);
-         var userModel = formPanel.getForm().getRecord();
-          console.debug(userModel);
-         // var genders = Ext.getCmp("genderGroup");
-         // genders.setValue({gender: userModel.gender});
-      },
-      waitMsg: 'Loading...'
-   });*/
-});
 </script>
 </head>
 <body>

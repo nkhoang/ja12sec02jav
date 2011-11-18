@@ -121,6 +121,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         return (User) userDao.loadUserByUsername(username);
     }
 
+
     /**
      * {@inheritDoc}
      */

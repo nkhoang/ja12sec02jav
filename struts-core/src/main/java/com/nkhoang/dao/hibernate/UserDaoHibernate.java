@@ -79,6 +79,8 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         }
     }
 
+
+
     /** 
      * {@inheritDoc}
     */

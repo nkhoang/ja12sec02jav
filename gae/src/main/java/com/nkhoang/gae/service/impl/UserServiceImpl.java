@@ -1,6 +1,7 @@
 package com.nkhoang.gae.service.impl;
 
 import com.nkhoang.gae.dao.DictionaryDao;
+import com.nkhoang.gae.dao.UserDao;
 import com.nkhoang.gae.dao.UserWordDao;
 import com.nkhoang.gae.dao.VocabularyDao;
 import com.nkhoang.gae.model.*;
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private UserWordDao userWordDao;
     @Autowired
     private DictionaryDao dictionaryDao;
+    @Autowired
+    private UserDao userDao;
 
 
     public Dictionary addNewDictionary(String dictName, String dictDescription) {
@@ -85,7 +88,8 @@ public class UserServiceImpl implements UserService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = null;
         if (principal != null) {
-            currentUser = (User) principal;
+            User userPrinciple = (User) principal;
+            currentUser = userDao.get(userPrinciple.getId());
         }
 
         return currentUser;
@@ -120,5 +124,13 @@ public class UserServiceImpl implements UserService {
 
     public void setDictionaryDao(DictionaryDao dictionaryDao) {
         this.dictionaryDao = dictionaryDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

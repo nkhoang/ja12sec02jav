@@ -148,13 +148,13 @@ Ext.onReady(function() {
             }
          },
          {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             fieldLabel: '<fmt:message key="register.phoneNumber" />',
             name: 'phoneNumber',
             hideTrigger: true,
-            minLength: 8,
+            minLength: 7,
             minLengthText: '<fmt:message key="register.error.min" />',
-            maxLength: 11,
+            maxLength: 13,
             maxLengthText: '<fmt:message key="register.error.max" />'
          },
          {
@@ -175,11 +175,11 @@ Ext.onReady(function() {
             ]
          },
          {
-            xtype: 'numberfield',
+            xtype: 'textfield',
             fieldLabel: '<fmt:message key="register.personalId" />',
             name: 'personalId',
             hideTrigger: true,
-            minLength: 11,
+            minLength: 9,
             minLengthText: '<fmt:message key="register.error.min" />',
             maxLength: 20,
             maxLengthText: '<fmt:message key="register.error.max" />'
@@ -336,22 +336,16 @@ Ext.onReady(function() {
                   width: 140,
                   handler: function() {
                      var form = this.up('form').getForm();
-
                      form.submit({
                         clientValidation: true,
                         url: '<c:url value="/user/registerUser.html" />',
                         success: function(form, action) {
-
+                            Ext.Msg.alert('Success', action.result.msg);
                         },
                         failure: function(form, action) {
-                           //...
+                           Ext.Msg.alert('Success', action.result.msg);
                         }
                      });
-
-
-                     if (form.isValid()) {
-                        Ext.Msg.alert('Submitted Values', form.getValues(true));
-                     }
                   }
                }
             ]
