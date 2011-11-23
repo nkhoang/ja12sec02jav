@@ -9,7 +9,6 @@ import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.model.AppConfig;
 import com.nkhoang.gae.model.Dictionary;
 import com.nkhoang.gae.model.Word;
-import com.nkhoang.gae.model.WordEntity;
 import com.nkhoang.gae.service.ApplicationService;
 import com.nkhoang.gae.service.VocabularyService;
 import org.apache.commons.collections.MapUtils;
@@ -123,18 +122,7 @@ public class VocabularyRESTServiceImpl {
       return null;
    }
 
-   @GET
-   @Produces("application/xml")
-   @Path("vocabulary/search/id/{id}")
-   public Word searchById(@PathParam("id") Long id) {
-      WordEntity we = vocabularyDao.get(id);
-      if (we != null) {
-         Gson gson = new Gson();
-         Word w = gson.fromJson(we.getWordJSON().getValue(), Word.class);
-         return w;
-      }
-      return new Word();
-   }
+
 
 
    public VocabularyService getVocabularyService() {
