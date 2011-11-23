@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "word", propOrder = {
-        "description",
         "meanings",
         "pron",
         "soundSource",
-        "timeStamp"
-})
+        "description",
+        "phraseList",
+        "sourceName",
+        "timeStamp"})
 @XmlRootElement
 public class Word {
     private String pron;
@@ -22,12 +23,14 @@ public class Word {
     private String description;
     private List<Phrase> phraseList = new ArrayList<Phrase>(0);
 
+    @Transient
     @XmlTransient
     private Map<String, List<Sense>> meaningMap = new HashMap<String, List<Sense>>(0);
+    @Transient
     @XmlTransient
     private Map<String, List<Phrase>> phraseMap = new HashMap<String, List<Phrase>>();
-    @Transient
     private List<Sense> meanings = new ArrayList<Sense>();
+    @Transient
     @XmlTransient
     private List<String> kindIdList = new ArrayList();
 

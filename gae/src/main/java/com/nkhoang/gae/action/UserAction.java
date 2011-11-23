@@ -60,6 +60,12 @@ public class UserAction {
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
 
+    @RequestMapping("/index")
+    public String renderMainPage() {
+        return "main";
+    }
+
+
     @RequestMapping("/admin")
     public String renderAdvancedAdminPage() {
         return "user/advancedAdmin";
