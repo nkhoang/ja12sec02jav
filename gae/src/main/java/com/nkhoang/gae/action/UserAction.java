@@ -12,6 +12,8 @@ import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import com.nkhoang.search.LuceneSearchFields;
 import com.nkhoang.search.LuceneUtils;
+import net.tanesha.recaptcha.ReCaptchaImpl;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
@@ -19,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,6 +48,8 @@ public class UserAction {
     private static Logger LOG = LoggerFactory
             .getLogger(UserAction.class.getCanonicalName());
     public static final String RECENT_WORD_OFFSET_SESSION = "recentWordOffset";
+    private static final String REGISTER_SUCCESS_DATA_FIELD = "success";
+    private static final String REGISTER_MESSAGE_DATA_FIELD = "msg";
     @Autowired
     private UserService userService;
     @Autowired
@@ -55,6 +60,11 @@ public class UserAction {
     private ApplicationService applicationService;
     @Autowired
     private UserManager userManager;
+
+    @Value("#{encryption['recaptcha.private.key']}")
+    private String reCaptchaPrivateKey;
+    @Value("#{encryption['recaptcha.public.key']}")
+    private String reCaptchaPublicKey;
 
     @Autowired
     @Qualifier("authenticationManager")
@@ -118,7 +128,10 @@ public class UserAction {
             @RequestParam(required = false) String personalIdType,
             @RequestParam(required = false) String issueDate,
             @RequestParam(required = false) String issuePlace,
-            @RequestParam(required = false) String email
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String recaptchaResponse,
+            @RequestParam(required = false) String recaptchaChallenge,
+            HttpServletRequest request
     ) {
         ModelAndView modelAndView = new ModelAndView();
         View jsonView = new JSONView();
@@ -128,25 +141,46 @@ public class UserAction {
         // firstname, lastname, email are required.
         // password, username are also reqruied but
         if (StringUtils.isNotBlank(firstName)
-                || StringUtils.isNotBlank(lastName) || StringUtils.isNotBlank(email)
+                && StringUtils.isNotBlank(lastName) && StringUtils.isNotBlank(email)
                 ) {
             boolean isSafeToRegister = true;
             if (id == null) {
-                if (StringUtils.isBlank(password1) || StringUtils.isBlank(password2) ||
-                        StringUtils.isBlank(username)) {
+                // check captcha input
+                if (StringUtils.isBlank(recaptchaChallenge) || StringUtils.isBlank(recaptchaResponse)) {
                     isSafeToRegister = false;
                 } else {
-                    // check user by username
-                    if (userManager.checkUsername(username)) {
-                        isSafeToRegister = false;
-                        jsonData.put("success", false);
-                        jsonData.put("msg", "Tên đăng nhập đã được đăng kí. Vui lòng dùng chọn tên khác.");
-                    }
+                    String remoteAddr = request.getRemoteAddr();
+                    ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+                    LOG.info("ReCaptcha private key : " + reCaptchaPrivateKey);
+                    reCaptcha.setPrivateKey(reCaptchaPrivateKey);
 
-                    if (userManager.checkEmail(email)) {
+                    ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, recaptchaChallenge, recaptchaResponse);
+                    if (!reCaptchaResponse.isValid()) {
+                        LOG.debug("Captcha invalid.");
                         isSafeToRegister = false;
-                        jsonData.put("success", false);
-                        jsonData.put("msg", "Email đã được đăng kí. Vui lòng sửa lại email khác.");
+                        jsonData.put(REGISTER_SUCCESS_DATA_FIELD, false);
+                        jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Mã xác nhận sai. Vui lòng nhập lại.");
+                    }
+                }
+                // do not want to continue if something went wrong.
+                if (isSafeToRegister) {
+                    if (StringUtils.isBlank(password1) || StringUtils.isBlank(password2) ||
+                            StringUtils.isBlank(username)) {
+                        isSafeToRegister = false;
+                        jsonData.put(REGISTER_SUCCESS_DATA_FIELD, false);
+                        jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Mật khẩu và Xác nhận mật khẩu không đúng. Vui lòng kiểm tra lại.");
+                    } else {
+                        // check user by username
+                        if (userManager.checkUsername(username)) {
+                            isSafeToRegister = false;
+                            jsonData.put(REGISTER_SUCCESS_DATA_FIELD, false);
+                            jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Tên đăng nhập đã được đăng kí. Vui lòng dùng chọn tên khác.");
+                        }
+                        if (userManager.checkEmail(email)) {
+                            isSafeToRegister = false;
+                            jsonData.put(REGISTER_SUCCESS_DATA_FIELD, false);
+                            jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Email đã được đăng kí. Vui lòng sửa lại email khác.");
+                        }
                     }
                 }
             }
@@ -204,26 +238,24 @@ public class UserAction {
                 if (user.getId() != null) {
                     userManager.update(user);
                     LOG.debug("Update user " + user.getUsername() + " successfully.");
-                    jsonData.put("success", true);
-                    jsonData.put("msg", "Hồ sơ được chỉnh sửa thành công.");
+                    jsonData.put(REGISTER_SUCCESS_DATA_FIELD, true);
+                    jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Hồ sơ được chỉnh sửa thành công.");
                 } else {
                     user = userManager.save(user);
                     if (user != null) {
                         LOG.debug("Save user " + user.getUsername() + " successfully.");
-                        jsonData.put("success", true);
-                        jsonData.put("msg", "Đăng kí thành công.");
+                        jsonData.put(REGISTER_SUCCESS_DATA_FIELD, true);
+                        jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Đăng kí thành công.");
                     }
                 }
-
-
             }
         } else {
             isValidRequest = false;
         }
 
         if (!isValidRequest) {
-            jsonData.put("success", false);
-            jsonData.put("msg", "Please check your form again.");
+            jsonData.put(REGISTER_SUCCESS_DATA_FIELD, false);
+            jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Bạn nhập thiếu một số thông tin cần thiết. Vui lòng nhập lại.");
         }
 
         modelAndView.addObject(GSONStrategy.DATA, jsonData);
@@ -533,7 +565,6 @@ public class UserAction {
         View jsonView = new JSONView();
         modelAndView.setView(jsonView);
         Map<String, Object> jsonData = new HashMap<String, Object>();
-
         try {
             Authentication request = new UsernamePasswordAuthenticationToken(userName, password);
             Authentication authenResult = authenticationManager.authenticate(request);
@@ -606,5 +637,21 @@ public class UserAction {
 
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
+    }
+
+    public String getReCaptchaPrivateKey() {
+        return reCaptchaPrivateKey;
+    }
+
+    public void setReCaptchaPrivateKey(String reCaptchaPrivateKey) {
+        this.reCaptchaPrivateKey = reCaptchaPrivateKey;
+    }
+
+    public String getReCaptchaPublicKey() {
+        return reCaptchaPublicKey;
+    }
+
+    public void setReCaptchaPublicKey(String reCaptchaPublicKey) {
+        this.reCaptchaPublicKey = reCaptchaPublicKey;
     }
 }

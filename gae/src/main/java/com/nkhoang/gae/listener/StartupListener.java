@@ -1,8 +1,11 @@
 package com.nkhoang.gae.listener;
 
+import com.nkhoang.gae.dao.AppConfigDao;
 import com.nkhoang.gae.manager.UserManager;
+import com.nkhoang.gae.model.AppConfig;
 import com.nkhoang.gae.model.Role;
 import com.nkhoang.gae.model.User;
+import com.nkhoang.gae.service.impl.AppCache;
 import org.jasypt.spring.security3.PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +61,8 @@ public class StartupListener implements ServletContextListener {
         ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
         UserManager userService = (UserManager) ctx.getBean("userManager");
+        AppConfigDao appConfigDao = (AppConfigDao) ctx.getBean("appConfigDao");
+        AppCache appCache = (AppCache) ctx.getBean("appCache");
         PasswordEncoder passwordEncoder = (PasswordEncoder) ctx.getBean("passwordEncoder");
 
         userService.clearAll();
@@ -91,6 +97,16 @@ public class StartupListener implements ServletContextListener {
 
             if (admin.getId() != null) {
                 LOGGER.debug("Saving default users [ok]");
+            }
+
+            // save default dictionary
+            AppConfig appConfig = new AppConfig();
+            appConfig.setLabel("dictionary");
+            appConfig.setValue("oxford");
+            appConfig = appConfigDao.save(appConfig);
+            if (appConfig.getId() != null) {
+                LOGGER.debug("Save appConfig successfully.");
+                appCache.addProperty(appConfig.getLabel(), Arrays.asList(appConfig.getValue().split(",")));
             }
         }
     }

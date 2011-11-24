@@ -9,6 +9,7 @@
     <!-- allow us to access property keys from beans. -->
     <util:properties id="mail" location="classpath:mail.properties"></util:properties>
     <util:properties id="appConfig" location="classpath:appConfig.properties"></util:properties>
+    <util:properties id="encryption" location="classpath:encryption.properties"></util:properties>
 	<!-- For use in Spring + error message -->
     <bean id="messageSource"
           class="org.springframework.context.support.ResourceBundleMessageSource">
