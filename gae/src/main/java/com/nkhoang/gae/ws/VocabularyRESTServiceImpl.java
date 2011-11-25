@@ -12,10 +12,12 @@ import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.ApplicationService;
 import com.nkhoang.gae.service.VocabularyService;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import java.util.Arrays;
 import java.util.List;
@@ -24,146 +26,157 @@ import java.util.Map;
 @Service
 @Path("/")
 public class VocabularyRESTServiceImpl {
-   private static Logger LOG = LoggerFactory.getLogger(VocabularyRESTServiceImpl.class.getCanonicalName());
-   private VocabularyService vocabularyService;
-   private VocabularyDao vocabularyDao;
-   private DictionaryDao dictionaryDao;
-   private AppConfigDao appConfigDao;
-   private ApplicationService applicationService;
-
-   @GET
-   @Produces("application/json")
-   @Path("appConfig/getAll")
-   public String getAllAppConfig() {
-      List<String> excludeAttrs = Arrays.asList(AppConfig.SKIP_FIELDS);
-
-      Gson gson = new GsonBuilder().setExclusionStrategies(
-            new GSONStrategy(excludeAttrs)).create();
-
-      return gson.toJson(appConfigDao.getAll());
-   }
+  private static Logger LOG = LoggerFactory.getLogger(VocabularyRESTServiceImpl.class.getCanonicalName());
+  private VocabularyService vocabularyService;
+  private VocabularyDao vocabularyDao;
+  private DictionaryDao dictionaryDao;
+  private AppConfigDao appConfigDao;
+  private ApplicationService applicationService;
+  private static final String HEADER_SALT = "salt";
+  private static final String HEADER_ITERATIONS = "iterations";
 
 
-   @POST
-   @Path("appConfig/saveAppConfig")
-   @Consumes("application/json")
-   @Produces("application/json")
-   public String postAppConfig(String data) {
-      Gson gson = new Gson();
-      AppConfig updateAppConfig = gson.fromJson(data, AppConfig.class);
-      gson = new GsonBuilder().setExclusionStrategies(
-            new GSONStrategy(Arrays.asList(Dictionary.SKIP_FIELDS))).create();
-      return gson.toJson(applicationService.saveAppConfig(updateAppConfig.getLabel(), updateAppConfig.getValue()));
-   }
+  @GET
+  @Produces("application/json")
+  @Path("appConfig/getAll")
+  public String getAllAppConfig() {
+    List<String> excludeAttrs = Arrays.asList(AppConfig.SKIP_FIELDS);
 
-   @POST
-   @Path("appConfig/deleteAppConfig")
-   public void deleteAppConfig(String data) {
-      Gson gson = new Gson();
-      Dictionary appConfig = gson.fromJson(data, Dictionary.class);
-      if (appConfig != null && appConfig.getId() != null) {
-         appConfigDao.delete(appConfig.getId());
-      }
-   }
+    Gson gson = new GsonBuilder().setExclusionStrategies(
+        new GSONStrategy(excludeAttrs)).create();
 
-   @GET
-   @Produces("application/json")
-   @Path("dictionary/getAll")
-   public String getAllDictionary() {
-      List<String> excludeAttrs = Arrays.asList(Dictionary.SKIP_FIELDS);
-
-      Gson gson = new GsonBuilder().setExclusionStrategies(
-            new GSONStrategy(excludeAttrs)).create();
-
-      return gson.toJson(dictionaryDao.getAll());
-   }
+    return gson.toJson(appConfigDao.getAll());
+  }
 
 
-   @POST
-   @Path("dictionary/saveDictionary")
-   @Consumes("application/json")
-   @Produces("application/json")
-   public String postDictionary(String data) {
-      Gson gson = new Gson();
-      Dictionary updatedDict = gson.fromJson(data, Dictionary.class);
-      gson = new GsonBuilder().setExclusionStrategies(
-            new GSONStrategy(Arrays.asList(Dictionary.SKIP_FIELDS))).create();
-      if (updatedDict.getId() != null && updatedDict.getId() != 0) {
-         Dictionary dbDict = dictionaryDao.get(updatedDict.getId());
-         dbDict.setName(updatedDict.getName());
-         dbDict.setDescription(updatedDict.getDescription());
-         dictionaryDao.update(dbDict);
-         return gson.toJson(dbDict);
-      } else {
-         dictionaryDao.save(updatedDict);
-         return gson.toJson(updatedDict);
-      }
-   }
+  @POST
+  @Path("appConfig/saveAppConfig")
+  @Consumes("application/json")
+  @Produces("application/json")
+  public String postAppConfig(String data) {
+    Gson gson = new Gson();
+    AppConfig updateAppConfig = gson.fromJson(data, AppConfig.class);
+    gson = new GsonBuilder().setExclusionStrategies(
+        new GSONStrategy(Arrays.asList(Dictionary.SKIP_FIELDS))).create();
+    return gson.toJson(applicationService.saveAppConfig(updateAppConfig.getLabel(), updateAppConfig.getValue()));
+  }
 
-   @POST
-   @Path("dictionary/deleteDictionary")
-   public void deleteDictionary(String data) {
-      Gson gson = new Gson();
-      Dictionary dict = gson.fromJson(data, Dictionary.class);
-      if (dict != null && dict.getId() != null) {
-         dictionaryDao.delete(dict.getId());
-      }
-   }
+  @POST
+  @Path("appConfig/deleteAppConfig")
+  public void deleteAppConfig(String data) {
+    Gson gson = new Gson();
+    Dictionary appConfig = gson.fromJson(data, Dictionary.class);
+    if (appConfig != null && appConfig.getId() != null) {
+      appConfigDao.delete(appConfig.getId());
+    }
+  }
 
+  @GET
+  @Produces("application/json")
+  @Path("dictionary/getAll")
+  public String getAllDictionary() {
+    List<String> excludeAttrs = Arrays.asList(Dictionary.SKIP_FIELDS);
 
-   @GET
-   @Produces("application/xml")
-   @Path("vocabulary/search/{word}")
-   public Word search(@PathParam("word") String word) {
-      Map<String, Word> wordMap = vocabularyService.lookup(word);
-      if (MapUtils.isNotEmpty(wordMap)) {
-         return wordMap.values().iterator().next();
-      }
-      return null;
-   }
+    Gson gson = new GsonBuilder().setExclusionStrategies(
+        new GSONStrategy(excludeAttrs)).create();
+
+    return gson.toJson(dictionaryDao.getAll());
+  }
 
 
+  @POST
+  @Path("dictionary/saveDictionary")
+  @Consumes("application/json")
+  @Produces("application/json")
+  public String postDictionary(String data) {
+    Gson gson = new Gson();
+    Dictionary updatedDict = gson.fromJson(data, Dictionary.class);
+    gson = new GsonBuilder().setExclusionStrategies(
+        new GSONStrategy(Arrays.asList(Dictionary.SKIP_FIELDS))).create();
+    if (updatedDict.getId() != null && updatedDict.getId() != 0) {
+      Dictionary dbDict = dictionaryDao.get(updatedDict.getId());
+      dbDict.setName(updatedDict.getName());
+      dbDict.setDescription(updatedDict.getDescription());
+      dictionaryDao.update(dbDict);
+      return gson.toJson(dbDict);
+    } else {
+      dictionaryDao.save(updatedDict);
+      return gson.toJson(updatedDict);
+    }
+  }
+
+  @POST
+  @Path("dictionary/deleteDictionary")
+  public void deleteDictionary(String data) {
+    Gson gson = new Gson();
+    Dictionary dict = gson.fromJson(data, Dictionary.class);
+    if (dict != null && dict.getId() != null) {
+      dictionaryDao.delete(dict.getId());
+    }
+  }
 
 
-   public VocabularyService getVocabularyService() {
-      return vocabularyService;
-   }
+  @GET
+  @Produces("application/xml")
+  @Path("vocabulary/search/{word}")
+  public Word search(@PathParam("word") String word, HttpServletRequest request) {
+
+    Map<String, Word> wordMap = vocabularyService.lookup(word);
+    if (MapUtils.isNotEmpty(wordMap)) {
+      return wordMap.values().iterator().next();
+    }
+    return null;
+  }
+
+  private boolean authenticateRequest(HttpServletRequest request) {
+    String iterations = request.getHeader(HEADER_ITERATIONS);
+    String salt = request.getHeader(HEADER_SALT);
+    if (StringUtils.isNotEmpty(iterations) && StringUtils.isNotEmpty(salt)) {
+
+    }
+    return false;
+  }
 
 
-   public void setVocabularyService(VocabularyService vocabularyService) {
-      this.vocabularyService = vocabularyService;
-   }
-
-   public VocabularyDao getVocabularyDao() {
-      return vocabularyDao;
-   }
-
-   public void setVocabularyDao(VocabularyDao vocabularyDao) {
-      this.vocabularyDao = vocabularyDao;
-   }
+  public VocabularyService getVocabularyService() {
+    return vocabularyService;
+  }
 
 
-   public DictionaryDao getDictionaryDao() {
-      return dictionaryDao;
-   }
+  public void setVocabularyService(VocabularyService vocabularyService) {
+    this.vocabularyService = vocabularyService;
+  }
 
-   public void setDictionaryDao(DictionaryDao dictionaryDao) {
-      this.dictionaryDao = dictionaryDao;
-   }
+  public VocabularyDao getVocabularyDao() {
+    return vocabularyDao;
+  }
 
-   public AppConfigDao getAppConfigDao() {
-      return appConfigDao;
-   }
+  public void setVocabularyDao(VocabularyDao vocabularyDao) {
+    this.vocabularyDao = vocabularyDao;
+  }
 
-   public void setAppConfigDao(AppConfigDao appConfigDao) {
-      this.appConfigDao = appConfigDao;
-   }
 
-   public ApplicationService getApplicationService() {
-      return applicationService;
-   }
+  public DictionaryDao getDictionaryDao() {
+    return dictionaryDao;
+  }
 
-   public void setApplicationService(ApplicationService applicationService) {
-      this.applicationService = applicationService;
-   }
+  public void setDictionaryDao(DictionaryDao dictionaryDao) {
+    this.dictionaryDao = dictionaryDao;
+  }
+
+  public AppConfigDao getAppConfigDao() {
+    return appConfigDao;
+  }
+
+  public void setAppConfigDao(AppConfigDao appConfigDao) {
+    this.appConfigDao = appConfigDao;
+  }
+
+  public ApplicationService getApplicationService() {
+    return applicationService;
+  }
+
+  public void setApplicationService(ApplicationService applicationService) {
+    this.applicationService = applicationService;
+  }
 }

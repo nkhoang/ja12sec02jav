@@ -1,9 +1,9 @@
 package com.nkhoang.gae.utils;
 
+import com.nkhoang.gae.exception.GAEException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.htmlparser.jericho.Source;
-import org.junit.Test;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,136 +15,177 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.security.*;
+import java.security.spec.EncodedKeySpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class WebUtils {
-    private static Logger LOG = LoggerFactory.getLogger(WebUtils.class.getCanonicalName());
+  private static final Logger LOG = LoggerFactory.getLogger(WebUtils.class.getCanonicalName());
 
-    public static final String DEFAULT_GOLD_DATE_FORMAT = "yyyy-MM-dd HH:mm";
-    public static final String DEFAULT_CURRENCY_DATE_FORMAT = "HH:mm a dd/MM/yyyy";
-    public static final String DEFAULT_WORD_DATE_FORMAT = "dd/MM/yyyy hh:mm";
-    public static final String DEFAULT_CLIENT_DATE_FORMAT = "dd/MM/yyyy";
-    public static SimpleDateFormat _formatter = new SimpleDateFormat(
-            DEFAULT_GOLD_DATE_FORMAT, Locale.US);
+  public static final String DEFAULT_WORD_DATE_FORMAT = "dd/MM/yyyy hh:mm";
+  public static final String DEFAULT_CLIENT_DATE_FORMAT = "dd/MM/yyyy";
+  public static SimpleDateFormat _formatter = new SimpleDateFormat(
+      DEFAULT_WORD_DATE_FORMAT, Locale.US);
+  // The algorithm used to authenticate internal communication.
+  private static final String ALGORITHM_DSA = "DSA";
+  // The private key used to generate DSA signature.
+  private static final String ALGORITHM_DSA_PRIVATE_KEY
+      = "MIIBSwIBADCCASwGByqGSM44BAEwggEfAoGBAP1_U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2NWPq_xfW6MPbLm1Vs14E7gB00b_JmYLdrmVClpJ-f6AR7ECLCT7up1_63xhv4O1fnxqimFQ8E-4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuEC_BYHPUCgYEA9-GghdabPd7LvKtcNrhXuXmUr7v6OuqC-VdMCz0HgmdRWVeOutRZT-ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN_C_ohNWLx-2J6ASQ7zKTxvqhRkImog9_hWuWfBpKLZl6Ae1UlZAFMO_7PSSoEFgIUG1ZetnzicTudRq2Sm4JrAzfMYgA";
+  private static final String ALGORITHM_DSA_PUBLIC_KEY
+      = "MIIBuDCCASwGByqGSM44BAEwggEfAoGBAP1_U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2NWPq_xfW6MPbLm1Vs14E7gB00b_JmYLdrmVClpJ-f6AR7ECLCT7up1_63xhv4O1fnxqimFQ8E-4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuEC_BYHPUCgYEA9-GghdabPd7LvKtcNrhXuXmUr7v6OuqC-VdMCz0HgmdRWVeOutRZT-ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN_C_ohNWLx-2J6ASQ7zKTxvqhRkImog9_hWuWfBpKLZl6Ae1UlZAFMO_7PSSoDgYUAAoGBAKl5Xnf7KYyOlj80WmFahWMDw8T9nZpWFHtle9bGfhO4onRPXv5kXbfhYPuZBteZE0W8Z0db2V26BXe2jzlbMGJ2za7E2g2BlXx9Q822VWU4kf2EDpkciUjnB4hyJMjJe6VHEnRUksf-oxW2-99GOyYM-Gn3lIOGT0qCgiUneJTX";
 
-    public static Source retrieveWebContent(String websiteURL) throws IOException {
-        Source source = null;
-        URL url = new URL(websiteURL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        // get inputStream
-        InputStream is = connection.getInputStream();
-        // create source HTML
-        source = new Source(is);
 
-        return source;
+  /**
+   * Create signature for internal WS by using DSA algorithm.
+   *
+   * @param signatureValue the signature to be encrypted.
+   * @return encrypted signature.
+   * @throws GAEException any exception is wrapped in {@link GAEException}.
+   */
+  public static String createWSSignature(String signatureValue) throws GAEException {
+    String encryptedSig = null;
+    try {
+      KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_DSA);
+      byte[] privateKeyBytes = Base64.decodeBase64(ALGORITHM_DSA_PRIVATE_KEY);
+      EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+
+      Signature sig = Signature.getInstance("DSA");
+      sig.initSign(keyFactory.generatePrivate(privateKeySpec));
+      sig.update(signatureValue.getBytes());
+
+      encryptedSig = Base64.encodeBase64URLSafeString(sig.sign());
+    } catch (NoSuchAlgorithmException nsaex) {
+      throw new GAEException("Could not find DSA algorithm.", 1, nsaex);
+    } catch (InvalidKeySpecException invalidKeyEx) {
+      throw new GAEException("Invalid private key for DSA algorithm.", 2, invalidKeyEx);
+    } catch (InvalidKeyException invalidKeyEx) {
+      throw new GAEException("Invalid private key for DSA algorithm.", 2, invalidKeyEx);
+    } catch (SignatureException signatureEx) {
+      throw new GAEException("Could not create signature with information provided.", 3, signatureEx);
+    }
+    return encryptedSig;
+  }
+
+  /**
+   * Verify signature and compare it with the valid signature.
+   *
+   * @param validSignature    the valid signature.
+   * @param receivedSignature the signature to be checked.
+   * @return true if the signature is valid otherwise false.
+   * @throws GAEException if any.
+   */
+  public static boolean verifySignature(String validSignature, String receivedSignature) throws GAEException {
+    boolean result = false;
+    try {
+      Signature signatureFactory = Signature.getInstance(ALGORITHM_DSA);
+      KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_DSA);
+      byte[] publicKeyBytes = Base64.decodeBase64(ALGORITHM_DSA);
+      EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyBytes);
+      PublicKey decodePublicKey = keyFactory.generatePublic(publicKeySpec);
+      signatureFactory.initVerify(decodePublicKey);
+      signatureFactory.update(validSignature.getBytes());
+
+      result = signatureFactory.verify(Base64.decodeBase64(receivedSignature));
+    } catch (NoSuchAlgorithmException nsaex) {
+      throw new GAEException("Could not find DSA algorithm.", 1, nsaex);
+    } catch (InvalidKeySpecException invalidKeyEx) {
+      throw new GAEException("Invalid private key for DSA algorithm.", 2, invalidKeyEx);
+    } catch (InvalidKeyException invalidKeyEx) {
+      throw new GAEException("Invalid private key for DSA algorithm.", 2, invalidKeyEx);
+    } catch (SignatureException signatureEx) {
+      throw new GAEException("Could not create signature with information provided.", 3, signatureEx);
     }
 
-    /**
-     * Convert from <code>DS timestamp</code> to default display date format.
-     *
-     * @param timeStamp a timestamp in <code>long</code>.
-     * @return date string in default display date format.
-     */
-    public static String formatDefaultDisplayDate(Long timeStamp) {
-        _formatter = new SimpleDateFormat(DEFAULT_WORD_DATE_FORMAT);
-        _formatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getTimeZone("GMT-8").getID()));
-        return _formatter.format(new Date(timeStamp));
-    }
+    return result;
+  }
 
-    /**
-     * Convert from a string token to a Date object
-     *
-     * @param tokenString a token string to be parsed to Date object.
-     * @return a Date object.
-     * @throws java.text.ParseException parse error.
-     */
-    public static Date convertFromStringToken(String tokenString, String dateFormat) throws ParseException {
-        _formatter = new SimpleDateFormat(dateFormat, Locale.US);
-        _formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-        return _formatter.parse(tokenString);
-    }
+  /**
+   * Convert from date in string format to Date object in specific pattern specified by <i></i>
+   *
+   * @param date       the date to be converted.
+   * @param dateFormat format string.
+   * @return a Date object.
+   * @throws ParseException if failing to convert date string to Date object.
+   */
+  public static Date parseDate(String date, String dateFormat) throws ParseException {
+    _formatter = new SimpleDateFormat(dateFormat, Locale.US);
+    _formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+    return _formatter.parse(date);
+  }
 
-    public static String parseDateFromLong(Long l) {
-        GregorianCalendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Asia/Bangkok"));
-        calendar.setTimeInMillis(l);
-        Date d = calendar.getTime();
-        return parseDate(d, DEFAULT_GOLD_DATE_FORMAT);
+  public static String sendMail(
+      String msgBody, String senderEmail, String subject, String recipEmail) {
+    String message = "";
+    Properties props = new Properties();
+    Session session = Session.getDefaultInstance(props, null);
+    try {
+      Message msg = new MimeMessage(session);
+      msg.setFrom(new InternetAddress(senderEmail));
+      msg.addRecipient(
+          Message.RecipientType.TO, new InternetAddress(recipEmail));
+      msg.setSubject(subject);
+      msg.setContent(msgBody, "text/html");
+      Transport.send(msg);
+    } catch (MessagingException mse) {
+      message = mse.getMessage();
+      LOG.error(String.format("Could not send email to [%s].", recipEmail), mse);
     }
+    return message;
+  }
 
-    public static String parseDate(Date date, String dateFormat) {
-        _formatter = new SimpleDateFormat(dateFormat, Locale.US);
-        _formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-        return _formatter.format(date);
+  /**
+   * Build mail body message from a template by providing these following information:
+   *
+   * @param context      the {@link javax.servlet.ServletContext} object to get the template path.
+   * @param templateName the template name used to build the message body.
+   * @param data         the root data for templating.
+   * @return a message body based on a specific template.
+   */
+  public static String buildMail(ServletContext context, String templateName, Map<String, Object> data) {
+    try {
+      Template template = TemplateUtils.getConfiguration(context).getTemplate(templateName);
+      StringWriter writer = new StringWriter();
+      template.process(data, writer);
+
+      return writer.toString();
+    } catch (IOException ioe) {
+      LOG.error(String.format("Could not load template '[%s]'", templateName), ioe);
+    } catch (TemplateException tpe) {
+      LOG.error("Could not build template because: ", tpe);
     }
+    return "";
+  }
 
-    /**
-     * Convert from date in string format to Date object in specific pattern specified by <i></i>
-     *
-     * @param date       the date to be converted.
-     * @param dateFormat format string.
-     * @return a Date object.
-     * @throws ParseException if failing to convert date string to Date object.
-     */
-    public static Date parseDate(String date, String dateFormat) throws ParseException {
-        _formatter = new SimpleDateFormat(dateFormat, Locale.US);
-        _formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-        return _formatter.parse(date);
+  public static KeyPair generateKeyPair() throws GAEException {
+    KeyPair keyPair = null;
+    try {
+      // Generate a 1024-bit Digital Signature Algorithm (DSA) key pair
+      KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM_DSA);
+      keyGen.initialize(1024);
+      keyPair = keyGen.genKeyPair();
+    } catch (NoSuchAlgorithmException nsaex) {
+      throw new GAEException("Could not find DSA algorithm.", 1, nsaex);
     }
+    return keyPair;
+  }
 
-    public static String sendMail(
-            String msgBody, String senderEmail, String subject, String recipEmail) {
-        String message = "";
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-        try {
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(senderEmail));
-            msg.addRecipient(
-                    Message.RecipientType.TO, new InternetAddress(recipEmail));
-            msg.setSubject(subject);
-            msg.setContent(msgBody, "text/html");
-            Transport.send(msg);
-        } catch (MessagingException mse) {
-            message = mse.getMessage();
-            LOG.error(String.format("Could not send email to [%s].", recipEmail), mse);
-        }
-        return message;
-    }
+  public static String encodePrivateKey(KeyPair keyPair) {
+    PrivateKey privateKey = keyPair.getPrivate();
+    byte[] privateKeyEncoded = privateKey.getEncoded();
+    return Base64.encodeBase64URLSafeString(privateKeyEncoded);
 
-    /**
-     * Build mail body message from a template by providing these following information:
-     *
-     * @param context      the {@link javax.servlet.ServletContext} object to get the template path.
-     * @param templateName the template name used to build the message body.
-     * @param data         the root data for templating.
-     * @return a message body based on a specific template.
-     */
-    public static String buildMail(ServletContext context, String templateName, Map<String, Object> data) {
-        try {
-            Template template = TemplateUtils.getConfiguration(context).getTemplate(templateName);
-            StringWriter writer = new StringWriter();
-            template.process(data, writer);
+  }
 
-            return writer.toString();
-        } catch (IOException ioe) {
-            LOG.error(String.format("Could not load template '[%s]'", templateName), ioe);
-        } catch (TemplateException tpe) {
-            LOG.error("Could not build template because: ", tpe);
-        }
-        return "";
-    }
+  public static String encodePublicKey(KeyPair keyPair) {
+    PublicKey publicKey = keyPair.getPublic();
+    byte[] publicKeyEncoded = publicKey.getEncoded();
+    return Base64.encodeBase64URLSafeString(publicKeyEncoded);
+  }
 
-    @Test
-    public void testDateConvert() throws Exception {
-        String date = "19/09/2011";
-        Date startDate = WebUtils.parseDate(date + " 00:00:01", WebUtils.DEFAULT_CLIENT_DATE_FORMAT + " HH:mm:ss");
-        Date endDate = WebUtils.parseDate(date + " 23:59:59", WebUtils.DEFAULT_CLIENT_DATE_FORMAT + " HH:mm:ss");
-    }
 }
