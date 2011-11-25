@@ -5,20 +5,25 @@ import com.google.gson.GsonBuilder;
 import com.nkhoang.gae.dao.AppConfigDao;
 import com.nkhoang.gae.dao.DictionaryDao;
 import com.nkhoang.gae.dao.VocabularyDao;
+import com.nkhoang.gae.exception.GAEException;
 import com.nkhoang.gae.gson.strategy.GSONStrategy;
 import com.nkhoang.gae.model.AppConfig;
 import com.nkhoang.gae.model.Dictionary;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.ApplicationService;
 import com.nkhoang.gae.service.VocabularyService;
+import com.nkhoang.gae.utils.WebUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +37,10 @@ public class VocabularyRESTServiceImpl {
   private DictionaryDao dictionaryDao;
   private AppConfigDao appConfigDao;
   private ApplicationService applicationService;
-  private static final String HEADER_SALT = "salt";
-  private static final String HEADER_ITERATIONS = "iterations";
+  private StandardPBEStringEncryptor propertyEncryptor;
+  private static final String HEADER_KEY = "key";
+  private static final String HEADER_SIGNATURE = "signature";
+  private static final long WS_ACCEPT_INTERVAL = 1 * 60 * 1000; // in minute
 
 
   @GET
@@ -119,22 +126,46 @@ public class VocabularyRESTServiceImpl {
   @GET
   @Produces("application/xml")
   @Path("vocabulary/search/{word}")
-  public Word search(@PathParam("word") String word, HttpServletRequest request) {
-
-    Map<String, Word> wordMap = vocabularyService.lookup(word);
-    if (MapUtils.isNotEmpty(wordMap)) {
-      return wordMap.values().iterator().next();
+  public Word search(@PathParam("word") String word, @Context HttpHeaders headers) {
+     if (authenticateRequest(headers)) {
+      Map<String, Word> wordMap = vocabularyService.lookup(word);
+      if (MapUtils.isNotEmpty(wordMap)) {
+        return wordMap.values().iterator().next();
+      }
+    } else {
+      LOG.debug("Authentication failed.");
     }
-    return null;
+    return new Word();
   }
 
-  private boolean authenticateRequest(HttpServletRequest request) {
-    String iterations = request.getHeader(HEADER_ITERATIONS);
-    String salt = request.getHeader(HEADER_SALT);
-    if (StringUtils.isNotEmpty(iterations) && StringUtils.isNotEmpty(salt)) {
-
+  private boolean authenticateRequest(HttpHeaders headers) {
+    List<String> signatures = headers.getRequestHeader(HEADER_SIGNATURE);
+    List<String> keys = headers.getRequestHeader(HEADER_KEY);
+    String signature = null;
+    String key = null;
+    if (CollectionUtils.isNotEmpty(signatures)) {
+      signature = signatures.get(0);
     }
-    return false;
+    if (CollectionUtils.isNotEmpty(keys)) {
+      key = keys.get(0);
+    }
+    boolean result = false;
+    if (StringUtils.isNotEmpty(signature) && StringUtils.isNotEmpty(key)) {
+      // decrypt key
+      String requestTime = propertyEncryptor.decrypt(key);
+      try {
+        if (System.currentTimeMillis() - Long.parseLong(requestTime) < WS_ACCEPT_INTERVAL) {
+          result = WebUtils.verifySignature("GAE", signature);
+        }
+      } catch (NumberFormatException nbex) {
+        LOG.error("Incorrect Key");
+      } catch (GAEException gaeEx) {
+        LOG.error(gaeEx.getMessage());
+      }
+    } else {
+      LOG.debug("Invalid request.");
+    }
+    return result;
   }
 
 
@@ -179,4 +210,13 @@ public class VocabularyRESTServiceImpl {
   public void setApplicationService(ApplicationService applicationService) {
     this.applicationService = applicationService;
   }
+
+  public StandardPBEStringEncryptor getPropertyEncryptor() {
+    return propertyEncryptor;
+  }
+
+  public void setPropertyEncryptor(StandardPBEStringEncryptor propertyEncryptor) {
+    this.propertyEncryptor = propertyEncryptor;
+  }
 }
+

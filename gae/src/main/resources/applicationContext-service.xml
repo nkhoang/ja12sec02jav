@@ -10,97 +10,98 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
        default-lazy-init="true">
 
-   <bean id="appCache" class="com.nkhoang.gae.service.impl.AppCache" scope="singleton"></bean>
-    <!-- WS service -->
-    <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
-        <property name="vocabularyService" ref="vocabularyService"/>
-        <property name="vocabularyDao" ref="vocabularyDao"></property>
-        <property name="dictionaryDao" ref="dictionaryDao"></property>
-        <property name="appConfigDao" ref="appConfigDao"></property>
-       <property name="applicationService" ref="applicationService"></property>
-    </bean>
+  <bean id="appCache" class="com.nkhoang.gae.service.impl.AppCache" scope="singleton"></bean>
+  <!-- WS service -->
+  <bean id="vocabularyRESTService" class="com.nkhoang.gae.ws.VocabularyRESTServiceImpl">
+    <property name="vocabularyService" ref="vocabularyService"/>
+    <property name="vocabularyDao" ref="vocabularyDao"></property>
+    <property name="dictionaryDao" ref="dictionaryDao"></property>
+    <property name="appConfigDao" ref="appConfigDao"></property>
+    <property name="applicationService" ref="applicationService"></property>
+    <property name="propertyEncryptor" ref="propertyEncryptor"></property>
+  </bean>
 
-    <bean id="centralLookupService" class="com.nkhoang.gae.service.impl.CentralLookupService" scope="prototype">
-        <property name="lookupServices">
-            <map>
-                <entry key="#{oxfordLookupService.serviceName}" value-ref="oxfordLookupService" />
-            </map>
-        </property>
-    </bean>
+  <bean id="centralLookupService" class="com.nkhoang.gae.service.impl.CentralLookupService" scope="prototype">
+    <property name="lookupServices">
+      <map>
+        <entry key="#{oxfordLookupService.serviceName}" value-ref="oxfordLookupService"/>
+      </map>
+    </property>
+  </bean>
 
 
-    <bean id="oxfordLookupService" class="com.nkhoang.gae.service.impl.OxfordLookupServiceImpl"/>
-    <bean id="longmanLookupService" class="com.nkhoang.gae.service.impl.LongmanLookupServiceImpl"/>
+  <bean id="oxfordLookupService" class="com.nkhoang.gae.service.impl.OxfordLookupServiceImpl"/>
+  <bean id="longmanLookupService" class="com.nkhoang.gae.service.impl.LongmanLookupServiceImpl"/>
 
-    <bean id="tagService" class="com.nkhoang.gae.service.impl.TagServiceImpl">
-        <property name="userService" ref="userService"/>
-        <property name="userTagDao" ref="userTagDao"/>
-        <property name="vocabularyService" ref="vocabularyService"/>
-        <property name="wordTagDao" ref="wordTagDao"/>
-    </bean>
+  <bean id="tagService" class="com.nkhoang.gae.service.impl.TagServiceImpl">
+    <property name="userService" ref="userService"/>
+    <property name="userTagDao" ref="userTagDao"/>
+    <property name="vocabularyService" ref="vocabularyService"/>
+    <property name="wordTagDao" ref="wordTagDao"/>
+  </bean>
 
-    <bean id="userService" class="com.nkhoang.gae.service.impl.UserServiceImpl">
-        <property name="userWordDao" ref="userWordDao"></property>
-        <property name="vocabularyDao" ref="vocabularyDao"></property>
-        <property name="dictionaryDao" ref="dictionaryDao"></property>
-    </bean>
+  <bean id="userService" class="com.nkhoang.gae.service.impl.UserServiceImpl">
+    <property name="userWordDao" ref="userWordDao"></property>
+    <property name="vocabularyDao" ref="vocabularyDao"></property>
+    <property name="dictionaryDao" ref="dictionaryDao"></property>
+  </bean>
 
-    <bean id="userManager" class="com.nkhoang.gae.manager.UserManager">
-        <property name="passwordEncoder" ref="passwordEncoder"/>
-        <property name="userDao" ref="userDao"/>
-    </bean>
+  <bean id="userManager" class="com.nkhoang.gae.manager.UserManager">
+    <property name="passwordEncoder" ref="passwordEncoder"/>
+    <property name="userDao" ref="userDao"/>
+  </bean>
 
-    <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="prototype">
-        <property name="username" value="${google.username}"/>
-        <property name="password" value="${google.password}"/>
-    </bean>
+  <bean id="spreadsheetService" class="com.nkhoang.gae.service.impl.SpreadsheetServiceImpl" scope="prototype">
+    <property name="username" value="${google.username}"/>
+    <property name="password" value="${google.password}"/>
+  </bean>
 
-    <!-- Salt generator -->
-    <bean id="passwordSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
-        <property name="salt" value="${jasypt.digest.salt}"/>
-    </bean>
-    <!-- Digester for password encoder -->
-    <bean id="jasyptStringDigester" class="org.jasypt.digest.StandardStringDigester">
-        <property name="algorithm" value="${jasypt.digest.algorithm}"/>
-        <property name="iterations" value="${jasypt.digest.iterations}"/>
-        <property name="saltGenerator" ref="passwordSaltGenerator"/>
-    </bean>
-    <!-- Password encoder -->
-    <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
-        <property name="stringDigester" ref="jasyptStringDigester"/>
-    </bean>
-    <!-- Jasypt Property Salt Generator -->
-    <bean id="propertySaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
-        <property name="salt" value="property salt..."/>
-    </bean>
-    <!-- Properties Files Encrypter -->
-    <bean id="propertyEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
-        <property name="algorithm" value="PBEWithSHA1AndRC2_40"/>
-        <property name="keyObtentionIterations" value="1000"/>
-        <property name="saltGenerator" ref="propertySaltGenerator"/>
-        <property name="password" value="property password"/>
-    </bean>
-    <!-- Properties Decoder -->
-    <bean id="propertyConfigurer"
-          class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
-        <constructor-arg ref="propertyEncryptor"/>
-        <property name="locations">
-            <list>
-                <value>classpath:encryption.properties</value>
-                <value>classpath:web-services.properties</value>
-                <value>classpath:mail.properties</value>
-                <value>classpath:appConfig.properties</value>
-            </list>
-        </property>
-        <property name="nullValue" value="null"/>
-        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
-    </bean>
-    <!--
-      Instruct Spring to perform declarative transaction management
-      automatically on annotated classes.
-    -->
-    <tx:annotation-driven/>
-    <context:component-scan base-package="com.nkhoang.gae.dao"/>
-<context:component-scan base-package="com.nkhoang.gae.service"/>
+  <!-- Salt generator -->
+  <bean id="passwordSaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
+    <property name="salt" value="${jasypt.digest.salt}"/>
+  </bean>
+  <!-- Digester for password encoder -->
+  <bean id="jasyptStringDigester" class="org.jasypt.digest.StandardStringDigester">
+    <property name="algorithm" value="${jasypt.digest.algorithm}"/>
+    <property name="iterations" value="${jasypt.digest.iterations}"/>
+    <property name="saltGenerator" ref="passwordSaltGenerator"/>
+  </bean>
+  <!-- Password encoder -->
+  <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
+    <property name="stringDigester" ref="jasyptStringDigester"/>
+  </bean>
+  <!-- Jasypt Property Salt Generator -->
+  <bean id="propertySaltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
+    <property name="salt" value="property salt..."/>
+  </bean>
+  <!-- Properties Files Encrypter -->
+  <bean id="propertyEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+    <property name="algorithm" value="PBEWithSHA1AndRC2_40"/>
+    <property name="keyObtentionIterations" value="1000"/>
+    <property name="saltGenerator" ref="propertySaltGenerator"/>
+    <property name="password" value="property password"/>
+  </bean>
+  <!-- Properties Decoder -->
+  <bean id="propertyConfigurer"
+        class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+    <constructor-arg ref="propertyEncryptor"/>
+    <property name="locations">
+      <list>
+        <value>classpath:encryption.properties</value>
+        <value>classpath:web-services.properties</value>
+        <value>classpath:mail.properties</value>
+        <value>classpath:appConfig.properties</value>
+      </list>
+    </property>
+    <property name="nullValue" value="null"/>
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+  </bean>
+  <!--
+    Instruct Spring to perform declarative transaction management
+    automatically on annotated classes.
+  -->
+  <tx:annotation-driven/>
+  <context:component-scan base-package="com.nkhoang.gae.dao"/>
+  <context:component-scan base-package="com.nkhoang.gae.service"/>
 </beans>
 
