@@ -1034,6 +1034,7 @@
         <cxf.version>2.4.2</cxf.version>
         <!-- Work with GAE -->
         <jaxb.impl.version>2.1.12</jaxb.impl.version>
+        <jericho-html.version>3.2</jericho-html.version>
     </properties>
 </project>
 
