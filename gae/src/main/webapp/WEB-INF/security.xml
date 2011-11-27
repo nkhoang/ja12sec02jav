@@ -23,6 +23,7 @@
         <intercept-url pattern="/user/authenticate.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <intercept-url pattern="/user/userPanel.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/user/index.html*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/user/admin.html" access="ROLE_ADMIN"/>
         <intercept-url pattern="/user/advancedAdmin.html" access="ROLE_ADMIN"/>
         <intercept-url pattern="/user/register.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
