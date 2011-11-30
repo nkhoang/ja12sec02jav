@@ -72,7 +72,7 @@ public class UserAction {
 
     @RequestMapping("/index")
     public String renderMainPage() {
-        return "main";
+        return "phonecard/index";
     }
 
 
@@ -83,7 +83,7 @@ public class UserAction {
 
     @RequestMapping("/register")
     public String renderRegisterPage() {
-        return "user/register";
+        return "phonecard/register";
     }
 
     @RequestMapping("/editUser")
@@ -147,6 +147,8 @@ public class UserAction {
             if (id == null) {
                 // check captcha input
                 if (StringUtils.isBlank(recaptchaChallenge) || StringUtils.isBlank(recaptchaResponse)) {
+                    jsonData.put(REGISTER_SUCCESS_DATA_FIELD, false);
+                    jsonData.put(REGISTER_MESSAGE_DATA_FIELD, "Vui lòng nhập lại mã xác nhận.");
                     isSafeToRegister = false;
                 } else {
                     String remoteAddr = request.getRemoteAddr();

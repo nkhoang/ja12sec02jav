@@ -991,7 +991,7 @@
         <!-- Google settings -->
         <appengine-local-runtime.scope>provided</appengine-local-runtime.scope>
         <appengine-api-stubs.scope>provided</appengine-api-stubs.scope>
-        <appengine-SDK.version>1.5.0.1</appengine-SDK.version>
+        <appengine-SDK.version>1.6.0</appengine-SDK.version>
         <geronimo.specs.version>1.0.1</geronimo.specs.version>
         <geronimo-jpa_3.0_spec.version>1.1.1</geronimo-jpa_3.0_spec.version>
         <geronimo-jta_1.1_spec.version>1.1.1</geronimo-jta_1.1_spec.version>
