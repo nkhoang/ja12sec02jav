@@ -400,10 +400,10 @@ Ext.onReady(function () {
 </div>
 <div id="captcha">
     <script type="text/javascript"
-            src="http://www.google.com/recaptcha/api/challenge?k=6LcWoMoSAAAAANQWqACMnZDYN6H1OdwE3JfyDKcu">
+            src="http://www.google.com/recaptcha/api/challenge?k=6LdRq8oSAAAAAI5yODeg9MGNN1nxd8dpeBJWX9HF">
     </script>
     <noscript>
-        <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcWoMoSAAAAANQWqACMnZDYN6H1OdwE3JfyDKcu"
+        <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LdRq8oSAAAAAI5yODeg9MGNN1nxd8dpeBJWX9HF"
                 height="300" width="500" frameborder="0"></iframe>
         <br>
         <textarea name="recaptcha_challenge_field" rows="3" cols="40">

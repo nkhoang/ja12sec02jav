@@ -21,9 +21,14 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Service for Google Spreadsheet.
+ */
 public class SpreadsheetServiceImpl implements com.nkhoang.gae.service.SpreadsheetService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetService.class.getCanonicalName());
+    // the name of spreadsheet service.
     private static final String SPREADSHEET_SERVICE_NAME = "Spreadsheet Search";
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpreadsheetService.class);
+
     private static final int MAXIMUM_CELL_UPDATE_AT_TIME = 20;
     private static final int MAXIMUM_ROW_IN_A_COL = 10000;
     public static final int CORE_POOL_SIZE = 20;
