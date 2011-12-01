@@ -23,16 +23,16 @@ public class EncryptionTest {
 
   @Test
   public void testPropertyEncryptor() {
-    LOGGER.info(propertyEncryptor.encrypt("POL"));
+    LOGGER.info(propertyEncryptor.encrypt(""));
     String saltString = "digest password";
     //String algorithmString = "MD5";
     String algorithmString = "SHA-256";
     String iterationString = "1000";
 
-    LOGGER.info(propertyEncryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
-    LOGGER.info(propertyEncryptor.encrypt(iterationString));
-    LOGGER.info(propertyEncryptor.encrypt(algorithmString));
-    LOGGER.info(propertyEncryptor.encrypt(saltString));
+    // LOGGER.info(propertyEncryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
+    // LOGGER.info(propertyEncryptor.encrypt(iterationString));
+    // LOGGER.info(propertyEncryptor.encrypt(algorithmString));
+    // LOGGER.info(propertyEncryptor.encrypt(saltString));
   }
 
   public StandardPBEStringEncryptor getPropertyEncryptor() {
