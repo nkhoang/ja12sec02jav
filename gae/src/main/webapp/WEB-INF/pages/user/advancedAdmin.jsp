@@ -32,10 +32,7 @@
                 model: 'Dictionary',
                 proxy: new Ext.data.HttpProxy({
                     api: {
-                        read: '<c:url value="/services/dictionary/getAll" />',
-                        create: '<c:url value="/services/dictionary/saveDictionary" />',
-                        update: '<c:url value="/services/dictionary/saveDictionary" />',
-                        destroy: '<c:url value="/services/dictionary/deleteDictionary" />'
+                        read: '<c:url value="/services/dictionary/getAll" />'
                     }
                 }),
                 reader: {

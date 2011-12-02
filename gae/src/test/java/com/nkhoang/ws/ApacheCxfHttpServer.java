@@ -23,7 +23,7 @@ public class ApacheCxfHttpServer {
 
 
   public static void main(String args[]) throws Exception {
-    ApacheCxfHttpServer server = new ApacheCxfHttpServer("localhost", 9999);
+    ApacheCxfHttpServer server = new ApacheCxfHttpServer("localhost", 8080);
     server.start();
   }
 

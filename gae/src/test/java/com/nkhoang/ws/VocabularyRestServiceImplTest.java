@@ -4,9 +4,7 @@ import com.nkhoang.gae.exception.GAEException;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.utils.WebUtils;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -46,14 +44,13 @@ public class VocabularyRestServiceImplTest {
     responseExtractor = new HttpMessageConverterExtractor<Word>(Word.class, template.getMessageConverters());
   }
 
-  @BeforeClass
+
   public static void setup() throws Exception {
-    server = new ApacheCxfHttpServer("localhost", 9999);
+    server = new ApacheCxfHttpServer("localhost", 8080);
     server.start();
   }
 
 
-  @AfterClass
   public static void teardown() throws Exception {
     server.stop();
   }
@@ -61,7 +58,7 @@ public class VocabularyRestServiceImplTest {
   @Test
   public void shouldReturnCustomers() throws Exception {
     final String urlApp = "/services/vocabulary/search/help";
-    final String fullUrl = "http://localhost:8080" + urlApp;
+    final String fullUrl = "http://192.168.22.61:8888" + urlApp;
 
     Word w = template.execute(fullUrl, HttpMethod.GET,
         new RequestCallback() {

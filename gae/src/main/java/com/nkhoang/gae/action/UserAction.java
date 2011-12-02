@@ -75,7 +75,6 @@ public class UserAction {
         return "phonecard/index";
     }
 
-
     @RequestMapping("/admin")
     public String renderAdvancedAdminPage() {
         return "user/advancedAdmin";

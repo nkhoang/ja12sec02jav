@@ -1,9 +1,11 @@
 package com.nkhoang.gae.model;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
-import java.util.BitSet;
 
 @Entity
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
@@ -11,7 +13,6 @@ import java.util.BitSet;
         "id",
         "word"
 })
-@XmlSeeAlso({javax.jdo.identity.LongIdentity.class, BitSet.class})
 @XmlRootElement
 public class WordLucene implements Serializable {
 

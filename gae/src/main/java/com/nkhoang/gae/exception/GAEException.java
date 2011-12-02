@@ -8,4 +8,10 @@ public class GAEException extends Exception {
     super(message, cause);
     this.errorCode = errorCode;
   }
+
+  public GAEException(String message, int errorCode) {
+    super(message);
+    this.errorCode = errorCode;
+  }
+
 }
