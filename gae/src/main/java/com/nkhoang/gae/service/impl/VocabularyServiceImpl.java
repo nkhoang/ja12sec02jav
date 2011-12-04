@@ -130,14 +130,6 @@ public class VocabularyServiceImpl implements VocabularyService {
       return (CollectionUtils.isNotEmpty(configValues));
    }
 
-   private void refreshAppCache() {
-      List<AppConfig> appConfigs = applicationService.getApplicationConfiguration();
-      for (AppConfig appConfig : appConfigs) {
-         if (StringUtils.isNotBlank(appConfig.getValue())) {
-            appCache.addProperty(appConfig.getLabel(), Arrays.asList(appConfig.getValue().split(delimiter)));
-         }
-      }
-   }
 
    public Map<String, Word> lookup(String requestWord) {
       Map<String, Word> wordMap = new HashMap<String, Word>();
@@ -145,9 +137,6 @@ public class VocabularyServiceImpl implements VocabularyService {
          // first get the configuration dictionaries.
          LOG.info("dictionaryKeyName = " + dictionaryKeyName);
          List<String> configValues = appCache.getProperty(dictionaryKeyName);
-          if (CollectionUtils.isEmpty(configValues)) {
-            refreshAppCache();
-          }
          if (CollectionUtils.isNotEmpty(configValues)) {
             // check DB first
             WordEntity dbWordEntity = findWord(requestWord);
