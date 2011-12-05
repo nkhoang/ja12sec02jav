@@ -18,45 +18,6 @@
     <script type="text/javascript">
         var phonecardStore;// define model for Dictionary
         $(function () {
-            var win = Ext.create('widget.window', {
-                title:'<fmt:message key="phonecard.popup.add.title" />',
-                closable: false,
-                width:600,
-                minWidth:350,
-                height:350,
-                layout:'border',
-                bodyStyle:'padding: 5px;',
-                items:[
-                    {
-                        region:'west',
-                        title:'Navigation',
-                        width:200,
-                        split:true,
-                        collapsible:true,
-                        floatable:false
-                    },
-                    {
-                        region:'center',
-                        xtype:'tabpanel',
-                        items:[
-                            {
-                                title:'Bogus Tab',
-                                html:'Hello world 1'
-                            },
-                            {
-                                title:'Another Tab',
-                                html:'Hello world 2'
-                            },
-                            {
-                                title:'Closable Tab',
-                                html:'Hello world 3',
-                                closable:true
-                            }
-                        ]
-                    }
-                ]
-            });
-
             Ext.define('PhoneCardDiscount', {
                 extend:'Ext.data.Model',
                 fields:[
@@ -87,7 +48,11 @@
                     {
                         name:'quantity',
                         type:'int'
-                    }
+                    },
+                  {
+                    name: 'total',
+                    type: 'int'
+                  }
                 ]
             });
 
@@ -106,6 +71,28 @@
                 listeners:{
                 }
             });
+
+          var cellEditing = Ext.create('Ext.grid.plugin.CellEditing', {
+              clicksToEdit: 1,
+               listeners: {
+                 'edit': function(editor, e) {
+                   var orderQuantity = parseInt(e.record.get('quantity'));
+                   var unitPrice = parseInt(e.record.get('price'));
+                   var total = orderQuantity * unitPrice;
+                   if (total <= 5* 10^6) {
+                     total = total - (orderQuantity * (e.record.get('discountType1')/100 * unitPrice));
+                   } else if (total >= 5* 10^6 && total < 10* 10^6) {
+                     total = total - (orderQuantity * (e.record.get('discountType5')/100 * unitPrice));
+                   } else if (total >= 10* 10^6 && total < 20* 10^6) {
+                     total = total - (orderQuantity * (e.record.get('discountType10')/100 * unitPrice));
+                   }  else if (total >= 20* 10^6) {
+                     total = total - (orderQuantity * (e.record.get('discountType20')/100 * unitPrice));
+                   }
+                   e.record.set('total', total);
+
+                 }
+               }
+          });
 
             var grid = Ext.create('Ext.grid.Panel', {
                 id:'discount-grid',
@@ -149,6 +136,27 @@
                         dataIndex:'discountType20',
                         flex:1,
                         hidden:<c:choose><c:when test="${discountShowLimit >= 20}">false</c:when><c:otherwise>true</c:otherwise></c:choose>
+                    },
+                    {
+                        header:'<fmt:message key="phonecard.grid.col.quantity" />',
+                        dataIndex:'quantity',
+                        flex:1,
+                        editor: {
+                            xtype: 'numberfield',
+                            allowBlank: false,
+                          step: 5,
+                          editable: false,
+                            minValue: 0,
+                            maxValue: 1000
+                        }
+                    },
+                     {
+                        header:'<fmt:message key="phonecard.grid.col.sum" />',
+                        dataIndex:'total',
+                        flex:1,
+                       renderer:function (value) {
+                           return accounting.formatNumber(value);
+                       }
                     }
                 ],
                 renderTo:'discount-grid-container',
@@ -158,10 +166,9 @@
                 frame:true,
                 listeners:{
                     'selectionchange':function (view, records) {
-
-                        console.debug(records);
                     }
-                }
+                },
+                plugins: [cellEditing]
             });
         });
     </script>
