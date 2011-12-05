@@ -18,6 +18,45 @@
     <script type="text/javascript">
         var phonecardStore;// define model for Dictionary
         $(function () {
+            var win = Ext.create('widget.window', {
+                title:'<fmt:message key="phonecard.popup.add.title" />',
+                closable: false,
+                width:600,
+                minWidth:350,
+                height:350,
+                layout:'border',
+                bodyStyle:'padding: 5px;',
+                items:[
+                    {
+                        region:'west',
+                        title:'Navigation',
+                        width:200,
+                        split:true,
+                        collapsible:true,
+                        floatable:false
+                    },
+                    {
+                        region:'center',
+                        xtype:'tabpanel',
+                        items:[
+                            {
+                                title:'Bogus Tab',
+                                html:'Hello world 1'
+                            },
+                            {
+                                title:'Another Tab',
+                                html:'Hello world 2'
+                            },
+                            {
+                                title:'Closable Tab',
+                                html:'Hello world 3',
+                                closable:true
+                            }
+                        ]
+                    }
+                ]
+            });
+
             Ext.define('PhoneCardDiscount', {
                 extend:'Ext.data.Model',
                 fields:[
@@ -44,6 +83,10 @@
                     {
                         name:'discountType20',
                         mapping:'buyDiscountRates["20"]'
+                    },
+                    {
+                        name:'quantity',
+                        type:'int'
                     }
                 ]
             });
@@ -115,6 +158,8 @@
                 frame:true,
                 listeners:{
                     'selectionchange':function (view, records) {
+
+                        console.debug(records);
                     }
                 }
             });

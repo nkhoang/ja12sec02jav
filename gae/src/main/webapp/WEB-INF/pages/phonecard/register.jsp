@@ -303,58 +303,59 @@ Ext.onReady(function () {
                 },
                 padding:'10 10 5',
 
-                items:[/*
-                    {
-                        xtype:'component',
-                        id:'formErrorState',
-                        baseCls:'form-error-state',
-                        flex:1,
-                        validText:'<fmt:message key="register.form.valid" />',
-                        invalidText:'<fmt:message key="register.form.invalid" />',
-                        tipTpl:Ext.create('Ext.XTemplate', '<ul><tpl for="."><li><span class="field-name">{name}</span>: <span class="error">{error}</span></li></tpl></ul>'),
+                items:[
+                    /*
+                     {
+                     xtype:'component',
+                     id:'formErrorState',
+                     baseCls:'form-error-state',
+                     flex:1,
+                     validText:'<fmt:message key="register.form.valid" />',
+                     invalidText:'<fmt:message key="register.form.invalid" />',
+                     tipTpl:Ext.create('Ext.XTemplate', '<ul><tpl for="."><li><span class="field-name">{name}</span>: <span class="error">{error}</span></li></tpl></ul>'),
 
-                        getTip:function () {
-                            var tip = this.tip;
-                            if (!tip) {
-                                tip = this.tip = Ext.widget('tooltip', {
-                                    target:this.el,
-                                    preventHeader:true,
-                                    title:'<fmt:message key="register.form.errorTitle" />:',
-                                    autoHide:false,
-                                    anchor:'right',
-                                    mouseOffset:[-200, 0],
-                                    closable:true,
-                                    constrainPosition:true,
-                                    cls:'errors-tip'
-                                });
-                                tip.show();
-                            }
-                            return tip;
-                        },
+                     getTip:function () {
+                     var tip = this.tip;
+                     if (!tip) {
+                     tip = this.tip = Ext.widget('tooltip', {
+                     target:this.el,
+                     preventHeader:true,
+                     title:'<fmt:message key="register.form.errorTitle" />:',
+                     autoHide:false,
+                     anchor:'right',
+                     mouseOffset:[-200, 0],
+                     closable:true,
+                     constrainPosition:true,
+                     cls:'errors-tip'
+                     });
+                     tip.show();
+                     }
+                     return tip;
+                     },
 
-                        setErrors:function (errors) {
-                            var me = this,
-                                    baseCls = me.baseCls,
-                                    tip = me.getTip();
+                     setErrors:function (errors) {
+                     var me = this,
+                     baseCls = me.baseCls,
+                     tip = me.getTip();
 
-                            errors = Ext.Array.from(errors);
+                     errors = Ext.Array.from(errors);
 
-                            // Update CSS class and tooltip content
-                            if (errors.length) {
-                                me.addCls(baseCls + '-invalid');
-                                me.removeCls(baseCls + '-valid');
-                                me.update(me.invalidText);
-                                tip.setDisabled(false);
-                                tip.update(me.tipTpl.apply(errors));
-                            } else {
-                                me.addCls(baseCls + '-valid');
-                                me.removeCls(baseCls + '-invalid');
-                                me.update(me.validText);
-                                tip.setDisabled(true);
-                                tip.hide();
-                            }
-                        }
-                    },*/
+                     // Update CSS class and tooltip content
+                     if (errors.length) {
+                     me.addCls(baseCls + '-invalid');
+                     me.removeCls(baseCls + '-valid');
+                     me.update(me.invalidText);
+                     tip.setDisabled(false);
+                     tip.update(me.tipTpl.apply(errors));
+                     } else {
+                     me.addCls(baseCls + '-valid');
+                     me.removeCls(baseCls + '-invalid');
+                     me.update(me.validText);
+                     tip.setDisabled(true);
+                     tip.hide();
+                     }
+                     }
+                     },*/
                     {
                         xtype:'button',
                         formBind:true,
@@ -371,9 +372,9 @@ Ext.onReady(function () {
                                 },
                                 url:'<c:url value="/user/registerUser.html" />',
                                 success:function (form, action) {
-                                    Ext.Msg.alert('Success', action.result.msg + '<fmt:message key="register.success.text" />', function(){
+                                    Ext.Msg.alert('Success', action.result.msg + '<fmt:message key="register.success.text" />', function () {
                                         // redirect to the login page.
-                                        window.location="<c:url value="/user/index.html"/>"
+                                        window.location = "<c:url value="/user/index.html"/>"
                                     });
                                 },
                                 failure:function (form, action) {
