@@ -119,9 +119,9 @@ public class LuceneUtils {
         //NIOFS is supposed to be faster on unix based system
         Directory dir = NIOFSDirectory.open(indexDir);
         //RAMDirectory dir = new RAMDirectory(NIOFSDirectory.open(indexDir));
-        // Analyzer analyzer = new SimpleAnalyzer(Version.LUCENE_35);
+        Analyzer analyzer = new SimpleAnalyzer(Version.LUCENE_35);
         // Analyzer analyzer = new WhitespaceAnalyzer(Version.LUCENE_35);
-        Analyzer analyzer = new LowerCaseAnalyzer();
+        // Analyzer analyzer = new LowerCaseAnalyzer();
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(Version.LUCENE_35, analyzer);
         _luceneIndexWriter = new IndexWriter(dir, indexWriterConfig);
       }

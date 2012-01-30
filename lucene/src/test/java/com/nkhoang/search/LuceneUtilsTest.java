@@ -68,8 +68,11 @@ public class LuceneUtilsTest {
 
   @Test
   public void testSearchByContent() throws Exception {
+     List<Document> foundDocs = LuceneSearchUtils.performSearchByContent("mời gọi lại ");
     Assert.assertTrue("Failed to search existing word.",
-        CollectionUtils.isNotEmpty(LuceneSearchUtils.performSearchByContent("bốc hơi, lên hơi")));
+        CollectionUtils.isNotEmpty(foundDocs));
+     
+     LOG.info("Found word: "  + foundDocs.get(0).get(LuceneSearchFields.ID));
   }
 
   @Test
@@ -78,11 +81,13 @@ public class LuceneUtilsTest {
 
     if (CollectionUtils.isNotEmpty(wordList)) {
       LOG.info("Total words found: " + wordList.size());
-      int index = 0;
-      int size = 20;
-      for (String w : wordList) {
+      int index = 2700;
+      int size = 500;
+       int nextIndex = index + size;
+      for (int i = index ;i < wordList.size(); i++) {
         // check word in Lucene if it is existing.
         List<Document> foundDocs = new ArrayList();
+         String w = wordList.get(i).trim().toLowerCase();
         try {
           foundDocs = LuceneSearchUtils.performSearchById(w);
         } catch (Exception e) {
@@ -102,7 +107,7 @@ public class LuceneUtilsTest {
         }
         LOG.info("Index: " + index + " word: [" + w + "]");
         index++;
-        if (index % size == 0) {
+        if (index == nextIndex) {
           break;
         }
       }
