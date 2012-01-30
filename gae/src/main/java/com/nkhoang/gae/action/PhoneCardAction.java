@@ -37,10 +37,14 @@ public class PhoneCardAction {
    private int discountShowLimit = 5;
 
 
+   @RequestMapping("/index")
+   public String renderIndexPage() {
+      return "phonecard/index";
+   }
    @RequestMapping("/order")
    public ModelAndView renderOrderPage() {
       ModelAndView modelAndView = new ModelAndView();
-      modelAndView.setViewName("/phonecard/orderPage");
+      modelAndView.setViewName("phonecard/orderPage");
 
       // get configuration setting for showing discount limit
       String discountShowLimitStr = applicationService.getSingleValueAppConfig(discountShowLimitKeyName);

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-lazy-init="true">
+    <!-- Item picture dao -->
+    <bean id="userDao" class="com.nkhoang.gae.dao.impl.UserDaoImpl"
+          scope="prototype">
+    </bean>
+
+
+    <bean id="userTagDao" class="com.nkhoang.gae.dao.impl.UserTagDaoImpl" scope="prototype"></bean>
+
+    <bean id="wordTagDao" class="com.nkhoang.gae.dao.impl.WordTagDaoImpl" scope="prototype"></bean>
+
+    <bean id="vocabularyDao" class="com.nkhoang.gae.dao.impl.VocabularyDaoImpl"
+          scope="prototype">
+    </bean>
+
+    <bean id="userWordDao" class="com.nkhoang.gae.dao.impl.UserWordDaoImpl" scope="prototype">
+    </bean>
+
+    <bean id="appConfigDao" class="com.nkhoang.gae.dao.impl.AppConfigDaoImpl" scope="prototype"></bean>
+
+    <bean id="dictionaryDao" class="com.nkhoang.gae.dao.impl.DictionaryDaoImpl" scope="prototype"></bean>
+
+
+    <!-- JPA entity manager -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <!-- load persistence unit from persistence.xml -->
+        <property name="persistenceUnitName" value="pum"/>
+    </bean>
+    <!-- Spring Transaction Management -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+</beans>
+

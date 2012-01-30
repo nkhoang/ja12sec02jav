@@ -57,9 +57,18 @@ public class VocabularyUtils {
         return context;
     }
 
-    public static List<WordLucene> getAllLuceneWords() {
+   /**
+    * Get all words from server.
+    *
+    * @return a list of WordLucene.
+    */
+    public static List<WordLucene> getAllLuceneWords(String hostname) {
+       if (StringUtils.isEmpty(hostname)) {
+          LOG.info("Using default hostname: " + HOST_NAME);
+          hostname = HOST_NAME;
+       }
         HttpClient client = new HttpClient();
-        String searchUrl = "http://" + HOST_NAME + "/services/vocabulary/lucene/getAll";
+        String searchUrl = "http://" + hostname + "/services/vocabulary/lucene/getAll";
         GetMethod get = new GetMethod(searchUrl);
         List<WordLucene> wordLucenes = new ArrayList<WordLucene>();
         try {
@@ -100,9 +109,12 @@ public class VocabularyUtils {
         }
     }
 
-    public static List<String> getAllWordsByRange(int offset, int size, String direction) throws Exception {
+    public static List<String> getAllWordsByRange(String hostname, int offset, int size, String direction) throws Exception {
+       if (StringUtils.isEmpty(hostname)) {
+          hostname = HOST_NAME;
+       }
         HttpClient client = new HttpClient();
-        String searchUrl = "http://" + HOST_NAME + "/services/vocabulary/getAll";
+        String searchUrl = "http://" + hostname + "/services/vocabulary/getAll";
         GetMethod get = new GetMethod(searchUrl);
         NameValuePair[] params = {
                 new NameValuePair("offset", offset + ""),

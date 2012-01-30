@@ -12,6 +12,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Query;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +27,17 @@ import java.util.List;
 public class LuceneUtilsTest {
 	private static final Logger LOG = LoggerFactory.getLogger(LuceneUtilsTest.class.getCanonicalName());
 
+   @Before
+   public void prepareLuceneUtils() throws Exception {
+      LuceneUtils.getLuceneWriter();
+      LuceneUtils.getLuceneSearcher();
+   }
+
 	@After
 	/**
 	 * After test close all Lucene writer and index searcher.
 	 */
-	public void closeSearcher() throws Exception {
+	public void closeLuceneUtils() throws Exception {
 		LuceneUtils.closeLuceneWriter();
 		LuceneUtils.closeSearcher();
 	}
@@ -46,7 +53,7 @@ public class LuceneUtilsTest {
 		int index = 0;
 		int total = 0;
 		LOG.info("checking with index =" + index);
-		words = VocabularyUtils.getAllWordsByRange(index, 1000, "asc");
+		words = VocabularyUtils.getAllWordsByRange("minion-1.appspot.com", index, 1000, "asc");
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(new File("lucene/src/main/resources/listALlWords.txt"));
@@ -59,7 +66,7 @@ public class LuceneUtilsTest {
 				}
 
 				total += words.size();
-				words = VocabularyUtils.getAllWordsByRange(index, 1000, "asc");
+				words = VocabularyUtils.getAllWordsByRange("minion-1.appspot.com", index, 1000, "asc");
 			} while (CollectionUtils.isNotEmpty(words));
 		}
 		catch (Exception e) {
@@ -159,7 +166,7 @@ public class LuceneUtilsTest {
 
 	@Test
 	public void testSaveAllLuceneWordToFile() throws Exception {
-		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords(null);
 		FileWriter writer = null;
 		try {
 
@@ -195,7 +202,7 @@ public class LuceneUtilsTest {
 	public void testSaveAllWordsToLucene() throws Exception {
 		try {
 			// get the first 1000.
-			List<String> words = VocabularyUtils.getAllWordsByRange(55000, 1000, "asc");
+			List<String> words = VocabularyUtils.getAllWordsByRange("minion-1.appspot.com", 55000, 1000, "asc");
 			LOG.info("Total size : " + words.size());
 			int count = 0;
 			for (String s : words) {
@@ -287,7 +294,7 @@ public class LuceneUtilsTest {
 	@Test
 	public void testSaveAllWordLucenes() throws Exception {
 		try {
-			List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+			List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords(null);
 			LOG.info("WordLucene size: " + wordLucenes.size());
 			LOG.info("Working with WordLucene.");
 			int count = 0;
@@ -312,18 +319,13 @@ public class LuceneUtilsTest {
 		}
 	}
 
-	@Test
-	public void getCloseWriter() throws Exception {
-		LuceneUtils.closeLuceneWriter();
-	}
-
 
 	@Test
 	public void testUpdateLuceneFromScratch() throws Exception {
 		try {
-			List<String> words = VocabularyUtils.getAllWordsByRange(0, 100, "asc");
+			List<String> words = VocabularyUtils.getAllWordsByRange("minion-1.appspot.com", 0, 100, "asc");
 			LOG.info("Word size: " + words.size());
-			List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+			List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords(null);
 			LOG.info("WordLucene size: " + wordLucenes.size());
 			LOG.info("Working with WordLucene.");
 			for (WordLucene wl : wordLucenes) {
@@ -368,13 +370,13 @@ public class LuceneUtilsTest {
 
 	@Test
 	public void testGetTotalLuceneWords() throws Exception {
-		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords(null);
 		LOG.info("Total : " + wordLucenes.size());
 	}
 
 	@Test
 	public void testGetAllLuceneWords() throws Exception {
-		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords();
+		List<WordLucene> wordLucenes = VocabularyUtils.getAllLuceneWords(null);
 
 		int count = 0;
 		for (WordLucene wl : wordLucenes) {
