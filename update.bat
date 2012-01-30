@@ -1,4 +1,4 @@
-#call mvn clean
-#call mvn package -o
-call "D:\Softs\Softs\Development\Java\Runtime\appengine-java-sdk-1.5.0.1\bin\appcfg.cmd" update "%~dp0target\ShopNow-1.0"
+REM call mvn clean
+REM call mvn package -o
+call "D:\Runtime\appengine-java-sdk-1.6.0\appengine-java-sdk-1.6.0\bin\appcfg.cmd" update "%~dp0gae\target\projectJAVA-gae-1.0"
 

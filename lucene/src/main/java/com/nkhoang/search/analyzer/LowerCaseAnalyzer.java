@@ -20,7 +20,7 @@ public final class LowerCaseAnalyzer extends Analyzer {
 
 	@Override
 	public TokenStream tokenStream(String fieldName, Reader reader) {
-		TokenStream result = new LowerCaseFilter(Version.LUCENE_34, new KeywordTokenizer(reader));
+		TokenStream result = new LowerCaseFilter(Version.LUCENE_35, new KeywordTokenizer(reader));
 		return result;
 	}
 

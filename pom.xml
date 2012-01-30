@@ -340,7 +340,7 @@
         <jsp.version>2.1</jsp.version>
         <servlet.version>2.5</servlet.version>
         <jstl.version>1.1.2</jstl.version>
-
+        <jericho-html.version>3.1</jericho-html.version>
 
         <velocity.version>1.4</velocity.version>
         <sitemesh.version>2.4.2</sitemesh.version>
@@ -348,6 +348,8 @@
         <dwr.version>2.0.3</dwr.version>
         <javamail.version>1.4.1</javamail.version>
         <aspectj.version>1.6.10</aspectj.version>
+
+
 
         <!-- WS -->
 
@@ -358,14 +360,9 @@
         <hibernate.version>3.6.1.Final</hibernate.version>
 
         <!-- Spring -->
-        <spring.version>3.0.6.RELEASE</spring.version>
-        <spring.security.version>3.0.6.RELEASE</spring.security.version>
-
-
-
-
+        <spring.version>3.1.0.RELEASE</spring.version>
+        <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <wiser.version>1.2</wiser.version>
-
         <!-- Database name -->
         <db.name>projectJava</db.name>
         <dbunit.schema></dbunit.schema>
@@ -517,6 +514,10 @@
             <url>http://repo1.maven.org/maven2</url>
         </pluginRepository>
         -->
+      <pluginRepository>
+        <id>datanucleus</id>
+        <url>http://www.datanucleus.org/downloads/maven2</url>
+      </pluginRepository>
     </pluginRepositories>
 
     <repositories>
@@ -557,6 +558,11 @@
             <name>Public online Restlet repository</name>
             <url>http://maven.restlet.org</url>
         </repository>
+      <repository>
+        <id>datanucleus</id>
+        <name>Datanucleus Repository</name>
+        <url>http://www.datanucleus.org/downloads/maven2</url>
+      </repository>
     </repositories>
 
 </project>

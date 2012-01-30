@@ -11,6 +11,7 @@ import com.nkhoang.gae.service.VocabularyService;
 import com.nkhoang.gae.view.JSONView;
 import com.nkhoang.gae.view.constant.ViewConstant;
 import com.nkhoang.search.LuceneSearchFields;
+import com.nkhoang.search.LuceneSearchUtils;
 import com.nkhoang.search.LuceneUtils;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -424,11 +425,11 @@ public class UserAction {
         if (StringUtils.isNotEmpty(word)) {
             try {
                 String path = request.getSession().getServletContext().getRealPath("WEB-INF/classes");
-                List<Document> documents = LuceneUtils.performSearchByContent(word, path);
+                List<Document> documents = LuceneSearchUtils.performSearchByContent(word, path);
                 if (CollectionUtils.isNotEmpty(documents)) {
                     List<String> foundWords = new ArrayList<String>();
                     for (Document doc : documents) {
-                        foundWords.add(doc.get(LuceneSearchFields.WORD_DESCRIPTION));
+                        foundWords.add(doc.get(LuceneSearchFields.ID));
                     }
                     for (String w : foundWords) {
                         /*Word fullWord = vocabularyService.findWord(w);

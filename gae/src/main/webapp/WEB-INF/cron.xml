@@ -28,12 +28,13 @@
         <schedule>every 1 minutes</schedule>
     </cron>
 
+  <!--
     <cron>
         <url>/vocabulary/triggerLookupWords.html?size=500</url>
         <description>Schedule lookup word items in WordItem table.</description>
         <schedule>every 30 mins</schedule>
     </cron>
-
+  -->
 
     <cron>
         <url>/cron/sessioncleanup</url>

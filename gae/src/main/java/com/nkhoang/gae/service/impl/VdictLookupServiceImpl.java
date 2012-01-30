@@ -28,6 +28,7 @@ public class VdictLookupServiceImpl implements LookupService {
 
 
    public Word lookup(String word) {
+     word = word.trim().toLowerCase();
       String lookupURL = "http://m.vdict.com/?word=" + word.trim() + "&dict=1&searchaction=Lookup";
 
       // construct word obj.
@@ -90,7 +91,7 @@ public class VdictLookupServiceImpl implements LookupService {
                                  sense.setKind(kind);
                                  sense.setDefinition(contentRaw);
                                  //aa meaning = new Meaning(contentRaw, aWord.getKindidmap().get(kind));
-                                 LOG.debug("content : " + contentRaw);
+                                 // LOG.debug("content : " + contentRaw);
                               } else if (StringUtils.equals(content.getName(), "ul") &&
                                     StringUtils.isNotEmpty(sense.getDefinition())) {
                                  // should not store any meanings if content is null or blank.
