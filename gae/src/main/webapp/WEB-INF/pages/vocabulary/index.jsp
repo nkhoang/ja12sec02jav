@@ -406,43 +406,12 @@ function VocabularyManager() {
    }
 
    this.processWord = function(response) {
+     $('#w-dis').empty();
       for (var dictName in response.data) {
-         $('#w-dis').setTemplateURL('<c:url value="/js/template/word.tpl" />');
-         $("#w-dis").processTemplate(response.data[dictName]);
-      }
-      for (var dictName in response.data) {
-         var word = response.data[dictName];
-         if (word) {
-            // clear all old data.
-            $('#w-nav').empty();
-             $('#w-d').html(word.description);
-            // append meaning
-            for (var i in word.meaningMap) {
-               // append kind.
-               var $kind = $('<div class="w-k"></div>');
-               // append anchor
-               var $anchor = $('<a name="' + i + '" />');
-               // append kind title.
-               var $kindTitle = $('<div class="w-k-t"></div>').html(i);
-               $kind.append($anchor);
-               $kind.append($kindTitle);
-               // append to navigation table.
-               var kindAnchorId = '#' + i;
-               var $kindAnchor = $('<div><a href="' + kindAnchorId + '" /></div>');
-               $kindAnchor.find('a').html(i);
-               $('#w-nav').append($kindAnchor);
-            }
-             $('#w-phrase').html('Phrase');
-            $('#w-phrase-nav').empty();
-            for (var i = 0; i < word.phraseList.length ; i++) {
-                var $phraseAnchor = $('<div><a href="#' + word.phraseList[i].description + '" /></div>');
-                $phraseAnchor.find('a').html(word.phraseList[i].description);
-                $('#w-phrase-nav').append($phraseAnchor);
-            }
-           fireListener();
-            // in case user search before login.
-            global_wordId = word.id;
-         }
+        var $dictWrapper = $('<div></div>').addClass(dictName);
+         $dictWrapper.setTemplateURL('<c:url value="/js/template/word.tpl" />');
+         $dictWrapper.processTemplate(response.data[dictName]);
+        $("#w-dis").append($dictWrapper);
       }
    }
 }

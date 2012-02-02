@@ -20,6 +20,7 @@ public interface LookupService {
      */
     Word lookup(String word);
 
+
     /**
      * Each service has to define their service name.
      *

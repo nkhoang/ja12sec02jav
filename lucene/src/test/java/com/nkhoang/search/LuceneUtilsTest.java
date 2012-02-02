@@ -1,6 +1,7 @@
 package com.nkhoang.search;
 
 
+import com.google.gson.Gson;
 import com.nkhoang.common.FileUtils;
 import com.nkhoang.model.Word;
 import com.nkhoang.model.WordLucene;
@@ -22,10 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.LineNumberReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ import java.util.List;
 @ContextConfiguration({"/applicationContext-service.xml"})
 public class LuceneUtilsTest {
   private static final Logger LOG = LoggerFactory.getLogger(LuceneUtilsTest.class.getCanonicalName());
-  private static final String TEST_HOST_NAME = "minion-6.appspot.com";
+  private static final String TEST_HOST_NAME = "minion-3.appspot.com";
 
   @Autowired
   private StandardPBEStringEncryptor propertyEncryptor;
@@ -62,17 +60,17 @@ public class LuceneUtilsTest {
   }
 
   @Test
-  public void testSearchById() throws Exception{
+  public void testSearchById() throws Exception {
     Assert.assertTrue("Failed to search existing word", CollectionUtils.isNotEmpty(LuceneSearchUtils.performSearchById("cons")));
   }
 
   @Test
   public void testSearchByContent() throws Exception {
-     List<Document> foundDocs = LuceneSearchUtils.performSearchByContent("mời gọi lại ");
+    List<Document> foundDocs = LuceneSearchUtils.performSearchByContent("mời gọi lại ");
     Assert.assertTrue("Failed to search existing word.",
         CollectionUtils.isNotEmpty(foundDocs));
-     
-     LOG.info("Found word: "  + foundDocs.get(0).get(LuceneSearchFields.ID));
+
+    LOG.info("Found word: " + foundDocs.get(0).get(LuceneSearchFields.ID));
   }
 
   @Test
@@ -81,13 +79,17 @@ public class LuceneUtilsTest {
 
     if (CollectionUtils.isNotEmpty(wordList)) {
       LOG.info("Total words found: " + wordList.size());
-      int index = 2700;
-      int size = 500;
-       int nextIndex = index + size;
-      for (int i = index ;i < wordList.size(); i++) {
+      int index = 32000;
+      int size = 2000;
+      int nextIndex = index + size;
+      Writer writer = new FileWriter(new File("lucene/src/main/resources/wordsJSON.txt"), true);
+      for (int i = index; i < wordList.size(); i++) {
         // check word in Lucene if it is existing.
         List<Document> foundDocs = new ArrayList();
-         String w = wordList.get(i).trim().toLowerCase();
+        String w = wordList.get(i).trim().toLowerCase();
+        if (w.compareToIgnoreCase("services") == 0) {
+          continue;
+        }
         try {
           foundDocs = LuceneSearchUtils.performSearchById(w);
         } catch (Exception e) {
@@ -96,10 +98,14 @@ public class LuceneUtilsTest {
         if (CollectionUtils.isEmpty(foundDocs)) {
           // it is safe to perform search using our servers.
           Word word = VocabularyUtils.lookupWord(TEST_HOST_NAME, w, propertyEncryptor);
+          // save word to file.
+
+          Gson gson = new Gson();
           // check to make sure the server response to the request.
           if (StringUtils.isBlank(word.getDescription()) || CollectionUtils.isEmpty(word.getMeanings())) {
             LOG.info("Word : [" + w + "] is invalid.");
           } else {
+            writer.append(gson.toJson(word) + "\n");
             LuceneUtils.writeWordToIndex(word);
           }
         } else {
@@ -108,6 +114,7 @@ public class LuceneUtilsTest {
         LOG.info("Index: " + index + " word: [" + w + "]");
         index++;
         if (index == nextIndex) {
+          writer.close();
           break;
         }
       }

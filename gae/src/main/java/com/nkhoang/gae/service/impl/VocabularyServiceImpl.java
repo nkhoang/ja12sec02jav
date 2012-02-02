@@ -22,10 +22,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("vocabularyService")
 public class VocabularyServiceImpl implements VocabularyService {
@@ -140,53 +137,61 @@ public class VocabularyServiceImpl implements VocabularyService {
       // first get the configuration dictionaries.
       LOG.info("dictionaryKeyName = " + dictionaryKeyName);
       List<String> configValues = appCache.getProperty(dictionaryKeyName);
-      if (CollectionUtils.isNotEmpty(configValues)) {
-        // check DB first
-        WordEntity dbWordEntity = findWord(requestWord);
-        if (dbWordEntity == null) {
-          wordMap = centralLookupService.lookup(requestWord, configValues);
 
-          // create id for Meaning, Phrase, Sense.
-          for (Word w : wordMap.values()) {
-            int senseIndex = 0;
-            for (Sense s : w.getMeanings()) {
-              s.setId(w.getDescription() + "-sense-" + senseIndex++);
-              int meaningIndex = 0;
-              for (Meaning m : s.getSubSenses()) {
-                m.setId(s.getId() + "-meaning-" + meaningIndex++);
+      // repopulate AppCache once.
+      if (CollectionUtils.isEmpty(configValues)) {
+        applicationService.getAppConfig(dictionaryKeyName, delimiter);
+      }
+
+      if (CollectionUtils.isNotEmpty(configValues)) {
+        for (String dictType : configValues) {
+          // first trim all spaces
+          dictType = dictType.trim();
+          // check DB first
+          WordEntity dbWordEntity = findWordByDictType(requestWord, dictType);
+          if (dbWordEntity == null) {
+            wordMap = centralLookupService.lookup(requestWord, Arrays.asList(dictType));
+
+            // create id for Meaning, Phrase, Sense.
+            for (Word w : wordMap.values()) {
+              int senseIndex = 0;
+              for (Sense s : w.getMeanings()) {
+                s.setId(w.getDescription() + "-sense-" + senseIndex++);
+                int meaningIndex = 0;
+                for (Meaning m : s.getSubSenses()) {
+                  m.setId(s.getId() + "-meaning-" + meaningIndex++);
+                }
               }
-            }
-            int phraseIndex = 0;
-            for (Phrase f : w.getPhraseList()) {
-              f.setId(w.getDescription() + "-phrase-" + phraseIndex++);
-              int fSenseIndex = 0;
-              for (Sense sense : f.getSenseList()) {
-                sense.setId(f.getId() + "-sense-" + fSenseIndex++);
-                int fMeaningIndex = 0;
-                for (Meaning m : sense.getSubSenses()) {
-                  m.setId(f.getId() + "-meaning-" + fMeaningIndex++);
+              int phraseIndex = 0;
+              for (Phrase f : w.getPhraseList()) {
+                f.setId(w.getDescription() + "-phrase-" + phraseIndex++);
+                int fSenseIndex = 0;
+                for (Sense sense : f.getSenseList()) {
+                  sense.setId(f.getId() + "-sense-" + fSenseIndex++);
+                  int fMeaningIndex = 0;
+                  for (Meaning m : sense.getSubSenses()) {
+                    m.setId(f.getId() + "-meaning-" + fMeaningIndex++);
+                  }
                 }
               }
             }
-          }
 
-          // save to DB
-          for (Map.Entry<String, Word> entry : wordMap.entrySet()) {
-            saveWordEntityToDatastore(entry.getValue(), entry.getKey());
+            // save to DB
+            for (Map.Entry<String, Word> entry : wordMap.entrySet()) {
+              dbWordEntity = saveWordEntityToDatastore(entry.getValue(), entry.getKey());
+            }
           }
-        } else {
           Gson gson = new Gson();
           Word dbWord = gson.fromJson(dbWordEntity.getWordJSON().getValue(), Word.class);
-          wordMap.put(dbWord.getSourceName(), dbWord);
+          wordMap.put(dictType, dbWord);
+
         }
-      } else {
-        LOG.info("No configured dictionary. Lookup action aborted!!!");
       }
     }
     return wordMap;
   }
 
-  private void saveWordEntityToDatastore(Word w, String dictType) {
+  private WordEntity saveWordEntityToDatastore(Word w, String dictType) {
     Gson gson = new Gson();
     WordEntity wordEntity = new WordEntity();
     wordEntity.setTimeStamp(w.getTimeStamp());
@@ -195,11 +200,22 @@ public class VocabularyServiceImpl implements VocabularyService {
     wordEntity.setWordJSON(new Text(gson.toJson(w)));
 
     LOG.info("WordEntity: " + w.getDescription() + " saved!!!");
-    vocabularyDao.save(wordEntity);
+    return vocabularyDao.save(wordEntity);
   }
 
   public WordEntity findWord(String requestWord) {
     return vocabularyDao.lookup(requestWord);
+  }
+
+  /**
+   * Find word by Dictionary Type.
+   *
+   * @param requestWord the word to lookup.
+   * @param dictType    the dictionary type.
+   * @return the {@link WordEntity}.
+   */
+  public WordEntity findWordByDictType(String requestWord, String dictType) {
+    return vocabularyDao.lookupByDict(requestWord, dictType);
   }
 
 

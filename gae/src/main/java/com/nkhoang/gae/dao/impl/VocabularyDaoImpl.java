@@ -16,6 +16,36 @@ public class VocabularyDaoImpl extends BaseDaoImpl<WordEntity, Long> implements 
     return "WordEntity";
   }
 
+  /**
+   * Lookup word by Dictionary Type.
+   *
+   * @param word     the word to lookup.
+   * @param dictType the dictionary type.
+   * @return the {@link WordEntity}
+   */
+  public WordEntity lookupByDict(String word, String dictType) {
+    word = word.trim().toLowerCase();
+    LOGGER.info("Looking up word : " + word);
+    WordEntity result = null;
+    try {
+      Query query = entityManager.createQuery("Select from " + WordEntity.class.getName()
+          + " t where t.word=:wordDescription and t.dictType=:dictType");
+      query.setParameter("wordDescription", word);
+      query.setParameter("dictType", dictType);
+
+      result = (WordEntity) query.getSingleResult();
+    } catch (NoResultException nre) {
+      // do not want to handle this type of exception.
+    }
+    return result;
+  }
+
+  /**
+   * Lookup word.
+   *
+   * @param word word to lookup.
+   * @return the {@link WordEntity}
+   */
   public WordEntity lookup(String word) {
     word = word.trim().toLowerCase();
     LOGGER.info("Looking up word : " + word);
@@ -34,7 +64,7 @@ public class VocabularyDaoImpl extends BaseDaoImpl<WordEntity, Long> implements 
 
 
   /**
-   * get all word in range from {@code offset} to {@code offset + direction}
+   * Get all word in range from {@code offset} to {@code offset + direction}
    *
    * @param offset    the offset to start from.
    * @param size      the number of words to get.
