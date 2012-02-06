@@ -26,6 +26,7 @@
             <map>
                 <entry key="#{oxfordLookupService.serviceName}" value-ref="oxfordLookupService"/>
                 <entry key="#{vdictLookupService.serviceName}" value-ref="vdictLookupService"/>
+                <entry key="#{cambridgeLookupService.serviceName}" value-ref="cambridgeLookupService"/>
             </map>
         </property>
     </bean>
@@ -34,6 +35,7 @@
     <bean id="oxfordLookupService" class="com.nkhoang.gae.service.impl.OxfordLookupServiceImpl"/>
     <bean id="vdictLookupService" class="com.nkhoang.gae.service.impl.VdictLookupServiceImpl"/>
     <bean id="longmanLookupService" class="com.nkhoang.gae.service.impl.LongmanLookupServiceImpl"/>
+    <bean id="cambridgeLookupService" class="com.nkhoang.gae.service.impl.CambridgeLookupServiceImpl"/>
 
     <bean id="tagService" class="com.nkhoang.gae.service.impl.TagServiceImpl">
         <property name="userService" ref="userService"/>

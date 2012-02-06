@@ -15,14 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class VocabularyServiceTest {
     @Autowired
     VocabularyService vocabularyService;
-    @Test
-    public void testGetPron() throws Exception{
-        Word w = new Word();
-        w.setDescription("innate");
-        vocabularyService.lookupPron(w);
-
-        Assert.assertTrue(StringUtils.isNotEmpty(w.getPron()));
-    }
 
     public VocabularyService getVocabularyService() {
         return vocabularyService;

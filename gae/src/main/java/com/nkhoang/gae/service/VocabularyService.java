@@ -19,28 +19,6 @@ public interface VocabularyService {
     */
    List<WordEntity> getAllWordEntitiesByRange(int startingIndex, int size, String direction);
 
-   /**
-    * Look up pronunciation for a WordEntity.
-    *
-    * @param w WordEntity to get pronunciation.
-    */
-   public void lookupPron(Word w) throws IOException;
-
-   /**
-    * Lookup English meanings using online Longman dictionary.
-    *
-    * @param w WordEntity to be updated with Longman English meanings.
-    */
-   public void lookupENLongman(Word w) throws IOException;
-
-   /**
-    * Lookup WordEntity idiom.
-    *
-    * @param w a WordEntity to get Idiom.
-    * @return a WordEntity with idiom.
-    */
-   // TODO: to be expanded in the future.
-   public Word lookupIdiom(Word w) throws IOException;
 
    /**
     * Lookup WordEntity using online VN dictionary.

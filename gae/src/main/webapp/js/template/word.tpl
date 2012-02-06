@@ -5,6 +5,9 @@
     {#if $T.soundSource}
     <img id="w-d-sound" onclick="' + word.soundSource + '" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">
     {#/if}
+    {#if $T.pron}
+    <div class="w-pron">{$T.pron}</div>
+    {#/if}
     <div class="w-ks">
       {#foreach $T.meaningMap as meanings}
       <div class="w-k">

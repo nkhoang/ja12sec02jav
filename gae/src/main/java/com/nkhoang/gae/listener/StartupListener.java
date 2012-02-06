@@ -103,7 +103,7 @@ public class StartupListener implements ServletContextListener {
          if (appConfigDao.getAppConfigByLabel("dictionary") == null) {
             AppConfig appConfig = new AppConfig();
             appConfig.setLabel("dictionary");
-            appConfig.setValue("vdict");
+            appConfig.setValue("cam");
             appConfig = appConfigDao.save(appConfig);
             if (appConfig.getId() != null) {
                LOGGER.debug("Save appConfig successfully.");

@@ -1,6 +1,5 @@
 package com.nkhoang.gae.service.impl;
 
-import com.nkhoang.gae.model.Meaning;
 import com.nkhoang.gae.model.Sense;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.LookupService;
