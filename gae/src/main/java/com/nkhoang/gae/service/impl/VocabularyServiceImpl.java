@@ -167,11 +167,15 @@ public class VocabularyServiceImpl implements VocabularyService {
                         }
                      }
                   }
+                  // get sound source.
+                  String soundSource = centralLookupService.searchSoundSource(requestWord);
 
                   // save to DB
                   for (Map.Entry<String, Word> entry : returnWords.entrySet()) {
+                     entry.getValue().setSoundSource(soundSource);
                      dbWordEntity = saveWordEntityToDatastore(entry.getValue(), entry.getKey());
                   }
+
                }
                if (dbWordEntity != null) {
                   Gson gson = new Gson();
