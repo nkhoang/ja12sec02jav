@@ -1,11 +1,8 @@
 package com.nkhoang.gae.utils;
 
-import com.nkhoang.common.*;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.LookupService;
 import com.nkhoang.gae.utils.web.DownloadUtils;
-import com.nkhoang.thread.ThreadData;
-import com.nkhoang.thread.callable.ThreadTask;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;

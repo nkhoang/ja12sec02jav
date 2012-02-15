@@ -21,7 +21,7 @@
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -46,7 +46,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.3</version>
+        <version>${maven-dependency-plugin.version}</version>
         <executions>
         </executions>
       </plugin>
@@ -96,13 +96,13 @@
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
-      <version>2.10.0</version>
+      <version>${xercesImpl.version}</version>
     </dependency>
 
     <dependency>
       <groupId>xalan</groupId>
       <artifactId>xalan</artifactId>
-      <version>2.7.1</version>
+      <version>${xalan.version}</version>
     </dependency>
 
     <dependency>
@@ -125,19 +125,19 @@
     <dependency>
       <groupId>code.google.com</groupId>
       <artifactId>facebook-java-api</artifactId>
-      <version>3.0.2</version>
+      <version>${facebook-api.version}</version>
     </dependency>
 
     <dependency>
       <groupId>code.google.com</groupId>
       <artifactId>facebook-java-api-annotation-processor</artifactId>
-      <version>3.0.2</version>
+      <version>${facebook-api.version}</version>
     </dependency>
 
     <dependency>
       <groupId>code.google.com</groupId>
       <artifactId>facebook-java-api-schema</artifactId>
-      <version>3.0.2</version>
+      <version>${facebook-api.version}</version>
     </dependency>
 
     <!-- Common -->
@@ -300,6 +300,9 @@
     <gdata-base-1.0.version>1.41.5</gdata-base-1.0.version>
     <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
     <mail.version>1.4.1</mail.version>
+    <xalan.version>2.7.1</xalan.version>
+    <xercesImpl.version>2.10.0</xercesImpl.version>
+    <facebook-api.version>3.0.2</facebook-api.version>
   </properties>
 </project>
 

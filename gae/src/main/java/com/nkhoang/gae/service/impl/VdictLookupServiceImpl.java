@@ -27,6 +27,7 @@ public class VdictLookupServiceImpl implements LookupService {
 
 
    public Word lookup(String word) {
+     LOG.info("Looking up using: " + SERVICE_NAME);
      word = word.trim().toLowerCase();
       String lookupURL = "http://m.vdict.com/?word=" + word.trim() + "&dict=1&searchaction=Lookup";
 

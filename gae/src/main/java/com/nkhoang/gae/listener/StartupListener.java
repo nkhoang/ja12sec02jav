@@ -6,7 +6,7 @@ import com.nkhoang.gae.model.AppConfig;
 import com.nkhoang.gae.model.Role;
 import com.nkhoang.gae.model.User;
 import com.nkhoang.gae.service.impl.AppCache;
-import org.jasypt.spring.security3.PasswordEncoder;
+import org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

@@ -98,6 +98,9 @@
                 id:'discount-grid',
                 store:discountStore,
                 enableColumnHide:true,
+                defaults: {
+                    menuDisabled: true
+                },
                 columns:[
                     Ext.create('Ext.grid.RowNumberer'),
                     {
@@ -112,6 +115,7 @@
                         renderer:function (value) {
                             return accounting.formatNumber(value);
                         }
+
                     },
                     {
                         header:'<fmt:message key="phonecard.grid.col.1mil" />',

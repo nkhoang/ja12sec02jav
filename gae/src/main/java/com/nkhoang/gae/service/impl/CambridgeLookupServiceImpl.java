@@ -20,7 +20,7 @@ public class CambridgeLookupServiceImpl implements LookupService {
    private static final Logger LOG = LoggerFactory
          .getLogger(CambridgeLookupServiceImpl.class.getCanonicalName());
 
-   private static final String SERVICE_NAME = "vdict";
+   private static final String SERVICE_NAME = "cam";
 
    private enum DICTIONARY_TYPE {
       CLASS,

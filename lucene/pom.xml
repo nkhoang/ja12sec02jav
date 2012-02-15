@@ -21,7 +21,7 @@
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -45,38 +45,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.3</version>
+        <version>${maven-dependency-plugin.version}</version>
         <executions>
         </executions>
       </plugin>
 
-      <!-- Generate Eclipse project files -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <wtpversion>1.5</wtpversion>
-          <wtpapplicationxml>true</wtpapplicationxml>
-          <additionalProjectnatures>
-            <projectnature>
-              org.springframework.ide.eclipse.core.springnature
-            </projectnature>
-          </additionalProjectnatures>
-          <additionalBuildcommands>
-            <buildcommand>
-              org.springframework.ide.eclipse.core.springbuilder
-            </buildcommand>
-          </additionalBuildcommands>
-          <additionalProjectFacets>
-            <jpt.jpa>1.0</jpt.jpa>
-          </additionalProjectFacets>
-          <classpathContainers>
-            <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-          </classpathContainers>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
@@ -338,10 +311,7 @@
 
   <properties>
     <!-- Application settings -->
-    <jaxb.impl.version>2.1.12</jaxb.impl.version>
     <lucene.version>3.5.0</lucene.version>
-    <gson.version>1.7.1</gson.version>
-    <jasypt.version>1.8</jasypt.version>
   </properties>
 </project>
 

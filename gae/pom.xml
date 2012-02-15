@@ -80,7 +80,7 @@
       -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -116,7 +116,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.3</version>
+        <version>${maven-dependency-plugin.version}</version>
         <executions>
         </executions>
       </plugin>
@@ -169,33 +169,7 @@
           </configuration>
       </plugin>
       -->
-      <!-- Generate Eclipse project files -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <wtpversion>1.5</wtpversion>
-          <wtpapplicationxml>true</wtpapplicationxml>
-          <additionalProjectnatures>
-            <projectnature>
-              org.springframework.ide.eclipse.core.springnature
-            </projectnature>
-          </additionalProjectnatures>
-          <additionalBuildcommands>
-            <buildcommand>
-              org.springframework.ide.eclipse.core.springbuilder
-            </buildcommand>
-          </additionalBuildcommands>
-          <additionalProjectFacets>
-            <jpt.jpa>1.0</jpt.jpa>
-          </additionalProjectFacets>
-          <classpathContainers>
-            <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-          </classpathContainers>
-        </configuration>
-      </plugin>
+
       <!-- Working with ant - Process CSS and JS files.
 <plugin>
   <artifactId>maven-antrun-plugin</artifactId>
@@ -390,7 +364,7 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
-      <version>${jsp.version}</version>
+      <version>2.0</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -704,6 +678,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.jasypt</groupId>
+      <artifactId>jasypt-springsecurity3</artifactId>
+      <version>${jasypt.version}</version>
+    </dependency>
     <!-- GSON -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -995,12 +974,12 @@
     <!-- Google settings -->
     <appengine-local-runtime.scope>provided</appengine-local-runtime.scope>
     <appengine-api-stubs.scope>provided</appengine-api-stubs.scope>
-    <appengine-SDK.version>1.6.0</appengine-SDK.version>
+    <appengine-SDK.version>1.6.2.1</appengine-SDK.version>
     <geronimo.specs.version>1.0.1</geronimo.specs.version>
     <geronimo-jpa_3.0_spec.version>1.1.1</geronimo-jpa_3.0_spec.version>
     <geronimo-jta_1.1_spec.version>1.1.1</geronimo-jta_1.1_spec.version>
     <geronimo-servlet_2.5_spec.version>1.2</geronimo-servlet_2.5_spec.version>
-    <datanucleus-appengine.version>1.0.7</datanucleus-appengine.version>
+    <datanucleus-appengine.version>1.0.10</datanucleus-appengine.version>
     <datanucleus-jpa.version>1.1.5</datanucleus-jpa.version>
     <google.gdata.jsr305.version>1.0</google.gdata.jsr305.version>
     <google-collections.version>1.0-rc5</google-collections.version>
@@ -1013,31 +992,23 @@
     <gdata-base-1.0.version>1.41.5</gdata-base-1.0.version>
     <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
 
-    <!-- Framework dependency versions -->
-    <jsp.version>2.0</jsp.version>
-    <servlet.version>2.5</servlet.version>
     <!-- Common -->
     <commons-logging.version>1.1.1</commons-logging.version>
     <!-- JSTL -->
+    <jsp.version>2.1</jsp.version>
     <jstl.version>1.1.2</jstl.version>
-
-    <!-- Template Engine -->
-    <sitemesh.version>2.4.2</sitemesh.version>
 
     <!-- Testing -->
     <surefire-junit4.version>2.9</surefire-junit4.version>
     <spring-test.version>3.0.1.RELEASE</spring-test.version>
 
     <!-- Other -->
-    <jasypt.version>1.8</jasypt.version>
-    <gson.version>1.7.1</gson.version>
     <stax-api.version>1.0-2</stax-api.version>
     <activation.version>1.1</activation.version>
     <mail.version>1.4.1</mail.version>
     <org.restlet.version>2.1-SNAPSHOT</org.restlet.version>
     <cxf.version>2.4.2</cxf.version>
     <!-- Work with GAE -->
-    <jaxb.impl.version>2.1.12</jaxb.impl.version>
     <jericho-html.version>3.2</jericho-html.version>
   </properties>
 </project>
