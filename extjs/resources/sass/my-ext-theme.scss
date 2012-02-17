@@ -2,9 +2,19 @@
 // IF you set this to true, you can also remove lines 10 to 38 of this file
 $include-default: false;
 
+$theme-name: 'gray';
+
 $base-color: #AFB0B3;
 
-$theme-name: 'gray';
+
+// ============================
+//      LEFT PANEL
+// ============================
+$panel-border-width: 1px;
+$panel-border-color: #AFB0B3;
+
+@import 'ext4/default/all';
+
 
 // ============================
 //      MAIN PAGE
@@ -14,21 +24,11 @@ $theme-name: 'gray';
   background-color: #D5D6D8;
 }
 
-// ============================
-//      LEFT PANEL
-// ============================
-$panel-border-width: 1px;
-$panel-border-radius: 20px;
-
-.x-panel {
-  padding: 5px !important;
-}
 
 .x-panel-body.no-border{
   border:  none;
 }
 
-@import 'ext4/default/all';
 
 
 // You may remove any of the following modules that you
@@ -36,29 +36,29 @@ $panel-border-radius: 20px;
 @include extjs-boundlist;
 @include extjs-button;
 @include extjs-btn-group;
-@include extjs-datepicker;
-@include extjs-colorpicker;
-@include extjs-menu;
+//@include extjs-datepicker;
+//@include extjs-colorpicker;
+//@include extjs-menu;
 @include extjs-grid;
 @include extjs-form;
     @include extjs-form-field;
-    @include extjs-form-fieldset;
-    @include extjs-form-file;
+//    @include extjs-form-fieldset;
+//    @include extjs-form-file;
     @include extjs-form-checkboxfield;
     @include extjs-form-checkboxgroup;
     @include extjs-form-triggerfield;
-    @include extjs-form-htmleditor;
+//    @include extjs-form-htmleditor;
 @include extjs-panel;
-@include extjs-qtip;
-@include extjs-slider;
-@include extjs-progress;
-@include extjs-toolbar;
-@include extjs-window;
+//@include extjs-qtip;
+//@include extjs-slider;
+//@include extjs-progress;
+//@include extjs-toolbar;
+//@include extjs-window;
 @include extjs-messagebox;
-@include extjs-tabbar;
-@include extjs-tab;
-@include extjs-tree;
-@include extjs-drawcomponent;
+//@include extjs-tabbar;
+//@include extjs-tab;
+//@include extjs-tree;
+//@include extjs-drawcomponent;
 @include extjs-viewport;
 
 // This line changes the location of your images when creating UIs to be relative instead of within the ExtJS directory.
