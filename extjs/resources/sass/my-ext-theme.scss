@@ -2,16 +2,36 @@
 // IF you set this to true, you can also remove lines 10 to 38 of this file
 $include-default: false;
 
+$show-shadow: true;
+
 $theme-name: 'gray';
 
 $base-color: #AFB0B3;
+$custom-border-radius: 10px;
+$custom-header-background-color: #717075;
+$custom-header-text-color: white;
+$custom-header-title-font-size: 14px;
+$custom-header-padding: 15px;
+
+$custom-left-panel-padding: 15px;
+$custom-left-panel-font-size: 14px;
 
 
 // ============================
 //      LEFT PANEL
 // ============================
 $panel-border-width: 1px;
-$panel-border-color: #AFB0B3;
+// base color
+// $panel-base-color: white;
+// border radius
+// $panel-frame-border-radius: 10px;
+// header color
+
+// $panel-border-radius: 10px;
+
+// reset frame padding
+//$panel-frame-border-radius: $custom-border-radius;
+$panel-frame-padding: 0px;
 
 @import 'ext4/default/all';
 
@@ -22,43 +42,100 @@ $panel-border-color: #AFB0B3;
 
 #main-page, #main-page-body {
   background-color: #D5D6D8;
+
+  .panel-header {
+    background-color: $custom-header-background-color;
+    background-image: none;
+    color: $custom-header-text-color;
+  }
+
+  .panel-header-container {
+    font-weight: bold;
+    font-size: $custom-header-title-font-size;
+    padding: 0 $custom-header-padding;
+    padding-top: 3px;
+
+    .float-right {
+      float: right;
+    }
+
+    .header-title {
+    }
+
+    .divider {
+      margin: 0 10px;
+    }
+
+    a {
+      color: $custom-header-text-color;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
+  #left-panel {
+    .x-panel-body {
+      padding: $custom-left-panel-padding;
+    }
+
+    .panel-body-title {
+      font-weight: bold;
+      font-size: $custom-left-panel-font-size;
+    }
+  }
+
+@if $show-shadow{
+  .x-panel.border {
+    // @include box-shadow(rgba(0, 0, 0, .7) 2px 2px 10px);
+  }
+}
 
 .x-panel-body.no-border{
   border:  none;
 }
 
+// radius for fully rounded
+.x-panel.full-rounded {
+  // @include border-radius($custom-border-radius);
+}
 
+// radius for bottom rounded
+.x-panel.bottom-rounded {
+  // @include border-bottom-radius($custom-border-radius);
+}
 
 // You may remove any of the following modules that you
 // do not use in order to create a smaller css file.
 @include extjs-boundlist;
 @include extjs-button;
 @include extjs-btn-group;
-//@include extjs-datepicker;
-//@include extjs-colorpicker;
-//@include extjs-menu;
+@include extjs-datepicker;
+@include extjs-colorpicker;
+@include extjs-menu;
 @include extjs-grid;
 @include extjs-form;
     @include extjs-form-field;
-//    @include extjs-form-fieldset;
-//    @include extjs-form-file;
+    @include extjs-form-fieldset;
+    @include extjs-form-file;
     @include extjs-form-checkboxfield;
     @include extjs-form-checkboxgroup;
     @include extjs-form-triggerfield;
-//    @include extjs-form-htmleditor;
+    @include extjs-form-htmleditor;
 @include extjs-panel;
-//@include extjs-qtip;
-//@include extjs-slider;
-//@include extjs-progress;
-//@include extjs-toolbar;
-//@include extjs-window;
+@include extjs-qtip;
+@include extjs-slider;
+@include extjs-progress;
+@include extjs-toolbar;
+@include extjs-window;
 @include extjs-messagebox;
-//@include extjs-tabbar;
-//@include extjs-tab;
-//@include extjs-tree;
-//@include extjs-drawcomponent;
+@include extjs-tabbar;
+@include extjs-tab;
+@include extjs-tree;
+@include extjs-drawcomponent;
 @include extjs-viewport;
 
 // This line changes the location of your images when creating UIs to be relative instead of within the ExtJS directory.

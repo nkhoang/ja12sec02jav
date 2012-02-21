@@ -1776,43 +1776,43 @@ input, textarea, select {
     direction: rtl;
     unicode-bidi: bidi-override; }
 
-/* line 43, ../sass/my-ext-theme.scss */
+/* line 43, ../sass/shadow-theme.scss */
 #main-page, #main-page-body {
   background-color: #D5D6D8; }
-  /* line 46, ../sass/my-ext-theme.scss */
+  /* line 46, ../sass/shadow-theme.scss */
   #main-page .panel-header, #main-page-body .panel-header {
     background-color: #717075;
     background-image: none;
     color: white; }
-  /* line 52, ../sass/my-ext-theme.scss */
+  /* line 52, ../sass/shadow-theme.scss */
   #main-page .panel-header-container, #main-page-body .panel-header-container {
     font-weight: bold;
     font-size: 14px;
     padding: 0 15px;
     padding-top: 3px; }
-    /* line 58, ../sass/my-ext-theme.scss */
+    /* line 58, ../sass/shadow-theme.scss */
     #main-page .panel-header-container .float-right, #main-page-body .panel-header-container .float-right {
       float: right; }
-    /* line 65, ../sass/my-ext-theme.scss */
+    /* line 65, ../sass/shadow-theme.scss */
     #main-page .panel-header-container .divider, #main-page-body .panel-header-container .divider {
       margin: 0 10px; }
-    /* line 69, ../sass/my-ext-theme.scss */
+    /* line 69, ../sass/shadow-theme.scss */
     #main-page .panel-header-container a, #main-page-body .panel-header-container a {
       color: white;
       text-decoration: none; }
-    /* line 74, ../sass/my-ext-theme.scss */
+    /* line 74, ../sass/shadow-theme.scss */
     #main-page .panel-header-container a:hover, #main-page-body .panel-header-container a:hover {
       text-decoration: underline; }
 
-/* line 81, ../sass/my-ext-theme.scss */
+/* line 81, ../sass/shadow-theme.scss */
 #left-panel .x-panel-body {
   padding: 15px; }
-/* line 85, ../sass/my-ext-theme.scss */
+/* line 85, ../sass/shadow-theme.scss */
 #left-panel .panel-body-title {
   font-weight: bold;
   font-size: 14px; }
 
-/* line 97, ../sass/my-ext-theme.scss */
+/* line 97, ../sass/shadow-theme.scss */
 .x-panel-body.no-border {
   border: none; }
 
@@ -6128,98 +6128,725 @@ textarea.x-form-invalid-field {
   background-image: -ms-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
   background-image: linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
 
-/* line 367, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
-.x-panel-collapsed .x-panel-header-default-top {
-  -moz-border-radius-bottomleft: null;
-  -webkit-border-bottom-left-radius: null;
-  -o-border-bottom-left-radius: null;
-  -ms-border-bottom-left-radius: null;
-  -khtml-border-bottom-left-radius: null;
-  border-bottom-left-radius: null;
-  -moz-border-radius-bottomright: null;
-  -webkit-border-bottom-right-radius: null;
-  -o-border-bottom-right-radius: null;
-  -ms-border-bottom-right-radius: null;
-  -khtml-border-bottom-right-radius: null;
-  border-bottom-right-radius: null; }
-/* line 371, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
-.x-panel-collapsed .x-panel-header-default-right {
-  -moz-border-radius-topleft: null;
-  -webkit-border-top-left-radius: null;
-  -o-border-top-left-radius: null;
-  -ms-border-top-left-radius: null;
-  -khtml-border-top-left-radius: null;
-  border-top-left-radius: null;
-  -moz-border-radius-bottomleft: null;
-  -webkit-border-bottom-left-radius: null;
-  -o-border-bottom-left-radius: null;
-  -ms-border-bottom-left-radius: null;
-  -khtml-border-bottom-left-radius: null;
-  border-bottom-left-radius: null; }
-/* line 375, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
-.x-panel-collapsed .x-panel-header-default-bottom {
-  -moz-border-radius-topleft: null;
-  -webkit-border-top-left-radius: null;
-  -o-border-top-left-radius: null;
-  -ms-border-top-left-radius: null;
-  -khtml-border-top-left-radius: null;
-  border-top-left-radius: null;
-  -moz-border-radius-topright: null;
-  -webkit-border-top-right-radius: null;
-  -o-border-top-right-radius: null;
-  -ms-border-top-right-radius: null;
-  -khtml-border-top-right-radius: null;
-  border-top-right-radius: null; }
-/* line 379, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
-.x-panel-collapsed .x-panel-header-default-left {
-  -moz-border-radius-topright: null;
-  -webkit-border-top-right-radius: null;
-  -o-border-top-right-radius: null;
-  -ms-border-top-right-radius: null;
-  -khtml-border-top-right-radius: null;
-  border-top-right-radius: null;
-  -moz-border-radius-bottomright: null;
-  -webkit-border-bottom-right-radius: null;
-  -o-border-bottom-right-radius: null;
-  -ms-border-bottom-right-radius: null;
-  -khtml-border-bottom-right-radius: null;
-  border-bottom-right-radius: null; }
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-panel-default {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  padding: 9px 9px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-color: white; }
 
-/* line 384, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
-.x-nlg .x-panel-header-default-right {
-  background-position: top right; }
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-default-mc {
+  background-color: white; }
 
-/* line 388, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-default {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 100010010px 100010010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-default-tl,
+.x-nbr .x-panel-default-bl,
+.x-nbr .x-panel-default-tr,
+.x-nbr .x-panel-default-br,
+.x-nbr .x-panel-default-tc,
+.x-nbr .x-panel-default-bc,
+.x-nbr .x-panel-default-ml,
+.x-nbr .x-panel-default-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel/panel-default-corners.gif'); }
+/* line 168, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-default-ml,
+.x-nbr .x-panel-default-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel/panel-default-sides.gif');
+  background-position: 0 0;
+  background-repeat: repeat-y; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-default-mc {
+  padding: 0 0 0 0; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
 .x-panel-header-default-top {
-  -moz-box-shadow: #cfd1d7 0 1px 0px 0 inset;
-  -webkit-box-shadow: #cfd1d7 0 1px 0px 0 inset;
-  -o-box-shadow: #cfd1d7 0 1px 0px 0 inset;
-  box-shadow: #cfd1d7 0 1px 0px 0 inset; }
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -o-border-top-left-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -khtml-border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -o-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -khtml-border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -o-border-bottom-right-radius: 0;
+  -ms-border-bottom-right-radius: 0;
+  -khtml-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -o-border-bottom-left-radius: 0;
+  -ms-border-bottom-left-radius: 0;
+  -khtml-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 9px 9px 4px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
 
-/* line 392, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-top-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-top-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-top {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 100010010px 1000000px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-top-tl,
+.x-nbr .x-panel-header-default-top-bl,
+.x-nbr .x-panel-header-default-top-tr,
+.x-nbr .x-panel-header-default-top-br,
+.x-nbr .x-panel-header-default-top-tc,
+.x-nbr .x-panel-header-default-top-bc,
+.x-nbr .x-panel-header-default-top-ml,
+.x-nbr .x-panel-header-default-top-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-top-corners.gif'); }
+/* line 168, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-top-ml,
+.x-nbr .x-panel-header-default-top-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-top-sides.gif');
+  background-position: 0 0; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-top-mc {
+  padding: 0 0 4px 0; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
 .x-panel-header-default-right {
-  -moz-box-shadow: #cfd1d7 -1px 0 0px 0 inset;
-  -webkit-box-shadow: #cfd1d7 -1px 0 0px 0 inset;
-  -o-box-shadow: #cfd1d7 -1px 0 0px 0 inset;
-  box-shadow: #cfd1d7 -1px 0 0px 0 inset; }
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  -o-border-top-left-radius: 0;
+  -ms-border-top-left-radius: 0;
+  -khtml-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -o-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -khtml-border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -o-border-bottom-right-radius: 10px;
+  -ms-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -o-border-bottom-left-radius: 0;
+  -ms-border-bottom-left-radius: 0;
+  -khtml-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 9px 9px 9px 5px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
 
-/* line 396, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-right-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-right-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-right {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 10000010px 11001000px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-right-tl,
+.x-nbr .x-panel-header-default-right-bl,
+.x-nbr .x-panel-header-default-right-tr,
+.x-nbr .x-panel-header-default-right-br,
+.x-nbr .x-panel-header-default-right-tc,
+.x-nbr .x-panel-header-default-right-bc,
+.x-nbr .x-panel-header-default-right-ml,
+.x-nbr .x-panel-header-default-right-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-right-corners.gif'); }
+/* line 157, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-right-tc,
+.x-nbr .x-panel-header-default-right-bc {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-right-sides.gif');
+  background-position: 0 0;
+  background-repeat: repeat-x; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-right-mc {
+  padding: 0 0 0 5px; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
 .x-panel-header-default-bottom {
-  -moz-box-shadow: #cfd1d7 0 -1px 0px 0 inset;
-  -webkit-box-shadow: #cfd1d7 0 -1px 0px 0 inset;
-  -o-box-shadow: #cfd1d7 0 -1px 0px 0 inset;
-  box-shadow: #cfd1d7 0 -1px 0px 0 inset; }
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  -o-border-top-left-radius: 0;
+  -ms-border-top-left-radius: 0;
+  -khtml-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  -o-border-top-right-radius: 0;
+  -ms-border-top-right-radius: 0;
+  -khtml-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -o-border-bottom-right-radius: 10px;
+  -ms-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -o-border-bottom-left-radius: 10px;
+  -ms-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 4px 9px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
 
-/* line 400, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-bottom-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-bottom-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-bottom {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 1000000px 100010010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-bottom-tl,
+.x-nbr .x-panel-header-default-bottom-bl,
+.x-nbr .x-panel-header-default-bottom-tr,
+.x-nbr .x-panel-header-default-bottom-br,
+.x-nbr .x-panel-header-default-bottom-tc,
+.x-nbr .x-panel-header-default-bottom-bc,
+.x-nbr .x-panel-header-default-bottom-ml,
+.x-nbr .x-panel-header-default-bottom-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-bottom-corners.gif'); }
+/* line 168, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-bottom-ml,
+.x-nbr .x-panel-header-default-bottom-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-bottom-sides.gif');
+  background-position: 0 0; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-bottom-mc {
+  padding: 4px 0 0 0; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
 .x-panel-header-default-left {
-  -moz-box-shadow: #cfd1d7 1px 0 0px 0 inset;
-  -webkit-box-shadow: #cfd1d7 1px 0 0px 0 inset;
-  -o-box-shadow: #cfd1d7 1px 0 0px 0 inset;
-  box-shadow: #cfd1d7 1px 0 0px 0 inset; }
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -o-border-top-left-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -khtml-border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  -o-border-top-right-radius: 0;
+  -ms-border-top-right-radius: 0;
+  -khtml-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -o-border-bottom-right-radius: 0;
+  -ms-border-bottom-right-radius: 0;
+  -khtml-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -o-border-bottom-left-radius: 10px;
+  -ms-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 9px 5px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
+
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-left-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-left-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-left {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 10001000px 11000010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-left-tl,
+.x-nbr .x-panel-header-default-left-bl,
+.x-nbr .x-panel-header-default-left-tr,
+.x-nbr .x-panel-header-default-left-br,
+.x-nbr .x-panel-header-default-left-tc,
+.x-nbr .x-panel-header-default-left-bc,
+.x-nbr .x-panel-header-default-left-ml,
+.x-nbr .x-panel-header-default-left-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-left-corners.gif'); }
+/* line 157, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-left-tc,
+.x-nbr .x-panel-header-default-left-bc {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-left-sides.gif');
+  background-position: 0 0;
+  background-repeat: repeat-x; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-left-mc {
+  padding: 0 5px 0 0; }
+
+/* line 350, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel-header-default-top {
+  -moz-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  -webkit-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  -o-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset; }
+
+/* line 354, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel-header-default-right {
+  -moz-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset;
+  -webkit-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset;
+  -o-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset;
+  box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset; }
+
+/* line 358, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel-header-default-bottom {
+  -moz-box-shadow: #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  -webkit-box-shadow: #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  -o-box-shadow: #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  box-shadow: #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 -1px 0 0px 0 inset, #cfd1d7 1px 0 0px 0 inset; }
+
+/* line 362, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel-header-default-left {
+  -moz-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  -webkit-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  -o-box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 1px 0 0px 0 inset;
+  box-shadow: #cfd1d7 0 1px 0px 0 inset, #cfd1d7 0 -1px 0px 0 inset, #cfd1d7 1px 0 0px 0 inset; }
 
 /* line 405, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
 .x-nlg .x-panel-header-default-bottom {
   background-position: bottom left; }
+
+/* line 410, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel .x-panel-header-default-top {
+  border-bottom-width: 1px !important; }
+
+/* line 414, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel .x-panel-header-default-right {
+  border-left-width: 1px !important; }
+
+/* line 418, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel .x-panel-header-default-bottom {
+  border-top-width: 1px !important; }
+
+/* line 422, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel .x-panel-header-default-left {
+  border-right-width: 1px !important; }
+
+/* line 426, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
+.x-panel-header-default-collapsed {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-panel-header-default-collapsed-top {
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -o-border-top-left-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -khtml-border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -o-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -khtml-border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -o-border-bottom-right-radius: 10px;
+  -ms-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -o-border-bottom-left-radius: 10px;
+  -ms-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 9px 9px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
+
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-collapsed-top-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-top-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-top {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 100010010px 100010010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-top-tl,
+.x-nbr .x-panel-header-default-collapsed-top-bl,
+.x-nbr .x-panel-header-default-collapsed-top-tr,
+.x-nbr .x-panel-header-default-collapsed-top-br,
+.x-nbr .x-panel-header-default-collapsed-top-tc,
+.x-nbr .x-panel-header-default-collapsed-top-bc,
+.x-nbr .x-panel-header-default-collapsed-top-ml,
+.x-nbr .x-panel-header-default-collapsed-top-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-top-corners.gif'); }
+/* line 168, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-top-ml,
+.x-nbr .x-panel-header-default-collapsed-top-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-top-sides.gif');
+  background-position: 0 0; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-top-mc {
+  padding: 0 0 0 0; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-panel-header-default-collapsed-right {
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -o-border-top-left-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -khtml-border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -o-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -khtml-border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -o-border-bottom-right-radius: 10px;
+  -ms-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -o-border-bottom-left-radius: 10px;
+  -ms-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 9px 9px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
+
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-collapsed-right-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-right-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-right {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 100010010px 110010010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-right-tl,
+.x-nbr .x-panel-header-default-collapsed-right-bl,
+.x-nbr .x-panel-header-default-collapsed-right-tr,
+.x-nbr .x-panel-header-default-collapsed-right-br,
+.x-nbr .x-panel-header-default-collapsed-right-tc,
+.x-nbr .x-panel-header-default-collapsed-right-bc,
+.x-nbr .x-panel-header-default-collapsed-right-ml,
+.x-nbr .x-panel-header-default-collapsed-right-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-right-corners.gif'); }
+/* line 157, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-right-tc,
+.x-nbr .x-panel-header-default-collapsed-right-bc {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-right-sides.gif');
+  background-position: 0 0;
+  background-repeat: repeat-x; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-right-mc {
+  padding: 0 0 0 0; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-panel-header-default-collapsed-bottom {
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -o-border-top-left-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -khtml-border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -o-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -khtml-border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -o-border-bottom-right-radius: 10px;
+  -ms-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -o-border-bottom-left-radius: 10px;
+  -ms-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 9px 9px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(top, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
+
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-collapsed-bottom-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-bottom-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-bottom {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 100010010px 100010010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-bottom-tl,
+.x-nbr .x-panel-header-default-collapsed-bottom-bl,
+.x-nbr .x-panel-header-default-collapsed-bottom-tr,
+.x-nbr .x-panel-header-default-collapsed-bottom-br,
+.x-nbr .x-panel-header-default-collapsed-bottom-tc,
+.x-nbr .x-panel-header-default-collapsed-bottom-bc,
+.x-nbr .x-panel-header-default-collapsed-bottom-ml,
+.x-nbr .x-panel-header-default-collapsed-bottom-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-bottom-corners.gif'); }
+/* line 168, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-bottom-ml,
+.x-nbr .x-panel-header-default-collapsed-bottom-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-bottom-sides.gif');
+  background-position: 0 0; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-bottom-mc {
+  padding: 0 0 0 0; }
+
+/* line 58, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-panel-header-default-collapsed-left {
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  -o-border-top-left-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -khtml-border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -o-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -khtml-border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -o-border-bottom-right-radius: 10px;
+  -ms-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -o-border-bottom-left-radius: 10px;
+  -ms-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 9px 9px 9px 9px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: none;
+  background-color: #b3b6c0;
+  background-image: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #bec0c7), color-stop(45%, #b5b8c0), color-stop(46%, #9da1af), color-stop(50%, #9da1af), color-stop(51%, #a7aab4), color-stop(100%, #b3b6c0));
+  background-image: -webkit-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -moz-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -o-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: -ms-linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0);
+  background-image: linear-gradient(right, #bec0c7, #b5b8c0 45%, #9da1af 46%, #9da1af 50%, #a7aab4 51%, #b3b6c0); }
+
+/* line 91, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nlg .x-panel-header-default-collapsed-left-mc {
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-left-bg.gif');
+  background-color: #b3b6c0; }
+
+/* line 104, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-left {
+  padding: 0 !important;
+  border-width: 0 !important;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -o-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -khtml-border-radius: 0px;
+  border-radius: 0px;
+  background-color: transparent;
+  background-position: 100010010px 110010010px; }
+/* line 147, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-left-tl,
+.x-nbr .x-panel-header-default-collapsed-left-bl,
+.x-nbr .x-panel-header-default-collapsed-left-tr,
+.x-nbr .x-panel-header-default-collapsed-left-br,
+.x-nbr .x-panel-header-default-collapsed-left-tc,
+.x-nbr .x-panel-header-default-collapsed-left-bc,
+.x-nbr .x-panel-header-default-collapsed-left-ml,
+.x-nbr .x-panel-header-default-collapsed-left-mr {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-left-corners.gif'); }
+/* line 157, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-left-tc,
+.x-nbr .x-panel-header-default-collapsed-left-bc {
+  zoom: 1;
+  background-image: url('../../extjs/resources/themes/images/gray/panel-header/panel-header-default-collapsed-left-sides.gif');
+  background-position: 0 0;
+  background-repeat: repeat-x; }
+/* line 200, ../../extjs/resources/themes/stylesheets/ext4/default/mixins/_frame.scss */
+.x-nbr .x-panel-header-default-collapsed-left-mc {
+  padding: 0 0 0 0; }
 
 /* line 439, ../../extjs/resources/themes/stylesheets/ext4/default/widgets/_panel.scss */
 .x-panel-header-default-right-tc,
