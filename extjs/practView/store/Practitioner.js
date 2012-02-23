@@ -6,3 +6,4 @@ Ext.define('practView.store.Practitioner', {
     url:'practView/data/practitioner.json'
   }
 })
+    // use this --allow-file-access-from-files
