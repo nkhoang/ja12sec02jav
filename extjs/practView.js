@@ -6,9 +6,9 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-  name:'demo',
+  name:'practView',
 
-  appFolder:'demo',
+  appFolder:'practView',
 
   controllers:[
     'Feedback'
@@ -114,31 +114,7 @@ Ext.application({
           ],
           items:[
             {
-              xtype:'panel',
-              layout:'anchor',
-              itemId:'left-panel',
-              id:'left-panel',
-              bodyCls:'no-border',
-              cls:'border full-rounded',
-              margin:'10 20 10 10',
-              border:1,
-              width:250,
-              defaults:{
-                margin:'12px 0'
-              },
-              items:[
-                {
-                  xtype:'label',
-                  cls:'panel-body-title',
-                  text:'Send Feedback to HMS',
-                  anchor:'-30px'
-                },
-                {
-                  xtype:'feedbackForm',
-                  itemId: 'feedbackForm',
-                  id: 'feedbackForm'
-                }
-              ]
+
             }
           ]
         }

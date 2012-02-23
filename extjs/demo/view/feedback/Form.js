@@ -10,13 +10,16 @@ Ext.define('demo.view.feedback.Form', {
   bodyPadding:0,
   fieldDefaults:{
     labelAlign:'top',
-    margin:'10px 0'
+    margin:'10px 0',
+    invalidCls:''
   },
   defaults:{
     anchor:'0',
     margin:'12px 0'
   },
   initComponent:function () {
+    this.itemId = 'feedbackForm';
+    this.id = 'feedbackForm';
     this.items = [
       {
         xtype:'feedbackCombo'
@@ -37,36 +40,36 @@ Ext.define('demo.view.feedback.Form', {
         fieldLabel:'Form Field',
         name:'textArea1'
       }
-
     ];
-
     // Reset and Submit buttons
     this.buttons = [
       {
-        text:'Reset',
-        handler:function () {
-          this.up('form').getForm().reset();
+        xtype:'box',
+        margin: '0 10px',
+        autoEl:{
+          tag:'a',
+          html:'Reset',
+          href:'#'
+        },
+        listeners:{
+          el:{
+            click:{
+              fn:function (e, t, eOpts) {
+                var form = Ext.getCmp('feedbackForm');
+                form.getForm().reset();
+              }
+            }
+          }
         }
       },
       {
         text:'Submit',
-        formBind:true, //only enabled once the form is valid
-        disabled:true,
+        cls: 'blue-btn',
         handler:function () {
           var form = this.up('form').getForm();
-          if (form.isValid()) {
-            form.submit({
-              success:function (form, action) {
-                Ext.Msg.alert('Success', action.result.msg);
-              },
-              failure:function (form, action) {
-                Ext.Msg.alert('Failed', action.result.msg);
-              }
-            });
-          }
         }
       }
-    ];
+    ]
 
     this.callParent(arguments);
   }
