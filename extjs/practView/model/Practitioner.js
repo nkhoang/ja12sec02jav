@@ -1,6 +1,6 @@
-Ext.define('PractView.model.Practitioner', {
-  extend: 'Ext.data.Model',
-  fields: [
-
+Ext.define('practView.model.Practitioner', {
+  extend:'Ext.data.Model',
+  fields:[
+    "name", "npi", "type", "address", "status", "licenseState", "vendible", "numAffil"
   ]
 });

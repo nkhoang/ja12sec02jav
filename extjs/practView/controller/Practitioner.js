@@ -2,19 +2,17 @@ Ext.define('practView.controller.Practitioner', {
   extend:'Ext.app.Controller',
 
   views:[
-    'feedback.Combo',
-    'feedback.Form',
-    'theme.Combo'
+    'practitioner.Grid'
   ],
 
+  stores: ['Practitioner'],
+  models: ['Practitioner'],
+
   init:function () {
+    this.getPractitionerStore().load();
+
     this.control({
-      'viewport > container':{
-        render:this.onRendered
-      },
-      'themeCombo':{
-        change:this.onChangeTheme
-      }
+
     });
   },
 

@@ -1,7 +1,7 @@
 Ext.Loader.setConfig({
   enabled:true,
   paths:{
-    demo:'demo'
+    'practView':'practView'
   }
 });
 
@@ -11,7 +11,7 @@ Ext.application({
   appFolder:'practView',
 
   controllers:[
-    'Feedback'
+    'Practitioner'
   ],
 
   initThemeChanger:function () {
@@ -27,15 +27,15 @@ Ext.application({
   },
 
   launch:function () {
-    this.initThemeChanger();
+    // this.initThemeChanger();
 
     Ext.create('Ext.container.Viewport', {
-      layout:'anchor',
+      layout:'fit',
       renderTo:'page-content',
       items:[
-        {
-          xtype:'themeCombo'
-        },
+        //{
+//          xtype:'themeCombo'
+//        },
         {
           xtype:'panel',
           id:'main-page',
@@ -114,7 +114,7 @@ Ext.application({
           ],
           items:[
             {
-
+              xtype:'practitionerGrid'
             }
           ]
         }
