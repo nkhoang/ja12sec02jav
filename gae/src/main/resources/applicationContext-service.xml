@@ -71,7 +71,7 @@
         <property name="saltGenerator" ref="passwordSaltGenerator"/>
     </bean>
     <!-- Password encoder -->
-    <bean id="passwordEncoder" class="org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder">
+    <bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
         <property name="stringDigester" ref="jasyptStringDigester"/>
     </bean>
     <!-- Jasypt Property Salt Generator -->

@@ -121,8 +121,12 @@ $button-default-base-color-disabled: adjust-color(#1283C7, $hue: 0deg, $saturati
 .full-rounded {
   @include border-radius($custom-border-radius);
 
-  .x-panel-body {
+  > .x-panel-body {
     @include border-radius($custom-border-radius);
+  }
+
+  > .panel-header {
+    @include border-top-radius($custom-border-radius);
   }
 }
 
@@ -130,7 +134,7 @@ $button-default-base-color-disabled: adjust-color(#1283C7, $hue: 0deg, $saturati
 // radius for bottom rounded
 .bottom-rounded {
   @include border-bottom-radius($custom-border-radius);
-  .x-panel-body{
+  > .x-panel-body{
     @include border-bottom-radius($custom-border-radius);
   }
 }

@@ -1,13 +1,25 @@
 Ext.define('practView.view.practitioner.Grid', {
   extend:'Ext.grid.Panel',
   alias:'widget.practitionerGrid',
+  itemId:'practitionerGrid',
+  store:'Practitioner',
 
   initComponent:function () {
-    this.store = 'Practitioner';
+    var me = this;
+
+    this.showLoading = function () {
+      setTimeout(function () {
+        me.getEl().mask('Loading...')
+      }, 100);
+    };
+
+    this.hideLoading = function () {
+      this.getEl().unmask();
+    };
     this.columns = [
       {
         text:'Name',
-        width:200,
+        width:150,
         dataIndex:'name',
         sortable:true
       },
@@ -19,7 +31,7 @@ Ext.define('practView.view.practitioner.Grid', {
       },
       {
         text:'Type',
-        width:200,
+        width:150,
         dataIndex:'type',
         sortable:true
       },
@@ -31,19 +43,19 @@ Ext.define('practView.view.practitioner.Grid', {
       },
       {
         text:'Status',
-        width:50,
+        width:60,
         dataIndex:'status',
         sortable:true
       },
       {
         text:'License State',
-        width:50,
+        width:70,
         dataIndex:'licenseState',
         sortable:true
       },
       {
         text:'Vendible',
-        width:40,
+        width:60,
         dataIndex:'vendible',
         sortable:true
       },
@@ -56,9 +68,8 @@ Ext.define('practView.view.practitioner.Grid', {
     ];
 
     this.viewConfig = {
-      forceFit: true
+      forceFit:true
     }
-
     this.callParent(arguments);
   }
 });

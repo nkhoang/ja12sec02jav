@@ -31,7 +31,7 @@ import java.util.List;
 @ContextConfiguration({"/applicationContext-service.xml"})
 public class LuceneUtilsTest {
    private static final Logger LOG = LoggerFactory.getLogger(LuceneUtilsTest.class.getCanonicalName());
-   private static final String TEST_HOST_NAME = "minion-6.appspot.com";
+   private static final String TEST_HOST_NAME = "minion-5.appspot.com";
 
    @Autowired
    private StandardPBEStringEncryptor propertyEncryptor;
@@ -84,7 +84,7 @@ public class LuceneUtilsTest {
 
       if (CollectionUtils.isNotEmpty(wordList)) {
          LOG.info("Total words found: " + wordList.size());
-         int index = 72000;
+         int index = 80000;
          int size = 4000;
          int nextIndex = index + size;
          Writer writer = new FileWriter(new File("lucene/src/main/resources/wordsJSON.txt"), true);

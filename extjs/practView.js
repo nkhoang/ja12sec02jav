@@ -114,7 +114,8 @@ Ext.application({
           ],
           items:[
             {
-              xtype:'practitionerGrid'
+              xtype:'practitionerGrid',
+              height:400
             }
           ]
         }

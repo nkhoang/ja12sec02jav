@@ -5,25 +5,33 @@ Ext.define('practView.controller.Practitioner', {
     'practitioner.Grid'
   ],
 
-  stores: ['Practitioner'],
-  models: ['Practitioner'],
+  stores:['Practitioner'],
+  models:['Practitioner'],
+
+  refs: [
+    {
+      ref: 'practitionerGrid',
+      selector: 'practitionerGrid'
+    }
+  ],
 
   init:function () {
-    this.getPractitionerStore().load();
+    var me = this;
+    this.getPractitionerStore().load({
+      callback:function (records, operation, success) {
+        // unmask
+        me.getPractitionerGrid().hideLoading();
+      }});
 
     this.control({
-
+      'practitionerGrid':{
+        render:this.onRendered
+      }
     });
   },
 
-  onRendered:function () {
-  },
-
-  onChangeTheme:function (field, newValue, oldValue) {
-    var theme_file = newValue;
-    if (theme_file != '') {
-      Ext.util.CSS.swapStyleSheet('theme', 'resources/css/' + theme_file);
-      new Ext.state.CookieProvider().set('theme', theme_file);
-    }
+  onRendered:function (eComp, eOpts) {
+    // show loading, hot fix for show loading
+    eComp.showLoading();
   }
 });

@@ -678,11 +678,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <!--
     <dependency>
       <groupId>org.jasypt</groupId>
       <artifactId>jasypt-springsecurity3</artifactId>
       <version>${jasypt.version}</version>
     </dependency>
+    -->
     <!-- GSON -->
     <dependency>
       <groupId>com.google.code.gson</groupId>

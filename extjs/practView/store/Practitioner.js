@@ -2,8 +2,13 @@ Ext.define('practView.store.Practitioner', {
   extend:'Ext.data.Store',
   model:'practView.model.Practitioner',
   proxy:{
-    type:'ajax',
-    url:'practView/data/practitioner.json'
+    type:'rest',
+    url:'http://localhost:9090/services/demo/practitioner',
+    reader: {
+      type: 'json'
+    }
   }
+
+
 })
-    // use this --allow-file-access-from-files
+// use this --allow-file-access-from-files
