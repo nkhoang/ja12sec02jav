@@ -2,16 +2,22 @@ Ext.define('practView.controller.Practitioner', {
   extend:'Ext.app.Controller',
 
   views:[
-    'practitioner.Grid'
+    'practitioner.Grid',
+    'practitioner.detailPanel',
+    'practitioner.fullViewPanel'
   ],
 
   stores:['Practitioner'],
   models:['Practitioner'],
 
-  refs: [
+  refs:[
     {
-      ref: 'practitionerGrid',
-      selector: 'practitionerGrid'
+      ref:'practitionerGrid',
+      selector:'practitionerGrid'
+    },
+    {
+      ref: 'practDetailPanel',
+      selector: 'practDetailPanel'
     }
   ],
 
@@ -25,7 +31,34 @@ Ext.define('practView.controller.Practitioner', {
 
     this.control({
       'practitionerGrid':{
-        render:this.onRendered
+        render:this.onRendered,
+        itemclick: function(view, record, htmlItem, index, eventE, eOpts) {
+          me.getPractDetailPanel().updateDetail(record.data);
+        },
+        itemdblclick: function(view, record, htmlItem, index, e, eOpts) {
+          var fullViewPanel = Ext.create('practView.view.practitioner.fullViewPanel');
+          fullViewPanel.flex = 1;
+          fullViewPanel.height = 100;
+          fullViewPanel.width = 200;
+          fullViewPanel.region = 'center';
+/*
+
+
+          // replace content
+          var parentCnt = Ext.getCmp('main-page');
+          parentCnt.removeAll(true);
+          parentCnt.add(fullViewPanel);
+          parentCnt.doLayout();
+*/
+          var parentCnt = Ext.getCmp('main-page');
+          parentCnt.remove(me.getPractDetailPanel(), true);
+          parentCnt.remove(me.getPractitionerGrid(), true);
+          parentCnt.doLayout(false, true);
+          parentCnt.add(fullViewPanel);
+
+          parentCnt.doLayout(false, true);
+          parentCnt.refresh();
+        }
       }
     });
   },

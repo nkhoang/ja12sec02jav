@@ -41,7 +41,7 @@ Ext.application({
           id:'main-page',
           itemId:'page',
           margin:'0px 10px',
-          layout:'anchor',
+          layout:'border',
           border:true,
           bodyCls:'no-border',
           cls:'full-rounded',
@@ -114,8 +114,16 @@ Ext.application({
           ],
           items:[
             {
+              xtype: 'practDetailPanel',
+              minWidth: 250,
+              region: 'west',
+              flex: 1
+            },
+            {
               xtype:'practitionerGrid',
-              height:400
+              height:400,
+              region: 'center',
+              flex:3
             }
           ]
         }
