@@ -1,7 +1,7 @@
-Ext.define('practView.view.practitioner.Grid', {
+Ext.define('practView.view.practitioner.practGrid', {
   extend:'Ext.grid.Panel',
-  alias:'widget.practitionerGrid',
-  itemId:'practitionerGrid',
+  alias:'widget.practGrid',
+  itemId:'practGrid',
   store:'Practitioner',
 
   initComponent:function () {

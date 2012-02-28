@@ -1,6 +1,6 @@
-Ext.define('practView.view.practitioner.detailPanel', {
+Ext.define('practView.view.practitioner.practDetailedPanel', {
   extend:'Ext.panel.Panel',
-  alias:'widget.practDetailPanel',
+  alias:'widget.practDetailedPanel',
   practDetailTplMarkup:[
     '<b>Name:</b> {name}<br />',
     '<b>NPI:</b> {npi}<br />',

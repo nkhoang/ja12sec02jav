@@ -183,10 +183,6 @@ public class VocabularyRESTServiceImpl {
             "  }\n" +
             "]";
       
-      if(StringUtils.isNotBlank(callbackFunc)) {
-         response += ");";
-      }
-
       return response;
    }
 

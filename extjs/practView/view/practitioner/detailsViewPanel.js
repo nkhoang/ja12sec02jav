@@ -1,7 +1,7 @@
-Ext.define('practView.view.practitioner.fullViewPanel', {
+Ext.define('practView.view.practitioner.detailsViewPanel', {
   extend: 'Ext.panel.Panel',
-  alias: 'practFullViewPanel',
-  title: 'abc',
+  alias: 'widget.detailsViewPanel',
+  title: 'Details',
 
   practDetailTplMarkup:[
     '<b>Name:</b> {name}<br />',
@@ -12,13 +12,26 @@ Ext.define('practView.view.practitioner.fullViewPanel', {
     '<b>Vendible:</b> {vendible}<br />',
     '<b>Number of Affiliations:</b> {numAffil}<br />'
   ],
+  dockedItems: [{
+    xtype: 'toolbar',
+    dock: 'bottom',
+    ui: 'footer',
+    defaults: {},
+    items: [
+      { xtype: 'button',
+        id: 'detailViewBackBtn',
+        text: 'back' }
+    ]
+  }],
 
   initComponent: function() {
+    var me = this;
     this.tpl = Ext.create('Ext.Template', this.practDetailTplMarkup);
+
+    this.callParent(arguments);
   },
 
   updateDetail: function(data) {
     this.tpl.overwrite(this.body, data);
-
   }
 });
