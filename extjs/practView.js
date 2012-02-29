@@ -1,24 +1,24 @@
 Ext.Loader.setConfig({
-  enabled:true,
-  paths:{
-    'practView':'practView'
+  enabled: true,
+  paths  : {
+    'practView': 'practView'
   }
 });
 Ext.require([
-  'Ext.util.History'
+  'practView.event.EventManager'
 ]);
 
 
 Ext.application({
-  name:'practView',
+  name: 'practView',
 
-  appFolder:'practView',
+  appFolder: 'practView',
 
-  controllers:[
+  controllers: [
     'Practitioner'
   ],
 
-  initThemeChanger:function () {
+  initThemeChanger: function () {
     var cp = new Ext.state.CookieProvider();
     if (cp.get('theme') != '') {
       Ext.util.CSS.swapStyleSheet('theme', 'resources/css/' + cp.get('theme'));
@@ -30,86 +30,85 @@ Ext.application({
     }
   },
 
-  launch:function () {
-    Ext.History.init();
+  launch: function () {
     // this.initThemeChanger();
 
     Ext.create('Ext.container.Viewport', {
-      layout:'fit',
-      renderTo:'page-content',
-      items:[
+      layout  : 'fit',
+      renderTo: 'page-content',
+      items   : [
         //{
 //          xtype:'themeCombo'
 //        },
         {
-          xtype:'panel',
-          id:'main-page',
-          itemId:'page',
-          margin:'0px 10px',
-          layout:'fit',
-          border:true,
-          bodyCls:'no-border',
-          cls:'full-rounded',
-          dockedItems:[
+          xtype      : 'panel',
+          id         : 'main-page',
+          itemId     : 'main-page',
+          margin     : '0px 10px',
+          layout     : 'fit',
+          border     : true,
+          bodyCls    : 'no-border',
+          cls        : 'full-rounded',
+          dockedItems: [
             {
               // replace header
-              xtype:'toolbar',
-              dock:'top',
-              cls:'panel-header',
-              margin:0,
-              layout:'fit',
-              style:{
-                border:'none'
+              xtype : 'toolbar',
+              dock  : 'top',
+              cls   : 'panel-header',
+              margin: 0,
+              layout: 'fit',
+              style : {
+                border: 'none'
               },
-              items:[
+              items : [
                 {
                   // header container
-                  xtype:'container',
-                  height:25,
-                  cls:'panel-header-container',
-                  layout:'anchor',
-                  items:[
+                  xtype : 'container',
+                  height: 25,
+                  cls   : 'panel-header-container',
+                  layout: 'anchor',
+                  items : [
                     // header title.=
                     {
-                      xtype:'label',
-                      text:'Home',
-                      cls:'header-title'
+                      xtype: 'label',
+                      text : 'Home',
+                      cls  : 'header-title'
                     },
                     {
-                      xtype:'box',
-                      cls:'float-right',
-                      autoEl:{
-                        tag:'a',
-                        html:'Logout',
-                        href:'http://www.google.com'
+                      xtype : 'box',
+                      cls   : 'float-right',
+                      autoEl: {
+                        tag : 'a',
+                        html: 'Logout',
+                        href: 'http://www.google.com'
                       }
                     },
                     {
-                      xtype:'label',
-                      text:'|',
-                      cls:'float-right divider'
+                      xtype: 'label',
+                      text : '|',
+                      cls  : 'float-right divider'
                     },
                     {
-                      xtype:'box',
-                      cls:'float-right',
-                      autoEl:{
-                        tag:'a',
-                        html:'User Settings',
-                        href:'http://www.google.com'
+                      xtype : 'box',
+                      cls   : 'float-right',
+                      autoEl: {
+                        tag : 'a',
+                        html: 'User Settings',
+                        href: 'http://www.google.com'
                       }
                     },
                     {
-                      xtype:'label',
-                      text:'|',
-                      cls:'float-right divider'
+                      xtype: 'label',
+                      text : '|',
+                      cls  : 'float-right divider'
                     },
                     {
-                      xtype:'box',
-                      cls:'float-right',
-                      autoEl:{
-                        tag:'a',
-                        html:'Help',
-                        href:'http://www.google.com'
+                      xtype : 'box',
+                      cls   : 'float-right',
+                      autoEl: {
+                        tag : 'a',
+                        html: 'Help',
+                        href: 'http://www.google.com'
                       }
                     }
                   ]
@@ -117,10 +116,7 @@ Ext.application({
               ]
             }
           ],
-          items:[
-            {
-              xtype:'defaultViewPanel'
-            }
+          items      : [
           ]
         }
       ]

@@ -1,65 +1,126 @@
 Ext.define('practView.controller.Practitioner', {
-  extend:'Ext.app.Controller',
+  extend: 'Ext.app.Controller',
 
-  views:[
+  views: [
     'practitioner.practGrid',
     'practitioner.practDetailedPanel',
     'practitioner.detailsViewPanel',
     'practitioner.defaultViewPanel'
   ],
 
-  stores:['Practitioner'],
-  models:['Practitioner'],
+  stores: ['Practitioner'],
+  models: ['Practitioner'],
 
-  refs:[
+  managedPage: {},
+  container  : null,
+
+  refs: [
     {
-      ref:'practGrid',
-      selector:'practGrid'
+      ref     : 'practGrid',
+      selector: 'practGrid'
     },
     {
-      ref:'practDetailedPanel',
-      selector:'practDetailedPanel'
+      ref     : 'practDetailedPanel',
+      selector: 'practDetailedPanel'
     },
     {
-      ref: 'detailsViewPanel',
+      ref     : 'detailsViewPanel',
       selector: 'detailsViewPanel'
     },
     {
-      ref: 'defaultViewPanel',
+      ref     : 'defaultViewPanel',
       selector: 'defaultViewPanel'
     }
   ],
 
-  init:function () {
+  init: function () {
     var me = this;
-    this.getPractitionerStore().load({
-      callback:function (records, operation, success) {
-        // unmask
-        me.getPractGrid().hideLoading();
-      }});
 
+    this.registerPage('defaultView', 'practView.view.practitioner.defaultViewPanel');
+    this.registerPage('detailsView', 'practView.view.practitioner.detailsViewPanel');
+    /*
+     me.eventManager = Ext.create('practView.event.EventManager');
+     // init event manager.
+     me.eventManager.addEvents('selectGridRow', 'gridLoad', 'gridRendered');
+
+     // create event handler
+     me.eventManager.on({
+     'gridRendered': {
+     scope: this,
+     fn   : function () {
+     this.getPractitionerStore().load({
+     callback: function (records, operation, success) {
+     console.log('Practitioner Store loaded.');
+     if (me.getPractGrid()) {
+     me.getPractGrid().hideLoading();
+     }
+     }
+     });
+     }
+     }
+     }
+     );*/
+
+    var me = this;
     this.control({
-      'practGrid':{
-        render:this.onRendered,
-        itemclick:function (view, record, htmlItem, index, eventE, eOpts) {
+      '#main-page'                         : {
+        render: function (eComp, eOpts) {
+          console.debug('Dynamically added "defaultViewPanel"');
+          me.container = Ext.getCmp('main-page');
+          me.navigateToPage('defaultView');
+        }
+      },
+      'practGrid'                          : {
+        beforerender: function () {
+          this.getPractitionerStore().load({
+            callback: function (records, operation, success) {
+              // unmask
+              if (me.getPractGrid()) {
+                me.getPractGrid().hideLoading();
+              }
+            }});
+        },
+        render      : function (eComp, eOpts) {
+          console.debug('practGrid was rendered.');
+          // show loading, hot fix for show loading
+          eComp.showLoading();
+        },
+        itemclick   : function (view, record, htmlItem, index, eventE, eOpts) {
           me.getPractDetailedPanel().updateDetail(record.data);
         },
-        itemdblclick:function (view, record, htmlItem, index, e, eOpts) {
-          var detailsViewPanel = Ext.create('practView.view.practitioner.detailsViewPanel');
-          var parentCnt = Ext.getCmp('main-page');
-          parentCnt.removeAll();
-          detailsViewPanel.addListener('render', function() {
-            this.updateDetail(record.data);
+        itemdblclick: function (view, record, htmlItem, index, e, eOpts) {
+          me.navigateToPage('detailsView', function (pageComponent) {
+            pageComponent.fireEvent('updateDetail', record.data);
           });
-          parentCnt.add(detailsViewPanel);
-          parentCnt.doLayout();
+        }
+      },
+      'detailsViewPanel'                   : {
+        render: function (eComp, eOpts) {
+          console.debug('detailsViewPanel was rendered');
+          eComp.processEventQueue();
+        }
+      },
+      'detailsViewPanel #detailViewBackBtn': {
+        click: function (button, event, eOpts) {
+          console.debug('Button name: ' + button.id + ' clicked.')
+          me.navigateToPage('defaultView');
         }
       }
     });
   },
 
-  onRendered:function (eComp, eOpts) {
-    // show loading, hot fix for show loading
-    eComp.showLoading();
+  registerPage  : function (pageName, viewClass) {
+    this.managedPage[pageName] = viewClass;
+  },
+  navigateToPage: function (pageName, callback) {
+    console.debug('Moving to page: ' + pageName);
+    this.container.removeAll();
+    var pageComponent = Ext.create(this.managedPage[pageName]);
+    if (callback) {
+      callback(pageComponent);
+    }
+    this.container.add(pageComponent);
+    this.container.doLayout();
   }
-});
+})
+;
