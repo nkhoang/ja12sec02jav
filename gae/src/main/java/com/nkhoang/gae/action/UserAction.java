@@ -426,19 +426,11 @@ public class UserAction {
                 String path = request.getSession().getServletContext().getRealPath("WEB-INF/classes");
                 List<Document> documents = LuceneSearchUtils.performSearchByContent(word, path);
                 if (CollectionUtils.isNotEmpty(documents)) {
-                    List<String> foundWords = new ArrayList<String>();
                     for (Document doc : documents) {
-                        foundWords.add(doc.get(LuceneSearchFields.ID));
-                    }
-                    for (String w : foundWords) {
-                        /*Word fullWord = vocabularyService.findWord(w);
-                        if (fullWord != null) {
-                           words.add(fullWord);
-                        } else {
-                           Word newWord = new Word();
-                           newWord.setDescription(w);
-                           words.add(newWord);
-                        }*/
+                        String wordDescription = doc.get(LuceneSearchFields.ID);
+                        Word w = new Word();
+                        w.setDescription(wordDescription);
+                        words.add(w);
                     }
                 }
             } catch (IOException ioe) {

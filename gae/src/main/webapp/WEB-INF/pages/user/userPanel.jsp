@@ -114,7 +114,6 @@ $(function() {
 
                             tableWords.append(row);
                             index++;
-                            if (index == total_word_per_page) break;
                         }
                     }
                 });

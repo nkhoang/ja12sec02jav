@@ -66,13 +66,19 @@ public class LuceneUtilsTest {
 
    @Test
    public void testSearchByContent() throws Exception {
-      List<Document> foundDocs = LuceneSearchUtils.performSearchByContent("nông cạn");
+      List<Document> foundDocs = LuceneSearchUtils.performSearchByContent("đáng sợ");
       Assert.assertTrue("Failed to search existing word.",
             CollectionUtils.isNotEmpty(foundDocs));
 
       StringBuilder foundWords = new StringBuilder();
+       int index = 0;
       for (Document doc : foundDocs) {
+          index++;
          foundWords.append(doc.get(LuceneSearchFields.ID) + " ");
+          if (index % 10 == 0) {
+              foundWords.append("\n");
+              index = 0;
+          }
       }
 
       LOG.info(foundWords.toString());

@@ -50,7 +50,7 @@
                 <executions>
                 </executions>
             </plugin>
-            <plugin>
+<!--            <plugin>
                 <groupId>com.sun.tools.xjc.maven2</groupId>
                 <artifactId>maven-jaxb-plugin</artifactId>
                 <executions>
@@ -75,7 +75,7 @@
                     <strict>true</strict>
                     <verbose>true</verbose>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
