@@ -6,10 +6,19 @@ Ext.define('practView.controller.Practitioner', {
       'practitioner.practGrid',
       'practitioner.practDetailedPanel',
       'practitioner.detailsViewPanel',
-      'practitioner.defaultViewPanel'
+      'practitioner.defaultViewPanel',
+      'gridView',
+      'grid.nestedGrid',
+      'grid.childGrid',
+      'grid.userManagement'
    ],
 
-   stores:['Practitioner'],
+   stores:[
+      'Practitioner',
+      'parentGridStore',
+      'nestedGridStore',
+      'User'
+   ],
    models:['Practitioner'],
 
    managedPage:{},
@@ -31,8 +40,18 @@ Ext.define('practView.controller.Practitioner', {
       {
          ref:'defaultViewPanel',
          selector:'defaultViewPanel'
+      },
+      {
+         ref:'nestedGrid',
+         selector:'nestedGrid'
+      },
+      {
+         ref:'userManagement',
+         selector:'userManagement'
       }
    ],
+
+   cboStore:null,
 
    init:function () {
       var me = this;
@@ -40,6 +59,7 @@ Ext.define('practView.controller.Practitioner', {
       this.registerPage('defaultView', 'practView.view.practitioner.defaultViewPanel');
       this.registerPage('detailsView', 'practView.view.practitioner.detailsViewPanel');
       this.registerPage('dragDropView', 'practView.view.dragDropView');
+      this.registerPage('gridView', 'practView.view.gridView');
       /*
        me.eventManager = Ext.create('practView.event.EventManager');
        // init event manager.
@@ -65,11 +85,59 @@ Ext.define('practView.controller.Practitioner', {
 
       var me = this;
       this.control({
+         'userManagement combo':{
+            change:function (cbo, newVal, oldVal) {
+               var gridStore = me.getUserManagement().down('grid').getStore();
+               gridStore.clearFilter();
+               if (newVal == null || newVal == '') {
+               } else {
+                  gridStore.clearFilter();
+                  gridStore.filter([
+                     {
+                        filterFn:function (item) {
+                           return item.get('email').search(newVal) > 1
+                        }
+                     }
+                  ]);
+               }
+            }
+         },
+         'childGid dataview':{
+            dblclick:function () {
+               console.log('Received dbl click');
+            },
+            itemclick:function () {
+               console.log('Received item click')
+            }
+         },
+         'nestedGrid dataview':{
+            expandbody:function (rowNode, record, expandRow, eOpts) {
+               console.log('Expand node');
+               var row = Ext.get(expandRow);
+               if (row.childGrid == null || row.childGrid == undefined) {
+                  // create child grid
+                  var childGrid = Ext.create('practView.view.grid.childGrid', {
+                     itemId:'childGrid-' + record.data.name,
+                     id:'childGrid-' + record.data.name
+                  });
+                  console.debug(childGrid.getEl());
+
+                  childGrid.on('render', function () {
+                     // console.log('child grid rendered then swallow events');
+                     // childGrid.getEl().swallowEvent(['mouseover', 'mousedown', 'click', 'dblclick', 'onRowFocus']);
+                  });
+                  row.childGrid = childGrid;
+                  targetContainer = Ext.get(expandRow).down('.childGrid');
+                  childGrid.render(targetContainer);
+
+               }
+            }
+         },
          '#main-page':{
             render:function (eComp, eOpts) {
                console.debug('Dynamically added "defaultViewPanel"');
                me.container = Ext.getCmp('main-page');
-               me.navigateToPage('dragDropView');
+               me.navigateToPage('gridView');
             }
          },
          'dragDropPanel':{
@@ -79,11 +147,11 @@ Ext.define('practView.controller.Practitioner', {
 
             afterrender:function () {
             },
-            panelOnDrag: function(eComp, event) {
+            panelOnDrag:function (eComp, event) {
                console.debug('Controller received signal from ' + eComp.id + " that it is dragging...");
                console.debug('Firing event to signal others panel');
             },
-            otherPanelOnDrag: function(eComp) {
+            otherPanelOnDrag:function (eComp) {
                console.debug(eComp.id + " receiving signal that a panel has been dragging...")
             }
          },

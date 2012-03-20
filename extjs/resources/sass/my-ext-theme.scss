@@ -4,9 +4,9 @@ $include-default: false;
 
 $show-shadow: false;
 
-$theme-name: 'gray';
+// $theme-name: 'gray';
 
-$base-color: #AFB0B3;
+// $base-color: #AFB0B3;
 $custom-border-radius: 10px;
 $custom-header-background-color: #717075;
 $custom-header-text-color: white;
@@ -158,15 +158,15 @@ $button-default-base-color-disabled: adjust-color(#1283C7, $hue: 0deg, $saturati
     @include extjs-form-htmleditor;
 @include extjs-panel;
 @include extjs-qtip;
-//@include extjs-slider;
-//@include extjs-progress;
-//@include extjs-toolbar;
-//@include extjs-window;
-//@include extjs-messagebox;
-//@include extjs-tabbar;
-//@include extjs-tab;
-//@include extjs-tree;
-//@include extjs-drawcomponent;
+@include extjs-slider;
+@include extjs-progress;
+@include extjs-toolbar;
+@include extjs-window;
+@include extjs-messagebox;
+@include extjs-tabbar;
+@include extjs-tab;
+@include extjs-tree;
+@include extjs-drawcomponent;
 @include extjs-viewport;
 
 // This line changes the location of your images when creating UIs to be relative instead of within the ExtJS directory.
