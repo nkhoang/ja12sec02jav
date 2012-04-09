@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <context:component-scan base-package="com.nkhoang"/>
+    <context:property-placeholder location="serverConfig.properties" />
+
+    <bean id="dictionaryConsumer" class="com.nkhoang.ws.client.DictionaryConsumer" scope="prototype">
+        <constructor-arg name="resourceUrl" value="${resource.url}"/>
+    </bean>
+
+    <bean id="jsonService" class="com.nkhoang.service.impl.JsonServiceImpl" />
+
+
+</beans>
