@@ -2,7 +2,9 @@ package com.nkhoang.common.persistence.impl;
 
 import com.nkhoang.common.persistence.IDataService;
 import com.nkhoang.model.IDataObject;
+import com.nkhoang.model.IPersistentData;
 import com.nkhoang.model.criteria.ISearchCriteria;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,92 +12,90 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-public class AbstractDataService<L extends IDataObject<K>,T extends L,K extends Serializable,C extends ISearchCriteria>
-      implements IDataService<L,T,K,C> {
-   @PersistenceContext
-   protected EntityManager entityManager;
+public abstract class AbstractDataService<T extends IDataObject<K>, K extends Serializable, C extends ISearchCriteria>
+    implements IDataService<T, K, C> {
 
-   private static Logger LOGGER = LoggerFactory.getLogger(AbstractDataService.class.getCanonicalName());
+  @PersistenceContext
+  protected EntityManager entityManager;
 
-   public long find(final C criteria,
-                    final IVisitor<Collection<L>, Object> processor, final int batchSize)
-         throws PersistenceException {
-      final boolean isDebugEnabled = LOGGER.isDebugEnabled();
+  /**
+   * Get Hibernate session.
+   *
+   * @return the hibernate session.
+   */
+  protected Session getPersistenceSession() {
+    Session session = (Session) entityManager.getDelegate();
+    return session;
+  }
 
-      if (isDebugEnabled) {
-         LOGGER.debug("Searching and processing data using session:" + session + " criteria: "
-               + criteria + ", batchSize:" + batchSize);
+  private static Logger LOGGER = LoggerFactory.getLogger(AbstractDataService.class.getCanonicalName());
+
+  /**
+   * Insert a new entity.
+   *
+   * @param entity the entity to insert.
+   * @return the saved entity.
+   * @throws PersistenceException the persistence exception.
+   */
+  public T insert(final T entity) throws PersistenceException {
+    final long start = System.currentTimeMillis();
+    T result = null;
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Inserting entity: " + entity);
+    }
+
+    result = doInsertEntity(entity);
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("done in (ms): "
+          + (System.currentTimeMillis() - start));
+    }
+
+    return result;
+  }
+
+  /**
+   * Helper method to insert a new entity.
+   *
+   * @param entity the entity to insert.
+   * @param <T>    the entity type.
+   * @return the saved entity
+   * @throws PersistenceException the persistence exception.
+   */
+  protected <T extends IPersistentData<K>> T doInsertEntity(final T entity) throws PersistenceException {
+    T result = null;
+
+    try {
+      entityManager.persist(entity);
+      result = entity;
+    } catch (final IllegalStateException e) {
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug("Trying to update entity instead of inserting it", e);
       }
 
-      long retrieved = 0;
+      result = entityManager.merge(entity);
+      entityManager.flush();
+    } catch (final Exception e) {
+      LOGGER.error("Error", e);
+      // TODO: do something to handle exception here.
+      result = null;
+    }
 
-      if (criteria instanceof IExtendedSearchCriteria) {
-         final IExtendedSearchCriteria extendedCriteria = (IExtendedSearchCriteria) criteria;
-         final List<L> results = new ArrayList<L>(batchSize);
-         long count;
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Query result: " + result);
+    }
 
-         extendedCriteria.setPageStart(Long.valueOf(0));
-         extendedCriteria.setPageSize(Integer.valueOf(batchSize));
-
-         try {
-            do {
-               results.clear();
-               count = find(session, results, criteria);
-
-               if (isDebugEnabled) {
-                  LOGGER.debug("Found " + results.size() + " from " + extendedCriteria.getPageStart());
-               }
-
-               retrieved += results.size();
-               extendedCriteria.setPageStart(Long.valueOf(retrieved));
-
-               if (isDebugEnabled) {
-                  LOGGER.debug("Processing " + results.size() + " result(s)");
-               }
-
-               processor.visit(results);
-
-               if (isDebugEnabled) {
-                  LOGGER.debug("Processing completed");
-               }
-            }
-            while (!results.isEmpty() && retrieved < count);
-         } catch (final Throwable e) {
-            handle(getEntityClass(), null, e);
-         }
-      } else {
-         final List<L> results = new ArrayList<L>();
-
-         try {
-            retrieved = find(session, results, criteria);
-
-            if (isDebugEnabled) {
-               LOGGER.debug("Processing " + results.size() + " result(s)");
-            }
-
-            processor.visit(results);
-
-            if (isDebugEnabled) {
-               LOGGER.debug("Processing completed");
-            }
-         } catch (final Throwable e) {
-            handle(IDataObject.class, null, e);
-         }
-      }
-
-      return retrieved;
-   }
+    return result;
+  }
 
 
-   public EntityManager getEntityManager() {
-      return entityManager;
-   }
+  public EntityManager getEntityManager() {
+    return entityManager;
+  }
 
-   public void setEntityManager(EntityManager entityManager) {
-      this.entityManager = entityManager;
-   }
+  public void setEntityManager(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 }

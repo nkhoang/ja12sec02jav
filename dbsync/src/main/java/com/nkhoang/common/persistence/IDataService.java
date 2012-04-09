@@ -7,14 +7,22 @@ import javax.persistence.PersistenceException;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IDataService<L extends IDataObject<K>, T extends L, K extends Serializable, C extends ISearchCriteria> {
-   /**
-    * Find.
-    * @param entities the entities
-    * @param criteria the criteria
-    * @return the long
-    * @throws javax.persistence.PersistenceException the persistence exception
-    */
-   long find(final List<L> entities, final C criteria)
-         throws PersistenceException;
+public interface IDataService<T extends IDataObject<K>, K extends Serializable, C extends ISearchCriteria> {
+  /**
+   * Find.
+   *
+   * @return a list of T.
+   * @throws javax.persistence.PersistenceException
+   *          the persistence exception
+   */
+  List<T> find(final C criteria)
+      throws PersistenceException;
+
+  /**
+   * Insert an value.
+   *
+   * @param value value to insert.
+   * @throws PersistenceException the persistence exception.
+   */
+  T insert(T value) throws PersistenceException;
 }

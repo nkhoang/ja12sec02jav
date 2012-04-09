@@ -1,7 +1,6 @@
 package com.nkhoang.model;
 
 
-import java.beans.PropertyChangeEvent;
 import java.io.Serializable;
 
 /**
