@@ -12,7 +12,7 @@ import javax.persistence.*;
 @DynamicUpdate(value = true)
 @SelectBeforeUpdate(value = true)
 @DynamicInsert(value = true)
-public class ResourceTypeBean {
+public class ResourceTypeBean implements IResourceType{
     public static final String ID = "resourceTypeKey";
     public static final String NAME = "name";
 

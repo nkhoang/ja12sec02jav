@@ -1,5 +1,7 @@
 package com.nkhoang.model;
 
+import com.nkhoang.common.persistence.BookingTypeDataService;
+import com.nkhoang.common.persistence.PricingPolicyDataService;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Index;
@@ -12,7 +14,11 @@ import javax.persistence.*;
 @DynamicUpdate(value = true)
 @SelectBeforeUpdate(value = true)
 @DynamicInsert(value = true)
-public class PricingPolicyBean {
+@NamedQueries(value = {
+      @NamedQuery(name = PricingPolicyDataService.QUERY_FIND_COUNT, query = "select count(d."
+            + IBookingType.KEY + ") from IBookingType d")
+})
+public class PricingPolicyBean implements IPricingPolicy{
     public static final String ID = "pricingPolicyKey";
     public static final String NAME = "name";
 

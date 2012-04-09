@@ -7,5 +7,4 @@ package com.nkhoang.model;
 public interface IBookingType extends IDataObject<Long>, INamed {
   public static final String ID = "bookingTypeKey";
   public static final String NAME = "name";
-
 }
