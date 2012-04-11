@@ -1,12 +1,15 @@
 package com.nkhoang.model;
 
 import com.nkhoang.common.persistence.BookingTypeDataService;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Index;
-import org.hibernate.annotations.SelectBeforeUpdate;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import java.util.List;
 
 
 @Entity(name = "IBookingType")
@@ -19,6 +22,8 @@ import javax.persistence.*;
             + IBookingType.KEY + ") from IBookingType d")
 })
 public class BookingTypeBean implements IBookingType {
+
+   private List<IProduct> products;
 
   /**
    * The bookingType key property
@@ -50,4 +55,14 @@ public class BookingTypeBean implements IBookingType {
   public void setName(String value) {
     name = value;
   }
+
+
+   @OneToMany(targetEntity = ProductBean.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "bookingType")
+   public List<IProduct> getProducts() {
+      return products;
+   }
+
+   public void setProducts(List<IProduct> value) {
+      products = value;
+   }
 }

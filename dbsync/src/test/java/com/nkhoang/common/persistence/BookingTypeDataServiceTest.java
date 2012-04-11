@@ -1,8 +1,10 @@
 package com.nkhoang.common.persistence;
 
-import com.nkhoang.model.BookingTypeBean;
-import com.nkhoang.model.BookingTypeTest;
+import com.nkhoang.model.*;
+import com.nkhoang.model.criteria.IBookingTypeCriteria;
+import com.nkhoang.model.criteria.impl.BookingTypeCriteriaImpl;
 import junit.framework.Assert;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
 import java.sql.Statement;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext.xml", "/applicationContext-dao.xml", "/applicationContext-resources.xml", "/applicationContext-service.xml"})
@@ -25,6 +28,12 @@ public class BookingTypeDataServiceTest {
    private BookingTypeTest bookingTypeTest;
 
    @Autowired
+   private ResourceTypeTest resourceTypeTest;
+
+   @Autowired
+   private PricingPolicyTest pricingPolicyTest;
+
+   @Autowired
    private BookingTypeDataService bookingTypeDataService;
 
 
@@ -33,6 +42,9 @@ public class BookingTypeDataServiceTest {
       Statement statement = dataSource.getConnection().createStatement();
 
       statement.execute("delete from BOOKING_TYPE");
+      statement.execute("delete from RESOURCE_TYPE");
+      statement.execute("delete from PRICING_POLICY");
+      statement.execute("delete from PRODUCT");
    }
 
    @Test
@@ -47,4 +59,38 @@ public class BookingTypeDataServiceTest {
    public void testUsingBookingTypeTest() throws Exception {
       bookingTypeTest.populate(5);
    }
+
+
+   @Test
+   public void testSaveCascadeProduct() throws Exception{
+      List<PricingPolicyBean> pricingPolicies = pricingPolicyTest.populate(1);
+      List<ResourceTypeBean> resourceTypes = resourceTypeTest.populate(1);
+      List<BookingTypeBean> bookingTypes = bookingTypeTest.create(1);
+
+      IProduct product = new ProductBean();
+      product.setPricingPolicy(pricingPolicies.get(0));
+      product.setResourceType(resourceTypes.get(0));
+      product.setBookingType(bookingTypes.get(0));
+      product.setName("Product-" + System.nanoTime());
+
+      bookingTypes.get(0).getProducts().add(product);
+
+      // save
+      bookingTypeDataService.insert(bookingTypes.get(0));
+
+      // then test get.
+      IBookingTypeCriteria criteria = new BookingTypeCriteriaImpl();
+      criteria.setNamePattern("booking%");
+      List<BookingTypeBean> result = bookingTypeDataService.find(criteria);
+      Assert.assertTrue(CollectionUtils.isNotEmpty(result));
+
+      // test get Product
+
+      Assert.assertTrue(CollectionUtils.isNotEmpty(result.get(0).getProducts()));
+      IProduct testProduct = result.get(0).getProducts().get(0);
+      Assert.assertTrue(testProduct.getBookingType() != null);
+      Assert.assertTrue(testProduct.getBookingType().getKey() != null);
+   }
+
+
 }

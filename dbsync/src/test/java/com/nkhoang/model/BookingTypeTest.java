@@ -33,6 +33,7 @@ public class BookingTypeTest extends AbstractBeanTest<BookingTypeBean> {
          BookingTypeBean bean = new BookingTypeBean();
 
          bean.setName("bookingType-" + System.nanoTime());
+         bean.setProducts(new ArrayList<IProduct>());
 
          list.add(bean);
       }
