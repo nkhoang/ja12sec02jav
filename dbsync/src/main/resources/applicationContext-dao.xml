@@ -41,5 +41,7 @@
     </bean>
 
     <bean id="bookingTypeDataService" class="com.nkhoang.common.persistence.impl.BookingTypeDataServiceImpl" />
+    <bean id="pricingPolicyDataService" class="com.nkhoang.common.persistence.impl.PricingPolicyDataServiceImpl" />
+    <bean id="resourceTypeDataService" class="com.nkhoang.common.persistence.impl.ResourceTypeDataServiceImpl" />
 
 </beans>

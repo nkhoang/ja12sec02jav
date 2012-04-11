@@ -1,11 +1,10 @@
 package com.nkhoang.common.persistence;
 
-import com.nkhoang.model.BookingTypeBean;
-import com.nkhoang.model.BookingTypeTest;
+import com.nkhoang.model.PricingPolicyBean;
+import com.nkhoang.model.PricingPolicyTest;
 import junit.framework.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,16 +15,16 @@ import java.sql.Statement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext.xml", "/applicationContext-dao.xml", "/applicationContext-resources.xml", "/applicationContext-service.xml"})
-public class BookingTypeDataServiceTest {
+public class PricingPolicyDataServiceTest {
 
    @Autowired
    private DataSource dataSource;
 
    @Autowired
-   private BookingTypeTest bookingTypeTest;
+   private PricingPolicyTest pricingPolicyTest;
 
    @Autowired
-   private BookingTypeDataService bookingTypeDataService;
+   private PricingPolicyDataService pricingPolicyDataService;
 
 
    @Before
@@ -37,14 +36,14 @@ public class BookingTypeDataServiceTest {
 
    @Test
    public void testInsert() {
-      BookingTypeBean bean = new BookingTypeBean();
+      PricingPolicyBean bean = new PricingPolicyBean();
       bean.setName("bean-" + System.nanoTime());
-      BookingTypeBean savedBean = bookingTypeDataService.insert(bean);
+      PricingPolicyBean savedBean = pricingPolicyDataService.insert(bean);
       Assert.assertTrue(savedBean.getKey() != null);
    }
 
    @Test
-   public void testUsingBookingTypeTest() throws Exception {
-      bookingTypeTest.populate(5);
+   public void testUsingpricingPolicyTest() throws Exception {
+      pricingPolicyTest.populate(5);
    }
 }
