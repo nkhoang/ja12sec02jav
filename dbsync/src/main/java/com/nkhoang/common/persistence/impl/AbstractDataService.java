@@ -56,6 +56,24 @@ public abstract class AbstractDataService<T extends IDataObject<K>, K extends Se
    }
 
    /**
+    * @see IDataService#remove(com.nkhoang.model.IDataObject)
+    */
+   public void remove(final T entity) throws PersistenceException {
+      final long start = System.currentTimeMillis();
+
+      if (LOGGER.isDebugEnabled()) {
+         LOGGER.debug("Removing entity: " + entity);
+      }
+
+      entityManager.remove(entity);
+
+      if (LOGGER.isDebugEnabled()) {
+         LOGGER.debug("done in (ms): "
+               + (System.currentTimeMillis() - start));
+      }
+   }
+
+   /**
     * Insert a list of entities.
     *
     * @param entities a list of entities.

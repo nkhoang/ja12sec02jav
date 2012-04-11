@@ -29,6 +29,14 @@ public interface IDataService<T extends IDataObject<K>, K extends Serializable, 
    T insert(T value) throws PersistenceException;
 
    /**
+    * Remove entity.
+    *
+    * @param entity the entity to remove.
+    * @throws PersistenceException the persistence exception.
+    */
+   void remove(final T entity) throws PersistenceException;
+
+   /**
     * Insert entities.
     *
     * @param collection a list of entities to be inserted.

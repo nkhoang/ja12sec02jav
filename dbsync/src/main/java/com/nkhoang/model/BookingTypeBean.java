@@ -42,7 +42,7 @@ public class BookingTypeBean implements IBookingType {
   }
 
   @Column(name = IBookingType.NAME, length = 128, nullable = false, updatable = true)
-  @Index(name = "IDX_BS_BOOKING_TYPE_NAME")
+  @Index(name = "IDX_BOOKING_TYPE_NAME")
   public String getName() {
     return name;
   }
