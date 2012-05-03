@@ -1,12 +1,10 @@
 package com.nkhoang.common.persistence;
 
 import com.nkhoang.model.IDataObject;
-import com.nkhoang.model.IPersistentData;
 import com.nkhoang.model.criteria.ISearchCriteria;
 
 import javax.persistence.PersistenceException;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 public interface IDataService<T extends IDataObject<K>, K extends Serializable, C extends ISearchCriteria> {

@@ -1,15 +1,17 @@
 package com.nkhoang.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.hibernate.annotations.ForeignKey;
 
-public class Word {
+import javax.persistence.*;
+import java.util.*;
+
+@Entity(name = "IWord")
+@Table(name = "Word")
+public class Word implements IWord {
    private String pron;
    private String soundSource;
    private String description;
-   private List<Phrase> phraseList = new ArrayList<Phrase>(0);
+   private Set<Phrase> phraseList = new HashSet<Phrase>();
 
    private Map<String, List<Sense>> meaningMap = new HashMap<String, List<Sense>>(0);
    private Map<String, List<Phrase>> phraseMap = new HashMap<String, List<Phrase>>();
@@ -18,6 +20,19 @@ public class Word {
 
    private Long timeStamp;
    private String sourceName;
+   private Long id;
+
+
+   @Column(name = IWord.ID)
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   public Long getKey() {
+      return id;
+   }
+
+   public void setKey(Long value) {
+      id = value;
+   }
 
 
    public Word() {
@@ -54,6 +69,7 @@ public class Word {
       return meaningMap.get(kind);
    }
 
+   @Column(name = IWord.DESCRIPTION)
    public String getDescription() {
       return description;
    }
@@ -66,6 +82,7 @@ public class Word {
       this.pron = pron;
    }
 
+   @Column(name = IWord.PRON)
    public String getPron() {
       return pron;
    }
@@ -74,14 +91,13 @@ public class Word {
       this.soundSource = soundSource;
    }
 
+   @Column(name = IWord.SOUND_SOURCE)
    public String getSoundSource() {
       return soundSource;
    }
 
-   public String toString() {
-      return "Word: " + description + " with sound [" + soundSource + "]";
-   }
 
+   @Transient
    public Long getTimeStamp() {
       return timeStamp;
    }
@@ -90,6 +106,9 @@ public class Word {
       this.timeStamp = timeStamp;
    }
 
+   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = Sense.class)
+   @JoinColumn(name = IWord.ID, referencedColumnName = IWord.ID)
+   @ForeignKey(name = "FK_WORD_SENSES")
    public List<Sense> getMeanings() {
       return meanings;
    }
@@ -98,14 +117,18 @@ public class Word {
       this.meanings = meanings;
    }
 
-   public List<Phrase> getPhraseList() {
+   @OneToMany(targetEntity = Phrase.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+   @JoinColumn(name = IWord.ID, referencedColumnName = IWord.ID)
+   @ForeignKey(name = "FK_WORD_PHRASES")
+   public Set<Phrase> getPhraseList() {
       return phraseList;
    }
 
-   public void setPhraseList(List<Phrase> phraseList) {
+   public void setPhraseList(Set<Phrase> phraseList) {
       this.phraseList = phraseList;
    }
 
+   @Column(name = IWord.SOURCE_NAME)
    public String getSourceName() {
       return sourceName;
    }
@@ -114,6 +137,7 @@ public class Word {
       this.sourceName = sourceName;
    }
 
+   @Transient
    public Map<String, List<Sense>> getMeaningMap() {
       return meaningMap;
    }
@@ -122,6 +146,7 @@ public class Word {
       this.meaningMap = meaningMap;
    }
 
+   @Transient
    public Map<String, List<Phrase>> getPhraseMap() {
       return phraseMap;
    }
@@ -130,12 +155,17 @@ public class Word {
       this.phraseMap = phraseMap;
    }
 
+   @Transient
    public List<String> getKindIdList() {
       return kindIdList;
    }
 
    public void setKindIdList(List<String> kindIdList) {
       this.kindIdList = kindIdList;
+   }
+
+   public String toString() {
+      return "Word: " + description + " with sound [" + soundSource + "]";
    }
 }
 

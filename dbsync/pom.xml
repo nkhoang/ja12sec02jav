@@ -185,14 +185,6 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.1.0.Final</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-testing</artifactId>
-            <version>4.1.0.Final</version>
-        </dependency>
-
-
     </dependencies>
 
     <profiles>

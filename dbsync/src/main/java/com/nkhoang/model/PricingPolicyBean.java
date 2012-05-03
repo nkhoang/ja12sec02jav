@@ -1,19 +1,12 @@
 package com.nkhoang.model;
 
 import com.nkhoang.common.persistence.PricingPolicyDataService;
-import com.nkhoang.common.persistence.PricingPolicyDataService;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Index;
-import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 
 @Entity(name = "IPricingPolicy")
 @Table(name = "PRICING_POLICY")
-@DynamicUpdate(value = true)
-@SelectBeforeUpdate(value = true)
-@DynamicInsert(value = true)
 @NamedQueries(value = {
       @NamedQuery(name = PricingPolicyDataService.QUERY_FIND_COUNT, query = "select count(d."
             + IPricingPolicy.KEY + ") from IPricingPolicy d")

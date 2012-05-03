@@ -1,22 +1,14 @@
 package com.nkhoang.model;
 
 import com.nkhoang.common.persistence.BookingTypeDataService;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Index;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import java.util.List;
 
 
 @Entity(name = "IBookingType")
 @Table(name = "BOOKING_TYPE")
-@DynamicUpdate(value = true)
-@SelectBeforeUpdate(value = true)
-@DynamicInsert(value = true)
 @NamedQueries(value = {
       @NamedQuery(name = BookingTypeDataService.QUERY_FIND_COUNT, query = "select count(d."
             + IBookingType.KEY + ") from IBookingType d")

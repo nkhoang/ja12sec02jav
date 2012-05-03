@@ -1,8 +1,8 @@
 package com.nkhoang.common.persistence.impl;
 
 import com.nkhoang.common.persistence.PricingPolicyDataService;
-import com.nkhoang.model.PricingPolicyBean;
 import com.nkhoang.model.IPricingPolicy;
+import com.nkhoang.model.PricingPolicyBean;
 import com.nkhoang.model.criteria.IPricingPolicyCriteria;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;

@@ -1,19 +1,14 @@
 package com.nkhoang.model;
 
-import com.nkhoang.common.persistence.PricingPolicyDataService;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.Index;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
 @Entity(name = "IProduct")
-@Table(name = "PRODUCT")
-@DynamicUpdate(value = true)
-@SelectBeforeUpdate(value = true)
-@DynamicInsert(value = true)
+@Table(name = "PRODUCT", uniqueConstraints = @UniqueConstraint(name = "UC_PRODUCT", columnNames = {
+      IPricingPolicy.ID, IBookingType.ID, IResourceType.ID
+}))
 public class ProductBean implements IProduct {
    public static final String NAME = "name";
 
@@ -46,8 +41,9 @@ public class ProductBean implements IProduct {
 
 
    @ManyToOne(targetEntity = BookingTypeBean.class, fetch = FetchType.LAZY)
-   @JoinColumn(name = IBookingType.ID, referencedColumnName = IBookingType.ID, nullable = true)
+   @JoinColumn(name = IBookingType.ID, referencedColumnName = IBookingType.ID, nullable = false)
    @ForeignKey(name = "FK_PRODUCT_BOOKING_TYPE")
+   @Id
    public IBookingType getBookingType() {
       return bookingType;
    }

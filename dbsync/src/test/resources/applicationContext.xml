@@ -9,6 +9,7 @@
 
     <context:component-scan base-package="com.nkhoang"/>
     <context:property-placeholder location="serverConfig.properties" />
+
     <bean id="dictionaryConsumer" class="com.nkhoang.ws.client.DictionaryConsumer" scope="prototype">
         <constructor-arg name="resourceUrl" value="${resource.url}"/>
     </bean>

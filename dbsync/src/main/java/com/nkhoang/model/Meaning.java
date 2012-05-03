@@ -1,10 +1,12 @@
 package com.nkhoang.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meaning {
-   private String id;
+@Entity(name = "IMeaning")
+@Table(name = "Meaning")
+public class Meaning implements IMeaning {
    private String content;
    // based on oxford dictionary.
    // for example: mass noun...
@@ -15,25 +17,52 @@ public class Meaning {
    private String kind;
    private String wordForm;
    private String type;
+   private Long key;
 
    // no default constructor.
    public Meaning() {
 
    }
 
+   public void setKey(Long value) {
+      key = value;
+   }
+
+   @Column(name = IMeaning.ID)
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   public Long getKey() {
+      return key;
+   }
+
    public void addExample(String example) {
       this.examples.add(example);
    }
 
+   @ElementCollection
+   @CollectionTable(name = "MEANING_EXAMPLES", joinColumns = @JoinColumn(name = IMeaning.ID))
+   @Column(name = IMeaning.EXAMPLE)
    public List<String> getExamples() {
       return this.examples;
    }
 
    @Override
    public String toString() {
-      return content + "\n" + examples.toString();
+      StringBuilder sb = new StringBuilder();
+      sb.append("Meaning: [id=");
+      sb.append(", languageGroup=");
+      sb.append(languageGroup);
+      sb.append(", grammarGroup=");
+      sb.append(grammarGroup);
+      sb.append(", content=");
+      sb.append(content);
+      sb.append(", examples=");
+      sb.append(examples.toArray());
+
+      return sb.toString();
    }
 
+   @Column(name = IMeaning.CONTENT)
    public String getContent() {
       return content;
    }
@@ -51,10 +80,12 @@ public class Meaning {
       this.kind = kind;
    }
 
+   @Transient
    public String getKind() {
       return kind;
    }
 
+   @Transient
    public String getType() {
       return type;
    }
@@ -63,6 +94,7 @@ public class Meaning {
       this.type = type;
    }
 
+   @Column(name = IMeaning.GRAMMAR_GROUP)
    public String getGrammarGroup() {
       return grammarGroup;
    }
@@ -71,6 +103,7 @@ public class Meaning {
       this.grammarGroup = grammarGroup;
    }
 
+   @Column(name = IMeaning.LANGUAGE_GROUP)
    public String getLanguageGroup() {
       return languageGroup;
    }
@@ -79,6 +112,7 @@ public class Meaning {
       this.languageGroup = languageGroup;
    }
 
+   @Column(name = IMeaning.WORD_FORM)
    public String getWordForm() {
       return wordForm;
    }
@@ -87,11 +121,4 @@ public class Meaning {
       this.wordForm = wordForm;
    }
 
-   public String getId() {
-      return id;
-   }
-
-   public void setId(String id) {
-      this.id = id;
-   }
 }
