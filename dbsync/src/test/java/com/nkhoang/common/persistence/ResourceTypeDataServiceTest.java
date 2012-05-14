@@ -1,5 +1,6 @@
 package com.nkhoang.common.persistence;
 
+import com.nkhoang.dao.ResourceTypeDataService;
 import com.nkhoang.model.ResourceTypeBean;
 import com.nkhoang.model.ResourceTypeTest;
 import junit.framework.Assert;

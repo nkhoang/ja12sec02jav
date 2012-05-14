@@ -6,43 +6,37 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
        "
        default-lazy-init="true">
-    <!-- bean post-processor for JPA annotations in order to use @PersistenceContext -->
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+  <!-- bean post-processor for JPA annotations in order to use @PersistenceContext -->
+  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+  <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-    <tx:annotation-driven transaction-manager="txManager"/>
+  <tx:annotation-driven transaction-manager="txManager"/>
 
-    <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="myEmf"/>
-    </bean>
-
-
-    <bean id="myEmf"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="com.nkhoang.model"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true"/>
-                <property name="generateDdl" value="true"/>
-                <property name="databasePlatform" value="${hibernate.dialect}"/>
-            </bean>
-        </property>
-    </bean>
+  <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="myEmf"/>
+  </bean>
 
 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${hibernate.connection.driver_class}"/>
-        <property name="url" value="${hibernate.connection.url}"/>
-        <property name="username" value="${hibernate.connection.username}"/>
-        <property name="password" value="${hibernate.connection.password}"/>
-    </bean>
+  <bean id="myEmf"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="packagesToScan" value="com.nkhoang.model"/>
+    <property name="jpaVendorAdapter">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true"/>
+        <property name="generateDdl" value="true"/>
+        <property name="databasePlatform" value="${hibernate.dialect}"/>
+      </bean>
+    </property>
+  </bean>
 
-    <bean id="bookingTypeDataService" class="com.nkhoang.common.persistence.impl.BookingTypeDataServiceImpl"/>
-    <bean id="pricingPolicyDataService" class="com.nkhoang.common.persistence.impl.PricingPolicyDataServiceImpl"/>
-    <bean id="resourceTypeDataService" class="com.nkhoang.common.persistence.impl.ResourceTypeDataServiceImpl"/>
-    <bean id="wordDataService" class="com.nkhoang.common.persistence.impl.WordDataServiceImpl"/>
 
+  <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${hibernate.connection.driver_class}"/>
+    <property name="url" value="${hibernate.connection.url}"/>
+    <property name="username" value="${hibernate.connection.username}"/>
+    <property name="password" value="${hibernate.connection.password}"/>
+  </bean>
 </beans>

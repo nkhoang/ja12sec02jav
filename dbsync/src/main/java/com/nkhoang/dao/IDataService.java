@@ -1,12 +1,14 @@
-package com.nkhoang.common.persistence;
+package com.nkhoang.dao;
 
 import com.nkhoang.model.IDataObject;
 import com.nkhoang.model.criteria.ISearchCriteria;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
 import java.io.Serializable;
 import java.util.List;
 
+@Repository
 public interface IDataService<T extends IDataObject<K>, K extends Serializable, C extends ISearchCriteria> {
    /**
     * Find.

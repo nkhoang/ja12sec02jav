@@ -1,70 +1,78 @@
 package com.nkhoang.common.persistence;
 
-import com.nkhoang.model.PricingPolicyBean;
-import com.nkhoang.model.PricingPolicyTest;
-import com.nkhoang.model.Word;
+import com.nkhoang.dao.WordDataService;
 import com.nkhoang.model.WordJson;
-import com.nkhoang.model.criteria.IWordCriteria;
-import com.nkhoang.model.criteria.impl.WordCriteriaImpl;
+import com.nkhoang.model.dictionary.Word;
+import com.nkhoang.service.DictionaryLookupService;
 import com.nkhoang.service.JsonService;
-import com.nkhoang.ws.client.DictionaryConsumer;
-import junit.framework.Assert;
-import org.apache.commons.collections.CollectionUtils;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
+import java.io.StringWriter;
 import java.sql.Statement;
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"/applicationContext.xml", "/applicationContext-dao.xml", "/applicationContext-resources.xml", "/applicationContext-service.xml"})
+@ContextConfiguration({"/applicationContext.xml", "/applicationContext-dao.xml",
+    "/applicationContext-resources.xml", "/applicationContext-service.xml"})
 public class WordDataServiceTest {
+  private static final Logger LOGGER = LoggerFactory.getLogger(WordDataServiceTest.class.getCanonicalName());
+  @Autowired
+  private DataSource dataSource;
+  @Autowired
+  @Qualifier("wordDataService")
+  private WordDataService wordDataService;
+  @Autowired
+  private JsonService jsonService;
+  @Autowired
+  @Qualifier("dictionaryLookupService")
+  private DictionaryLookupService dictionaryLookupService;
 
-   @Autowired
-   private DataSource dataSource;
+  @Before
+  public void cleanDB() throws Exception {
+    Statement statement = dataSource.getConnection().createStatement();
 
+    statement.execute("delete from BOOKING_TYPE");
+    statement.execute("delete from WORD");
+  }
 
-   @Autowired
-   private WordDataService wordDataService;
+  @Test
+  public void testInsert() throws Exception {
+    WordJson wJson = jsonService.deserializeFrom(dictionaryLookupService.query(
+        "http://mini-dictionary.appspot.com/vocabulary/lookup.html", "get"));
 
-   @Autowired
-   private JsonService jsonService;
+    if (wJson.getData().get("vdict") != null) {
 
-   @Autowired
-   private DictionaryConsumer dictionaryConsumer;
+      com.nkhoang.model.Word w = wJson.getData().get("vdict");
+      w.setKey(null);
+      w.setSourceName("vdict");
 
-   @Before
-   public void cleanDB() throws Exception {
-      Statement statement = dataSource.getConnection().createStatement();
+      StringWriter out = new StringWriter();
 
-      statement.execute("delete from BOOKING_TYPE");
-   }
+      ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.configure(SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
+      objectMapper.configure(SerializationConfig.Feature.WRITE_EMPTY_JSON_ARRAYS, false);
 
-   @Test
-   public void testInsert() throws Exception{
-      WordJson wJson = jsonService.deserializeFrom(dictionaryConsumer.query("get"));
-      if (wJson.getData().get("vdict") != null) {
-         Word w = wJson.getData().get("vdict");
-         w.setKey(null);
-         wordDataService.insert(w);
-      }
-      if (wJson.getData().get("oxford") != null) {
-         Word w = wJson.getData().get("oxford");
-         w.setKey(null);
-         wordDataService.insert(w);
-      }
+      objectMapper.writeValue(out, w);
+      LOGGER.info(w.toString());
 
+      Word word = new Word();
+      word.setData(out.toString());
+      word.setCreationDate(new DateTime());
+      word.setModificationDate(new DateTime());
 
-      // test get after
-      IWordCriteria criteria = new WordCriteriaImpl();
-      criteria.setKey(1L);
-      List<Word> wordList = wordDataService.find(criteria);
-      Assert.assertTrue(CollectionUtils.isNotEmpty(wordList));
-   }
+      wordDataService.insert(word);
+    }
+  }
 
 }

@@ -1,13 +1,13 @@
 package com.nkhoang.common.persistence;
 
+import com.nkhoang.dao.BookingTypeDataService;
 import com.nkhoang.model.*;
 import com.nkhoang.model.criteria.IBookingTypeCriteria;
 import com.nkhoang.model.criteria.impl.BookingTypeCriteriaImpl;
 import junit.framework.Assert;
 import org.apache.commons.collections.CollectionUtils;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

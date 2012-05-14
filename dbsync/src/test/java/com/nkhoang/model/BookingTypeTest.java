@@ -1,11 +1,8 @@
 package com.nkhoang.model;
 
-import com.nkhoang.common.persistence.BookingTypeDataService;
-import com.nkhoang.common.persistence.impl.AbstractDataService;
-import com.nkhoang.model.criteria.IBookingTypeCriteria;
+import com.nkhoang.dao.BookingTypeDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 

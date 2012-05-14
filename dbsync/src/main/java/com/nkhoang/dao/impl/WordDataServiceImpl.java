@@ -1,16 +1,10 @@
-package com.nkhoang.common.persistence.impl;
+package com.nkhoang.dao.impl;
 
-import com.nkhoang.common.persistence.BookingTypeDataService;
-import com.nkhoang.common.persistence.WordDataService;
-import com.nkhoang.model.BookingTypeBean;
-import com.nkhoang.model.IWord;
-import com.nkhoang.model.Word;
+import com.nkhoang.dao.WordDataService;
 import com.nkhoang.model.criteria.IWordCriteria;
+import com.nkhoang.model.dictionary.Word;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.DistinctResultTransformer;
-import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;

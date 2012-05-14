@@ -1,220 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <parent>
-        <artifactId>projectJAVA</artifactId>
-        <groupId>com.nkhoang</groupId>
-        <version>1.0</version>
-    </parent>
-
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.nkhoang.gae</groupId>
-    <artifactId>projectJAVA-dbsync</artifactId>
-    <packaging>jar</packaging>
+  <parent>
+    <artifactId>projectJAVA</artifactId>
+    <groupId>com.nkhoang</groupId>
     <version>1.0</version>
-    <name>Project DB Sync</name>
-    <url></url>
+  </parent>
 
-    <build>
-        <defaultGoal>install</defaultGoal>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.nkhoang.gae</groupId>
+  <artifactId>projectJAVA-dbsync</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>Project DB Sync</name>
+  <url></url>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+          <execution>
+            <id>auto-clean</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-plugin.version}</version>
+        <executions>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>com.nkhoang.util</groupId>
+      <artifactId>projectJAVA-util</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+    </dependency>
+
+    <!--
+        Spring framework, remove all commons-logging b/c we have
+        jcl-over-slf4j
+    -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+    </dependency>
+    <!-- Commons -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-validator</groupId>
+      <artifactId>commons-validator</artifactId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-context-support</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-expression</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+
+    <!-- Yammer Dropwizard -->
+    <dependency>
+      <groupId>com.yammer.dropwizard</groupId>
+      <artifactId>dropwizard-core</artifactId>
+      <version>0.3.1</version>
+    </dependency>
+
+    <!-- Jackson mapper -->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.5</version>
+    </dependency>
+
+    <!-- Jersey client -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-bundle</artifactId>
+      <version>1.12</version>
+    </dependency>
+    <!-- MySQL connector -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.18</version>
+    </dependency>
+
+    <!-- Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>4.1.0.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>4.1.0.Final</version>
+    </dependency>
+
+    <!-- Joda time with Hibernate -->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time-hibernate</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jadira.usertype</groupId>
+      <artifactId>usertype.core</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <profiles>
+    <!-- ================= Production Settings Profile ================= -->
+    <!-- Use "-P prod" when you want to use the settings in this profile -->
+    <!-- =============================================================== -->
+    <profile>
+      <id>prod</id>
+      <build>
         <plugins>
-
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version}</version>
-                <executions>
-                </executions>
-            </plugin>
-
+          <!-- ================= Production Settings Profile ================= -->
+          <!-- Override location of data file for DbUnit to load (doesn't have -->
+          <!-- negative keys                                                   -->
+          <!-- =============================================================== -->
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>dbunit-maven-plugin</artifactId>
+            <configuration>
+              <src>src/main/resources/default-data.xml</src>
+            </configuration>
+          </plugin>
         </plugins>
-    </build>
+      </build>
+    </profile>
 
+  </profiles>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.nkhoang.util</groupId>
-            <artifactId>projectJAVA-util</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-        </dependency>
-
-        <!--
-            Spring framework, remove all commons-logging b/c we have
-            jcl-over-slf4j
-        -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-expression</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <!-- Commons -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <artifactId>spring-context-support</artifactId>
-            <groupId>org.springframework</groupId>
-        </dependency>
-
-        <dependency>
-            <artifactId>spring-expression</artifactId>
-            <groupId>org.springframework</groupId>
-        </dependency>
-
-        <!-- Yammer Dropwizard -->
-        <dependency>
-            <groupId>com.yammer.dropwizard</groupId>
-            <artifactId>dropwizard-core</artifactId>
-            <version>0.3.1</version>
-        </dependency>
-
-        <!-- Jackson mapper -->
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.5</version>
-        </dependency>
-
-        <!-- Jersey client -->
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-bundle</artifactId>
-            <version>1.12</version>
-        </dependency>
-        <!-- MySQL connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.18</version>
-        </dependency>
-
-        <!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.1.0.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.1.0.Final</version>
-        </dependency>
-    </dependencies>
-
-    <profiles>
-        <!-- ================= Production Settings Profile ================= -->
-        <!-- Use "-P prod" when you want to use the settings in this profile -->
-        <!-- =============================================================== -->
-        <profile>
-            <id>prod</id>
-            <build>
-                <plugins>
-                    <!-- ================= Production Settings Profile ================= -->
-                    <!-- Override location of data file for DbUnit to load (doesn't have -->
-                    <!-- negative keys                                                   -->
-                    <!-- =============================================================== -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>dbunit-maven-plugin</artifactId>
-                        <configuration>
-                            <src>src/main/resources/default-data.xml</src>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-    </profiles>
-
-    <properties>
-        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
-    </properties>
+  <properties>
+    <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
+  </properties>
 </project>
 

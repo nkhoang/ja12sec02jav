@@ -1,16 +1,8 @@
 package com.nkhoang.model;
 
-import com.nkhoang.common.persistence.IDataService;
-import com.nkhoang.common.persistence.impl.AbstractDataService;
-import com.nkhoang.model.criteria.ISearchCriteria;
-import org.hibernate.Session;
 import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import java.io.Serializable;
 import java.util.List;
 
 public abstract class AbstractBeanTest<T extends IDataObject> {

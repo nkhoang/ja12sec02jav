@@ -1,6 +1,6 @@
 package com.nkhoang.model;
 
-import com.nkhoang.common.persistence.PricingPolicyDataService;
+import com.nkhoang.dao.PricingPolicyDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

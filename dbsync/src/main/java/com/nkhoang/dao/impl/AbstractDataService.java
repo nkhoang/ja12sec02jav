@@ -1,6 +1,6 @@
-package com.nkhoang.common.persistence.impl;
+package com.nkhoang.dao.impl;
 
-import com.nkhoang.common.persistence.IDataService;
+import com.nkhoang.dao.IDataService;
 import com.nkhoang.model.IDataObject;
 import com.nkhoang.model.IPersistentData;
 import com.nkhoang.model.criteria.ISearchCriteria;

@@ -2,7 +2,9 @@ package com.nkhoang.service;
 
 import com.nkhoang.exception.JsonServiceException;
 import com.nkhoang.model.WordJson;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface JsonService {
    /**
     * Deserialize Word JSON type from JSON data.

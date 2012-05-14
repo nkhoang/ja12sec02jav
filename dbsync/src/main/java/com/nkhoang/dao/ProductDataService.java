@@ -1,4 +1,4 @@
-package com.nkhoang.common.persistence;
+package com.nkhoang.dao;
 
 import com.nkhoang.model.ProductBean;
 import com.nkhoang.model.criteria.IProductCriteria;

@@ -1,6 +1,6 @@
-package com.nkhoang.common.persistence.impl;
+package com.nkhoang.dao.impl;
 
-import com.nkhoang.common.persistence.PricingPolicyDataService;
+import com.nkhoang.dao.PricingPolicyDataService;
 import com.nkhoang.model.IPricingPolicy;
 import com.nkhoang.model.PricingPolicyBean;
 import com.nkhoang.model.criteria.IPricingPolicyCriteria;

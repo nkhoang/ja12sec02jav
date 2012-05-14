@@ -1,6 +1,6 @@
-package com.nkhoang.common.persistence.impl;
+package com.nkhoang.dao.impl;
 
-import com.nkhoang.common.persistence.ResourceTypeDataService;
+import com.nkhoang.dao.ResourceTypeDataService;
 import com.nkhoang.model.IResourceType;
 import com.nkhoang.model.ResourceTypeBean;
 import com.nkhoang.model.criteria.IResourceTypeCriteria;

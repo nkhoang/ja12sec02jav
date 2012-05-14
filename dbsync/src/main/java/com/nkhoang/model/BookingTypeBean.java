@@ -1,6 +1,6 @@
 package com.nkhoang.model;
 
-import com.nkhoang.common.persistence.BookingTypeDataService;
+import com.nkhoang.dao.BookingTypeDataService;
 import org.hibernate.annotations.Index;
 
 import javax.persistence.*;

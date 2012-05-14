@@ -1,6 +1,6 @@
 package com.nkhoang.model;
 
-import com.nkhoang.common.persistence.ResourceTypeDataService;
+import com.nkhoang.dao.ResourceTypeDataService;
 import org.hibernate.annotations.Index;
 
 import javax.persistence.*;
