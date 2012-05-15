@@ -10,7 +10,7 @@ public interface IWord extends IDataObject<Long>, ITrackableObject {
 
    public static final String WORD = "word";
 
-
+   public static final String DICTIONARY = "dictionary";
 
    IDictionary getDictionary();
 

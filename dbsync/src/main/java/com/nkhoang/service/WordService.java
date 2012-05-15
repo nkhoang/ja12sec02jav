@@ -8,5 +8,12 @@ import javax.persistence.PersistenceException;
 
 @Service
 public interface WordService {
+   /**
+    *
+    * @param word
+    * @throws WebserviceException
+    * @throws ServiceException
+    * @throws PersistenceException
+    */
    void query(String word) throws WebserviceException, ServiceException, PersistenceException;
 }

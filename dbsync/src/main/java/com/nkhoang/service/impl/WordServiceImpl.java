@@ -7,12 +7,15 @@ import com.nkhoang.exception.ServiceException;
 import com.nkhoang.exception.WebserviceException;
 import com.nkhoang.model.WordEntity;
 import com.nkhoang.model.WordJson;
+import com.nkhoang.model.criteria.IWordCriteria;
+import com.nkhoang.model.criteria.impl.WordCriteriaImpl;
 import com.nkhoang.model.dictionary.ISound;
 import com.nkhoang.model.dictionary.Sound;
 import com.nkhoang.model.dictionary.Word;
 import com.nkhoang.service.DictionaryLookupService;
 import com.nkhoang.service.JsonService;
 import com.nkhoang.service.WordService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -74,7 +77,22 @@ public class WordServiceImpl implements WordService {
       }
    }
 
+   public boolean checkExistence(String word, String dictName) {
+      if (LOGGER.isDebugEnabled()) {
+         LOGGER.debug("Checking database with criteria [word=" + word + ", dictName=" + dictName);
+      }
+      IWordCriteria crit = new WordCriteriaImpl();
+      crit.setWord(word);
+      crit.setDictName(dictName);
+      if (CollectionUtils.isNotEmpty(wordDataService.find(crit))) {
+         return true;
+      }
+      return false;
+   }
 
+   /**
+    * {@inheritDoc}
+    */
    public void query(String word) throws WebserviceException, ServiceException, PersistenceException {
       if (currentServerUrlPos >= serverUrls.size()) {
          LOGGER.info("Service Url position is out of sync. Reset to 0.");
@@ -110,8 +128,9 @@ public class WordServiceImpl implements WordService {
 
                soundEntity = insertSound(sound);
             }
-
-            insertWord(w, jsonData, soundEntity);
+            if (!checkExistence(w.getDescription(), w.getSourceName())) {
+               insertWord(w, jsonData, soundEntity);
+            }
          }
          if (wJson.getData().get(DictionaryLookupService.DICT_VDICT) != null) {
             WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_VDICT);
@@ -120,7 +139,9 @@ public class WordServiceImpl implements WordService {
             w.setPron(pron);
             String jsonData = toJson(w);
 
-            insertWord(w, jsonData, soundEntity);
+            if (!checkExistence(w.getDescription(), w.getSourceName())) {
+               insertWord(w, jsonData, soundEntity);
+            }
          }
       }
    }

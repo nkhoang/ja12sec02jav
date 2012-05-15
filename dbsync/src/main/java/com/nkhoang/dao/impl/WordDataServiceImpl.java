@@ -4,7 +4,9 @@ import com.nkhoang.dao.IWordDataService;
 import com.nkhoang.model.criteria.IWordCriteria;
 import com.nkhoang.model.dictionary.IWord;
 import com.nkhoang.model.dictionary.Word;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,20 @@ public class WordDataServiceImpl extends AbstractDataService<IWord, Long, IWordC
       } else {
          if (criteria.getKey() != null) {
             hbnCriteria.add(Restrictions.eq("key", criteria.getKey()));
+         } else {
+            Conjunction conj = Restrictions.conjunction();
+            if (StringUtils.isNotEmpty(criteria.getDictName())) {
+               hbnCriteria.createAlias(IWord.DICTIONARY, "dict");
+               conj.add(Restrictions.eq("dict.name", criteria.getDictName()));
+            }
+
+            if (StringUtils.isNotEmpty(criteria.getWord())) {
+               conj.add(Restrictions.eq("word", criteria.getWord()));
+            }
+
+            if (conj.conditions().iterator().hasNext()) {
+               hbnCriteria.add(conj);
+            }
          }
 
          hbnCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);

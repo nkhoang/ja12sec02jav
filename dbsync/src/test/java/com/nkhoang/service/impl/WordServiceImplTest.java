@@ -28,7 +28,7 @@ public class WordServiceImplTest {
       Statement statement = dataSource.getConnection().createStatement();
 
       statement.execute("delete from BOOKING_TYPE");
-      statement.execute("delete from WORD");
+//      statement.execute("delete from WORD");
       statement.execute("delete from SOUND");
    }
 
