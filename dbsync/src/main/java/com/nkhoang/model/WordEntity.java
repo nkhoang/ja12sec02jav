@@ -6,11 +6,11 @@ public class WordEntity {
   private String pron;
   private String soundSource;
   private String description;
-  private Set<Phrase> phraseList = new HashSet<Phrase>();
+  private Set<PhraseEntity> phraseList = new HashSet<PhraseEntity>();
 
-  private Map<String, List<Sense>> meaningMap = new HashMap<String, List<Sense>>(0);
-  private Map<String, List<Phrase>> phraseMap = new HashMap<String, List<Phrase>>();
-  private List<Sense> meanings = new ArrayList<Sense>();
+  private Map<String, List<SenseEntity>> meaningMap = new HashMap<String, List<SenseEntity>>(0);
+  private Map<String, List<PhraseEntity>> phraseMap = new HashMap<String, List<PhraseEntity>>();
+  private List<SenseEntity> meanings = new ArrayList<SenseEntity>();
   private List<String> kindIdList = new ArrayList();
 
   private Long timeStamp;
@@ -30,9 +30,9 @@ public class WordEntity {
   public WordEntity() {
   }
 
-  public void addPhrase(String phraseName, Phrase phrase) {
+  public void addPhrase(String phraseName, PhraseEntity phrase) {
     if (phraseMap.get(phraseName) == null) {
-      phraseMap.put(phraseName, new ArrayList<Phrase>());
+      phraseMap.put(phraseName, new ArrayList<PhraseEntity>());
     }
 
     phraseMap.get(phraseName).add(phrase);
@@ -45,19 +45,19 @@ public class WordEntity {
    * @param kind    the meaning kind.
    * @param meaning the new meaning.
    */
-  public void addMeaning(String kind, Sense meaning) {
+  public void addMeaning(String kind, SenseEntity meaning) {
     // add to the meaning list.
     meanings.add(meaning);
-    List<Sense> meaningList = meaningMap.get(kind);
+    List<SenseEntity> meaningList = meaningMap.get(kind);
     if (meaningList == null) {
-      meaningList = new ArrayList<Sense>(0);
+      meaningList = new ArrayList<SenseEntity>(0);
       meaningMap.put(kind, meaningList);
     }
     meaningMap.get(kind).add(meaning);
   }
 
 
-  public List<Sense> getMeaning(Long kind) {
+  public List<SenseEntity> getMeaning(Long kind) {
     return meaningMap.get(kind);
   }
 
@@ -94,19 +94,19 @@ public class WordEntity {
     this.timeStamp = timeStamp;
   }
 
-  public List<Sense> getMeanings() {
+  public List<SenseEntity> getMeanings() {
     return meanings;
   }
 
-  public void setMeanings(List<Sense> meanings) {
+  public void setMeanings(List<SenseEntity> meanings) {
     this.meanings = meanings;
   }
 
-  public Set<Phrase> getPhraseList() {
+  public Set<PhraseEntity> getPhraseList() {
     return phraseList;
   }
 
-  public void setPhraseList(Set<Phrase> phraseList) {
+  public void setPhraseList(Set<PhraseEntity> phraseList) {
     this.phraseList = phraseList;
   }
 
@@ -118,19 +118,19 @@ public class WordEntity {
     this.sourceName = sourceName;
   }
 
-  public Map<String, List<Sense>> getMeaningMap() {
+  public Map<String, List<SenseEntity>> getMeaningMap() {
     return meaningMap;
   }
 
-  public void setMeaningMap(Map<String, List<Sense>> meaningMap) {
+  public void setMeaningMap(Map<String, List<SenseEntity>> meaningMap) {
     this.meaningMap = meaningMap;
   }
 
-  public Map<String, List<Phrase>> getPhraseMap() {
+  public Map<String, List<PhraseEntity>> getPhraseMap() {
     return phraseMap;
   }
 
-  public void setPhraseMap(Map<String, List<Phrase>> phraseMap) {
+  public void setPhraseMap(Map<String, List<PhraseEntity>> phraseMap) {
     this.phraseMap = phraseMap;
   }
 

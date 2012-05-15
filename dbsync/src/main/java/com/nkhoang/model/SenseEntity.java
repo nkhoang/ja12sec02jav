@@ -3,13 +3,13 @@ package com.nkhoang.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sense {
+public class SenseEntity {
   private String wordForm;
   private String grammarGroup;
   private String languageGroup;
   private String definition;
   private String kind;
-  private List<Meaning> subSenses = new ArrayList<Meaning>(0);
+  private List<MeaningEntity> subSenses = new ArrayList<MeaningEntity>(0);
   private List<String> examples = new ArrayList<String>(0);
   private Long key;
 
@@ -42,11 +42,11 @@ public class Sense {
   }
 
 
-  public List<Meaning> getSubSenses() {
+  public List<MeaningEntity> getSubSenses() {
     return subSenses;
   }
 
-  public void setSubSenses(List<Meaning> subSenses) {
+  public void setSubSenses(List<MeaningEntity> subSenses) {
     this.subSenses = subSenses;
   }
 

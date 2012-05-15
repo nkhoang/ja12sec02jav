@@ -1,6 +1,5 @@
-package com.nkhoang.common.persistence;
+package com.nkhoang.dao;
 
-import com.nkhoang.dao.PricingPolicyDataService;
 import com.nkhoang.model.PricingPolicyBean;
 import com.nkhoang.model.PricingPolicyTest;
 import junit.framework.Assert;

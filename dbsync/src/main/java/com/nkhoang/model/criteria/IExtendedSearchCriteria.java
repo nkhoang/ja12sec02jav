@@ -1,7 +1,7 @@
 package com.nkhoang.model.criteria;
 
 /**
- * The Interface IExtendedSearchCriteria.
+ * @author hnguyen
  */
 public interface IExtendedSearchCriteria extends ISearchCriteria {
 

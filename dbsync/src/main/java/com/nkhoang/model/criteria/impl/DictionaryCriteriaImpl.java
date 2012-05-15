@@ -5,7 +5,7 @@ import com.nkhoang.model.criteria.IWordCriteria;
 /**
  * @author hnguyen
  */
-public class WordCriteriaImpl extends SortCriteriaImpl implements IWordCriteria {
+public class DictionaryCriteriaImpl extends SortCriteriaImpl implements IWordCriteria {
    private Long key;
 
    public Long getKey() {

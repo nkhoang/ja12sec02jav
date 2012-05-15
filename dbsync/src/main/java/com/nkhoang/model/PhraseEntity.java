@@ -3,17 +3,17 @@ package com.nkhoang.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Phrase {
+public class PhraseEntity {
   private Long key;
   private String description;
-  private List<Sense> senseList = new ArrayList<Sense>(0);
+  private List<SenseEntity> senseList = new ArrayList<SenseEntity>(0);
 
   public String getDescription() {
     return description;
   }
 
 
-  public List<Sense> getSenseList() {
+  public List<SenseEntity> getSenseList() {
     return senseList;
   }
 
@@ -29,7 +29,7 @@ public class Phrase {
     this.description = description;
   }
 
-  public void setSenseList(List<Sense> senseList) {
+  public void setSenseList(List<SenseEntity> senseList) {
     this.senseList = senseList;
   }
 

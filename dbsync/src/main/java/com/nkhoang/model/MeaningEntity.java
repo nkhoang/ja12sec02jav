@@ -3,7 +3,7 @@ package com.nkhoang.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meaning {
+public class MeaningEntity {
   private String content;
   // based on oxford dictionary.
   // for example: mass noun...
@@ -17,7 +17,7 @@ public class Meaning {
   private Long key;
 
   // no default constructor.
-  public Meaning() {
+  public MeaningEntity() {
 
   }
 
@@ -40,7 +40,7 @@ public class Meaning {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("Meaning: [id=");
+    sb.append("MeaningEntity: [id=");
     sb.append(", languageGroup=");
     sb.append(languageGroup);
     sb.append(", grammarGroup=");

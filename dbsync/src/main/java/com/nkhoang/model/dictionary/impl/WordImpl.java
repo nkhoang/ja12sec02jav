@@ -1,53 +1,90 @@
 package com.nkhoang.model.dictionary.impl;
 
 import com.nkhoang.model.dictionary.IDictionary;
+import com.nkhoang.model.dictionary.ISound;
 import com.nkhoang.model.dictionary.IWord;
 import org.joda.time.DateTime;
 
 public class WordImpl implements IWord {
-  private Long _id;
-  private String _data;
-  private IDictionary _dictionary;
-  private DateTime _creationDate;
-  private DateTime _modificationDate;
+   private Long id;
+   private String word;
+   private String data;
+   private IDictionary dictionary;
+   private ISound sound;
+   private DateTime creationDate;
+   private DateTime modificationDate;
 
-  public Long getKey() {
-    return _id;
-  }
+   public String toString() {
+      StringBuilder sb = new StringBuilder();
+      sb.append("[id=");
+      sb.append(id);
+      sb.append(", dictionary=");
+      sb.append(dictionary);
+      sb.append(", word=");
+      sb.append(word);
+      sb.append(", creationDate=");
+      sb.append(creationDate);
+      sb.append(", modificationDate=");
+      sb.append(modificationDate);
+      sb.append("]");
 
-  public void setKey(Long id) {
-    _id = id;
-  }
+      return sb.toString();
+   }
 
-  public IDictionary getDictionary() {
-    return _dictionary;
-  }
+   public Long getKey() {
+      return id;
+   }
 
-  public void setDictionary(IDictionary dictionary) {
-    _dictionary = dictionary;
-  }
 
-  public String getData() {
-    return _data;
-  }
+   public void setKey(Long id) {
+      this.id = id;
+   }
 
-  public void setData(String data) {
-    _data = data;
-  }
+   public IDictionary getDictionary() {
+      return dictionary;
+   }
 
-  public DateTime getCreationDate() {
-    return _creationDate;
-  }
+   public void setDictionary(IDictionary dictionary) {
+      this.dictionary = dictionary;
+   }
 
-  public void setCreationDate(DateTime value) {
-    _creationDate = value;
-  }
+   public String getData() {
+      return data;
+   }
 
-  public DateTime getModificationDate() {
-    return _modificationDate;
-  }
+   public void setData(String data) {
+      this.data = data;
+   }
 
-  public void setModificationDate(DateTime modificationDate) {
-    _modificationDate = modificationDate;
-  }
+   public DateTime getCreationDate() {
+      return creationDate;
+   }
+
+   public void setCreationDate(DateTime value) {
+      this.creationDate = value;
+   }
+
+   public DateTime getModificationDate() {
+      return modificationDate;
+   }
+
+   public void setModificationDate(DateTime modificationDate) {
+      this.modificationDate = modificationDate;
+   }
+
+   public String getWord() {
+      return word;
+   }
+
+   public void setWord(String word) {
+      this.word = word;
+   }
+
+   public ISound getSound() {
+      return sound;
+   }
+
+   public void setSound(ISound sound) {
+      this.sound = sound;
+   }
 }

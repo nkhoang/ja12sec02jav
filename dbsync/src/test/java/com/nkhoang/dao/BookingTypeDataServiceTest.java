@@ -1,6 +1,5 @@
-package com.nkhoang.common.persistence;
+package com.nkhoang.dao;
 
-import com.nkhoang.dao.BookingTypeDataService;
 import com.nkhoang.model.*;
 import com.nkhoang.model.criteria.IBookingTypeCriteria;
 import com.nkhoang.model.criteria.impl.BookingTypeCriteriaImpl;

@@ -1,11 +1,11 @@
 package com.nkhoang.model.criteria.impl;
 
-import com.nkhoang.model.criteria.IWordCriteria;
+import com.nkhoang.model.criteria.ISoundCriteria;
 
 /**
  * @author hnguyen
  */
-public class WordCriteriaImpl extends SortCriteriaImpl implements IWordCriteria {
+public class SoundCriteriaImpl extends SortCriteriaImpl implements ISoundCriteria {
    private Long key;
 
    public Long getKey() {

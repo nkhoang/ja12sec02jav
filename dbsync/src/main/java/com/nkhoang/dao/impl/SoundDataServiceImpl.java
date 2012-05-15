@@ -1,9 +1,9 @@
 package com.nkhoang.dao.impl;
 
-import com.nkhoang.dao.IWordDataService;
-import com.nkhoang.model.criteria.IWordCriteria;
-import com.nkhoang.model.dictionary.IWord;
-import com.nkhoang.model.dictionary.Word;
+import com.nkhoang.dao.ISoundDataService;
+import com.nkhoang.model.criteria.ISoundCriteria;
+import com.nkhoang.model.dictionary.ISound;
+import com.nkhoang.model.dictionary.Sound;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -14,15 +14,15 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 
 @Transactional
-public class WordDataServiceImpl extends AbstractDataService<IWord, Long, IWordCriteria> implements IWordDataService {
-   private static final Logger LOGGER = LoggerFactory.getLogger(WordDataServiceImpl.class.getCanonicalName());
+public class SoundDataServiceImpl extends AbstractDataService<ISound, Long, ISoundCriteria>
+      implements ISoundDataService {
+   private static final Logger LOGGER = LoggerFactory.getLogger(SoundDataServiceImpl.class.getCanonicalName());
 
-   public List<IWord> find(IWordCriteria criteria) throws PersistenceException {
+   public List<ISound> find(ISoundCriteria criteria) throws PersistenceException {
       if (LOGGER.isDebugEnabled()) {
          LOGGER.debug("Searching by criteria using criteria = " + criteria);
       }
-
-      final Criteria hbnCriteria = getPersistenceSession().createCriteria(Word.class);
+      final Criteria hbnCriteria = getPersistenceSession().createCriteria(Sound.class);
 
       if (criteria == null) {
 

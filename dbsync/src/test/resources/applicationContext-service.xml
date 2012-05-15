@@ -1,11 +1,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+       xmlns:utils="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-  <bean id="bookingTypeTest" class="com.nkhoang.model.BookingTypeTest"/>
+<bean id="bookingTypeTest" class="com.nkhoang.model.BookingTypeTest"/>
   <bean id="resourceTypeTest" class="com.nkhoang.model.ResourceTypeTest"/>
   <bean id="pricingPolicyTest" class="com.nkhoang.model.PricingPolicyTest"/>
 
   <bean id="dictionaryLookupService" class="com.nkhoang.service.impl.DictionaryLookupServiceImpl"/>
   <bean id="jsonService" class="com.nkhoang.service.impl.JsonServiceImpl"/>
+
+  <bean id="wordService" class="com.nkhoang.service.impl.WordServiceImpl" init-method="convertServerUrlProperties">
+    <property name="serverUrlProperties">
+      <utils:properties location="server.config" />
+    </property>
+  </bean>
+
 </beans>

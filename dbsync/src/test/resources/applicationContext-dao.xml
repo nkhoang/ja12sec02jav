@@ -40,9 +40,11 @@
     <property name="password" value="${hibernate.connection.password}"/>
   </bean>
 
-    <bean id="bookingTypeDataService" class="com.nkhoang.dao.impl.BookingTypeDataServiceImpl" />
-    <bean id="pricingPolicyDataService" class="com.nkhoang.dao.impl.PricingPolicyDataServiceImpl" />
-    <bean id="resourceTypeDataService" class="com.nkhoang.dao.impl.ResourceTypeDataServiceImpl" />
-    <bean id="wordDataService" class="com.nkhoang.dao.impl.WordDataServiceImpl" />
+  <bean id="bookingTypeDataService" class="com.nkhoang.dao.impl.BookingTypeDataServiceImpl"/>
+  <bean id="pricingPolicyDataService" class="com.nkhoang.dao.impl.PricingPolicyDataServiceImpl"/>
+  <bean id="resourceTypeDataService" class="com.nkhoang.dao.impl.ResourceTypeDataServiceImpl"/>
+  <bean id="wordDataService" class="com.nkhoang.dao.impl.WordDataServiceImpl"/>
+  <bean id="dictionaryDataService" class="com.nkhoang.dao.impl.DictionaryDataServiceImpl"/>
+  <bean id="soundDataService" class="com.nkhoang.dao.impl.SoundDataServiceImpl"/>
 
 </beans>

@@ -2,15 +2,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:utils="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/beans/spring-util-3.0.xsd">
-    <bean id="dictionaryLookupService" class="com.nkhoang.service.impl.DictionaryLookupServiceImpl"/>
-    <bean id="jsonService" class="com.nkhoang.service.impl.JsonServiceImpl"/>
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+  <bean id="dictionaryLookupService" class="com.nkhoang.service.impl.DictionaryLookupServiceImpl"/>
+  <bean id="jsonService" class="com.nkhoang.service.impl.JsonServiceImpl"/>
 
-    <bean id="wordService" class="com.nkhoang.service.impl.WordServiceImpl">
-        <property name="serverUrls">
-            <utils:properties location="serverConfig.properties"/>
-        </property>
-    </bean>
+  <bean id="wordService" class="com.nkhoang.service.impl.WordServiceImpl">
+    <property name="serverUrls">
+      <utils:properties location="server.config"/>
+    </property>
+  </bean>
 
-    <bean id="messageService" class="com.nkhoang.service.impl.MessageServiceImpl" scope="singleton"/>
+  <bean id="messageService" class="com.nkhoang.service.impl.MessageServiceImpl" scope="singleton"/>
 </beans>
