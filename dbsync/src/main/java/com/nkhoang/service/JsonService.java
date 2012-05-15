@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface JsonService {
    /**
-    * Deserialize Word JSON type from JSON data.
+    * Deserialize WordEntity JSON type from JSON data.
     *
     * @param source the source to parse.
     * @return the returned WordJson.

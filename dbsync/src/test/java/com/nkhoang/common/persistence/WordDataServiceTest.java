@@ -1,6 +1,7 @@
 package com.nkhoang.common.persistence;
 
 import com.nkhoang.dao.WordDataService;
+import com.nkhoang.model.WordEntity;
 import com.nkhoang.model.WordJson;
 import com.nkhoang.model.dictionary.Word;
 import com.nkhoang.service.DictionaryLookupService;
@@ -53,7 +54,7 @@ public class WordDataServiceTest {
 
     if (wJson.getData().get("vdict") != null) {
 
-      com.nkhoang.model.Word w = wJson.getData().get("vdict");
+      WordEntity w = wJson.getData().get("vdict");
       w.setKey(null);
       w.setSourceName("vdict");
 
@@ -68,9 +69,7 @@ public class WordDataServiceTest {
 
       Word word = new Word();
       word.setData(out.toString());
-      word.setCreationDate(new DateTime());
       word.setModificationDate(new DateTime());
-
       wordDataService.insert(word);
     }
   }

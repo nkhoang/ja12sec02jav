@@ -30,13 +30,13 @@ public class Word extends WordImpl {
     return super.getDictionary();
   }
 
-  @Column(name = ITrackableObject.CREATION_DATE, nullable = false)
+  @Column(name = ITrackableObject.CREATION_DATE, nullable = true)
   @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
   public DateTime getCreationDate() {
     return super.getCreationDate();
   }
 
-  @Column(name = ITrackableObject.MODIFICATION_DATE, nullable = false)
+  @Column(name = ITrackableObject.MODIFICATION_DATE, nullable = true)
   @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
   public DateTime getModificationDate() {
     return super.getModificationDate();

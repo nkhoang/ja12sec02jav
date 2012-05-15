@@ -4,7 +4,7 @@
 package com.nkhoang.model;
 
 /**
- * Abstract Word Model.
+ * Abstract WordEntity Model.
  */
 public class AbstractWord {
    private String soundSource;

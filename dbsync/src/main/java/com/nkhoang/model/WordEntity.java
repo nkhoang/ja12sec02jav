@@ -2,7 +2,7 @@ package com.nkhoang.model;
 
 import java.util.*;
 
-public class Word {
+public class WordEntity {
   private String pron;
   private String soundSource;
   private String description;
@@ -27,7 +27,7 @@ public class Word {
   }
 
 
-  public Word() {
+  public WordEntity() {
   }
 
   public void addPhrase(String phraseName, Phrase phrase) {
@@ -143,7 +143,7 @@ public class Word {
   }
 
   public String toString() {
-    return "Word: " + description + " with sound [" + soundSource + "]";
+    return "WordEntity: " + description + " with sound [" + soundSource + "]";
   }
 }
 
