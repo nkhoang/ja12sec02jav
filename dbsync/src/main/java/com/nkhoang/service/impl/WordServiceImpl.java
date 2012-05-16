@@ -99,57 +99,75 @@ public class WordServiceImpl implements WordService {
       LOGGER.info("Service Url position is out of sync. Reset to 0.");
       currentServerUrlPos = 0;
     }
-    // get the resource URL.
-    String resourceUrl = serverUrls.get(currentServerUrlPos);
-    try {
-      if (StringUtils.isNotEmpty(resourceUrl)) {
-        // query the word.
-        String wordResponse = dictionaryLookupService.query(resourceUrl.trim(), word);
-        // De-serialize json data to Object to verify data.
-        WordJson wJson = jsonService.deserializeFrom(wordResponse);
-        // get oxford data first
-        String pron = null;
-        ISound soundEntity = null;
-        if (wJson.getData().get(DictionaryLookupService.DICT_OXFORD) != null) {
-          WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_OXFORD);
-          pron = w.getPron();
-          w.setKey(null);
-          w.setSourceName(DictionaryLookupService.DICT_OXFORD);
-          String jsonData = toJson(w);
+    boolean shouldStop = false;
+    int currentPos = currentServerUrlPos;
+    do {
+      // get the resource URL.
+      String resourceUrl = serverUrls.get(currentServerUrlPos);
+      LOGGER.info("Use server: " + resourceUrl + " to fetch data.");
+      try {
+        if (StringUtils.isNotEmpty(resourceUrl)) {
+          // query the word.
+          String wordResponse = dictionaryLookupService.query(resourceUrl.trim(), word);
+          // De-serialize json data to Object to verify data.
+          WordJson wJson = jsonService.deserializeFrom(wordResponse);
+          // get oxford data first
+          String pron = null;
+          ISound soundEntity = null;
+          if (wJson.getData().get(DictionaryLookupService.DICT_OXFORD) != null) {
+            WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_OXFORD);
+            pron = w.getPron();
+            w.setKey(null);
+            w.setSourceName(DictionaryLookupService.DICT_OXFORD);
+            String jsonData = toJson(w);
 
-          if (w.getSoundSource() != null) {
-            String downloadUrl = w.getSoundSource();
-            // download sound and save to database
-            downloadUrl = downloadUrl.replaceAll("playSoundFromFlash\\(\\'", "");
-            downloadUrl = downloadUrl.replaceAll("\\', this\\)", "");
-            downloadUrl = downloadUrl.trim();
-            byte[] sound = saveFile(downloadUrl);
+            if (w.getSoundSource() != null) {
+              String downloadUrl = w.getSoundSource();
+              // download sound and save to database
+              downloadUrl = downloadUrl.replaceAll("playSoundFromFlash\\(\\'", "");
+              downloadUrl = downloadUrl.replaceAll("\\', this\\)", "");
+              downloadUrl = downloadUrl.trim();
+              byte[] sound = saveFile(downloadUrl);
 
-            soundEntity = insertSound(sound);
-          }
-          if (!checkExistence(w.getDescription(), w.getSourceName())) {
-            insertWord(w, jsonData, soundEntity);
-          } else {
-            if (LOGGER.isDebugEnabled()) {
-              LOGGER.debug("Found word: [word=" + w.getDescription() + ", dictionary=" + w.getSourceName() + "]");
+              soundEntity = insertSound(sound, w.getDescription());
+            }
+            if (!checkExistence(w.getDescription(), w.getSourceName())) {
+              insertWord(w, jsonData, soundEntity);
+            } else {
+              if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Found word: [word=" + w.getDescription() + ", dictionary=" + w.getSourceName() + "]");
+              }
             }
           }
-        }
-        if (wJson.getData().get(DictionaryLookupService.DICT_VDICT) != null) {
-          WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_VDICT);
-          w.setKey(null);
-          w.setSourceName(DictionaryLookupService.DICT_VDICT);
-          w.setPron(pron);
-          String jsonData = toJson(w);
+          if (wJson.getData().get(DictionaryLookupService.DICT_VDICT) != null) {
+            WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_VDICT);
+            w.setKey(null);
+            w.setSourceName(DictionaryLookupService.DICT_VDICT);
+            w.setPron(pron);
+            String jsonData = toJson(w);
 
-          if (!checkExistence(w.getDescription(), w.getSourceName())) {
-            insertWord(w, jsonData, soundEntity);
+            if (!checkExistence(w.getDescription(), w.getSourceName())) {
+              insertWord(w, jsonData, soundEntity);
+            }
+          }
+
+          shouldStop = true;
+        }
+      } catch (DictionaryLookupServiceException DLEx) {
+        LOGGER.info("The server: " + resourceUrl + " is not responsive. Switching server.");
+        if (currentPos == currentServerUrlPos) {
+          if (currentServerUrlPos + 1 >= serverUrls.size()) {
+            throw DLEx;
+          } else {
+            increaseServerUrlPos();
           }
         }
       }
-    } catch (DictionaryLookupServiceException DLEx) {
-      LOGGER.error(DLEx.getMessage(), DLEx);
-    }
+    } while (!shouldStop);
+  }
+
+  private synchronized void increaseServerUrlPos() {
+    currentServerUrlPos++;
   }
 
   /**
@@ -201,8 +219,9 @@ public class WordServiceImpl implements WordService {
    * @param soundArr
    * @return
    */
-  private ISound insertSound(byte[] soundArr) {
+  private ISound insertSound(byte[] soundArr, String des) {
     ISound sound = new Sound();
+    sound.setDescription(des);
     sound.setSound(soundArr);
 
     return soundDataService.insert(sound);

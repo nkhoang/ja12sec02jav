@@ -6,7 +6,8 @@
   <bean id="dictionaryLookupService" class="com.nkhoang.service.impl.DictionaryLookupServiceImpl"/>
   <bean id="jsonService" class="com.nkhoang.service.impl.JsonServiceImpl"/>
 
-  <bean id="wordService" class="com.nkhoang.service.impl.WordServiceImpl" init-method="convertServerUrlProperties">
+  <bean id="wordService" class="com.nkhoang.service.impl.WordServiceImpl" init-method="convertServerUrlProperties"
+        scope="singleton">
     <property name="serverUrlProperties">
       <utils:properties location="server.config" />
     </property>
