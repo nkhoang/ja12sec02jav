@@ -11,14 +11,12 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.List;
 
-@Transactional
 public class DictionaryDataServiceImpl extends AbstractDataService<IDictionary, Long, IDictionaryCriteria>
       implements IDictionaryDataService {
    private static final Logger LOGGER = LoggerFactory.getLogger(DictionaryDataServiceImpl.class.getCanonicalName());

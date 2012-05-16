@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-<bean id="bookingTypeTest" class="com.nkhoang.model.BookingTypeTest"/>
+  <bean id="bookingTypeTest" class="com.nkhoang.model.BookingTypeTest"/>
   <bean id="resourceTypeTest" class="com.nkhoang.model.ResourceTypeTest"/>
   <bean id="pricingPolicyTest" class="com.nkhoang.model.PricingPolicyTest"/>
 
@@ -13,7 +13,7 @@
 
   <bean id="wordService" class="com.nkhoang.service.impl.WordServiceImpl" init-method="convertServerUrlProperties">
     <property name="serverUrlProperties">
-      <utils:properties location="server.config" />
+      <utils:properties location="server.config"/>
     </property>
   </bean>
 

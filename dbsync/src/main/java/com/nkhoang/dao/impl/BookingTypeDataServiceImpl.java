@@ -8,12 +8,10 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-@Transactional
 public class BookingTypeDataServiceImpl extends AbstractDataService<BookingTypeBean, Long, IBookingTypeCriteria> implements BookingTypeDataService {
   private static final Logger LOGGER = LoggerFactory.getLogger(BookingTypeDataService.class.getCanonicalName());
 

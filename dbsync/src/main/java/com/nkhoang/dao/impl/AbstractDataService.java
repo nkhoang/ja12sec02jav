@@ -7,7 +7,6 @@ import com.nkhoang.model.criteria.ISearchCriteria;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Transactional
 public abstract class AbstractDataService<T extends IDataObject<K>, K extends Serializable, C extends ISearchCriteria>
       implements IDataService<T, K, C> {
 

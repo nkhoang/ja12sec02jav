@@ -8,12 +8,10 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-@Transactional
 public class ResourceTypeDataServiceImpl extends AbstractDataService<ResourceTypeBean, Long, IResourceTypeCriteria> implements ResourceTypeDataService {
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceTypeDataService.class.getCanonicalName());
 

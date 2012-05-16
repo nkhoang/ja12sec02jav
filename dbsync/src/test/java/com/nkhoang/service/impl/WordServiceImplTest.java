@@ -13,8 +13,7 @@ import javax.sql.DataSource;
 import java.sql.Statement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"/applicationContext.xml", "/applicationContext-dao.xml",
-      "/applicationContext-resources.xml", "/applicationContext-service.xml"})
+@ContextConfiguration({"/applicationContext.xml"})
 public class WordServiceImplTest {
    @Autowired
    private DataSource dataSource;
@@ -28,7 +27,7 @@ public class WordServiceImplTest {
       Statement statement = dataSource.getConnection().createStatement();
 
       statement.execute("delete from BOOKING_TYPE");
-//      statement.execute("delete from WORD");
+      statement.execute("delete from WORD");
       statement.execute("delete from SOUND");
    }
 

@@ -8,7 +8,6 @@
        default-lazy-init="true">
   <!-- bean post-processor for JPA annotations in order to use @PersistenceContext -->
   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-
   <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
   <tx:annotation-driven transaction-manager="txManager"/>
@@ -46,5 +45,4 @@
   <bean id="wordDataService" class="com.nkhoang.dao.impl.WordDataServiceImpl"/>
   <bean id="dictionaryDataService" class="com.nkhoang.dao.impl.DictionaryDataServiceImpl"/>
   <bean id="soundDataService" class="com.nkhoang.dao.impl.SoundDataServiceImpl"/>
-
 </beans>

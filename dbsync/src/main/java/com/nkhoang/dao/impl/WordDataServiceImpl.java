@@ -10,12 +10,10 @@ import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-@Transactional
 public class WordDataServiceImpl extends AbstractDataService<IWord, Long, IWordCriteria> implements IWordDataService {
    private static final Logger LOGGER = LoggerFactory.getLogger(WordDataServiceImpl.class.getCanonicalName());
 

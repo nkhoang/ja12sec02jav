@@ -8,7 +8,6 @@
        default-lazy-init="true">
   <!-- bean post-processor for JPA annotations in order to use @PersistenceContext -->
   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-
   <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
   <tx:annotation-driven transaction-manager="txManager"/>
