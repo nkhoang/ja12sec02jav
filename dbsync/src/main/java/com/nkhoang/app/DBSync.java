@@ -17,12 +17,11 @@ public class DBSync {
   private static final int THREAD_POOL_KEEP_ALIVE_TIME = 0;
   private static final int THREAD_POOL_MAX_SIZE = 15;
   private static final int THREAD_POOL_CORE_SIZE = 15;
-  private static final int STARTING_INDEX = 3400;
+  private static final int STARTING_INDEX = 0;
 
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WordService.class.getCanonicalName());
   private static List<String> wordList;
-  private static int wordIndex = 0;
   private static WordService wordService;
 
   public static void main(String[] args) {

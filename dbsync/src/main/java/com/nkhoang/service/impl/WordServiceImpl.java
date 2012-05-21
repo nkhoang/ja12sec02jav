@@ -4,6 +4,7 @@ import com.nkhoang.dao.IDictionaryDataService;
 import com.nkhoang.dao.ISoundDataService;
 import com.nkhoang.dao.IWordDataService;
 import com.nkhoang.exception.DictionaryLookupServiceException;
+import com.nkhoang.exception.PoolEmptyException;
 import com.nkhoang.exception.ServiceException;
 import com.nkhoang.exception.WebserviceException;
 import com.nkhoang.model.WordEntity;
@@ -18,6 +19,10 @@ import com.nkhoang.service.JsonService;
 import com.nkhoang.service.WordService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.pool.ObjectPool;
+import org.apache.commons.pool.PoolableObjectFactory;
+import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.commons.pool.impl.GenericObjectPoolFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -34,10 +39,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class WordServiceImpl implements WordService {
 
@@ -68,6 +70,10 @@ public class WordServiceImpl implements WordService {
    */
   private List<String> serverUrls = new ArrayList<String>();
 
+  private ObjectPool<String> serverUrlPool;
+  private GenericObjectPoolFactory serverUrlPoolFactory;
+
+
   private int currentServerUrlPos = 0;
 
   public void convertServerUrlProperties() {
@@ -76,6 +82,11 @@ public class WordServiceImpl implements WordService {
       String key = (String) en.nextElement();
       serverUrls.add(key);
     }
+
+    serverUrlPoolFactory = new GenericObjectPoolFactory(new ServerUrlPoolFactory(serverUrls),
+        serverUrls.size(), GenericObjectPool.DEFAULT_WHEN_EXHAUSTED_ACTION, GenericObjectPool.DEFAULT_MAX_WAIT);
+
+    serverUrlPool = serverUrlPoolFactory.createPool();
   }
 
   public boolean checkExistence(String word, String dictName) {
@@ -95,15 +106,16 @@ public class WordServiceImpl implements WordService {
    * {@inheritDoc}
    */
   public void query(String word) throws WebserviceException, ServiceException, PersistenceException {
-    if (currentServerUrlPos >= serverUrls.size()) {
-      LOGGER.info("Service Url position is out of sync. Reset to 0.");
-      currentServerUrlPos = 0;
-    }
     boolean shouldStop = false;
-    int currentPos = currentServerUrlPos;
+
     do {
       // get the resource URL.
-      String resourceUrl = serverUrls.get(currentServerUrlPos);
+      String resourceUrl = null;
+      try {
+        resourceUrl = serverUrlPool.borrowObject();
+      } catch (Exception ex) {
+        throw new ServiceException(ex.getMessage(), ex);
+      }
       LOGGER.info("Use server: " + resourceUrl + " to fetch data.");
       try {
         if (StringUtils.isNotEmpty(resourceUrl)) {
@@ -116,59 +128,62 @@ public class WordServiceImpl implements WordService {
           ISound soundEntity = null;
           if (wJson.getData().get(DictionaryLookupService.DICT_OXFORD) != null) {
             WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_OXFORD);
-            pron = w.getPron();
-            w.setKey(null);
             w.setSourceName(DictionaryLookupService.DICT_OXFORD);
-            String jsonData = toJson(w);
+            // check to make sure that no meaning word should not be saved.
+            if (CollectionUtils.isNotEmpty(w.getMeanings())) {
+              pron = w.getPron();
+              w.setKey(null);
+              String jsonData = toJson(w);
 
-            if (w.getSoundSource() != null) {
-              String downloadUrl = w.getSoundSource();
-              // download sound and save to database
-              downloadUrl = downloadUrl.replaceAll("playSoundFromFlash\\(\\'", "");
-              downloadUrl = downloadUrl.replaceAll("\\', this\\)", "");
-              downloadUrl = downloadUrl.trim();
-              byte[] sound = saveFile(downloadUrl);
+              if (w.getSoundSource() != null) {
+                String downloadUrl = w.getSoundSource();
+                // download sound and save to database
+                downloadUrl = downloadUrl.replaceAll("playSoundFromFlash\\(\\'", "");
+                downloadUrl = downloadUrl.replaceAll("\\', this\\)", "");
+                downloadUrl = downloadUrl.trim();
+                byte[] sound = saveFile(downloadUrl);
 
-              soundEntity = insertSound(sound, w.getDescription());
-            }
-            if (!checkExistence(w.getDescription(), w.getSourceName())) {
-              insertWord(w, jsonData, soundEntity);
-            } else {
-              if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Found word: [word=" + w.getDescription() + ", dictionary=" + w.getSourceName() + "]");
+                soundEntity = insertSound(sound, w.getDescription());
               }
+              if (!checkExistence(w.getDescription(), w.getSourceName())) {
+                insertWord(w, jsonData, soundEntity);
+              } else {
+                if (LOGGER.isDebugEnabled()) {
+                  LOGGER.debug("Found word: [word=" + w.getDescription() + ", dictionary=" + w.getSourceName() + "]");
+                }
+              }
+            } else {
+              LOGGER.info("(" + w.getDescription() + ", " + w.getSourceName() + ") =====> No meaning.");
             }
           }
+
+
           if (wJson.getData().get(DictionaryLookupService.DICT_VDICT) != null) {
             WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_VDICT);
-            w.setKey(null);
             w.setSourceName(DictionaryLookupService.DICT_VDICT);
-            w.setPron(pron);
-            String jsonData = toJson(w);
+            if (CollectionUtils.isNotEmpty(w.getMeanings())) {
+              w.setKey(null);
+              w.setPron(pron);
+              String jsonData = toJson(w);
 
-            if (!checkExistence(w.getDescription(), w.getSourceName())) {
-              insertWord(w, jsonData, soundEntity);
+              if (!checkExistence(w.getDescription(), w.getSourceName())) {
+                insertWord(w, jsonData, soundEntity);
+              }
+            } else {
+              LOGGER.info("(" + w.getDescription() + ", " + w.getSourceName() + ") =====> No meaning.");
             }
           }
-
+          serverUrlPool.returnObject(resourceUrl);
           shouldStop = true;
         }
       } catch (DictionaryLookupServiceException DLEx) {
         LOGGER.info("The server: " + resourceUrl + " is not responsive. Switching server.");
-        if (currentPos == currentServerUrlPos) {
-          if (currentServerUrlPos + 1 >= serverUrls.size()) {
-            throw DLEx;
-          } else {
-            increaseServerUrlPos();
-          }
-        }
+      } catch (Exception ex) {
+        throw new ServiceException(ex.getMessage(), ex);
       }
     } while (!shouldStop);
   }
 
-  private synchronized void increaseServerUrlPos() {
-    currentServerUrlPos++;
-  }
 
   /**
    * Save remote File to a byte array.
@@ -283,5 +298,39 @@ public class WordServiceImpl implements WordService {
 
   public void setServerUrlProperties(Properties serverUrlProperties) {
     this.serverUrlProperties = serverUrlProperties;
+  }
+}
+
+class ServerUrlPoolFactory implements PoolableObjectFactory<String> {
+  private static final Logger LOGGER = LoggerFactory.getLogger(ServerUrlPoolFactory.class.getCanonicalName());
+  private LinkedList<String> queue = new LinkedList<String>();
+
+  public ServerUrlPoolFactory(List<String> serverUrls) {
+    queue.addAll(serverUrls);
+  }
+
+  public String makeObject() throws Exception {
+    if (queue.isEmpty()) {
+      throw new PoolEmptyException("pool is empty.");
+    }
+    String value = queue.pop();
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("############## POOL: Returning object -> " + value);
+    }
+    return value;
+  }
+
+  public void destroyObject(String obj) throws Exception {
+    queue.remove(obj);
+  }
+
+  public boolean validateObject(String obj) {
+    return true;
+  }
+
+  public void activateObject(String obj) throws Exception {
+  }
+
+  public void passivateObject(String obj) throws Exception {
   }
 }
