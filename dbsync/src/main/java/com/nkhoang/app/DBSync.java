@@ -15,8 +15,8 @@ public class DBSync {
 
   private static final int THREAD_POOL_QUEUE_SIZE = 60;
   private static final int THREAD_POOL_KEEP_ALIVE_TIME = 0;
-  private static final int THREAD_POOL_MAX_SIZE = 15;
-  private static final int THREAD_POOL_CORE_SIZE = 15;
+  private static final int THREAD_POOL_MAX_SIZE = 30;
+  private static final int THREAD_POOL_CORE_SIZE = 30;
   private static final int STARTING_INDEX = 0;
 
 

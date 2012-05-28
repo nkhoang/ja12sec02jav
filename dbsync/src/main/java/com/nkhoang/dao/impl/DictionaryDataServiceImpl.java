@@ -7,6 +7,7 @@ import com.nkhoang.model.criteria.impl.QueryParameterImpl;
 import com.nkhoang.model.dictionary.Dictionary;
 import com.nkhoang.model.dictionary.IDictionary;
 import com.nkhoang.util.HibernateUtil;
+import com.nkhoang.wybness.model.BookingTypeBean;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -71,5 +72,9 @@ public class DictionaryDataServiceImpl extends AbstractDataService<IDictionary, 
       } finally {
       }
    }
+
+  public Class getPersistenceClass() {
+    return Dictionary.class;
+  }
 
 }

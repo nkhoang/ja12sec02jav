@@ -32,7 +32,28 @@ public abstract class AbstractDataService<T extends IDataObject<K>, K extends Se
 
    private static Logger LOGGER = LoggerFactory.getLogger(AbstractDataService.class.getCanonicalName());
 
-   /**
+  /**
+   * @see IDataService#insert(com.nkhoang.model.IDataObject)
+   */
+  public void update(final T entity) throws PersistenceException {
+    final long start = System.currentTimeMillis();
+    T result = null;
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Updating entity: " + entity);
+    }
+
+    result = entityManager.merge(entity);
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("done in (ms): "
+          + (System.currentTimeMillis() - start));
+    }
+
+  }
+
+
+  /**
     * @see IDataService#insert(com.nkhoang.model.IDataObject)
     */
    public T insert(final T entity) throws PersistenceException {
@@ -106,6 +127,11 @@ public abstract class AbstractDataService<T extends IDataObject<K>, K extends Se
    public List<T> insert(List<T> entities) throws PersistenceException {
       return doInsertEntities(entities);
    }
+
+  public T get(K key) {
+    T entity = (T) entityManager.find(getPersistenceClass(), key);
+    return entity;
+  }
 
 
    /**

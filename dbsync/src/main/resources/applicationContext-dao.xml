@@ -20,7 +20,7 @@
   <bean id="myEmf"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <property name="dataSource" ref="dataSource"/>
-    <property name="packagesToScan" value="com.nkhoang.model"/>
+    <property name="packagesToScan" value="com.nkhoang"/>
     <property name="jpaVendorAdapter">
       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="showSql" value="true"/>
@@ -32,16 +32,17 @@
 
 
   <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        class="org.apache.commons.dbcp.BasicDataSource">
     <property name="driverClassName" value="${hibernate.connection.driver_class}"/>
     <property name="url" value="${hibernate.connection.url}"/>
     <property name="username" value="${hibernate.connection.username}"/>
     <property name="password" value="${hibernate.connection.password}"/>
+    <property name="defaultAutoCommit" value="true"/>
   </bean>
 
-  <bean id="bookingTypeDataService" class="com.nkhoang.dao.impl.BookingTypeDataServiceImpl"/>
-  <bean id="pricingPolicyDataService" class="com.nkhoang.dao.impl.PricingPolicyDataServiceImpl"/>
-  <bean id="resourceTypeDataService" class="com.nkhoang.dao.impl.ResourceTypeDataServiceImpl"/>
+  <bean id="bookingTypeDataService" class="com.nkhoang.wybness.dao.impl.BookingTypeDataServiceImpl"/>
+  <bean id="pricingPolicyDataService" class="com.nkhoang.wybness.dao.impl.PricingPolicyDataServiceImpl"/>
+  <bean id="resourceTypeDataService" class="com.nkhoang.wybness.dao.impl.ResourceTypeDataServiceImpl"/>
   <bean id="wordDataService" class="com.nkhoang.dao.impl.WordDataServiceImpl"/>
   <bean id="dictionaryDataService" class="com.nkhoang.dao.impl.DictionaryDataServiceImpl"/>
   <bean id="soundDataService" class="com.nkhoang.dao.impl.SoundDataServiceImpl"/>

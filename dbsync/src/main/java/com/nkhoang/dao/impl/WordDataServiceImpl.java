@@ -4,6 +4,7 @@ import com.nkhoang.dao.IWordDataService;
 import com.nkhoang.model.criteria.IWordCriteria;
 import com.nkhoang.model.dictionary.IWord;
 import com.nkhoang.model.dictionary.Word;
+import com.nkhoang.wybness.model.BookingTypeBean;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
@@ -40,9 +41,9 @@ public class WordDataServiceImpl extends AbstractDataService<IWord, Long, IWordC
                conj.add(Restrictions.eq("word", criteria.getWord()));
             }
 
-            if (conj.conditions().iterator().hasNext()) {
+            /*if (conj.conditions().iterator().hasNext()) {
                hbnCriteria.add(conj);
-            }
+            }*/
          }
 
          hbnCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -56,5 +57,9 @@ public class WordDataServiceImpl extends AbstractDataService<IWord, Long, IWordC
       } finally {
       }
    }
+
+  public Class getPersistenceClass() {
+    return Word.class;
+  }
 
 }

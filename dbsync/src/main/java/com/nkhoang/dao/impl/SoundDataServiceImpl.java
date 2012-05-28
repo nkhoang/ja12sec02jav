@@ -4,6 +4,7 @@ import com.nkhoang.dao.ISoundDataService;
 import com.nkhoang.model.criteria.ISoundCriteria;
 import com.nkhoang.model.dictionary.ISound;
 import com.nkhoang.model.dictionary.Sound;
+import com.nkhoang.wybness.model.BookingTypeBean;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -40,5 +41,9 @@ public class SoundDataServiceImpl extends AbstractDataService<ISound, Long, ISou
       } finally {
       }
    }
+
+  public Class getPersistenceClass() {
+    return Sound.class;
+  }
 
 }
