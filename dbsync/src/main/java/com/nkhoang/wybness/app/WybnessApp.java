@@ -23,7 +23,8 @@ public class WybnessApp {
     resourceTypeService = (IResourceTypeService) ctx.getBean(IResourceTypeService.class);
     bookingTypeService = (IBookingTypeService) ctx.getBean(IBookingTypeService.class);
 
-    updateData();
+    // updateData();
+    insertData();
   }
 
   private static void updateData() {
@@ -41,15 +42,13 @@ public class WybnessApp {
     // create a new Product
     IProduct product = new ProductBean();
     product.setName("Product 2");
-    product.setBookingType(bookingType);
+    //product.setBookingType(bookingType);
     product.setPricingPolicy(pricingPolicy);
-    product.setResourceType(resourceType);
+    //product.setResourceType(resourceType);
 
     bookingType.getProducts().add(product);
 
     bookingTypeService.update(bookingType);
-
-
   }
 
   private static void insertData() {
@@ -74,10 +73,15 @@ public class WybnessApp {
 
     IBookingType bookingType = new BookingTypeBean();
     bookingType.setName("Booking Type 1");
-    bookingType.getProducts().add(product);
-    product.setBookingType(bookingType);
+    //bookingType.getProducts().add(product);
+    //product.setBookingType(bookingType);
 
     bookingTypeService.insert(bookingType);
+
+    bookingType.getProducts().add(product);
+    bookingTypeService.update(bookingType);
+
+
     LOGGER.info("############ Booking type has id: " + bookingType.getKey());
   }
 }

@@ -52,7 +52,7 @@ public class BookingTypeBean implements IBookingType {
 
 
    @OneToMany(targetEntity = ProductBean.class,
-       fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "bookingType")
+       fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "bookingType")
    public List<IProduct> getProducts() {
      if (CollectionUtils.isEmpty(products)) {
        products = new ArrayList<IProduct>();
@@ -63,4 +63,13 @@ public class BookingTypeBean implements IBookingType {
    public void setProducts(List<IProduct> value) {
       products = value;
    }
+
+  @PrePersist
+  public void prePersist() {
+    if (CollectionUtils.isNotEmpty(getProducts())) {
+      for (IProduct product : getProducts()) {
+        product.setBookingType(this);;
+      }
+    }
+  }
 }

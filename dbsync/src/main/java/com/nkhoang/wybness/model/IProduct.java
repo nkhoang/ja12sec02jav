@@ -7,7 +7,7 @@ import com.nkhoang.model.INamed;
 /**
  * The Interface IProduct.
  */
-public interface IProduct extends IDataObject<Long>, INamed {
+public interface IProduct extends IDataObject<ProductPK>, INamed {
    public static final String NAME = "name";
 
    IPricingPolicy getPricingPolicy();

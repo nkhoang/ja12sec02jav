@@ -7,41 +7,34 @@ import java.io.Serializable;
 
 @Embeddable
 public class ProductPK implements Serializable {
-  private IResourceType resourceType;
-  private IBookingType bookingType;
-  private IPricingPolicy pricingPolicy;
+  private Long bookingTypeKey;
+  private Long resourceTypeKey;
+  private Long pricingPolicyKey;
 
-  @ManyToOne(targetEntity = ResourceTypeBean.class, fetch = FetchType.EAGER)
-  @JoinColumn(name = ResourceTypeBean.ID, referencedColumnName = ResourceTypeBean.ID, nullable = true)
-  @ForeignKey(name = "FK_PRODUCT_RESOURCE_TYPE")
-  public IResourceType getResourceType() {
-    return resourceType;
+  @Column(name = IBookingType.ID)
+  public Long getBookingTypeKey() {
+    return bookingTypeKey;
   }
 
-
-  @ManyToOne(targetEntity = BookingTypeBean.class, fetch = FetchType.LAZY)
-  @JoinColumn(name = IBookingType.ID, referencedColumnName = IBookingType.ID, nullable = false)
-  @ForeignKey(name = "FK_PRODUCT_BOOKING_TYPE")
-  public IBookingType getBookingType() {
-    return bookingType;
+  public void setBookingTypeKey(Long bookingTypeKey) {
+    this.bookingTypeKey = bookingTypeKey;
   }
 
-  @ManyToOne(targetEntity = PricingPolicyBean.class, fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = IPricingPolicy.ID, referencedColumnName = IPricingPolicy.ID, nullable = false)
-  @ForeignKey(name = "FK_PRODUCT_PRICING_POLICY")
-  public IPricingPolicy getPricingPolicy() {
-    return pricingPolicy;
+  @Column(name = IResourceType.ID)
+  public Long getResourceTypeKey() {
+    return resourceTypeKey;
   }
 
-  public void setResourceType(IResourceType resourceType) {
-    this.resourceType = resourceType;
+  public void setResourceTypeKey(Long resourceTypeKey) {
+    this.resourceTypeKey = resourceTypeKey;
   }
 
-  public void setBookingType(IBookingType bookingType) {
-    this.bookingType = bookingType;
+  @Column(name = IPricingPolicy.ID)
+  public Long getPricingPolicyKey() {
+    return pricingPolicyKey;
   }
 
-  public void setPricingPolicy(IPricingPolicy pricingPolicy) {
-    this.pricingPolicy = pricingPolicy;
+  public void setPricingPolicyKey(Long pricingPolicyKey) {
+    this.pricingPolicyKey = pricingPolicyKey;
   }
 }
