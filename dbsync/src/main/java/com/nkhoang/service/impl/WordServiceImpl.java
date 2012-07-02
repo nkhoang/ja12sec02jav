@@ -43,294 +43,302 @@ import java.util.*;
 
 public class WordServiceImpl implements WordService {
 
-  @Autowired
-  @Qualifier("dictionaryLookupService")
-  private DictionaryLookupService dictionaryLookupService;
-  private static final Logger LOGGER = LoggerFactory.getLogger(WordServiceImpl.class.getCanonicalName());
+   @Autowired
+   @Qualifier("dictionaryLookupService")
+   private DictionaryLookupService dictionaryLookupService;
+   private static final Logger LOGGER = LoggerFactory.getLogger(WordServiceImpl.class.getCanonicalName());
 
-  @Autowired
-  @Qualifier("jsonService")
-  private JsonService jsonService;
+   @Autowired
+   @Qualifier("jsonService")
+   private JsonService jsonService;
 
-  @Autowired
-  @Qualifier("wordDataService")
-  private IWordDataService wordDataService;
+   @Autowired
+   @Qualifier("wordDataService")
+   private IWordDataService wordDataService;
 
-  @Autowired
-  @Qualifier("soundDataService")
-  private ISoundDataService soundDataService;
+   @Autowired
+   @Qualifier("soundDataService")
+   private ISoundDataService soundDataService;
 
-  @Autowired
-  @Qualifier("dictionaryDataService")
-  private IDictionaryDataService dictionaryDataService;
-  private Properties serverUrlProperties;
-  /**
-   * The list of pre-configured server URL. It will get the next one in the list if the bandwidth available for the
-   * current one is 0.
-   */
-  private List<String> serverUrls = new ArrayList<String>();
+   @Autowired
+   @Qualifier("dictionaryDataService")
+   private IDictionaryDataService dictionaryDataService;
+   private Properties serverUrlProperties;
+   private List<String> serverUrls = new ArrayList<String>();
 
-  private ObjectPool<String> serverUrlPool;
-  private GenericObjectPoolFactory serverUrlPoolFactory;
+   private ObjectPool<String> serverUrlPool;
+   private GenericObjectPoolFactory serverUrlPoolFactory;
 
 
-  private int currentServerUrlPos = 0;
+   private int currentServerUrlPos = 0;
 
-  public void convertServerUrlProperties() {
-    serverUrls = new ArrayList<String>();
-    for (Enumeration en = serverUrlProperties.keys(); en.hasMoreElements(); ) {
-      String key = (String) en.nextElement();
-      serverUrls.add(key);
-    }
-
-    serverUrlPoolFactory = new GenericObjectPoolFactory(new ServerUrlPoolFactory(serverUrls),
-        serverUrls.size(), GenericObjectPool.DEFAULT_WHEN_EXHAUSTED_ACTION, GenericObjectPool.DEFAULT_MAX_WAIT);
-
-    serverUrlPool = serverUrlPoolFactory.createPool();
-  }
-
-  public boolean checkExistence(String word, String dictName) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Checking database with criteria [word=" + word + ", dictName=" + dictName);
-    }
-    IWordCriteria crit = new WordCriteriaImpl();
-    crit.setWord(word);
-    crit.setDictName(dictName);
-    if (CollectionUtils.isNotEmpty(wordDataService.find(crit))) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void query(String word) throws WebserviceException, ServiceException, PersistenceException {
-    boolean shouldStop = false;
-
-    do {
-      // get the resource URL.
-      String resourceUrl = null;
-      try {
-        resourceUrl = serverUrlPool.borrowObject();
-      } catch (Exception ex) {
-        throw new ServiceException(ex.getMessage(), ex);
+   public void convertServerUrlProperties() {
+      serverUrls = new ArrayList<String>();
+      for (Enumeration en = serverUrlProperties.keys(); en.hasMoreElements(); ) {
+         String key = (String) en.nextElement();
+         serverUrls.add(key);
       }
-      LOGGER.info("Use server: " + resourceUrl + " to fetch data.");
-      try {
-        if (StringUtils.isNotEmpty(resourceUrl)) {
-          // query the word.
-          String wordResponse = dictionaryLookupService.query(resourceUrl.trim(), word);
-          // De-serialize json data to Object to verify data.
-          WordJson wJson = jsonService.deserializeFrom(wordResponse);
-          // get oxford data first
-          String pron = null;
-          ISound soundEntity = null;
-          if (wJson.getData().get(DictionaryLookupService.DICT_OXFORD) != null) {
-            WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_OXFORD);
-            w.setSourceName(DictionaryLookupService.DICT_OXFORD);
-            // check to make sure that no meaning word should not be saved.
-            if (CollectionUtils.isNotEmpty(w.getMeanings())) {
-              pron = w.getPron();
-              w.setKey(null);
-              String jsonData = toJson(w);
 
-              if (w.getSoundSource() != null) {
-                String downloadUrl = w.getSoundSource();
-                // download sound and save to database
-                downloadUrl = downloadUrl.replaceAll("playSoundFromFlash\\(\\'", "");
-                downloadUrl = downloadUrl.replaceAll("\\', this\\)", "");
-                downloadUrl = downloadUrl.trim();
-                byte[] sound = saveFile(downloadUrl);
+      serverUrlPoolFactory = new GenericObjectPoolFactory(new ServerUrlPoolFactory(serverUrls),
+            serverUrls.size(), GenericObjectPool.DEFAULT_WHEN_EXHAUSTED_ACTION, GenericObjectPool.DEFAULT_MAX_WAIT);
 
-                soundEntity = insertSound(sound, w.getDescription());
-              }
-              if (!checkExistence(w.getDescription(), w.getSourceName())) {
-                insertWord(w, jsonData, soundEntity);
-              } else {
-                if (LOGGER.isDebugEnabled()) {
-                  LOGGER.debug("Found word: [word=" + w.getDescription() + ", dictionary=" + w.getSourceName() + "]");
-                }
-              }
-            } else {
-              LOGGER.info("(" + w.getDescription() + ", " + w.getSourceName() + ") =====> No meaning.");
+      serverUrlPool = serverUrlPoolFactory.createPool();
+   }
+
+   private boolean checkExistence(String word, String dictName) {
+      if (LOGGER.isDebugEnabled()) {
+         LOGGER.debug("Checking database with criteria [word=" + word + ", dictName=" + dictName);
+      }
+      IWordCriteria crit = new WordCriteriaImpl();
+      crit.setWord(word);
+      crit.setDictName(dictName);
+      if (CollectionUtils.isNotEmpty(wordDataService.find(crit))) {
+         return true;
+      }
+      return false;
+   }
+
+   /**
+    * {@inheritDoc}
+    */
+   public void query(String word) throws WebserviceException, ServiceException, PersistenceException {
+      boolean shouldStop = false;
+      LOGGER.info("#########################################################################");
+      do {
+         // get the resource URL.
+         String resourceUrl = null;
+         try {
+            resourceUrl = serverUrlPool.borrowObject();
+
+            LOGGER.info("######## Process word: " + word + " using this URL: " + resourceUrl);
+         } catch (Exception ex) {
+            throw new ServiceException(ex.getMessage(), ex);
+         }
+         try {
+            if (StringUtils.isNotEmpty(resourceUrl)) {
+               // check existence first
+               if (checkExistence(word, DictionaryLookupService.DICT_OXFORD)
+                     && checkExistence(word, DictionaryLookupService.DICT_VDICT)) {
+                  return;
+               }
+               // query the word.
+               String wordResponse = dictionaryLookupService.query(resourceUrl.trim(), word);
+               // De-serialize json data to Object to verify data.
+               WordJson wJson = jsonService.deserializeFrom(wordResponse);
+               // get oxford data first
+               String pron = null;
+               ISound soundEntity = null;
+               if (wJson.getData().get(DictionaryLookupService.DICT_OXFORD) != null) {
+                  WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_OXFORD);
+                  w.setSourceName(DictionaryLookupService.DICT_OXFORD);
+                  LOGGER.info("######## Working on " + w.getSourceName() + "...");
+                  // check to make sure that no meaning word should not be saved.
+                  if (CollectionUtils.isNotEmpty(w.getMeanings()) && !checkExistence(w.getDescription(), w.getSourceName())) {
+                     pron = w.getPron();
+                     w.setKey(null);
+                     String jsonData = toJson(w);
+
+                     if (w.getSoundSource() != null) {
+                        String downloadUrl = w.getSoundSource();
+                        // download sound and save to database
+                        downloadUrl = downloadUrl.replaceAll("playSoundFromFlash\\(\\'", "");
+                        downloadUrl = downloadUrl.replaceAll("\\', this\\)", "");
+                        downloadUrl = downloadUrl.trim();
+                        try {
+                           if (downloadUrl.contains("http://dictionary.cambridge.orghttp://dictionary.cambridge.org")) {
+                              downloadUrl = downloadUrl.replace("http://dictionary.cambridge.orghttp://dictionary.cambridge.org"
+                                    , "http://dictionary.cambridge.org");
+                           }
+                           LOGGER.info("######## Download url: " + downloadUrl);
+                           byte[] sound = saveFile(downloadUrl);
+                           LOGGER.info("######## Insert sound...");
+                           soundEntity = insertSound(sound, w.getDescription());
+                        } catch (Exception e) {
+                           LOGGER.info("######## Could not save file: " + e.getMessage());
+                        }
+                     }
+                     LOGGER.info("######## Insert to db...");
+                     insertWord(w, jsonData, soundEntity);
+                  } else {
+                     LOGGER.info("######## Skip...");
+                  }
+               }
+
+
+               if (wJson.getData().get(DictionaryLookupService.DICT_VDICT) != null) {
+                  WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_VDICT);
+                  w.setSourceName(DictionaryLookupService.DICT_VDICT);
+                  LOGGER.info("######## Working on " + w.getSourceName() + "...");
+                  if (CollectionUtils.isNotEmpty(w.getMeanings()) && !checkExistence(w.getDescription(), w.getSourceName())) {
+                     w.setKey(null);
+                     w.setPron(pron);
+                     String jsonData = toJson(w);
+
+                     LOGGER.info("######## Insert to db...");
+                     insertWord(w, jsonData, soundEntity);
+                  } else {
+                     LOGGER.info("######## Skipp...");
+                  }
+               }
+               serverUrlPool.returnObject(resourceUrl);
+               shouldStop = true;
             }
-          }
+         } catch (DictionaryLookupServiceException DLEx) {
+            LOGGER.info("The server: " + resourceUrl + " is not responsive. Switching server.");
+         } catch (Exception ex) {
+            throw new ServiceException(ex.getMessage(), ex);
+         }
+      } while (!shouldStop);
+      LOGGER.info("#########################################################################");
+   }
 
 
-          if (wJson.getData().get(DictionaryLookupService.DICT_VDICT) != null) {
-            WordEntity w = wJson.getData().get(DictionaryLookupService.DICT_VDICT);
-            w.setSourceName(DictionaryLookupService.DICT_VDICT);
-            if (CollectionUtils.isNotEmpty(w.getMeanings())) {
-              w.setKey(null);
-              w.setPron(pron);
-              String jsonData = toJson(w);
-
-              if (!checkExistence(w.getDescription(), w.getSourceName())) {
-                insertWord(w, jsonData, soundEntity);
-              }
-            } else {
-              LOGGER.info("(" + w.getDescription() + ", " + w.getSourceName() + ") =====> No meaning.");
-            }
-          }
-          serverUrlPool.returnObject(resourceUrl);
-          shouldStop = true;
-        }
-      } catch (DictionaryLookupServiceException DLEx) {
-        LOGGER.info("The server: " + resourceUrl + " is not responsive. Switching server.");
-      } catch (Exception ex) {
-        throw new ServiceException(ex.getMessage(), ex);
+   /**
+    * Save remote File to a byte array.
+    *
+    * @param fAddress the address URL.
+    */
+   private byte[] saveFile(String fAddress) {
+      if (LOGGER.isDebugEnabled()) {
+         // LOGGER.debug("Download sound from URL: " + fAddress);
       }
-    } while (!shouldStop);
-  }
+      byte[] result = null;
+      ByteArrayOutputStream outStream = null;
+      URLConnection uCon = null;
 
-
-  /**
-   * Save remote File to a byte array.
-   *
-   * @param fAddress the address URL.
-   */
-  private byte[] saveFile(String fAddress) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Download sound from URL: " + fAddress);
-    }
-    byte[] result = null;
-    ByteArrayOutputStream outStream = null;
-    URLConnection uCon = null;
-
-    InputStream is = null;
-    try {
-      URL Url;
-      byte[] buf;
-      int ByteRead, ByteWritten = 0;
-      Url = new URL(fAddress);
-      outStream = new ByteArrayOutputStream();
-
-
-      uCon = Url.openConnection();
-      is = uCon.getInputStream();
-      buf = new byte[1000];
-      while ((ByteRead = is.read(buf)) != -1) {
-        outStream.write(buf, 0, ByteRead);
-        ByteWritten += ByteRead;
-      }
-      result = outStream.toByteArray();
-    } catch (Exception e) {
-      e.printStackTrace();
-    } finally {
+      InputStream is = null;
       try {
-        is.close();
-        outStream.close();
-      } catch (IOException e) {
+         URL Url;
+         byte[] buf;
+         int ByteRead, ByteWritten = 0;
+         Url = new URL(fAddress);
+         outStream = new ByteArrayOutputStream();
 
+
+         uCon = Url.openConnection();
+         is = uCon.getInputStream();
+         buf = new byte[1000];
+         while ((ByteRead = is.read(buf)) != -1) {
+            outStream.write(buf, 0, ByteRead);
+            ByteWritten += ByteRead;
+         }
+         result = outStream.toByteArray();
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            is.close();
+            outStream.close();
+         } catch (IOException e) {
+
+         }
       }
-    }
-    return result;
-  }
+      return result;
+   }
 
-  /**
-   * Insert sound to database and get the reference.
-   *
-   * @param soundArr
-   * @return
-   */
-  private ISound insertSound(byte[] soundArr, String des) {
-    ISound sound = new Sound();
-    sound.setDescription(des);
-    sound.setSound(soundArr);
+   /**
+    * Insert sound to database and get the reference.
+    *
+    * @param soundArr
+    * @return
+    */
+   private ISound insertSound(byte[] soundArr, String des) {
+      ISound sound = new Sound();
+      sound.setDescription(des);
+      sound.setSound(soundArr);
 
-    return soundDataService.insert(sound);
-  }
+      return soundDataService.insert(sound);
+   }
 
-  /**
-   * Insert a new word.
-   *
-   * @param jsonData
-   */
-  private void insertWord(WordEntity wordEntity, String jsonData, ISound sound) throws PersistenceException {
-    Word w = new Word();
-    w.setData(jsonData);
-    w.setSound(sound);
-    w.setWord(wordEntity.getDescription());
-    w.setDictionary(dictionaryDataService.findByName(wordEntity.getSourceName()));
+   /**
+    * Insert a new word.
+    *
+    * @param jsonData
+    */
+   private void insertWord(WordEntity wordEntity, String jsonData, ISound sound) throws PersistenceException {
+      Word w = new Word();
+      w.setData(jsonData);
+      w.setSound(sound);
+      w.setWord(wordEntity.getDescription());
+      w.setDictionary(dictionaryDataService.findByName(wordEntity.getSourceName()));
 
-    wordDataService.insert(w);
-  }
+      wordDataService.insert(w);
+   }
 
-  /**
-   * Convert WordEntity object to json.
-   *
-   * @param entity the WordEntity
-   * @return the json representation.
-   * @throws ServiceException the ServiceException.
-   */
-  private String toJson(WordEntity entity) throws ServiceException {
-    try {
-      StringWriter out = new StringWriter();
+   /**
+    * Convert WordEntity object to json.
+    *
+    * @param entity the WordEntity
+    * @return the json representation.
+    * @throws ServiceException the ServiceException.
+    */
+   private String toJson(WordEntity entity) throws ServiceException {
+      try {
+         StringWriter out = new StringWriter();
 
-      ObjectMapper objectMapper = new ObjectMapper();
-      objectMapper.configure(SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
-      objectMapper.configure(SerializationConfig.Feature.WRITE_EMPTY_JSON_ARRAYS, false);
+         ObjectMapper objectMapper = new ObjectMapper();
+         objectMapper.configure(SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false);
+         objectMapper.configure(SerializationConfig.Feature.WRITE_EMPTY_JSON_ARRAYS, false);
 
-      objectMapper.writeValue(out, entity);
+         objectMapper.writeValue(out, entity);
 
-      return out.toString();
-    } catch (JsonGenerationException JGEx) {
-      throw new ServiceException("Could not generate json from WordEntity of word=" + entity.getDescription(), JGEx);
-    } catch (JsonMappingException JMEx) {
-      throw new ServiceException("could not mapping content from WordEntity of word=" + entity.getDescription(), JMEx);
-    } catch (IOException IOEx) {
-      throw new ServiceException("Could not write the output json.", IOEx);
-    }
-  }
+         return out.toString();
+      } catch (JsonGenerationException JGEx) {
+         throw new ServiceException("Could not generate json from WordEntity of word=" + entity.getDescription(), JGEx);
+      } catch (JsonMappingException JMEx) {
+         throw new ServiceException("could not mapping content from WordEntity of word=" + entity.getDescription(), JMEx);
+      } catch (IOException IOEx) {
+         throw new ServiceException("Could not write the output json.", IOEx);
+      }
+   }
 
-  public List<String> getServerUrls() {
-    return serverUrls;
-  }
+   public List<String> getServerUrls() {
+      return serverUrls;
+   }
 
-  public void setServerUrls(List<String> serverUrls) {
-    this.serverUrls = serverUrls;
-  }
+   public void setServerUrls(List<String> serverUrls) {
+      this.serverUrls = serverUrls;
+   }
 
-  public Properties getServerUrlProperties() {
-    return serverUrlProperties;
-  }
+   public Properties getServerUrlProperties() {
+      return serverUrlProperties;
+   }
 
-  public void setServerUrlProperties(Properties serverUrlProperties) {
-    this.serverUrlProperties = serverUrlProperties;
-  }
+   public void setServerUrlProperties(Properties serverUrlProperties) {
+      this.serverUrlProperties = serverUrlProperties;
+   }
 }
 
 class ServerUrlPoolFactory implements PoolableObjectFactory<String> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ServerUrlPoolFactory.class.getCanonicalName());
-  private LinkedList<String> queue = new LinkedList<String>();
+   private static final Logger LOGGER = LoggerFactory.getLogger(ServerUrlPoolFactory.class.getCanonicalName());
+   private LinkedList<String> queue = new LinkedList<String>();
 
-  public ServerUrlPoolFactory(List<String> serverUrls) {
-    queue.addAll(serverUrls);
-  }
+   public ServerUrlPoolFactory(List<String> serverUrls) {
+      queue.addAll(serverUrls);
+   }
 
-  public String makeObject() throws Exception {
-    if (queue.isEmpty()) {
-      throw new PoolEmptyException("pool is empty.");
-    }
-    String value = queue.pop();
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("############## POOL: Returning object -> " + value);
-    }
-    return value;
-  }
+   public String makeObject() throws Exception {
+      if (queue.isEmpty()) {
+         throw new PoolEmptyException("pool is empty.");
+      }
+      String value = queue.pop();
+      if (LOGGER.isDebugEnabled()) {
+         LOGGER.debug("############## POOL: Returning object -> " + value);
+      }
+      return value;
+   }
 
-  public void destroyObject(String obj) throws Exception {
-    queue.remove(obj);
-  }
+   public void destroyObject(String obj) throws Exception {
+      queue.remove(obj);
+   }
 
-  public boolean validateObject(String obj) {
-    return true;
-  }
+   public boolean validateObject(String obj) {
+      return true;
+   }
 
-  public void activateObject(String obj) throws Exception {
-  }
+   public void activateObject(String obj) throws Exception {
+   }
 
-  public void passivateObject(String obj) throws Exception {
-  }
+   public void passivateObject(String obj) throws Exception {
+   }
 }

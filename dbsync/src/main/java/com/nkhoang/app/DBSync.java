@@ -13,51 +13,50 @@ import java.util.concurrent.*;
 
 public class DBSync {
 
-  private static final int THREAD_POOL_QUEUE_SIZE = 60;
-  private static final int THREAD_POOL_KEEP_ALIVE_TIME = 0;
-  private static final int THREAD_POOL_MAX_SIZE = 30;
-  private static final int THREAD_POOL_CORE_SIZE = 30;
-  private static final int STARTING_INDEX = 0;
+   private static final int THREAD_POOL_QUEUE_SIZE = 60;
+   private static final int THREAD_POOL_KEEP_ALIVE_TIME = 0;
+   private static final int THREAD_POOL_MAX_SIZE = 30;
+   private static final int THREAD_POOL_CORE_SIZE = 30;
+   private static final int STARTING_INDEX = 1;
 
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(WordService.class.getCanonicalName());
-  private static List<String> wordList;
-  private static WordService wordService;
+   private static final Logger LOGGER = LoggerFactory.getLogger(WordService.class.getCanonicalName());
+   private static List<String> wordList;
+   private static WordService wordService;
 
-  public static void main(String[] args) {
-    ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-    wordService = ctx.getBean(WordService.class);
-    URL fileUrl = Thread.currentThread().getContextClassLoader().getResource("word-list.txt");
-    wordList = FileUtils.readWordsFromFile(fileUrl.getPath());
-    ExecutorService executor = new ThreadPoolExecutor(
-        THREAD_POOL_CORE_SIZE, THREAD_POOL_MAX_SIZE, THREAD_POOL_KEEP_ALIVE_TIME, TimeUnit.SECONDS,
-        new ArrayBlockingQueue<Runnable>(THREAD_POOL_QUEUE_SIZE), new ThreadPoolExecutor.CallerRunsPolicy());
-    List<Future<Object>> futurePool = new ArrayList<Future<Object>>();
+   public static void main(String[] args) {
+      ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+      wordService = ctx.getBean(WordService.class);
+      URL fileUrl = Thread.currentThread().getContextClassLoader().getResource("word-list.txt");
+      wordList = FileUtils.readWordsFromFile(fileUrl.getPath());
+      ExecutorService executor = new ThreadPoolExecutor(
+            THREAD_POOL_CORE_SIZE, THREAD_POOL_MAX_SIZE, THREAD_POOL_KEEP_ALIVE_TIME, TimeUnit.SECONDS,
+            new ArrayBlockingQueue<Runnable>(THREAD_POOL_QUEUE_SIZE), new ThreadPoolExecutor.CallerRunsPolicy());
+      List<Future<Object>> futurePool = new ArrayList<Future<Object>>();
 
-    for (int i = STARTING_INDEX; i < wordList.size(); i++) {
-      final int wordIndex = i;
-      futurePool.add(executor.submit(new Callable<Object>() {
-        public Object call() throws Exception {
-          String w = wordList.get(wordIndex);
-          LOGGER.info("Processing word: " + w);
-          wordService.query(w);
-          return null;
-        }
-      }));
+      for (int i = STARTING_INDEX; i < wordList.size(); i++) {
+         final int wordIndex = i;
+         futurePool.add(executor.submit(new Callable<Object>() {
+            public Object call() throws Exception {
+               String w = wordList.get(wordIndex);
+               wordService.query(w);
+               return null;
+            }
+         }));
 
-      if (futurePool.size() > 10) {
-        for (Future<Object> future : futurePool) {
-          try {
-            future.get();
-          } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-            LOGGER.info("Shutdown...");
-            executor.shutdown();
-            System.exit(1);
-          }
-        }
+         if (futurePool.size() > 10) {
+            for (Future<Object> future : futurePool) {
+               try {
+                  future.get();
+               } catch (Exception e) {
+                  LOGGER.error(e.getMessage(), e);
+                  LOGGER.info("Shutdown...");
+                  executor.shutdown();
+                  System.exit(1);
+               }
+            }
+         }
       }
-    }
 
-  }
+   }
 }

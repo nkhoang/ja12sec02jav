@@ -19,57 +19,48 @@ public class BookingTypeBean implements IBookingType {
 
    private List<IProduct> products;
 
-  /**
-   * The bookingType key property
-   */
-  private Long key;
+   /**
+    * The bookingType key property
+    */
+   private Long key;
 
-  /**
-   * The bookingType name property
-   */
-  private String name;
+   /**
+    * The bookingType name property
+    */
+   private String name;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = ID, nullable = false)
-  public Long getKey() {
-    return key;
-  }
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = ID, nullable = false)
+   public Long getKey() {
+      return key;
+   }
 
-  public void setKey(Long value) {
-    key = value;
-  }
+   public void setKey(Long value) {
+      key = value;
+   }
 
-  @Column(name = IBookingType.NAME, length = 128, nullable = false, updatable = true)
-  @Index(name = "IDX_BOOKING_TYPE_NAME")
-  public String getName() {
-    return name;
-  }
+   @Column(name = IBookingType.NAME, length = 128, nullable = false, updatable = true)
+   @Index(name = "IDX_BOOKING_TYPE_NAME")
+   public String getName() {
+      return name;
+   }
 
-  public void setName(String value) {
-    name = value;
-  }
+   public void setName(String value) {
+      name = value;
+   }
 
 
    @OneToMany(targetEntity = ProductBean.class,
-       fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "bookingType")
+         fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "bookingType")
    public List<IProduct> getProducts() {
-     if (CollectionUtils.isEmpty(products)) {
-       products = new ArrayList<IProduct>();
-     }
+      if (CollectionUtils.isEmpty(products)) {
+         products = new ArrayList<IProduct>();
+      }
       return products;
    }
 
    public void setProducts(List<IProduct> value) {
       products = value;
    }
-
-  @PrePersist
-  public void prePersist() {
-    if (CollectionUtils.isNotEmpty(getProducts())) {
-      for (IProduct product : getProducts()) {
-        product.setBookingType(this);;
-      }
-    }
-  }
 }

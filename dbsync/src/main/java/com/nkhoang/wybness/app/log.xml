@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <S:Fault>
+      <faultcode>S:Server</faultcode>
+      <faultstring>Unexpected error: An IO errors occurs</faultstring>
+      <detail>
+        <ns2:exception xmlns:ns2="http://jax-ws.dev.java.net/" class="com.wybness.ws.TechnicalFault"
+                       note="To disable this feature, set com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace system property to false">
+          <message>Unexpected error: An IO errors occurs</message>
+          <ns2:stackTrace>
+            <ns2:frame class="com.wybness.bs.impl.ws.AbstractBookingSolutionsWS" file="AbstractBookingSolutionsWS.java"
+                       line="5213" method="updatePricingPolicy"/>
+            <ns2:frame class="sun.reflect.NativeMethodAccessorImpl" file="NativeMethodAccessorImpl.java" line="native"
+                       method="invoke0"/>
+            <ns2:frame class="sun.reflect.NativeMethodAccessorImpl" file="NativeMethodAccessorImpl.java" line="39"
+                       method="invoke"/>
+            <ns2:frame class="sun.reflect.DelegatingMethodAccessorImpl" file="DelegatingMethodAccessorImpl.java"
+                       line="25" method="invoke"/>
+            <ns2:frame class="java.lang.reflect.Method" file="Method.java" line="597" method="invoke"/>
+            <ns2:frame class="com.sun.xml.ws.api.server.InstanceResolver$1" file="InstanceResolver.java" line="246"
+                       method="invoke"/>
+            <ns2:frame class="com.sun.xml.ws.server.InvokerTube$2" file="InvokerTube.java" line="146" method="invoke"/>
+            <ns2:frame class="com.sun.xml.ws.server.sei.EndpointMethodHandler" file="EndpointMethodHandler.java"
+                       line="257" method="invoke"/>
+            <ns2:frame class="com.sun.xml.ws.server.sei.SEIInvokerTube" file="SEIInvokerTube.java" line="93"
+                       method="processRequest"/>
+            <ns2:frame class="com.sun.xml.ws.api.pipe.Fiber" file="Fiber.java" line="598" method="__doRun"/>
+            <ns2:frame class="com.sun.xml.ws.api.pipe.Fiber" file="Fiber.java" line="557" method="_doRun"/>
+            <ns2:frame class="com.sun.xml.ws.api.pipe.Fiber" file="Fiber.java" line="542" method="doRun"/>
+            <ns2:frame class="com.sun.xml.ws.api.pipe.Fiber" file="Fiber.java" line="439" method="runSync"/>
+            <ns2:frame class="com.sun.xml.ws.server.WSEndpointImpl$2" file="WSEndpointImpl.java" line="243"
+                       method="process"/>
+            <ns2:frame class="com.sun.xml.ws.transport.http.HttpAdapter$HttpToolkit" file="HttpAdapter.java" line="471"
+                       method="handle"/>
+            <ns2:frame class="com.sun.xml.ws.transport.http.HttpAdapter" file="HttpAdapter.java" line="244"
+                       method="handle"/>
+            <ns2:frame class="com.sun.xml.ws.transport.http.servlet.ServletAdapter" file="ServletAdapter.java"
+                       line="135" method="handle"/>
+            <ns2:frame class="com.sun.xml.ws.transport.http.servlet.WSServletDelegate" file="WSServletDelegate.java"
+                       line="129" method="doGet"/>
+            <ns2:frame class="com.sun.xml.ws.transport.http.servlet.WSServletDelegate" file="WSServletDelegate.java"
+                       line="160" method="doPost"/>
+            <ns2:frame class="com.sun.xml.ws.transport.http.servlet.WSServlet" file="WSServlet.java" line="75"
+                       method="doPost"/>
+            <ns2:frame class="javax.servlet.http.HttpServlet" file="HttpServlet.java" line="637" method="service"/>
+            <ns2:frame class="javax.servlet.http.HttpServlet" file="HttpServlet.java" line="717" method="service"/>
+            <ns2:frame class="org.apache.catalina.core.ApplicationFilterChain" file="ApplicationFilterChain.java"
+                       line="290" method="internalDoFilter"/>
+            <ns2:frame class="org.apache.catalina.core.ApplicationFilterChain" file="ApplicationFilterChain.java"
+                       line="206" method="doFilter"/>
+            <ns2:frame class="org.jboss.web.tomcat.filters.ReplyHeaderFilter" file="ReplyHeaderFilter.java" line="96"
+                       method="doFilter"/>
+            <ns2:frame class="org.apache.catalina.core.ApplicationFilterChain" file="ApplicationFilterChain.java"
+                       line="235" method="internalDoFilter"/>
+            <ns2:frame class="org.apache.catalina.core.ApplicationFilterChain" file="ApplicationFilterChain.java"
+                       line="206" method="doFilter"/>
+            <ns2:frame class="org.apache.catalina.core.StandardWrapperValve" file="StandardWrapperValve.java" line="235"
+                       method="invoke"/>
+            <ns2:frame class="org.apache.catalina.core.StandardContextValve" file="StandardContextValve.java" line="191"
+                       method="invoke"/>
+            <ns2:frame class="org.jboss.web.tomcat.security.SecurityAssociationValve"
+                       file="SecurityAssociationValve.java" line="190" method="invoke"/>
+            <ns2:frame class="org.jboss.web.tomcat.service.session.ClusteredSessionValve"
+                       file="ClusteredSessionValve.java" line="135" method="handleRequest"/>
+            <ns2:frame class="org.jboss.web.tomcat.service.session.ClusteredSessionValve"
+                       file="ClusteredSessionValve.java" line="94" method="invoke"/>
+            <ns2:frame class="org.jboss.web.tomcat.service.session.LockingValve" file="LockingValve.java" line="62"
+                       method="invoke"/>
+            <ns2:frame class="org.jboss.web.tomcat.security.JaccContextValve" file="JaccContextValve.java" line="92"
+                       method="invoke"/>
+            <ns2:frame class="org.jboss.web.tomcat.security.SecurityContextEstablishmentValve"
+                       file="SecurityContextEstablishmentValve.java" line="126" method="process"/>
+            <ns2:frame class="org.jboss.web.tomcat.security.SecurityContextEstablishmentValve"
+                       file="SecurityContextEstablishmentValve.java" line="70" method="invoke"/>
+            <ns2:frame class="org.apache.catalina.core.StandardHostValve" file="StandardHostValve.java" line="127"
+                       method="invoke"/>
+            <ns2:frame class="org.apache.catalina.valves.ErrorReportValve" file="ErrorReportValve.java" line="102"
+                       method="invoke"/>
+            <ns2:frame class="org.jboss.web.tomcat.service.jca.CachedConnectionValve" file="CachedConnectionValve.java"
+                       line="158" method="invoke"/>
+            <ns2:frame class="org.apache.catalina.core.StandardEngineValve" file="StandardEngineValve.java" line="109"
+                       method="invoke"/>
+            <ns2:frame class="org.apache.catalina.connector.CoyoteAdapter" file="CoyoteAdapter.java" line="330"
+                       method="service"/>
+            <ns2:frame class="org.apache.coyote.ajp.AjpProcessor" file="AjpProcessor.java" line="436" method="process"/>
+            <ns2:frame class="org.apache.coyote.ajp.AjpProtocol$AjpConnectionHandler" file="AjpProtocol.java" line="384"
+                       method="process"/>
+            <ns2:frame class="org.apache.tomcat.util.net.JIoEndpoint$Worker" file="JIoEndpoint.java" line="447"
+                       method="run"/>
+            <ns2:frame class="java.lang.Thread" file="Thread.java" line="662" method="run"/>
+          </ns2:stackTrace>
+        </ns2:exception>
+      </detail>
+    </S:Fault>
+  </S:Body>
+</S:Envelope>
+    2012-05-29 15:06:31,196 INFO  [ajp-vm-asdev-3%2F192.168.3.102-8009-3],[STDOUT] --------------------
