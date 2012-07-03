@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-	<application>thecao9999</application>
-	<version>1</version>
-	<sessions-enabled>true</sessions-enabled>
-	<!-- Configure java.util.logging -->
-	<system-properties>
-		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
-        <property name="appengine.orm.disable.duplicate.emf.exception" value="true" />
-	</system-properties>
-    <warmup-requests-enabled>true</warmup-requests-enabled>
+  <application>mini-dictionary-4</application>
+  <version>1</version>
+  <sessions-enabled>true</sessions-enabled>
+  <!-- Configure java.util.logging -->
+  <system-properties>
+    <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    <property name="appengine.orm.disable.duplicate.emf.exception" value="true"/>
+  </system-properties>
+  <warmup-requests-enabled>true</warmup-requests-enabled>
 </appengine-web-app>

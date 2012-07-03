@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,31 +16,34 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration({"/applicationContext-service.xml"})
 
 public class EncryptionTest {
-  private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionTest.class);
-  private static final String ALGORITHM = "DSA";
+    private static final Logger LOGGER = LoggerFactory.getLogger(EncryptionTest.class);
+    @Value("#{encryption['property.digest.algorithm']}")
+    private String algorithm;
 
-  @Autowired
-  private StandardPBEStringEncryptor propertyEncryptor;
+    @Autowired
+    private StandardPBEStringEncryptor propertyEncryptor;
 
-  @Test
-  public void testPropertyEncryptor() {
-    LOGGER.info(propertyEncryptor.encrypt(""));
-    String saltString = "digest password";
-    //String algorithmString = "MD5";
-    String algorithmString = "SHA-256";
-    String iterationString = "1000";
+    @Test
+    public void testPropertyEncryptor() {
+        LOGGER.info(propertyEncryptor.encrypt(""));
 
-    // LOGGER.info(propertyEncryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
-    // LOGGER.info(propertyEncryptor.encrypt(iterationString));
-    // LOGGER.info(propertyEncryptor.encrypt(algorithmString));
-    // LOGGER.info(propertyEncryptor.encrypt(saltString));
-  }
+        LOGGER.info(algorithm);
+        //String saltString = "digest password";
+        //String algorithmString = "MD5";
+        //String algorithmString = "SHA-256";
+        //String iterationString = "1000";
 
-  public StandardPBEStringEncryptor getPropertyEncryptor() {
-    return propertyEncryptor;
-  }
+        // LOGGER.info(propertyEncryptor.decrypt("emGwruT+2OXLTyHskiBsXw=="));
+        // LOGGER.info(propertyEncryptor.encrypt(iterationString));
+        // LOGGER.info(propertyEncryptor.encrypt(algorithmString));
+        // LOGGER.info(propertyEncryptor.encrypt(saltString));
+    }
 
-  public void setPropertyEncryptor(StandardPBEStringEncryptor propertyEncryptor) {
-    this.propertyEncryptor = propertyEncryptor;
-  }
+    public StandardPBEStringEncryptor getPropertyEncryptor() {
+        return propertyEncryptor;
+    }
+
+    public void setPropertyEncryptor(StandardPBEStringEncryptor propertyEncryptor) {
+        this.propertyEncryptor = propertyEncryptor;
+    }
 }

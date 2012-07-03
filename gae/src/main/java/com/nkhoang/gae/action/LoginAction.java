@@ -16,7 +16,6 @@ import java.util.Map;
 public class LoginAction {
     @RequestMapping("/" + ViewConstant.INDEX_REQUEST)
     public ModelAndView welcome() {
-
         // load user authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = null;
@@ -29,9 +28,9 @@ public class LoginAction {
         Map<String, Object> model = new Hashtable<String, Object>();
         // enable javascript flag: isAdmin
         if (currentUser != null) {
-            model.put("isAdmin", true);
+            model.put(ViewConstant.ADMIN_FLAG, true);
         } else {
-            model.put("isAdmin", false);
+            model.put(ViewConstant.ADMIN_FLAG, false);
         }
         return new ModelAndView(ViewConstant.WELCOME_VIEW, model);
     }
