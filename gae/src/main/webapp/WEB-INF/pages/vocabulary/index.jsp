@@ -175,6 +175,7 @@
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.css' />"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery.autocomplete.css' />"/>
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/layout.css' />"/>
 
 
 <script type="text/javascript">
@@ -368,6 +369,103 @@
 
 </head>
 <body>
+
+<div id="page-body">
+    <div id="search-box">
+        <div id="search-left-sec">
+            <table>
+                <td class="search-ico">
+                </td>
+                <td>
+                    <input type="text" id="search-input"/>
+                </td>
+            </table>
+        </div>
+        <div id="search-right-sec">
+            <div class="search-btn"></div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div id="search-result-body">
+        <div id="pnl-left">
+            <div id="nav-border-hider">
+                <div class="nav-border-hider-section"></div>
+                <div class="nav-border-hider-section"></div>
+                <div class="nav-border-hider-section"></div>
+                <div class="nav-border-hider-section"></div>
+            </div>
+
+            <div id="pnl-nav">
+                <a onclick="">
+                    <div class="cnt-nav-lnk active lnk-user first">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="nav-icon">
+                                </td>
+                                <td class="nav-lnk-title">
+                                    <?php echo Yii::t(SiteConstant::USER_MANAGEMENT_MESSAGE_BUNDLE, 'nav.user');?>
+                                </td>
+                                <td class="nav-indicator"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </a>
+                <a onclick="loadPanel('Role');">
+                    <div class="cnt-nav-lnk lnk-user-role">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="nav-icon">
+                                </td>
+                                <td class="nav-lnk-title">
+                                    <a onclick="loadPanel('User');"><?php echo Yii::t(SiteConstant::USER_MANAGEMENT_MESSAGE_BUNDLE, 'nav.role');?></a>
+                                </td>
+                                <td class="nav-indicator"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </a>
+
+                <div class="cnt-nav-lnk lnk-help">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="nav-icon">
+                            </td>
+                            <td class="nav-lnk-title">
+                                <a onclick="">TBD</a>
+                            </td>
+                            <td class="nav-indicator"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cnt-nav-lnk lnk-help last">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td class="nav-icon">
+                            </td>
+                            <td class="nav-lnk-title">
+                                <a onclick="">TBD</a>
+                            </td>
+                            <td class="nav-indicator"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="display-pnl">
+
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
 <div id="f-wr">
 
     <div id="lookup-w-c"></div>
