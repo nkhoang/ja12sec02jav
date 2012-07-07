@@ -86,8 +86,10 @@ public class CambridgeLookupServiceImpl implements LookupService {
                   // get Pron
                   if (CollectionUtils.isNotEmpty(prons)) {
                      String pron = prons.get(0).getTextExtractor().toString();
-                     LOG.debug("Pron: " + pron);
-                     w.setPron(pron);
+                      if (StringUtils.isNotEmpty(pron.trim())) {
+                          LOG.debug("Pron: " + pron);
+                          w.setPron(pron.replaceAll("Pronunciation: ", ""));
+                      }
                   }
                   // get mp3 file
                   List<Element> sounds = additional_header.getAllElementsByClass("sound");
@@ -102,9 +104,9 @@ public class CambridgeLookupServiceImpl implements LookupService {
 
                      // process
                      String soundSource = sound.getAttributeValue("onclick");
-                     String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
+                     // String soundSrc = soundSource.replace("/media", "http://dictionary.cambridge.org/media");
                      // LOG.info("Found a sound source: " + soundSrc);
-                     w.setSoundSource(soundSrc);
+                     w.setSoundSource(soundSource);
                   }
                   break;
                }

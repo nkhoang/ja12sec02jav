@@ -6,7 +6,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="<c:url value='/js/ext-all.js' />"></script>
-    <script type="text/javascript" src="<c:url value='/js/accounting.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/accounting.min.js' />"></script>
     <link href="<c:url value='/resources/css/ext-all-gray.css'/>" rel="stylesheet" media="all"/>
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/phonecard-layout.css' />"/>
     <style type="text/css">

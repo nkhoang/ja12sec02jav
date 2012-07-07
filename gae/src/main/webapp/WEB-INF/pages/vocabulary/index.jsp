@@ -2,371 +2,116 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
-<title><fmt:message key="webapp.title"/></title>
-<style type="text/css">
-    body {
-    }
+    <title><fmt:message key="webapp.title"/></title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.8.16.custom.min.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/GrowingInput.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/TextboxList.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.autocomplete.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.activity-indicator-1.0.0.min.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.jtemplate.js' />"></script>
+    <script type="text/javascript"
+            src="<c:url value='/js/vocabulary/playsound${appConfig["compressMode"]}' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/jquery.pagescroller.lite.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/js/waypoints${appConfig["compressMode"]}' />"></script>
+    <script type="text/javascript"
+            src="<c:url value='/js/vocabulary/vocabulary${appConfig["compressMode"]}' />"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.css' />"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery.autocomplete.css' />"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/layout.css' />"/>
+    <script type="text/javascript">
+        var global_pageManager = new VocabularyManager();
+        var global_wordId;
 
-    ul.title, li.title {
-        background-color: transparent;
-        border-bottom-width: 0;
-        border-left-width: 0;
-        border-right-width: 0;
-        border-top-width: 0;
-        font-size: 100%;
-        list-style-type: none;
-        margin-bottom: 0;
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 0;
-        outline-width: 0;
-        padding-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-        padding-top: 0;
-        vertical-align: baseline;
-    }
+        <c:if test="${not empty param.word}">
+        var initWord = "<c:out value="${param.word}" />";
+        </c:if>
+        $(function () {
+            displayUserPanel('#user-zone');
+            // initialize the login-form dialog. It only be showed when we call 'open'.
+            $("#login-form").dialog({
+                autoOpen:false,
+                height:220,
+                width:330,
+                modal:true,
+                buttons:{
+                    "Login":function () {
+                        $.ajax({
+                            url:'<c:url value="/user/authenticate.html" />',
+                            type:'GET',
+                            data:{
+                                'userName':$('#login-userName').val().trim(),
+                                'password':$('#login-password').val().trim()
+                            },
+                            dataType:'json',
+                            beforeSend:function () {
 
-    #aw-form ul li.title {
-        clear: both;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        padding-top: 10px;
+                            },
+                            success:function (response) {
+                                $('#login-userName').val('');
+                                $('#login-password').val('');
 
-    }
-
-    #aw-form li input.input {
-        background: none repeat scroll 0 0 transparent;
-        border-color: -moz-use-text-color -moz-use-text-color #989895;
-        border-style: none none dashed;
-        border-width: medium medium 1px;
-        bottom: 13px;
-        color: #4F4F4F;
-        font: 16px "SeanRegular", Courier New, Courier New, Courier6, monospace;
-        letter-spacing: 1px;
-        outline: medium none;
-        text-align: center;
-    }
-
-    #aw-form li input {
-        vertical-align: middle;
-    }
-
-    div.title, span.title {
-        color: #525250;
-        float: left;
-        font: 13px "ClarendonRoman", Georgia, Times, serif;
-        letter-spacing: 2px;
-        position: relative;
-        top: 4px;
-        font-weight: bold;
-    }
-
-    #w-dis {
-        width: 600px;
-        float: left;
-        font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
-        margin-left: 40px;
-        line-height: 18px;
-        font-size: 12pt;
-    }
-
-    .w-k {
-        border-bottom: 1px solid #C0C0C0;
-        margin-bottom: 15px;
-    }
-
-    .w-k-t {
-        font-size: 120%;
-        font-weight: bold;
-        color: #000080;
-    }
-
-    .w-k-m {
-    }
-
-    .w-phrase {
-        color: #000080;
-    }
-
-    div.w-k > ol > li {
-        color: #A8397A;
-        font-weight: bold;
-    }
-
-    div.w-k-m-container {
-        color: black;
-        font-weight: normal;;
-    }
-
-    li.w-k-m-sub {
-    }
-
-    .grammarGroup, .languageGroup {
-        font-style: italic;
-        font-weight: bold;
-        font-size: 11px;
-    }
-
-    .w-k-m-c {
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .w-k-m-ex {
-        padding-left: 15px;
-        font-style: italic;
-        color: #808080;
-        font-size: 90%;
-    }
-
-    #recent-w {
-        width: 300px;
-        float: left;
-    }
-
-    div.w-k-m-examples {
-        font-size: 12px;
-        font-style: italic;
-    }
-
-    ol li.w-k-m:hover {
-        border: #CCCCCC 1px solid;
-        background-color: #FFF;
-        padding: 0 0 0 3px;
-    }
-
-    ol li.w-k-m {
-        padding: 1px 0 1px 4px;
-    }
-
-    ul li.w-k-m-sub:hover {
-        border: #CCCCCC 1px solid;
-        padding: 0 0 0 39px;
-        background-color: #E8F2FB;
-        background-position: 30px 7px;
-    }
-
-    ul li.w-k-m-sub {
-        list-style: none outside none;
-        background: url("<c:url value='/styles/images/bullet_gray.png' />") no-repeat scroll 31px 8px transparent;
-        font-size: 13px;
-        margin-left: -40px;
-        padding: 1px 0px 1px 40px;
-    }
-
-    ul.w-k-m-sub-example {
-        list-style: none;
-        font-style: italic;
-        font-size: 12px;
-    }
-
-    .w-time {
-        font-size: 9px;
-    }
-</style>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.8.16.custom.min.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/GrowingInput.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/TextboxList.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/jquery.autocomplete.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/jquery.jtemplate.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/vocabulary/playsound.js' />"></script>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery-ui-1.8.16.custom.css' />"/>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/TextboxList.css' />"/>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/jquery.autocomplete.css' />"/>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/layout.css' />"/>
-
-
-<script type="text/javascript">
-
-    function displayUserPanel(zoneId) {
-        $.ajax({
-            url:'<c:url value="/user/userPanel.html" />',
-            type:'GET',
-            dataType:'html',
-            success:function (response) {
-                $(zoneId).html(response);
-            },
-            error:function () {
-                var $failMessage = $('<div></div>').html('An error occurred. Please try again later.');
-                $failMessage.dialog({
-                    autoOpen:true
-                });
-            }
-        });
-    }
-
-    function showFailMessage(title, messageContent) {
-        var $failMessage = $('<div title="' + title + '"></div>').html(messageContent);
-        $failMessage.dialog({
-            modal:true,
-            buttons:{
-                "Close":function () {
-                    $failMessage.dialog('close');
-                }
-            }
-        });
-    }
-
-    function showSuccessMessage(response) {
-        var $successMessage = $('<div></div>').html('Welcome ' + response.userName + ', you are logged in successfully!!');
-        $successMessage.dialog({
-            modal:true,
-            buttons:{
-                "Close":function () {
-                    $successMessage.dialog('close');
-                }
-            }
-        });
-        displayUserPanel('#user-zone');
-    }
-
-    function openLoginDialog() {
-        $("#login-form").dialog("open");
-    }
-
-
-    $(function () {
-
-        displayUserPanel('#user-zone');
-        // initialize the login-form dialog. It only be showed when we call 'open'.
-        $("#login-form").dialog({
-            autoOpen:false,
-            height:220,
-            width:330,
-            modal:true,
-            buttons:{
-                "Login":function () {
-                    $.ajax({
-                        url:'<c:url value="/user/authenticate.html" />',
-                        type:'GET',
-                        data:{
-                            'userName':$('#login-userName').val().trim(),
-                            'password':$('#login-password').val().trim()
-                        },
-                        dataType:'json',
-                        beforeSend:function () {
-
-                        },
-                        success:function (response) {
-                            $('#login-userName').val('');
-                            $('#login-password').val('');
-
-                            $("#login-form").dialog("close");
-                            // create message
-                            if (response.result) {
-                                showSuccessMessage(response);
-                            } else {
-                                showFailMessage('Login', 'Invalid username and password. Please try again.');
+                                $("#login-form").dialog("close");
+                                // create message
+                                if (response.result) {
+                                    showSuccessMessage(response, function () {
+                                        displayUserPanel('#user-zone', '<c:url value="/user/userPanel.html" />');
+                                    });
+                                } else {
+                                    showFailMessage('Login', 'Invalid username and password. Please try again.');
+                                }
+                            },
+                            error:function () {
+                                showFailMessage('Error', 'Please try again later.');
                             }
-                        },
-                        error:function () {
-                            showFailMessage('Error', 'Please try again later.');
-                        }
-                    });
+                        });
 
+                    },
+                    Cancel:function () {
+                        $(this).dialog("close");
+                    }
                 },
-                Cancel:function () {
-                    $(this).dialog("close");
-                }
-            },
-            close:function () {
+                close:function () {
 
-            }
-        });
-
-        // prevent the form submitting.
-        $('#aw-form').submit(function () {
-            $('#aw-b').click();
-            return false;
-        });
-    });
-
-    // This is the main action of the page. Request a lookup for input word.
-    function lookupWord(word) {
-        $('#w-input').val(word);
-        $('#aw-b').click();
-    }// submit new word.
-    function submitNewWord(lookupWord, updateIfNeed) {
-        $.ajax({
-            url:'<c:url value="/vocabulary/lookup.html" />',
-            type:'GET',
-            data:{
-                'word':lookupWord,
-                'updateIfNeed':updateIfNeed
-            },
-            dataType:'json',
-            beforeSend:function () {
-                $('#w-input').val($('#w-input').val().trim());
-            },
-            success:function (word) {
-                global_pageManager.processWord(word);
-                // preload sound
-                $('#w-d-sound').click();
-            },
-            error:function () {
-                alert('Could not lookup requested word. Server error. Please try again later.')
-            }
-        });
-    }
-    function processRecentWords(data) {
-        var words = data.words;
-        $('.recent-ws').empty();
-        for (var i = 0; i < words.length; i++) {
-            var word = words[i];
-            var $wordDiv = $('<div class="w-recent"></div>');
-            var $timeSpan = $('<span class="w-time"></span>').html(' (' + word.currentTime + ')')
-            var $wordContent = $('<a href="#" />').append(word.description);
-            $wordContent.append($timeSpan);
-            $wordContent.attr('onclick', 'lookupWord("' + word.description + '"); return false;');
-            $wordDiv.append($wordContent);
-            $('.recent-ws').append($wordDiv);
-        }
-    }
-
-    var global_pageManager = new VocabularyManager();
-    var global_wordId;
-    function VocabularyManager() {
-        var listener = new Array();
-        var ajaxData;
-
-        this.addListener = addListener;
-        function addListener(fn) {
-            var exists = false;
-            $.each(listener, function (f) {
-                if (f === fn) {
-                    exists = true;
-                    return;
                 }
             });
 
-            if (!exists) {
-                listener.push(fn);
-            }
-        }
-
-        this.fireListener = fireListener;
-        function fireListener() {
-            $.each(listener, function (i, f) {
-                f(ajaxData);
+            // hit enter to submit the search.
+            $('#search-input').focus().keypress(function (e) {
+                if (e.which == 13) {
+                    if ($('#search-input').val().trim != '') {
+                        // start a new page, not ajax. (issue with Waypoints js, just cannot clear the old waypoints.)
+                        window.location = "<c:url value="/vocabulary/index.html"/>?word=" + $('#search-input').val();
+                    }
+                }
             });
-        }
-
-        this.processWord = function (response) {
-            $('#w-dis').empty();
-            for (var dictName in response.data) {
-                var $dictWrapper = $('<div></div>').addClass(dictName);
-                $dictWrapper.setTemplateURL('<c:url value="/js/template/word.tpl" />');
-                $dictWrapper.processTemplate(response.data[dictName]);
-                $("#w-dis").append($dictWrapper);
+            // use url parameter to search for the requested word.
+            if (initWord) {
+                $('#search-input').val(initWord);
+                performSearch();
             }
+        });
+
+        var markActive = function(link) {
+            $.waypoints('refresh');
         }
-    }
 
-
-</script>
-
+        var performSearch = function () {
+            // not sure it need to perform this task.
+            global_pageManager.clearAll();
+            // submit the request.
+            submitNewWord($('#search-input').val().trim(),
+                    $('#updateIfNeed').prop('checked'),
+                    '<c:url value="/vocabulary/lookup.html" />',
+                    {
+                        wordTpl:'<c:url value="/js/template/word.tpl" />',
+                        wordKindTpl:'<c:url value="/js/template/word_kind.tpl" />',
+                        navHiderTpl:'<c:url value="/js/template/nav_hider.tpl" />',
+                        navInfoTpl:'<c:url value="/js/template/word_info.tpl" />'
+                    });
+        }
+    </script>
 </head>
 <body>
 
@@ -381,135 +126,22 @@
                 </td>
             </table>
         </div>
-        <div id="search-right-sec">
-            <div class="search-btn"></div>
-        </div>
     </div>
     <div style="clear: both;"></div>
     <div id="search-result-body">
         <div id="pnl-left">
             <div id="nav-border-hider">
-                <div class="nav-border-hider-section"></div>
-                <div class="nav-border-hider-section"></div>
-                <div class="nav-border-hider-section"></div>
-                <div class="nav-border-hider-section"></div>
             </div>
 
             <div id="pnl-nav">
-                <a onclick="">
-                    <div class="cnt-nav-lnk active lnk-user first">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td class="nav-icon">
-                                </td>
-                                <td class="nav-lnk-title">
-                                    <?php echo Yii::t(SiteConstant::USER_MANAGEMENT_MESSAGE_BUNDLE, 'nav.user');?>
-                                </td>
-                                <td class="nav-indicator"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </a>
-                <a onclick="loadPanel('Role');">
-                    <div class="cnt-nav-lnk lnk-user-role">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td class="nav-icon">
-                                </td>
-                                <td class="nav-lnk-title">
-                                    <a onclick="loadPanel('User');"><?php echo Yii::t(SiteConstant::USER_MANAGEMENT_MESSAGE_BUNDLE, 'nav.role');?></a>
-                                </td>
-                                <td class="nav-indicator"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </a>
-
-                <div class="cnt-nav-lnk lnk-help">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td class="nav-icon">
-                            </td>
-                            <td class="nav-lnk-title">
-                                <a onclick="">TBD</a>
-                            </td>
-                            <td class="nav-indicator"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cnt-nav-lnk lnk-help last">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td class="nav-icon">
-                            </td>
-                            <td class="nav-lnk-title">
-                                <a onclick="">TBD</a>
-                            </td>
-                            <td class="nav-indicator"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
+            <div style="clear: both;"></div>
         </div>
         <div id="display-pnl">
 
         </div>
         <div style="clear: both;"></div>
     </div>
-</div>
-
-<div id="f-wr">
-
-    <div id="lookup-w-c"></div>
-
-    <form name="aw-form" action="/" id="aw-form">
-        <ul class="title">
-            <li class="title">
-                <div class="title">Lookup</div>
-                <input name="word" type="input" id="w-input" class="input"/>
-            </li>
-        </ul>
-        <br/>
-
-        <input id="aw-b" type="button" value="Find"
-               onclick="submitNewWord($('#w-input').val().trim(), $('#updateIfNeed').prop('checked'));"/>
-        <br>
-        <span class="title">Update if need ?</span> <input type="checkbox" name="updateIfNeed" id="updateIfNeed"/>
-        <br>
-
-        <div id="user-zone">
-        </div>
-    </form>
-</div>
-
-<table>
-    <tbody>
-    <tr>
-        <td id="w-d"></td>
-        <td id="w-nav"></td>
-    </tr>
-    </tbody>
-</table>
-<table>
-    <tbody>
-    <tr>
-        <td id="w-phrase"></td>
-        <td id="w-phrase-nav"></td>
-    </tr>
-    </tbody>
-</table>
-<div id="w-container">
-
-</div>
-<div id="w-dis">
 </div>
 
 <div id="login-form" title="Login">

@@ -1,0 +1,103 @@
+div.title, span.title {
+    color: #525250;
+    float: left;
+    font: 13px "ClarendonRoman", Georgia, Times, serif;
+    letter-spacing: 2px;
+    position: relative;
+    top: 4px;
+    font-weight: bold;
+}
+
+.w-k {
+    border-bottom: 1px solid #C0C0C0;
+    margin-bottom: 15px;
+}
+
+.w-k-t {
+    font-size: 120%;
+    font-weight: bold;
+    color: #000080;
+}
+
+.w-k-m {
+}
+
+.w-phrase {
+    color: #000080;
+}
+
+div.w-k > ol > li {
+    color: #A8397A;
+    font-weight: bold;
+}
+
+div.w-k-m-container {
+    color: black;
+    font-weight: normal;;
+}
+
+li.w-k-m-sub {
+}
+
+.grammarGroup, .languageGroup {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.w-k-m-c {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.w-k-m-ex {
+    padding-left: 15px;
+    font-style: italic;
+    color: #808080;
+    font-size: 90%;
+}
+
+#recent-w {
+    width: 300px;
+    float: left;
+}
+
+div.w-k-m-examples {
+    font-size: 12px;
+    font-style: italic;
+}
+
+ol li.w-k-m:hover {
+    border: #CCCCCC 1px solid;
+    background-color: #FFF;
+    padding: 0 0 0 3px;
+}
+
+ol li.w-k-m {
+    padding: 1px 0 1px 4px;
+}
+
+ul li.w-k-m-sub:hover {
+    border: #CCCCCC 1px solid;
+    padding: 0 0 0 39px;
+    background-color: #E8F2FB;
+    background-position: 30px 7px;
+}
+
+ul li.w-k-m-sub {
+    list-style: none outside none;
+    background: url("<c:url value='/styles/images/bullet_gray.png' />") no-repeat scroll 31px 8px transparent;
+    font-size: 13px;
+    margin-left: -40px;
+    padding: 1px 0px 1px 40px;
+}
+
+ul.w-k-m-sub-example {
+    list-style: none;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.w-time {
+    font-size: 9px;
+}

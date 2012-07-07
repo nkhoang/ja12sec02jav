@@ -1,6 +1,6 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/border-radius";
-@import "compass/css3/gradient";
+@import "compass/css3/images";
 @import "compass/css3/text-shadow";
 
 $domain: "/";
@@ -15,83 +15,96 @@ body {
 }
 
 #page-body {
-  margin: 0 auto;
-  width: $content-width;
+    margin: 0 auto;
+    width: $content-width;
 }
-
 
 $text-shadow-color: #D3D3D3;
 
-$navigation-icon-user-bg-img: $domain + "images/admin/user.png";
-$navigation-icon-user-role-bg-img: $domain + "images/admin/user_role.png";
-$navigation-icon-help-bg-img: $domain + "images/admin/help.png";
-$navigation-icon-indicator-bg-img: $domain + "images/admin/left_arrow.png";
+$navigation-icon-active-img: $domain + "images/right_arrow.png";
+$navigation-icon-img: $domain + "images/bookmark.png";
+$navigation-icon-sound-img: $domain + "images/sound.png";
 
 // this is also used for icon (width = height)
 $navigation-lnk-height: 40px;
 $navigation-lnk-line-height: 40px;
 $navigation-text-color: #666666;
+$navigation-panel-width: 300px;
 
-@mixin nav-background() {
-  @include background-image(linear-gradient(white, #FFFAF2));
+@mixin nav-background(){
+    @include background-image(linear-gradient(white, #FFFAF2));
 }
 
 /***************************************************
 /**********   USER MANAGEMENT  *********************
 /***************************************************/
 #pnl-left {
-    width: 20%;
-    position: relative;
+    width: $navigation-panel-width;
+    position: fixed;
+    height: 1px;
     display: block;
-    float: left;
+
+    #nav-border-hider, #pnl-nav {
+        display: none;
+    }
+
 }
 
 /**
 * the Search box.
 */
 #search-box {
-  width: 79%;
-  float: right;
-  margin-right: 9px;
-  position: relative;
-  // normal state
-  @include box-shadow(rgba(184, 184, 184, 0.6), 0, 6px, 12px);
-  @include border-top-radius($display-content-bottom-radius);
-  border-color: #DDDDDD #DDDDDD #DDDDDD $navigation-text-color;
-  border-style: solid solid solid none;
-  border-width: 1px 1px 0px 1px;
-  @include background-image(linear-gradient(#FFFAF2, #FFEDD3));
-  padding: 7px 0px;
-  z-index: 1;
-
-  #search-left-sec {
-    margin-left: 15px;
-    width: 60%;
-    border: medium none;
-    color: #797979;
-
-    @include border-radius(5px);
-    @include box-shadow(rgba(0, 0, 0, 0.1) 0 1px 3px inset, rgba(242, 240, 240, 0.6) 0 0 2px);
-    background-color: white;
+    width: 750px;
     float: left;
+    margin-left: $navigation-panel-width;
+    margin-right: 9px;
+    position: relative;
+    // normal state
+    @include box-shadow(rgba(184, 184, 184, 0.6), 0, 6px, 12px);
+    @include border-top-radius($display-content-bottom-radius);
+    border-color: #DDDDDD #DDDDDD #DDDDDD $navigation-text-color;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 0px 1px;
+    @include background-image(linear-gradient(#FFEDD3, #FFBC5E 55%, #FFBC5E 90%));
 
-    .search-ico {
-      width: 30px;
-      background: url("#{$domain}images/search.png") no-repeat scroll center center transparent;
+    padding: 7px 0px;
+    z-index: 1;
+
+    #search-left-sec {
+        margin-left: 15px;
+        width: 60%;
+        padding: 4px 0 4px 0;
+        border: medium none;
+        color: #797979;
+
+        @include border-radius($display-content-bottom-radius);
+        @include box-shadow(rgba(0, 0, 0, 0.2) 0 1px 5px inset, rgba(242, 240, 240, 0.6) 0 0 4px);
+        background-color: white;
+        float: left;
+
+        .search-ico {
+            width: 30px;
+            background: url("#{$domain}images/search.png") no-repeat scroll center center transparent;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        #search-input {
+            border: none;
+            width: 95%;
+            height: 26px;
+            font-size: 130%;
+            @include text-shadow(#E5E5E5 0 1px 1px);
+            color: #898989;
+        }
+
     }
-
-    #search-input {
-      border: none;
-      height: 22px;
-      @include text-shadow(#E5E5E5 0 1px 1px);
-      color: #898989;
-    }
-
-  }
 }
 
 #search-result-body {
-  z-index: 2;
+    z-index: 2;
 }
 
 /**
@@ -99,17 +112,21 @@ $navigation-text-color: #666666;
 */
 #display-pnl {
     display: block;
-    width: 79%;
-    float: left;
+    width: 720px;
+    margin-left: $navigation-panel-width;
     min-height: 500px;
     background-color: #FFFFFF;
-    font: 14px/16px "Helvetica Neue",Helvetica,Arial,"Liberation Sans",FreeSans,sans-serif;
+    font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+    line-height: 18px;
+    font-size: 12pt;
     @include box-shadow(rgba(184, 184, 184, 0.6), 0, 6px, 12px);
     @include border-bottom-radius($display-content-bottom-radius);
+    @include text-shadow(#D3D3D3 0 1px 1px);
     border-color: #DDDDDD #DDDDDD #DDDDDD $navigation-text-color;
     border-style: solid solid solid none;
     border-width: 1px 1px 1px 0;
     position: relative;
+    padding: 15px;
     z-index: 2;
 }
 
@@ -129,15 +146,46 @@ $navigation-text-color: #666666;
     border-width: 1px 1px 1px 0;
     z-index: 1;
 
+    @include border-top-left-radius($display-content-bottom-radius);
+    @include border-bottom-left-radius($display-content-bottom-radius);
+
+    // overwrite underline from link
+    a {
+        text-decoration: none;
+    }
+
+    // capitalize the Link
+    .nav-lnk-title {
+        text-transform: capitalize;
+    }
+
     .nav-indicator {
         width: $navigation-lnk-line-height;
         height: $navigation-lnk-line-height;
     }
 
     .cnt-nav-lnk {
-        &:hover {
-            .nav-indicator {
-                background: url(#{$navigation-icon-indicator-bg-img}) no-repeat center transparent;
+        .nav-icon {
+            height: $navigation-lnk-line-height;
+            width: $navigation-lnk-line-height;
+            vertical-align: middle;
+
+            background: url(#{$navigation-icon-img}) no-repeat center transparent;
+        }
+
+        &.nav-info {
+            .nav-icon {
+                background: url(#{$navigation-icon-sound-img}) no-repeat center transparent;
+            }
+
+            .nav-lnk-title {
+                font-size: 150%;
+            }
+        }
+
+        &.active {
+            .nav-icon {
+                background: url(#{$navigation-icon-active-img}) no-repeat center transparent;
             }
         }
 
@@ -167,19 +215,29 @@ $navigation-text-color: #666666;
         line-height: $navigation-lnk-line-height;
         cursor: pointer;
 
-
         .nav-title {
             vertical-align: middle;
         }
+
+        &.first {
+            @include border-top-left-radius($display-content-bottom-radius);
+        }
+
+        &.last {
+            @include border-bottom-left-radius($display-content-bottom-radius);
+        }
     }
+
+
+
 }
 
 #nav-border-top-hider {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 12px;
-  z-index: 4;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 12px;
+    z-index: 4;
 }
 
 #nav-border-hider {
@@ -200,25 +258,6 @@ $navigation-text-color: #666666;
     }
 }
 
-
-.nav-icon {
-    height: $navigation-lnk-line-height;
-    width: $navigation-lnk-line-height;
-    vertical-align: middle;
-
-    .lnk-user & {
-        background: url(#{$navigation-icon-user-bg-img}) no-repeat center transparent;
-    }
-
-    .lnk-user-role & {
-        background: url(#{$navigation-icon-user-role-bg-img}) no-repeat center transparent;
-    }
-
-    .lnk-help & {
-        background: url(#{$navigation-icon-help-bg-img}) no-repeat center transparent;
-    }
-}
-
 /* Button Icon style */
 #cntRolePanel {
     .btnIcon {
@@ -226,4 +265,10 @@ $navigation-text-color: #666666;
     }
 }
 
-$font-family: "Lucida Sans","Segoe UI","Gill Sans","Gill Sans MT",Verdana,Tahoma,Arial,Helvetica,sans-serif;
+$font-family: "Lucida Sans", "Segoe UI", "Gill Sans", "Gill Sans MT", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+
+
+/**
+* vocabulary decoration style.
+*/
+@import 'vocabulary/layout';

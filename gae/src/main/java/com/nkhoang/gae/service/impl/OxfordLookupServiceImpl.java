@@ -62,7 +62,7 @@ public class OxfordLookupServiceImpl implements LookupService {
             // create source HTML
             Source source = new Source(is);
             if (source != null) {
-                List<Element> prounEles = source.getAllElementsByClass("pronunciation");
+                List<Element> prounEles = source.getAllElementsByClass("headpron");
                 if (CollectionUtils.isEmpty(prounEles)) {
                     w = null;
                 } else {
@@ -72,65 +72,72 @@ public class OxfordLookupServiceImpl implements LookupService {
                     w.setDescription(word.toLowerCase());
                     // get pronunciation.
                     List<Element> spanEles = prounEles.get(0).getAllElements("span");
-                    w.setPron(spanEles.get(0).getTextExtractor().toString());
+                    String pron = spanEles.get(0).getTextExtractor().toString();
+                    if (StringUtils.isNotEmpty(pron.trim())) {
+                        w.setPron(pron.replaceAll("Pronunciation: ", ""));
+                    }
+
                     // start the body content.
                     List<Element> definitionBodyList = source.getAllElementsByClass("senseGroup");
                     // there is only one element like that.
-                    List<Element> definitionChildEles = definitionBodyList.get(0).getChildElements();
-                    String kind = null;
-                    String languageGroup = null;
-                    String grammarGroup = null;
-                    for (Element child : definitionChildEles) {
-                        // collect kind.
-                        if (checkElementName(child, "h3") &&
-                                checkElementProperty(child, HTML_ATTR_CLASS, "partOfSpeech")) {
-                            List<Element> partOfSpeechList = child.getChildElements();
-                            try {
-                                kind = partOfSpeechList.get(0).getTextExtractor().toString();
-                            } catch (RuntimeException re) {
-                                // ignore it.
-                            }
-                        } else if (checkElementName(child, "span") &&
-                                checkElementProperty(child, HTML_ATTR_CLASS, "grammarGroup")) {
-                            String s = child.getTextExtractor().toString();
-                            grammarGroup = StringUtils.isNotBlank(s) ? s : null;
-                        } else if (checkElementName(child, "em") &&
-                                checkElementProperty(child, HTML_ATTR_CLASS, "languageGroup")) {
-                            String s = child.getTextExtractor().toString();
-                            languageGroup = StringUtils.isNotBlank(s) ? s : null;
-                            // collect sense to start a group of meanings.
-                        } else if (checkElementName(child, "ul") &&
-                                checkElementProperty(child, HTML_ATTR_CLASS, "sense-entry")) {
-                            List<Element> senseEntries = child.getChildElements();
-                            if (CollectionUtils.isNotEmpty(senseEntries)) {
-                                Sense sense = null;
-                                for (Element entry : senseEntries) {
-                                    if (checkElementProperty(entry, HTML_ATTR_CLASS, "sense")) {
-                                        if (sense != null) {
-                                            w.addMeaning(kind, sense);
-                                        }
-                                        sense = processSense(entry);
-                                        if (sense != null) {
-                                            sense.setKind(kind);
-                                            if (StringUtils.isNotEmpty(grammarGroup)) {
-                                                sense.setGrammarGroup(grammarGroup);
-                                                grammarGroup = null;
+                    for (Element senseGroup : definitionBodyList) {
+
+                        List<Element> definitionChildEles = senseGroup.getChildElements();
+                        String kind = null;
+                        String languageGroup = null;
+                        String grammarGroup = null;
+                        for (Element child : definitionChildEles) {
+                            // collect kind.
+                            if (checkElementName(child, "h3") &&
+                                    checkElementProperty(child, HTML_ATTR_CLASS, "partOfSpeech")) {
+                                List<Element> partOfSpeechList = child.getChildElements();
+                                try {
+                                    kind = partOfSpeechList.get(0).getTextExtractor().toString();
+                                } catch (RuntimeException re) {
+                                    // ignore it.
+                                }
+                            } else if (checkElementName(child, "span") &&
+                                    checkElementProperty(child, HTML_ATTR_CLASS, "grammarGroup")) {
+                                String s = child.getTextExtractor().toString();
+                                grammarGroup = StringUtils.isNotBlank(s) ? s : null;
+                            } else if (checkElementName(child, "em") &&
+                                    checkElementProperty(child, HTML_ATTR_CLASS, "languageGroup")) {
+                                String s = child.getTextExtractor().toString();
+                                languageGroup = StringUtils.isNotBlank(s) ? s : null;
+                                // collect sense to start a group of meanings.
+                            } else if (checkElementName(child, "ul") &&
+                                    checkElementProperty(child, HTML_ATTR_CLASS, "sense-entry")) {
+                                List<Element> senseEntries = child.getChildElements();
+                                if (CollectionUtils.isNotEmpty(senseEntries)) {
+                                    Sense sense = null;
+                                    for (Element entry : senseEntries) {
+                                        if (checkElementProperty(entry, HTML_ATTR_CLASS, "sense")) {
+                                            if (sense != null) {
+                                                w.addMeaning(kind, sense);
                                             }
-                                            if (StringUtils.isNotEmpty(languageGroup)) {
-                                                sense.setLanguageGroup(languageGroup);
-                                                languageGroup = null;
+                                            sense = processSense(entry);
+                                            if (sense != null) {
+                                                sense.setKind(kind);
+                                                if (StringUtils.isNotEmpty(grammarGroup)) {
+                                                    sense.setGrammarGroup(grammarGroup);
+                                                    grammarGroup = null;
+                                                }
+                                                if (StringUtils.isNotEmpty(languageGroup)) {
+                                                    sense.setLanguageGroup(languageGroup);
+                                                    languageGroup = null;
+                                                }
                                             }
-                                        }
-                                    } else if (checkElementProperty(entry, HTML_ATTR_CLASS, "subSense")) {
-                                        if (sense != null) {
-                                            Meaning m = processSubSense(entry);
-                                            if (m != null)
-                                                sense.getSubSenses().add(m);
+                                        } else if (checkElementProperty(entry, HTML_ATTR_CLASS, "subSense")) {
+                                            if (sense != null) {
+                                                Meaning m = processSubSense(entry);
+                                                if (m != null)
+                                                    sense.getSubSenses().add(m);
+                                            }
                                         }
                                     }
-                                }
-                                if (sense != null) {
-                                    w.addMeaning(kind, sense);
+                                    if (sense != null) {
+                                        w.addMeaning(kind, sense);
+                                    }
                                 }
                             }
                         }

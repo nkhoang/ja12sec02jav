@@ -1,5 +1,13 @@
 *** main template *** (all part outside templates are invisible}
 {#template MAIN}
+ <div class="w">
+    <div class="w-t">{$T.description}</div>
+    {#if $T.soundSource}
+    <img id="w-d-sound" onclick="{$T.soundSource}" style="cursor: pointer" class="sound" title="Click to hear the US pronunciation of this word" alt="Click to hear the US pronunciation of this word" src="http://dictionary.cambridge.org/external/images/pron-us.png">
+    {#/if}
+    {#if $T.pron}
+    <div class="w-pron">{$T.pron}</div>
+    {#/if}
     <div id="w-section" class="w-ks">
       {#foreach $T.meaningMap as meanings}
       <div class="w-k section">
@@ -22,6 +30,7 @@
       {#/for}
     </div>
     {#/if}
+ </div>
 {#/template MAIN}
 
 {#template SENSE}
