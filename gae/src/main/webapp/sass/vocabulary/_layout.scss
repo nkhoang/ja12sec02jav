@@ -101,3 +101,60 @@ ul.w-k-m-sub-example {
 .w-time {
     font-size: 9px;
 }
+
+/** AUTOCOMPLETE CSS */
+
+.ac_results {
+  padding: 0;
+  background-color: white;
+  overflow: hidden;
+  z-index: 99999;
+  width: 500px;
+  margin-left: -37px;
+  margin-top: 5px;
+
+  @include box-shadow(rgba(0, 0, 0, 0.2) 0 1px 5px inset, rgba(242, 240, 240, 0.6) 0 0 4px);
+  @include border-bottom-radius($display-content-bottom-radius);
+}
+
+.ac_results ul {
+  width: 100%;
+  list-style-position: outside;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ac_results li {
+  margin: 0px;
+  padding: 7px;
+  padding-left: 15px;
+  cursor: default;
+  display: block;
+/*
+    if width will be 100% horizontal scrollbar will apear
+    when scroll mode will be used
+    */
+/*width: 100%;*/
+  font: menu;
+  font-size: 15px;
+/*
+    it is very important, if line-height not setted or setted
+    in relative units scroll will be broken in firefox
+    */
+  line-height: 22px;
+  overflow: hidden;
+}
+
+.ac_loading {
+  background: white url('indicator.gif') right center no-repeat;
+}
+
+.ac_odd {
+  background-color: #eeeeee;
+}
+
+.ac_over {
+  background-color: #DEE7F8;
+  color: black;
+}

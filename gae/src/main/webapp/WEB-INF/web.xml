@@ -11,8 +11,8 @@
 
     <context-param>
       <param-name>compressMode</param-name>
-      <param-value>-min-ob.js</param-value>
-      <!--<param-value>.js</param-value>-->
+      <!--<param-value>-min-ob.js</param-value>-->
+      <param-value>.js</param-value>
     </context-param>
     <!--
          Fallback locale if no bundles found for browser's preferred locale

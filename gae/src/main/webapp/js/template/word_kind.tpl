@@ -1,7 +1,7 @@
 *** main template *** (all part outside templates are invisible}
 {#template MAIN}
   {#foreach $T.meaningMap as meanings}
-   <a href="#" onclick="markActive();" >
+   <a href="#">
     <div class="cnt-nav-lnk">
         <table>
             <tbody>

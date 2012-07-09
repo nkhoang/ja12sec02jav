@@ -16,6 +16,7 @@ import com.nkhoang.gae.utils.FileUtils;
 import com.nkhoang.gae.utils.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.slf4j.Logger;
@@ -45,15 +46,32 @@ public class VocabularyRESTServiceImpl {
     private static final String HEADER_SIGNATURE = "signature";
     private static final long WS_ACCEPT_INTERVAL = 1 * 60 * 1000; // in minute
 
+    /**
+     * RESTful service to serve the autocomplete request.
+     *
+     * @param keyword the keyword to fetch the list.
+     * @return
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("autocomplete/{keyword}")
-    public String autocomplete(@PathParam(value = "keyword") String keyword) {
+    @Path("autocomplete")
+    public String autocomplete(@QueryParam(value = "q") final String keyword, @QueryParam(value = "limit") Integer
+            limit) {
         URL filePath = Thread.currentThread().getContextClassLoader().getResource("fullList.txt");
         List<String> fullWordItems = FileUtils.readWordsFromFile(filePath.getPath());
-        LOG.info(fullWordItems.size() + "");
 
-        return "";
+        CollectionUtils.filter(fullWordItems, new Predicate() {
+            public boolean evaluate(Object object) {
+                return StringUtils.startsWith((String) object, keyword);
+            }
+        });
+
+        Gson gson = new Gson();
+        if (limit < fullWordItems.size()) {
+        return gson.toJson(fullWordItems.subList(0, limit));
+        } else {
+            return gson.toJson(fullWordItems);
+        }
     }
 
     @GET
@@ -67,136 +85,6 @@ public class VocabularyRESTServiceImpl {
 
         return gson.toJson(appConfigDao.getAll());
     }
-
-   @GET
-   @Produces(value = "" + MediaType.APPLICATION_JSON + "," + "text/javascript")
-   @Path("demo/practitioner")
-   public String getPractitioners(@QueryParam(value = "callback") String callbackFunc) throws Exception {
-      Thread.sleep(1000);
-      String response =  "[{\n" +
-            "    \"name\": \"SMITH, JAMIE L\",\n" +
-            "    \"npi\": \"\",\n" +
-            "    \"type\": \"Technologist and Technicians\",\n" +
-            "    \"address\": \"PO BOX 7434 xx JACKSON, WY  83002-7434\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, CARY GARNETT\",\n" +
-            "    \"npi\": \"2610068627\",\n" +
-            "    \"type\": \"Dentist\",\n" +
-            "    \"address\": \"1115 MAPLE WAY xx JACKSON, WY 83001 xx Phone: 307-733-7044 xx Fax: 307-734-1409\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 1\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, STACEY ALLISON\",\n" +
-            "    \"npi\": \"\",\n" +
-            "    \"type\": \"Pharmacology\",\n" +
-            "    \"address\": \"Pharmacology 29 BLACK COAL DR xx FORT WASHAKIE, WY 82514 \",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"NC\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, TANYA MARIE\",\n" +
-            "    \"npi\": \"3229424202\",\n" +
-            "    \"type\": \"Assistive Therapy\",\n" +
-            "    \"address\": \"317 N FALER AVE xx    PINEDALE, WY 82941 xx    Phone: 307-367-6236\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"OH; WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 1\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, BRIAN C\",\n" +
-            "    \"npi\": \"1218409847\",\n" +
-            "    \"type\": \"Chiropractor\",\n" +
-            "    \"address\": \"325 W 18TH ST  xx    CHEYENNE, WY 82001-4403 xx    Phone: 307-634-8011\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 1\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, WILLIAM ROBERT\",\n" +
-            "    \"npi\": \"4194866324\",\n" +
-            "    \"type\": \"Physician\",\n" +
-            "    \"address\": \"3070 S BRIDLE DR xxJACKSON, WY 83001-9124\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 1\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, PAULA S\",\n" +
-            "    \"npi\": \"\",\n" +
-            "    \"type\": \"Assistive Therapy\",\n" +
-            "    \"address\": \"207 HOLLY AVE xx    SARATOGA, WY 82331\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, STEPHANIE M\",\n" +
-            "    \"npi\": \"\",\n" +
-            "    \"type\": \"Technologist and Technicians\",\n" +
-            "    \"address\": \"501 S BURMA AVE xx GILLETTE, WY 82716-3426\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, GERALD L\",\n" +
-            "    \"npi\": \"\",\n" +
-            "    \"type\": \"Physician\",\n" +
-            "    \"address\": \"803 CUSTER STxx    CHEYENNE, WY 82009-3314     xxPhone: 307-632-7573 \",\n" +
-            "    \"status\": \"Inactive\",\n" +
-            "    \"licenseState\": \"CO; WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, ANTHONY G\",\n" +
-            "    \"npi\": \"\",\n" +
-            "    \"type\": \"Assistive Therapy \",\n" +
-            "    \"address\": \"135 N GOULD STxx    SHERIDAN, WY 82801-3927 xx    Phone: 307-674-1632\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"VA; WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, MARION NOLAN\",\n" +
-            "    \"npi\": \"2659155187\",\n" +
-            "    \"type\": \"Physician\",\n" +
-            "    \"address\": \"625 ALBANY AVExx    TORRINGTON, WY 82240-1530 xx    Phone: 307-532-4131 xx    Fax: 307-532-5617\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"VA; WY\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 3\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"name\": \"SMITH, PAULA\",\n" +
-            "    \"npi\": \"816371045\",\n" +
-            "    \"type\": \"Assistive Therapy\",\n" +
-            "    \"address\": \"PO BOX 1503  xx    CASPER, WY 82602-1503 xx    Phone: 307-258-3633\",\n" +
-            "    \"status\": \"Active\",\n" +
-            "    \"licenseState\": \"TX\",\n" +
-            "    \"vendible\": \"Y\",\n" +
-            "    \"numAffil\": 0\n" +
-            "  }\n" +
-            "]";
-      
-      return response;
-   }
 
 
     @POST

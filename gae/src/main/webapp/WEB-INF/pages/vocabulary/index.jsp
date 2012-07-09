@@ -24,9 +24,11 @@
         var global_pageManager = new VocabularyManager();
         var global_wordId;
 
+        var initWord = '';
         <c:if test="${not empty param.word}">
-        var initWord = "<c:out value="${param.word}" />";
+        initWord = "<c:out value="${param.word}" />";
         </c:if>
+
         $(function () {
             displayUserPanel('#user-zone');
             // initialize the login-form dialog. It only be showed when we call 'open'.
@@ -91,11 +93,39 @@
                 $('#search-input').val(initWord);
                 performSearch();
             }
-        });
 
-        var markActive = function(link) {
-            $.waypoints('refresh');
-        }
+            // @see : http://docs.jquery.com/Plugins/Autocomplete/autocomplete#url_or_dataoptions
+            $('#search-input').legacyautocomplete(
+                    '<c:url value="/services/autocomplete/" />', {
+                        width: 500,
+                        max: 8,
+                        height: 500,
+                        autoFill: false,
+                        matchContains: true,
+                        formatItem: function(data, index, max, value, term) {
+                            return data;
+                        },
+                        parse: function(data){
+                            for (var i= 0 ;i < data.length; i++) {
+                                var val = data[i];
+                                data[i] = {
+                                    data: val,
+                                    value: val,
+                                    result: val.trim()
+                                }
+                            }
+                            return data;
+                        },
+                        formatMatch: function(row, i, max) { // match when typing.
+                            return row;
+                        },
+                        scrollHeight: 300,
+                        onEnter: function(inputVal) {
+                            console.debug(inputval);
+
+                        }
+                    });
+        });
 
         var performSearch = function () {
             // not sure it need to perform this task.

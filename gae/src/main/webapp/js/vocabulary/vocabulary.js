@@ -49,6 +49,13 @@ function VocabularyManager() {
         $("#display-pnl").empty();
         var $navInfo = $('<div></div>');
         $navInfo.setTemplateURL(templateData.navInfoTpl + requestParam);
+        // set description to make sure that they all have description
+        if (!response.data['oxford']) {
+            response.data['oxford'] = {
+                description: response.data['vdict'].description
+            }
+        }
+
         $navInfo.processTemplate(response.data['oxford']);
 
         $("#pnl-nav").append($navInfo);
