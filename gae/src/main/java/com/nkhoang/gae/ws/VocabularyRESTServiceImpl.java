@@ -12,6 +12,7 @@ import com.nkhoang.gae.model.Dictionary;
 import com.nkhoang.gae.model.Word;
 import com.nkhoang.gae.service.ApplicationService;
 import com.nkhoang.gae.service.VocabularyService;
+import com.nkhoang.gae.utils.FileUtils;
 import com.nkhoang.gae.utils.WebUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
@@ -25,6 +26,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +45,19 @@ public class VocabularyRESTServiceImpl {
     private static final String HEADER_SIGNATURE = "signature";
     private static final long WS_ACCEPT_INTERVAL = 1 * 60 * 1000; // in minute
 
-    
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("autocomplete/{keyword}")
+    public String autocomplete(@PathParam(value = "keyword") String keyword) {
+        URL filePath = Thread.currentThread().getContextClassLoader().getResource("fullList.txt");
+        List<String> fullWordItems = FileUtils.readWordsFromFile(filePath.getPath());
+        LOG.info(fullWordItems.size() + "");
+
+        return "";
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("appConfig/getAll")
     public String getAllAppConfig() {
         List<String> excludeAttrs = Arrays.asList(AppConfig.SKIP_FIELDS);
