@@ -1,328 +1,340 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <artifactId>projectJAVA</artifactId>
-    <groupId>com.nkhoang</groupId>
+    <parent>
+        <artifactId>projectJAVA</artifactId>
+        <groupId>com.nkhoang</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.nkhoang.util</groupId>
+    <artifactId>projectJAVA-util</artifactId>
+    <packaging>jar</packaging>
     <version>1.0</version>
-  </parent>
+    <name>Project JAVA Utility</name>
+    <url></url>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.nkhoang.util</groupId>
-  <artifactId>projectJAVA-util</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0</version>
-  <name>Project JAVA Utility</name>
-  <url></url>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
 
-  <build>
-    <defaultGoal>install</defaultGoal>
-    <plugins>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
 
 
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version>
-        <executions>
-          <execution>
-            <id>auto-clean</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>${maven-dependency-plugin.version}</version>
-        <executions>
-        </executions>
-      </plugin>
-      <!--            <plugin>
-          <groupId>com.sun.tools.xjc.maven2</groupId>
-          <artifactId>maven-jaxb-plugin</artifactId>
-          <executions>
-              <execution>
-                  <goals>
-                      <goal>generate</goal>
-                  </goals>
-              </execution>
-          </executions>
-          <configuration>
-              <generatePackage>com.nkhoang.jaxb.genereated</generatePackage>
-              <includeSchemas>
-                  <includeSchema>**/*.xsd</includeSchema>
-                  <includeSchema>**/*.dtd</includeSchema>
-              </includeSchemas>
-              <excludeSchemas>
-                  <excludeSchema>test*.xsd</excludeSchema>
-              </excludeSchemas>
-              <includeBindings>
-                  <includeBinding>*.xjb</includeBinding>
-              </includeBindings>
-              <strict>true</strict>
-              <verbose>true</verbose>
-          </configuration>
-      </plugin>-->
-    </plugins>
-  </build>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                </executions>
+            </plugin>
+            <!--            <plugin>
+                <groupId>com.sun.tools.xjc.maven2</groupId>
+                <artifactId>maven-jaxb-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generatePackage>com.nkhoang.jaxb.genereated</generatePackage>
+                    <includeSchemas>
+                        <includeSchema>**/*.xsd</includeSchema>
+                        <includeSchema>**/*.dtd</includeSchema>
+                    </includeSchemas>
+                    <excludeSchemas>
+                        <excludeSchema>test*.xsd</excludeSchema>
+                    </excludeSchemas>
+                    <includeBindings>
+                        <includeBinding>*.xjb</includeBinding>
+                    </includeBindings>
+                    <strict>true</strict>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>-->
+        </plugins>
+    </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-
-
-    <!-- XML dependencies -->
-    <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xercesImpl</artifactId>
-      <version>${xercesImpl.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>xalan</groupId>
-      <artifactId>xalan</artifactId>
-      <version>${xalan.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-httpclient</groupId>
-      <artifactId>commons-httpclient</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-configuration</groupId>
-      <artifactId>commons-configuration</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>6.0.32</version>
-    </dependency>
-
-    <!-- Facebook API -->
-    <dependency>
-      <groupId>code.google.com</groupId>
-      <artifactId>facebook-java-api</artifactId>
-      <version>${facebook-api.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>code.google.com</groupId>
-      <artifactId>facebook-java-api-annotation-processor</artifactId>
-      <version>${facebook-api.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>code.google.com</groupId>
-      <artifactId>facebook-java-api-schema</artifactId>
-      <version>${facebook-api.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.6.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.6.4</version>
-    </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
 
+        <!-- XML dependencies -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>${xercesImpl.version}</version>
+        </dependency>
 
-    <!-- Common -->
-    <dependency>
-      <groupId>commons-validator</groupId>
-      <artifactId>commons-validator</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>xml-apis</groupId>
-          <artifactId>xml-apis</artifactId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-collections</artifactId>
-          <groupId>commons-collections</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-beanutils</artifactId>
-          <groupId>commons-beanutils</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>${xalan.version}</version>
+        </dependency>
 
-    <!-- Google -->
-    <dependency>
-      <groupId>com.google.collections</groupId>
-      <artifactId>google-collections</artifactId>
-      <version>${google-collections.version}</version>
-    </dependency>
-    <!-- Gooogle Document List API -->
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>${google.gdata.jsr305.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-docs-3.0</artifactId>
-      <version>${gdata-docs-3.0.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-docs-meta-3.0</artifactId>
-      <version>${gdata-docs-meta-3.0.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-media-1.0</artifactId>
-      <version>${gdata-media-1.0.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-client-1.0</artifactId>
-      <version>${gdata-client-1.0.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-client-meta-1.0</artifactId>
-      <version>${gdata-client-meta-1.0.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-core-1.0</artifactId>
-      <version>${gdata-core-1.0.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>google-collections</artifactId>
-          <groupId>com.google.collections</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-base-1.0</artifactId>
-      <version>${gdata-base-1.0.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>google-collections</artifactId>
-          <groupId>com.google.collections</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!-- Spreadsheet API -->
-    <dependency>
-      <groupId>com.google.gdata</groupId>
-      <artifactId>gdata-spreadsheet-3.0</artifactId>
-      <version>${gdata-spreadsheet-3.0.version}</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+        </dependency>
 
-    <!-- Freemarker -->
-    <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker-gae</artifactId>
-      <version>2.3.18</version>
-    </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+        </dependency>
 
-    <!-- for google mail -->
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>${mail.version}</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>6.0.32</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-    </dependency>
+        <!-- Facebook API -->
+        <dependency>
+            <groupId>code.google.com</groupId>
+            <artifactId>facebook-java-api</artifactId>
+            <version>${facebook-api.version}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>code.google.com</groupId>
+            <artifactId>facebook-java-api-annotation-processor</artifactId>
+            <version>${facebook-api.version}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>code.google.com</groupId>
+            <artifactId>facebook-java-api-schema</artifactId>
+            <version>${facebook-api.version}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-expression</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>spring-core</artifactId>
-          <groupId>org.springframework</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.4</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-orm</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.4</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-    </dependency>
 
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-    </dependency>
-  </dependencies>
-  <properties>
-    <google.gdata.jsr305.version>1.0</google.gdata.jsr305.version>
-    <google-collections.version>1.0-rc5</google-collections.version>
-    <gdata-docs-3.0.version>1.41.5</gdata-docs-3.0.version>
-    <gdata-docs-meta-3.0.version>1.41.1</gdata-docs-meta-3.0.version>
-    <gdata-media-1.0.version>1.41.5</gdata-media-1.0.version>
-    <gdata-client-1.0.version>1.41.5</gdata-client-1.0.version>
-    <gdata-core-1.0.version>1.41.5</gdata-core-1.0.version>
-    <gdata-client-meta-1.0.version>1.41.1</gdata-client-meta-1.0.version>
-    <gdata-base-1.0.version>1.41.5</gdata-base-1.0.version>
-    <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
-    <mail.version>1.4.1</mail.version>
-    <xalan.version>2.7.1</xalan.version>
-    <xercesImpl.version>2.10.0</xercesImpl.version>
-    <facebook-api.version>3.0.2</facebook-api.version>
-  </properties>
+        <!-- Common -->
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Google -->
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>${google-collections.version}</version>
+        </dependency>
+        <!-- Gooogle Document List API -->
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${google.gdata.jsr305.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-docs-3.0</artifactId>
+            <version>${gdata-docs-3.0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-docs-meta-3.0</artifactId>
+            <version>${gdata-docs-meta-3.0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-media-1.0</artifactId>
+            <version>${gdata-media-1.0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-client-1.0</artifactId>
+            <version>${gdata-client-1.0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-client-meta-1.0</artifactId>
+            <version>${gdata-client-meta-1.0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-core-1.0</artifactId>
+            <version>${gdata-core-1.0.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>google-collections</artifactId>
+                    <groupId>com.google.collections</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-base-1.0</artifactId>
+            <version>${gdata-base-1.0.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>google-collections</artifactId>
+                    <groupId>com.google.collections</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Spreadsheet API -->
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>gdata-spreadsheet-3.0</artifactId>
+            <version>${gdata-spreadsheet-3.0.version}</version>
+        </dependency>
+
+        <!-- Freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker-gae</artifactId>
+            <version>2.3.18</version>
+        </dependency>
+
+        <!-- for google mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <!-- Dependencies for JRuby -->
+        <dependency>
+            <groupId>org.jruby</groupId>
+            <artifactId>jruby</artifactId>
+            <version>1.6.7.2</version>
+        </dependency>
+        <!-- apache BSF scripting framework -->
+        <dependency>
+            <groupId>com.sun.script.jruby</groupId>
+            <artifactId>jruby-engine</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+
+    </dependencies>
+    <properties>
+        <google.gdata.jsr305.version>1.0</google.gdata.jsr305.version>
+        <google-collections.version>1.0-rc5</google-collections.version>
+        <gdata-docs-3.0.version>1.41.5</gdata-docs-3.0.version>
+        <gdata-docs-meta-3.0.version>1.41.1</gdata-docs-meta-3.0.version>
+        <gdata-media-1.0.version>1.41.5</gdata-media-1.0.version>
+        <gdata-client-1.0.version>1.41.5</gdata-client-1.0.version>
+        <gdata-core-1.0.version>1.41.5</gdata-core-1.0.version>
+        <gdata-client-meta-1.0.version>1.41.1</gdata-client-meta-1.0.version>
+        <gdata-base-1.0.version>1.41.5</gdata-base-1.0.version>
+        <gdata-spreadsheet-3.0.version>1.41.5</gdata-spreadsheet-3.0.version>
+        <mail.version>1.4.1</mail.version>
+        <xalan.version>2.7.1</xalan.version>
+        <xercesImpl.version>2.10.0</xercesImpl.version>
+        <facebook-api.version>3.0.2</facebook-api.version>
+    </properties>
 </project>
 

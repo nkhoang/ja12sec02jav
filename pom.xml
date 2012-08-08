@@ -571,6 +571,16 @@
 
     <repositories>
         <repository>
+            <id>maven-repo</id>
+            <name>Maven Default Repository</name>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>jarvana</id>
+            <name>jarvana</name>
+            <url>http://www.jarvana.com/jarvana/browse/</url>
+        </repository>
+        <repository>
             <id>springsource-milestones</id>
             <name>SpringSource Milestones Proxy</name>
             <url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
